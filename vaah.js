@@ -5,7 +5,7 @@ const { prompt } = require('inquirer');
 const {getInstalledPathSync}  = require('get-installed-path');
 
 
-const { helloWorld } = require('./scripts/hello-world');
+const vaah = require('./scripts/vaah');
 const laravel = require('./scripts/laravel');
 
 /*
@@ -36,31 +36,34 @@ program
     .description(package_config.description);
 
 
-let questions;
+
 /*
 |--------------------------------------------------------------------------
-| Package Command | vaah helloWorld
+| Package Command | vaah release
 |--------------------------------------------------------------------------
+| It will make the package release ready.
+| It will copy readme, license, package.json file and increase version of the package
+| After this command you can use `npm publish` to publish the package
 */
-
-questions = [
+let release_type;
+release_type = [
     {
-        type : 'input',
-        name : 'name',
-        message : 'Enter your name ...'
+        type : 'checkbox',
+        choices: ["patch", "minor", "major"],
+        name : 'type',
+        default: 'patch',
+        message : 'Choose the release type: '
     },
 ];
 
 program
-    .command('helloWorld')
-    .alias('a')
-    .description('Test HelloWorld')
+    .command('release')
+    .alias('r')
+    .description('Make the package release ready!')
     .action(() => {
-
-        prompt(questions).then(answers => {
-            helloWorld(answers);
+        prompt(release_type).then(answers => {
+            vaah.releaseReady(answers)
         })
-
     });
 
 
@@ -70,7 +73,7 @@ program
 | Laravel Commands | vaah laravel make:package
 |--------------------------------------------------------------------------
 */
-
+let questions;
 questions = [
     {
         type : 'input',
