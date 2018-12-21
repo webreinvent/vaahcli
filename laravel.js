@@ -6,6 +6,7 @@ let path = require('path');
 let fsSync = require('fs-sync');
 let ejs = require('ejs');
 let fsExtra = require('fs-extra');
+const {getInstalledPathSync}  = require('get-installed-path');
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ let fsExtra = require('fs-extra');
 |--------------------------------------------------------------------------
 */
 const generatePackage = (args) => {
+
+    const npmPath = getInstalledPathSync('vaah');
+    log.yellow(npmPath);
 
     args.vendor_name_lower = args.vendor_name.toLowerCase();
     args.package_name_lower = args.package_name.toLowerCase();
@@ -61,6 +65,7 @@ const scanFiles =  (dir, files_list) => {
 |--------------------------------------------------------------------------
 */
 const getPackageFiles =  (args) => {
+
     let template_path = './skeletons/laravel/package';
     let files_list = [];
     files_list = scanFiles(template_path, files_list);
