@@ -69,7 +69,7 @@ const getPackageFiles =  (args) => {
     log.green("========================================");
 
     files_list.forEach(function(item) {
-        copyPackageFile(item);
+        copyPackageFile(item, args);
     });
 
 };
@@ -80,36 +80,38 @@ const getPackageFiles =  (args) => {
 | Copy Package File
 |--------------------------------------------------------------------------
 */
-const copyPackageFile =  (file_path) => {
+const copyPackageFile =  (file_path, args) => {
 
 
     let file_name = path.basename(file_path);
     let destination = file_path.replace("skeletons\\laravel\\package\\", "");
     destination = destination.replace(file_name, "");
 
+    let file_content = null;
+
     switch(file_name) {
         case 'packagename.php':
-            file_name = package_obj.package_name_lower+'.php';
+            file_name = args.package_name_lower+'.php';
             break;
         case 'ServiceProvider.ejs':
-            file_content = fs.readFileSync(item).toString();
-            file_content = ejs.render(file_content, package_obj);
-            file_name = package_obj.package_name+file_name+'.php';
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = args.package_name+file_name+'.php';
             break;
         case 'composer.ejs':
-            file_content = fs.readFileSync(item).toString();
-            file_content = ejs.render(file_content, package_obj);
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
             file_name = 'composer.json';
             break;
         case 'Facade.ejs':
-            file_content = fs.readFileSync(item).toString();
-            file_content = ejs.render(file_content, package_obj);
-            file_name = package_obj.package_name+'Facade.php';
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = args.package_name+'Facade.php';
             break;
         case 'package.ejs':
-            file_content = fs.readFileSync(item).toString();
-            file_content = ejs.render(file_content, package_obj);
-            file_name = package_obj.package_name+'.php';
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = args.package_name+'.php';
             break;
     }
 
