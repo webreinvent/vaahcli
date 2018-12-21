@@ -102,5 +102,12 @@ program
 
 });
 
+program
+    .command('laravel make:package-reset')
+    .alias('lv:p-reset')
+    .action((args) => {
+        laravel.resetPackage(args);
+    });
+
 
 program.parse(process.argv);

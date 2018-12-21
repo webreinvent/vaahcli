@@ -5,6 +5,7 @@ let fs = require('fs');
 let path = require('path');
 let fsSync = require('fs-sync');
 let ejs = require('ejs');
+let fsExtra = require('fs-extra');
 
 /*
 |--------------------------------------------------------------------------
@@ -123,6 +124,41 @@ const copyPackageFile =  (file_path, args) => {
 };
 
 
+/*
+|--------------------------------------------------------------------------
+| Reset Package Files
+|--------------------------------------------------------------------------
+*/
+const resetPackage = (args) => {
+    let remove_list = {
+        'folders': [
+            'config',
+            'lang',
+            'database',
+            'src',
+            'views',
+        ],
+        'files': [
+            'routes.php',
+            'README.md',
+            'config.json',
+            'composer.json'
+        ]
+    };
+
+    log.red("Following folders and files are deleted:");
+    log.red("===============================================");
+
+    remove_list.folders.forEach(function(item) {
+        fsExtra.removeSync(item);
+        log.red(item);
+    });
+
+    remove_list.files.forEach(function(item) {
+        fsExtra.removeSync(item);
+        log.red(item);
+    });
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -135,4 +171,4 @@ const generateModel = (args) => {
 
 
 
-module.exports = { generatePackage, generateModel };
+module.exports = { generatePackage, resetPackage, generateModel };
