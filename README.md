@@ -1,6 +1,6 @@
 # Vaah
 
-> Command line tool to Generator Files for Rapid Development
+> Command line tool to Generate Files for Rapid Development
 
 Please consider starring the project to show your :heart: and support.
 
