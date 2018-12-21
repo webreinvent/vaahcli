@@ -161,7 +161,7 @@ const resetPackage = (args) => {
             'routes.php',
             'README.md',
             'LICENSE',
-            'config.json',
+            'vaah-config.json',
             'composer.json'
         ]
     };
@@ -228,4 +228,4 @@ const generateLaravelFiles = (args, type) => {
 };
 
 
-module.exports = { generatePackage, resetPackage, generateLaravelFiles };
+module.exports = { generatePackage, resetPackage, generateLaravelFiles, parseJsonFileContent };

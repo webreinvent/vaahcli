@@ -1,11 +1,25 @@
 #!/usr/bin/env node
 'use strict';
-
 const program = require('commander');
 const { prompt } = require('inquirer');
+const {getInstalledPathSync}  = require('get-installed-path');
 
-const { helloWorld } = require('./logic');
-const laravel = require('./laravel');
+
+const { helloWorld } = require('./scripts/hello-world');
+const laravel = require('./scripts/laravel');
+
+const production = false;
+let package_file = null;
+
+if(!production)
+{
+    package_file = "./package.json";
+} else
+{
+    package_file = getInstalledPathSync('vaah')+"/package.json";
+}
+
+const package_config = laravel.parseJsonFileContent(package_file);
 
 let questions;
 
@@ -15,8 +29,8 @@ let questions;
 |--------------------------------------------------------------------------
 */
 program
-    .version('0.0.1')
-    .description('Contact management system');
+    .version(package_config.version)
+    .description(package_config.description);
 
 /*
 |--------------------------------------------------------------------------
