@@ -8,7 +8,6 @@ let ejs = require('ejs');
 let fsExtra = require('fs-extra');
 let dateFormat = require('dateformat');
 const {getInstalledPathSync}  = require('get-installed-path');
-
 let now = new Date();
 
 /*
@@ -183,13 +182,50 @@ const resetPackage = (args) => {
 
 /*
 |--------------------------------------------------------------------------
-| Copy Package File
+| Get File Content
 |--------------------------------------------------------------------------
 */
-const generateModel = (args) => {
-    console.info('success | vendor: '+args.vendor_name+" package: "+args.package_name);
+const getFileContent = (file_path) => {
+
+    if (!fs.existsSync(file_path)) {
+        log.red("'"+file_path+"' file does not exist.");
+        return false;
+    }
+    return fs.readFileSync(config_file).toString();
+};
+
+/*
+|--------------------------------------------------------------------------
+| Parse Json File Content
+|--------------------------------------------------------------------------
+*/
+const parseJsonFileContent = (file_path) => {
+    let content = getFileContent(file_path);
+    content = JSON.parse(content);
+    return content;
 };
 
 
+/*
+|--------------------------------------------------------------------------
+| Get Package Config
+|--------------------------------------------------------------------------
+*/
+const getPackageConfig = () => {
+    let config = parseJsonFileContent('./vaah-config.json');
+};
 
-module.exports = { generatePackage, resetPackage, generateModel };
+/*
+|--------------------------------------------------------------------------
+| Generate Laravel Files
+|--------------------------------------------------------------------------
+*/
+const generateLaravelFiles = (args, type) => {
+
+    log.red(args);
+    log.green(type);
+
+};
+
+
+module.exports = { generatePackage, resetPackage, generateLaravelFiles };
