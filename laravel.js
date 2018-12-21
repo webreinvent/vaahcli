@@ -6,7 +6,10 @@ let path = require('path');
 let fsSync = require('fs-sync');
 let ejs = require('ejs');
 let fsExtra = require('fs-extra');
+let dateFormat = require('dateformat');
 const {getInstalledPathSync}  = require('get-installed-path');
+
+let now = new Date();
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,7 @@ const generatePackage = (args) => {
     args.vendor_name_lower = args.vendor_name.toLowerCase();
     args.package_name_lower = args.package_name.toLowerCase();
     args.namespace = args.vendor_name+'\\'+args.package_name;
+    args.year = dateFormat(now, 'yyyy');
 
     generateConfig(args);
     getPackageFiles(args);
@@ -121,11 +125,20 @@ const copyPackageFile =  (file_path, args) => {
             file_content = ejs.render(file_content, args);
             file_name = args.package_name+'.php';
             break;
+        case 'README.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'README.md';
+            break;
+        case 'LICENSE.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'LICENSE';
+            break;
     }
 
     destination = destination+file_name;
     fsSync.write(destination, file_content);
-
     log.green(destination);
 
 };
@@ -148,6 +161,7 @@ const resetPackage = (args) => {
         'files': [
             'routes.php',
             'README.md',
+            'LICENSE',
             'config.json',
             'composer.json'
         ]
