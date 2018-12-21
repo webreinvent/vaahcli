@@ -39,12 +39,10 @@ vaah laravel make:package
 It will start wizard and ask you the Vendor Name & Package Name.
 
 You have access to following commands as well:
+
 | Command        | Alias           | Details  |
-
 | ------------- |:-------------:| -----:|
-
 | `vaah laravel make:package`      | `vaah lv:p` | To general Laravel package |
-
 | `vaah laravel make:package-reset`      | `vaah lv:p-reset`      |   To reset/delete generate files. |
 
 
