@@ -6,13 +6,18 @@ Please consider starring the project to show your :heart: and support.
 
 ## Feature Roadmap
 
-### Completed
+#### Completed
 :white_check_mark: Laravel Package Development
+
 :white_check_mark: Laravel Files (migration, model, view, controller, seed )
+
 
 #### Planned
 :black_square_button: WordPress Theme
+
 :black_square_button: WordPress Plugin
+
+
 
 ## Install
 
@@ -35,8 +40,11 @@ It will start wizard and ask you the Vendor Name & Package Name.
 
 You have access to following commands as well:
 | Command        | Alias           | Details  |
+
 | ------------- |:-------------:| -----:|
+
 | `vaah laravel make:package`      | `vaah lv:p` | To general Laravel package |
+
 | `vaah laravel make:package-reset`      | `vaah lv:p-reset`      |   To reset/delete generate files. |
 
 
