@@ -186,12 +186,11 @@ const resetPackage = (args) => {
 |--------------------------------------------------------------------------
 */
 const getFileContent = (file_path) => {
-
     if (!fs.existsSync(file_path)) {
         log.red("'"+file_path+"' file does not exist.");
         return false;
     }
-    return fs.readFileSync(config_file).toString();
+    return fs.readFileSync(file_path).toString();
 };
 
 /*

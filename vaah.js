@@ -8,7 +8,12 @@ const {getInstalledPathSync}  = require('get-installed-path');
 const { helloWorld } = require('./scripts/hello-world');
 const laravel = require('./scripts/laravel');
 
-const production = false;
+/*
+|--------------------------------------------------------------------------
+| Get Package Configurations
+|--------------------------------------------------------------------------
+*/
+const production = true;
 let package_file = null;
 
 if(!production)
@@ -18,10 +23,8 @@ if(!production)
 {
     package_file = getInstalledPathSync('vaah')+"/package.json";
 }
-
 const package_config = laravel.parseJsonFileContent(package_file);
 
-let questions;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +35,8 @@ program
     .version(package_config.version)
     .description(package_config.description);
 
+
+let questions;
 /*
 |--------------------------------------------------------------------------
 | Package Command | vaah helloWorld
