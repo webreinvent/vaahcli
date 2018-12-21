@@ -8,7 +8,7 @@
   "description": "File generator for rapid development",
   "main": "vaah.js",
   "repository": "git@github.com:webreinvent/vaah.git",
-  "author": "Pradeep Kumar <webreinvent@gmail.com>",
+  "author": "WebReinvent <we@webreinvent>",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0",
@@ -21,6 +21,7 @@
     "fs": "0.0.1-security",
     "fs-extra": "^7.0.1",
     "fs-sync": "^1.0.6",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "readline-sync": "*"
   }
 }

@@ -5,6 +5,9 @@ const program = require('commander');
 const { prompt } = require('inquirer');
 
 const { helloWorld } = require('./logic');
+const laravel = require('./laravel');
+
+let questions;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +20,11 @@ program
 
 /*
 |--------------------------------------------------------------------------
-| Package Command | node vaah.js helloWorld
+| Package Command | vaah helloWorld
 |--------------------------------------------------------------------------
 */
 
-const questions = [
+questions = [
     {
         type : 'input',
         name : 'name',
@@ -41,6 +44,36 @@ program
 
     });
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Laravel Commands | vaah laravel make:package
+|--------------------------------------------------------------------------
+*/
+
+questions = [
+    {
+        type : 'input',
+        name : 'vendor_name',
+        message : 'Enter your vendor name: '
+    },
+    {
+        type : 'input',
+        name : 'package_name',
+        message : 'Enter your package name: '
+    },
+];
+
+program
+    .command('laravel make:package')
+    .alias('lv:p')
+    .action(() => {
+        prompt(questions).then(answers => {
+            laravel.generatePackage(answers);
+        })
+
+});
 
 
 program.parse(process.argv);
