@@ -1,7 +1,9 @@
 {
   "name": "vaah",
   "preferGlobal": true,
-  "bin": "./vaah.js",
+  "bin": {
+    "vaah": "./vaah.js"
+  },
   "version": "0.0.1",
   "description": "File generator for rapid development",
   "main": "vaah.js",
