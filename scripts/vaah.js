@@ -82,11 +82,9 @@ const copyPackageFile =  (file_path, args) => {
 
     //console.log(args);
 
-    log.red(file_path);
+    //log.red(file_path);
     let file_name = path.basename(file_path);
     let destination = "./";
-
-    log.red(destination);
 
     let file_content = fs.readFileSync(file_path).toString();
 
