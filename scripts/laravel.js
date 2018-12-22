@@ -112,6 +112,8 @@ const copyPackageFile =  (file_path, args) => {
 
     switch(file_name) {
         case 'packagename.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
             file_name = args.package_name_lower+'.php';
             break;
         case 'ServiceProvider.ejs':
