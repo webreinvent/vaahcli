@@ -56,11 +56,15 @@ npm install -g vaah
 | ------------- |:-------------:| -----:|
 | `vaah laravel make:package`      | `vaah lv:p` | To general Laravel package |
 | `vaah laravel make:package-reset`      | `vaah lv:p-reset`      | To reset/delete generate files. |
-| `npm run make:model [name]`      | `vaah lv:m [name]`      | To generate model. |
-| `npm run make:view [name]`      | `vaah lv:v [name]`      | To generate view. |
-| `npm run make:controller [name]`      | `vaah lv:c [name]`      | To generate controller. |
-| `npm run make:seed [name]`      | `vaah lv:s [name]`      | To generate seed. |
-| `npm run make:migration [name]`      | `vaah lv:m [name]`      | To generate migration. |
+| `vaah laravel make:package-file [type] [name]`      | `vaah lv:p-file [type] [name]`      | To generate package file. |
+
+List of commands:
+- `vaah lv:p-file model fileName`
+- `vaah lv:p-file view fileName`
+- `vaah lv:p-file controller fileName`
+- `vaah lv:p-file seed fileName`
+- `vaah lv:p-file migration fileName`
+
 
 ## Support us
 
