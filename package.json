@@ -6,7 +6,7 @@
 	},
 	"version": "0.0.4",
 	"description": "File generator for rapid development",
-	"main": "vaah.js",
+	"main": "./vaah.js",
 	"repository": "git@github.com:webreinvent/vaah.git",
 	"author": "WebReinvent <we@webreinvent>",
 	"license": "MIT",

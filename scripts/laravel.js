@@ -66,10 +66,10 @@ const scanFiles =  (dir, files_list) => {
 */
 const getPackageFiles =  (args) => {
 
-    const npmPath = getInstalledPathSync('vaah');
-    log.yellow(npmPath);
+    let template_path = globalFileSourcePath+'/skeletons/laravel/package';
 
-    let template_path = npmPath+'/skeletons/laravel/package';
+    console.log(template_path);
+
     let files_list = [];
     files_list = scanFiles(template_path, files_list);
 
@@ -91,8 +91,7 @@ const getPackageFiles =  (args) => {
 */
 const copyPackageFile =  (file_path, args) => {
 
-    const npmPath = getInstalledPathSync('vaah');
-    log.yellow(npmPath);
+    const npmPath = globalFileSourcePath;
 
     let file_name = path.basename(file_path);
     let destination = file_path.replace(npmPath+"\\skeletons\\laravel\\package\\", "");
@@ -186,8 +185,18 @@ const resetPackage = (args) => {
 |--------------------------------------------------------------------------
 */
 const getFileContent = (file_path) => {
+    let file_name = path.basename(file_path);
     if (!fs.existsSync(file_path)) {
-        log.red("'"+file_path+"' file does not exist.");
+
+        if(file_name == 'vaah-config.json')
+        {
+            log.red("'"+file_path+"' file does not exist. Please run `vaah laravel make:package` command.");
+        } else
+        {
+            log.red("'"+file_path+"' file does not exist.");
+        }
+
+
         return false;
     }
     return fs.readFileSync(file_path).toString();
@@ -219,10 +228,12 @@ const getPackageConfig = () => {
 | Generate Laravel Files
 |--------------------------------------------------------------------------
 */
-const generateLaravelFiles = (args, type) => {
+const generateLaravelFiles = (type, name) => {
 
-    log.red(args);
-    log.green(type);
+    let vaah_config = getPackageConfig();
+
+    log.red(globalFileSourcePath);
+
 
 };
 

@@ -13,17 +13,23 @@ const laravel = require('./scripts/laravel');
 | Get Package Configurations
 |--------------------------------------------------------------------------
 */
-const production = true;
-let package_file = null;
+//global.app_env = "production";
+global.globalAppEnv = "dev";
+global.globalFileSourcePath = null;
 
-if(!production)
+if(globalAppEnv == 'dev')
 {
-    package_file = "./package.json";
+    global.globalFileSourcePath = '.';
+
 } else
 {
-    package_file = getInstalledPathSync('vaah')+"/package.json";
+    global.globalFileSourcePath = getInstalledPathSync('vaah');
 }
+
+let package_file = global.globalFileSourcePath+"/package.json";
+
 const package_config = laravel.parseJsonFileContent(package_file);
+
 
 
 /*
@@ -129,6 +135,16 @@ program
     .alias('lv:p-reset')
     .action((args) => {
         laravel.resetPackage(args);
+    });
+
+
+program
+    .command('laravel make:package-files')
+    .alias('lv:p-files')
+    .arguments('<type>')
+    .arguments('<name>')
+    .action((type, name) => {
+        laravel.generateLaravelFiles(type, name);
     });
 
 

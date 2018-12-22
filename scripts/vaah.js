@@ -1,6 +1,6 @@
 /*
 |--------------------------------------------------------------------------
-| Tutorials
+| Tutorials | Command: node vaah release
 |--------------------------------------------------------------------------
 | https://scotch.io/tutorials/build-an-interactive-command-line-application-with-nodejs
 | https://github.com/SBoudrias/Inquirer.js/
