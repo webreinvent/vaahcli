@@ -231,9 +231,70 @@ const getPackageConfig = () => {
 const generateLaravelFiles = (type, name) => {
 
     let vaah_config = getPackageConfig();
-
     log.red(globalFileSourcePath);
 
+    let template_path  = globalFileSourcePath+"/skeletons/laravel/";
+
+    let des_path = "./";
+
+    switch (type) {
+        case 'model':
+            file_content = fs.readFileSync(template_path+'/model.ejs').toString();
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'.php';
+            des_path = './src/'+file_name;
+            break;
+        case 'view':
+            file_content = fs.readFileSync(template_path+'/view.ejs').toString();
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'.blade.php';
+            des_path = './views/'+file_name;
+            break;
+        case 'controller':
+            file_content = fs.readFileSync(template_path+'controller.ejs').toString();
+            if(plain)
+            {
+                file_content = fs.readFileSync(template_path+'controller-plain.ejs').toString();
+            }
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'Controller.php';
+            des_path = './src/'+file_name;
+            break;
+        case 'seed':
+            file_content = fs.readFileSync(template_path+'/seed.ejs').toString();
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'TableSeeder.php';
+            des_path = './database/seeds/'+file_name;
+            break;
+        case 'migration':
+
+            table_name = vaah_config.name;
+            table_name = table_name.replace("_", " ");
+            table_name = titleCase(table_name);
+            table_name = table_name.replace(" ", "");
+            package_config.class_name = table_name;
+
+            file_content = fs.readFileSync(template_path+'/migration.ejs').toString();
+
+            log.red('class_name='+vaah_config.class_name);
+
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = dateFormat(now, "yyyy_mm_dd_HHMMss_")+vaah_config.name+'_table.php';
+            des_path = './database/migrations/'+file_name;
+
+            break;
+
+        default:
+            log.red('Sorry, "'+type+'" command does not match with any of the available commands.');
+    }
+
+
+
+    log.green("Following file is generated:");
+    log.green("=============================================================================");
+    log.green(des_path);
+
+    fsSync.write(des_path, file_content);
 
 };
 
