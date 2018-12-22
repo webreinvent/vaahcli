@@ -4,7 +4,7 @@
 	"bin": {
 		"vaah": "./vaah.js"
 	},
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "File generator for rapid development",
 	"main": "./vaah.js",
 	"repository": "git@github.com:webreinvent/vaah.git",
@@ -25,5 +25,6 @@
 		"mongoose": "^4.9.2",
 		"path": "^0.12.7",
 		"readline-sync": "^1.4.9"
-	}
+	},
+	"globalAppEnv": "production"
 }

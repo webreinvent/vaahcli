@@ -113,9 +113,13 @@ const copyPackageFile =  (file_path, args) => {
 
             file_content.version = version;
 
+            file_content.globalAppEnv = "production";
+
             file_content = JSON.stringify(file_content,null,'\t');
 
             //log.green(file_content);
+
+
 
             fsSync.write(file_path, file_content);
 
