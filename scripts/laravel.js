@@ -91,16 +91,27 @@ const getPackageFiles =  (args) => {
 */
 const copyPackageFile =  (file_path, args) => {
 
-    const npmPath = globalFileSourcePath;
+    //log.yellow('file path-->'+file_path);
+    let replace_path;
+
+    if(globalAppEnv == 'dev')
+    {
+        replace_path = "skeletons\\laravel\\package\\";
+    } else
+    {
+        replace_path = globalFileSourcePath+"\\skeletons\\laravel\\package\\";
+    }
+
+    //log.red('replace path-->'+replace_path);
 
     let file_name = path.basename(file_path);
-    let destination = file_path.replace(npmPath+"\\skeletons\\laravel\\package\\", "");
+    let destination = file_path.replace(replace_path, "");
     destination = "./"+destination.replace(file_name, "");
 
     let file_content = null;
 
     switch(file_name) {
-        case 'packagename.php':
+        case 'packagename.ejs':
             file_name = args.package_name_lower+'.php';
             break;
         case 'ServiceProvider.ejs':
@@ -133,11 +144,17 @@ const copyPackageFile =  (file_path, args) => {
             file_content = ejs.render(file_content, args);
             file_name = 'LICENSE';
             break;
+        case 'route.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'route.php';
+            break;
     }
 
     destination = destination+file_name;
     fsSync.write(destination, file_content);
     log.green(destination);
+    //log.grey('------------------------------');
 
 };
 
