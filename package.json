@@ -4,9 +4,9 @@
 	"bin": {
 		"vaah": "./vaah.js"
 	},
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "File generator for rapid development",
-	"main": "./vaah.js",
+	"main": "vaah.js",
 	"repository": "git@github.com:webreinvent/vaah.git",
 	"author": "WebReinvent <we@webreinvent>",
 	"license": "MIT",

@@ -275,12 +275,13 @@ const getPackageConfig = () => {
 | Generate Laravel Files
 |--------------------------------------------------------------------------
 */
-const generateLaravelFiles = (type, name) => {
+const generateLaravelFiles = (type, file_name) => {
 
     let vaah_config = getPackageConfig();
+    vaah_config.name = file_name;
     log.red(globalFileSourcePath);
 
-    let template_path  = globalFileSourcePath+"/skeletons/laravel/";
+    let template_path  = globalFileSourcePath+"/skeletons/laravel";
 
     let des_path = "./";
 
@@ -298,11 +299,7 @@ const generateLaravelFiles = (type, name) => {
             des_path = './views/'+file_name;
             break;
         case 'controller':
-            file_content = fs.readFileSync(template_path+'controller.ejs').toString();
-            if(plain)
-            {
-                file_content = fs.readFileSync(template_path+'controller-plain.ejs').toString();
-            }
+            file_content = fs.readFileSync(template_path+'/controller.ejs').toString();
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'Controller.php';
             des_path = './src/'+file_name;

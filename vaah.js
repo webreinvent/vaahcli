@@ -139,8 +139,8 @@ program
 
 
 program
-    .command('laravel make:package-files')
-    .alias('lv:p-files')
+    .command('laravel make:package-file')
+    .alias('lv:p-file')
     .arguments('<type>')
     .arguments('<name>')
     .action((type, name) => {
