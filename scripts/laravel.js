@@ -83,13 +83,12 @@ const getPackageFiles =  (args) => {
 
 };
 
-
 /*
 |--------------------------------------------------------------------------
-| Copy Package File
+| Get Destination Path
 |--------------------------------------------------------------------------
 */
-const copyPackageFile =  (file_path, args) => {
+const getDestinationPath =  (file_path) => {
 
     //log.yellow('file path-->'+file_path);
     let replace_path;
@@ -107,6 +106,20 @@ const copyPackageFile =  (file_path, args) => {
     let file_name = path.basename(file_path);
     let destination = file_path.replace(replace_path, "");
     destination = "./"+destination.replace(file_name, "");
+
+    return destination;
+};
+
+/*
+|--------------------------------------------------------------------------
+| Copy Package File
+|--------------------------------------------------------------------------
+*/
+const copyPackageFile =  (file_path, args) => {
+
+    let file_name = path.basename(file_path);
+
+    let destination = getDestinationPath(file_path);
 
     let file_content = null;
 
@@ -235,11 +248,26 @@ const parseJsonFileContent = (file_path) => {
 
 /*
 |--------------------------------------------------------------------------
+| Title Case
+|--------------------------------------------------------------------------
+*/
+const titleCase = (str) => {
+    let wordsArray = str.toLowerCase().split(/\s+/);
+    let upperCased = wordsArray.map(function(word) {
+        return word.charAt(0).toUpperCase() + word.substr(1);
+    });
+    return upperCased.join(" ");
+};
+
+/*
+|--------------------------------------------------------------------------
 | Get Package Config
 |--------------------------------------------------------------------------
 */
 const getPackageConfig = () => {
     let config = parseJsonFileContent('./vaah-config.json');
+
+    return config;
 };
 
 /*
