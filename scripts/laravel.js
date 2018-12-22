@@ -190,8 +190,6 @@ const resetPackage = (args) => {
         ],
         'files': [
             'routes.php',
-            'README.md',
-            'LICENSE',
             'vaah-config.json',
             'composer.json'
         ]
