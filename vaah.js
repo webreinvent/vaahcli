@@ -4,7 +4,6 @@ const program = require('commander');
 const { prompt } = require('inquirer');
 const {getInstalledPathSync}  = require('get-installed-path');
 
-
 const vaah = require('./scripts/vaah');
 const laravel = require('./scripts/laravel');
 

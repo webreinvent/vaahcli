@@ -6,7 +6,6 @@
 | https://github.com/SBoudrias/Inquirer.js/
 */
 
-
 const assert = require('assert');
 let log = require('color-console');
 //let readlineSync = require('readline-sync');
@@ -36,9 +35,8 @@ const releaseReady = (args) => {
 */
 const getPackageFiles =  (args) => {
 
-    let template_path = './skeletons/vaah';
-    let files_list = [];
-    files_list = scanFiles(template_path, files_list);
+
+    let files_list = ['./package.json'];
 
     log.green("Following files are generated:");
     log.green("========================================");

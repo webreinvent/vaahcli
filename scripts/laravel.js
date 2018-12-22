@@ -149,7 +149,7 @@ const copyPackageFile =  (file_path, args) => {
             file_content = ejs.render(file_content, args);
             file_name = args.package_name+'.php';
             break;
-        case 'README.ejs':
+        /*case 'README.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = 'README.md';
@@ -158,7 +158,7 @@ const copyPackageFile =  (file_path, args) => {
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = 'LICENSE';
-            break;
+            break;*/
         case 'routes.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
