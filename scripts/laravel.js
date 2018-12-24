@@ -132,7 +132,7 @@ const copyPackageFile =  (file_path, args) => {
         case 'ServiceProvider.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = args.package_name+file_name+'.php';
+            file_name = args.package_name+'ServiceProvider'+'.php';
             break;
         case 'composer.ejs':
             file_content = fs.readFileSync(file_path).toString();
@@ -149,20 +149,20 @@ const copyPackageFile =  (file_path, args) => {
             file_content = ejs.render(file_content, args);
             file_name = args.package_name+'.php';
             break;
-        /*case 'README.ejs':
+        case 'Controller.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = 'README.md';
+            file_name = args.package_name+'Controller.php';
             break;
-        case 'LICENSE.ejs':
+        case 'api.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = 'LICENSE';
-            break;*/
-        case 'routes.ejs':
+            file_name = 'api.php';
+            break;
+        case 'web.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = 'routes.php';
+            file_name = 'web.php';
             break;
     }
 
@@ -182,16 +182,10 @@ const copyPackageFile =  (file_path, args) => {
 const resetPackage = (args) => {
     let remove_list = {
         'folders': [
-            'config',
-            'lang',
-            'database',
             'src',
-            'views',
         ],
         'files': [
-            'routes.php',
             'vaah-config.json',
-            'composer.json'
         ]
     };
 
@@ -275,6 +269,16 @@ const getPackageConfig = () => {
 */
 const generateLaravelFiles = (type, file_name) => {
 
+    var types = ["model", "view", "controller", "seed", "migration"];
+    var exist = types.includes(type);
+
+
+    if(!exist)
+    {
+        log.red("Unknown command type: `vaah lv:p-file "+type+" "+file_name+"`. Check for typos.");
+        return false;
+    }
+
     let vaah_config = getPackageConfig();
     vaah_config.name = file_name;
     log.red(globalFileSourcePath);
@@ -288,25 +292,25 @@ const generateLaravelFiles = (type, file_name) => {
             file_content = fs.readFileSync(template_path+'/model.ejs').toString();
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'.php';
-            des_path = './src/'+file_name;
+            des_path = './src/Entities/'+file_name;
             break;
         case 'view':
             file_content = fs.readFileSync(template_path+'/view.ejs').toString();
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'.blade.php';
-            des_path = './views/'+file_name;
+            des_path = './src/Resources/views/'+file_name;
             break;
         case 'controller':
             file_content = fs.readFileSync(template_path+'/controller.ejs').toString();
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'Controller.php';
-            des_path = './src/'+file_name;
+            des_path = './src/Http/Controllers/'+file_name;
             break;
         case 'seed':
             file_content = fs.readFileSync(template_path+'/seed.ejs').toString();
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'TableSeeder.php';
-            des_path = './database/seeds/'+file_name;
+            des_path = './src/Database/Seeders/'+file_name;
             break;
         case 'migration':
 
@@ -322,7 +326,7 @@ const generateLaravelFiles = (type, file_name) => {
 
             file_content = ejs.render(file_content, vaah_config);
             file_name = dateFormat(now, "yyyy_mm_dd_HHMMss_")+vaah_config.name+'_table.php';
-            des_path = './database/migrations/'+file_name;
+            des_path = './src/Database/Migrations/'+file_name;
 
             break;
 

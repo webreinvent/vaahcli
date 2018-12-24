@@ -1,8 +1,8 @@
-<?php namespace <%= namespace %>;
+<?php namespace WebReinvent\LvTags;
 
 use Illuminate\Support\ServiceProvider;
 
-class <%= package_name %>ServiceProvider extends ServiceProvider {
+class LvTagsServiceProvider extends ServiceProvider {
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -48,23 +48,23 @@ class <%= package_name %>ServiceProvider extends ServiceProvider {
 
     private function handleConfigs() {
 
-        $configPath = __DIR__ . '/Config/<%= package_name_lower %>.php';
+        $configPath = __DIR__ . '/Config/lvtags.php';
 
-        $this->publishes([$configPath => config_path('<%= package_name_lower %>.php')]);
+        $this->publishes([$configPath => config_path('lvtags.php')]);
 
-        $this->mergeConfigFrom($configPath, '<%= package_name %>');
+        $this->mergeConfigFrom($configPath, 'LvTags');
     }
 
     private function handleTranslations() {
 
-        $this->loadTranslationsFrom(__DIR__.'/Resources/lang', '<%= package_name_lower %>');
+        $this->loadTranslationsFrom(__DIR__.'/Resources/lang', 'lvtags');
     }
 
     private function handleViews() {
 
-        $this->loadViewsFrom(__DIR__.'/Resources/views', '<%= package_name_lower %>');
+        $this->loadViewsFrom(__DIR__.'/Resources/views', 'lvtags');
 
-        $this->publishes([__DIR__.'/Resources/views' => base_path('resources/views/vendor/<%= package_name_lower %>')]);
+        $this->publishes([__DIR__.'/Resources/views' => base_path('resources/views/vendor/lvtags')]);
     }
 
     private function handleMigrations() {
