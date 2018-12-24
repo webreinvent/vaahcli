@@ -48,6 +48,8 @@ npm install -g vaah
     ```
 5. Register your package's service provider at `config/app.php`: `YourVendorName\YourPackageName\YourPackageNameServiceProvider::class,`. 
 
+6. Finally, run `composer dump-autoload`. 
+
 **That's it, your package is ready for use in development environment.**
 
 #### You have access to following commands as well:
