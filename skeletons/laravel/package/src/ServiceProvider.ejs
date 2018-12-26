@@ -69,7 +69,7 @@ class <%= package_name %>ServiceProvider extends ServiceProvider {
 
     private function handleMigrations() {
 
-        $this->publishes([__DIR__ . '/Database/Migrations' => base_path('database/migrations')], 'migrations');
+        $this->publishes([__DIR__ . '/Database/Migrations' => database_path('migrations')], 'migrations');
     }
 
     private function handleRoutes() {

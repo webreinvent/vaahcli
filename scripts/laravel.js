@@ -323,10 +323,10 @@ const generateLaravelFiles = (type, file_name) => {
 
             file_content = fs.readFileSync(template_path+'/migration.ejs').toString();
 
-            log.red('class_name='+vaah_config.class_name);
+            //log.red('class_name='+vaah_config.class_name);
 
             file_content = ejs.render(file_content, vaah_config);
-            file_name = dateFormat(now, "yyyy_mm_dd_HHMMss_")+vaah_config.name+'_table.php';
+            file_name = dateFormat(now, "yyyy_mm_dd_HHMMss_")+vaah_config.name+'.php';
             des_path = './src/Database/Migrations/'+file_name;
 
             break;
