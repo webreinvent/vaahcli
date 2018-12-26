@@ -263,6 +263,17 @@ const getPackageConfig = () => {
     return config;
 };
 
+
+/*
+|--------------------------------------------------------------------------
+| Get Package Config
+|--------------------------------------------------------------------------
+*/
+const replaceAll = (str, find, replace) => {
+    return str.replace(new RegExp(find, 'g'), replace);
+};
+
+
 /*
 |--------------------------------------------------------------------------
 | Generate Laravel Files
@@ -316,9 +327,9 @@ const generateLaravelFiles = (type, file_name) => {
         case 'migration':
 
             table_name = vaah_config.name;
-            table_name = table_name.replace(/_/g, " ");
+            table_name = replaceAll(table_name, "_", " ");
             table_name = titleCase(table_name);
-            table_name = table_name.replace(" ", "");
+            table_name = replaceAll(table_name, " ", "");
             vaah_config.class_name = table_name;
 
             file_content = fs.readFileSync(template_path+'/migration.ejs').toString();

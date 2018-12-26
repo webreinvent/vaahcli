@@ -4,3 +4,5 @@
 /.idea
 package-lock.json
 src/
+composer.json
+vaah-config.json
