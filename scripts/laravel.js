@@ -186,6 +186,7 @@ const resetPackage = (args) => {
         ],
         'files': [
             'vaah-config.json',
+            'composer.json',
         ]
     };
 
@@ -269,7 +270,7 @@ const getPackageConfig = () => {
 */
 const generateLaravelFiles = (type, file_name) => {
 
-    var types = ["model", "view", "controller", "seed", "migration"];
+    var types = ["model", "view", "controller", "seed", "migration", "trait"];
     var exist = types.includes(type);
 
 
@@ -327,6 +328,15 @@ const generateLaravelFiles = (type, file_name) => {
             file_content = ejs.render(file_content, vaah_config);
             file_name = dateFormat(now, "yyyy_mm_dd_HHMMss_")+vaah_config.name+'_table.php';
             des_path = './src/Database/Migrations/'+file_name;
+
+            break;
+
+        case 'trait':
+
+            file_content = fs.readFileSync(template_path+'/trait.ejs').toString();
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'.php';
+            des_path = './src/Traits/'+file_name;
 
             break;
 
