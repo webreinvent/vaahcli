@@ -319,7 +319,7 @@ const generateLaravelFiles = (type, file_name) => {
             table_name = table_name.replace("_", " ");
             table_name = titleCase(table_name);
             table_name = table_name.replace(" ", "");
-            package_config.class_name = table_name;
+            vaah_config.class_name = table_name;
 
             file_content = fs.readFileSync(template_path+'/migration.ejs').toString();
 
