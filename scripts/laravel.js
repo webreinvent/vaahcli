@@ -332,7 +332,7 @@ const generateLaravelFiles = (type, file_name) => {
             table_name = replaceAll(table_name, " ", "");
             vaah_config.class_name = table_name;
 
-            let table_name = replaceAll(vaah_config.name, "create_", "");
+            table_name = replaceAll(vaah_config.name, "create_", "");
             table_name = replaceAll(table_name, "_table", "");
 
             vaah_config.table_name = table_name;
