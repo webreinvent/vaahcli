@@ -281,7 +281,7 @@ const replaceAll = (str, find, replace) => {
 */
 const generateLaravelFiles = (type, file_name) => {
 
-    var types = ["model", "view", "controller", "seed", "migration", "trait"];
+    var types = ["model", "view", "controller", "seed", "migration", "trait", "observer"];
     var exist = types.includes(type);
 
 
@@ -353,6 +353,15 @@ const generateLaravelFiles = (type, file_name) => {
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'.php';
             des_path = './src/Traits/'+file_name;
+
+            break;
+
+        case 'observer':
+
+            file_content = fs.readFileSync(template_path+'/observer.ejs').toString();
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'Observer.php';
+            des_path = './src/Observers/'+file_name;
 
             break;
 
