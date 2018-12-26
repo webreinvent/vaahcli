@@ -316,7 +316,7 @@ const generateLaravelFiles = (type, file_name) => {
         case 'migration':
 
             table_name = vaah_config.name;
-            table_name = table_name.replace("_", " ");
+            table_name = table_name.replace(/_/g, " ");
             table_name = titleCase(table_name);
             table_name = table_name.replace(" ", "");
             vaah_config.class_name = table_name;
