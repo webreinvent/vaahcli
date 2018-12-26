@@ -12,8 +12,8 @@ const laravel = require('./scripts/laravel');
 | Get Package Configurations
 |--------------------------------------------------------------------------
 */
-//global.globalAppEnv = "production";
-global.globalAppEnv = "dev";
+global.globalAppEnv = "production";
+//global.globalAppEnv = "dev";
 global.globalFileSourcePath = null;
 
 if(globalAppEnv == 'dev')
