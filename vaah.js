@@ -6,6 +6,7 @@ const {getInstalledPathSync}  = require('get-installed-path');
 
 const vaah = require('./scripts/vaah');
 const laravel = require('./scripts/laravel');
+const vaahcms = require('./scripts/vaahcms');
 
 
 /*
@@ -88,7 +89,6 @@ program
         prompt(questions).then(answers => {
             laravel.generatePackage(answers);
         })
-
 });
 
 program
@@ -98,7 +98,6 @@ program
         laravel.resetPackage(args);
     });
 
-
 program
     .command('laravel make:package-file')
     .alias('lv:p-file')
@@ -107,6 +106,25 @@ program
     .action((type, name) => {
         laravel.generateLaravelFiles(type, name);
     });
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Laravel Commands | vaah cms make:modules
+|--------------------------------------------------------------------------
+*/
+let cms_questions = vaahcms.getQuestions();
+
+program
+    .command('cms make:module')
+    .alias('cms:m')
+    .action(() => {
+        prompt(cms_questions).then(answers => {
+            vaahcms.generatePackage(answers);
+        })
+    });
+
 
 
 program.parse(process.argv);

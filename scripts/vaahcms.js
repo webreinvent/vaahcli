@@ -12,14 +12,66 @@ let now = new Date();
 
 /*
 |--------------------------------------------------------------------------
-| Generate Laravel Package
+| Laravel Package Questions
+|--------------------------------------------------------------------------
+*/
+
+const  getQuestions = function () {
+    let questions = [
+        {
+            type : 'input',
+            name : 'vendor_name',
+            default: 'WebReinvent',
+            message : 'Enter developer/vendor name: '
+        },
+        {
+            type : 'input',
+            name : 'package_name',
+            default: 'HelloWorld',
+            message : 'Enter your module name: '
+        },
+        {
+            type : 'input',
+            name : 'description',
+            default: 'description',
+            message : 'Enter your package description: '
+        },
+        {
+            type : 'input',
+            name : 'homepage',
+            default: 'https://www.webreinvent.com',
+            message : 'Enter homepage url: '
+        },
+        {
+            type : 'input',
+            name : 'author_name',
+            default: 'pradeep',
+            message : 'Enter Author name: '
+        },
+        {
+            type : 'input',
+            name : 'author_email',
+            default: 'we@webreinvent.com',
+            message : 'Enter Author email: '
+        },
+
+    ];
+
+    return questions;
+};
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Generate VaahCms Module
 |--------------------------------------------------------------------------
 */
 const generatePackage = (args) => {
 
     args.vendor_name_lower = args.vendor_name.toLowerCase();
     args.package_name_lower = args.package_name.toLowerCase();
-    args.namespace = args.vendor_name+'\\'+args.package_name;
+    args.namespace = 'VaahCms\\Modules\\'+args.package_name;
     args.year = dateFormat(now, 'yyyy');
 
     generateConfig(args);
@@ -61,12 +113,12 @@ const scanFiles =  (dir, files_list) => {
 
 /*
 |--------------------------------------------------------------------------
-| Get Package Files List
+| Get Module Files List
 |--------------------------------------------------------------------------
 */
 const getPackageFiles =  (args) => {
 
-    let template_path = globalFileSourcePath+'/skeletons/laravel/package';
+    let template_path = globalFileSourcePath+'/skeletons/vaahcms/module';
 
     console.log(template_path);
 
@@ -95,17 +147,17 @@ const getDestinationPath =  (file_path) => {
 
     if(globalAppEnv == 'dev')
     {
-        replace_path = "skeletons\\laravel\\package\\";
+        replace_path = "skeletons\\vaahcms\\module\\";
     } else
     {
-        replace_path = globalFileSourcePath+"\\skeletons\\laravel\\package\\";
+        replace_path = globalFileSourcePath+"\\skeletons\\vaahcms\\module\\";
     }
 
     //log.red('replace path-->'+replace_path);
 
     let file_name = path.basename(file_path);
     let destination = file_path.replace(replace_path, "");
-    destination = "./"+destination.replace(file_name, "");
+    destination = "./VaahCms/Modules/"+destination.replace(file_name, "");
 
     return destination;
 };
@@ -123,47 +175,86 @@ const copyPackageFile =  (file_path, args) => {
 
     let file_content = null;
 
+
+
+
+
     switch(file_name) {
-        case 'packagename.ejs':
+        case 'config.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = args.package_name_lower+'.php';
+            break;
+        case 'DatabaseTableSeeder.ejs':
+        case 'SampleDataTableSeeder.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = file_name+'.php';
+            break;
+        case 'SetupController.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'SetupController.php';
+            break;
+        case 'RouteServiceProvider.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = file_name+'.php';
             break;
         case 'ServiceProvider.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = args.package_name+'ServiceProvider'+'.php';
             break;
+        case 'app.ejs':
+        case 'app-routes.ejs':
+        case 'app-store.ejs':
+        case 'aside-menu.blade.ejs':
+        case 'dashboard.blade.ejs':
+        case 'api.ejs':
+        case 'web.ejs':
+        case 'admin.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = file_name+'.php';
+            break;
+
+        case '.gitignore.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = '.gitignore';
+            break;
+
         case 'composer.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = 'composer.json';
             break;
-        case 'Facade.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = args.package_name+'Facade.php';
-            break;
+
         case 'package.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = args.package_name+'.php';
+            file_name = 'package.json';
             break;
-        case 'Controller.ejs':
+
+        case 'README.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = args.package_name+'Controller.php';
+            file_name = 'README.md';
             break;
-        case 'api.ejs':
+
+        case 'settings.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = 'api.php';
+            file_name = 'settings.json';
             break;
-        case 'web.ejs':
+
+        case 'webpack.mix.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = 'web.php';
+            file_name = 'webpack.mix.js';
             break;
+
     }
 
     destination = destination+file_name;

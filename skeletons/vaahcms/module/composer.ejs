@@ -1,0 +1,29 @@
+{
+    "name": "vaahcms/cms",
+    "description": "",
+    "authors": [
+        {
+            "name": "WebReinvent",
+            "email": "we@webreinvent.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "atayahmet/laravel-nestable": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "VaahCms\\Modules\\Cms\\Providers\\CmsServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "VaahCms\\Modules\\Cms\\": ""
+        }
+    }
+}
