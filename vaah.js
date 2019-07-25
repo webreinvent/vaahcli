@@ -6,6 +6,7 @@ const {getInstalledPathSync}  = require('get-installed-path');
 
 const vaah = require('./scripts/vaah');
 const laravel = require('./scripts/laravel');
+const vaahcms = require('./scripts/vaahcms');
 
 /*
 |--------------------------------------------------------------------------
@@ -78,46 +79,7 @@ program
 | Laravel Commands | vaah laravel make:package
 |--------------------------------------------------------------------------
 */
-let questions;
-questions = [
-    {
-        type : 'input',
-        name : 'vendor_name',
-        default: 'WebReinvent',
-        message : 'Enter your vendor name: '
-    },
-    {
-        type : 'input',
-        name : 'package_name',
-        default: 'LvTags',
-        message : 'Enter your package name: '
-    },
-    {
-        type : 'input',
-        name : 'description',
-        default: 'description',
-        message : 'Enter your package description: '
-    },
-    {
-        type : 'input',
-        name : 'homepage',
-        default: 'https://www.webreinvent.com',
-        message : 'Enter homepage url: '
-    },
-    {
-        type : 'input',
-        name : 'author_name',
-        default: 'pradeep',
-        message : 'Enter Author name: '
-    },
-    {
-        type : 'input',
-        name : 'author_email',
-        default: 'we@webreinvent.com',
-        message : 'Enter Author email: '
-    },
-
-];
+let questions = laravel.getQuestions();
 
 program
     .command('laravel make:package')
@@ -126,7 +88,6 @@ program
         prompt(questions).then(answers => {
             laravel.generatePackage(answers);
         })
-
 });
 
 program
