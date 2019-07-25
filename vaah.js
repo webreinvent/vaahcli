@@ -6,15 +6,15 @@ const {getInstalledPathSync}  = require('get-installed-path');
 
 const vaah = require('./scripts/vaah');
 const laravel = require('./scripts/laravel');
-const vaahcms = require('./scripts/vaahcms');
+
 
 /*
 |--------------------------------------------------------------------------
 | Get Package Configurations
 |--------------------------------------------------------------------------
 */
-global.globalAppEnv = "production";
-//global.globalAppEnv = "dev";
+//global.globalAppEnv = "production";
+global.globalAppEnv = "dev";
 global.globalFileSourcePath = null;
 
 if(globalAppEnv == 'dev')
@@ -88,6 +88,7 @@ program
         prompt(questions).then(answers => {
             laravel.generatePackage(answers);
         })
+
 });
 
 program

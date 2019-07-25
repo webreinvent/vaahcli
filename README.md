@@ -72,6 +72,33 @@ List of commands:
 
 [WebReinvent](https://www.webreinvent.com) is a web agency based in Delhi, India. You'll find an overview of all our open source projects [on github](https://github.com/webreinvent).
 
+
+## Setup Development Environment 
+
+#### Step 1:
+Clone this repository
+
+#### Step 2:
+Run `npm install`
+
+#### Step 3:
+Change following variable, comment `global.globalAppEnv = "production"` and uncomment `global.globalAppEnv = "dev"`:
+
+```javascript
+...
+//global.globalAppEnv = "production";
+global.globalAppEnv = "dev";
+...
+
+```
+
+#### Step 4:
+Now you can run `vaah` commands from terminal like:
+```sh
+node vaah.js lv:p
+```
+
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
