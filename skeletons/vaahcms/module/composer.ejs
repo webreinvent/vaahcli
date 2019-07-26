@@ -1,29 +1,27 @@
 {
-    "name": "vaahcms/cms",
-    "description": "",
+    "name": "<%= vendor_name_lower %>/<%= package_name_lower %>",
+    "description": "<%= description %>",
     "authors": [
         {
-            "name": "WebReinvent",
-            "email": "we@webreinvent.com"
+            "name": "<%= author_name %>",
+            "email": "<%= author_email %>"
         }
     ],
     "require": {
-        "php": "^7.0",
-        "atayahmet/laravel-nestable": "*"
+        "php": "^7.0"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "VaahCms\\Modules\\Cms\\Providers\\CmsServiceProvider"
+                "VaahCms\\Modules\\<%= package_name %>\\Providers\\<%= package_name %>ServiceProvider"
             ],
             "aliases": {
-                
             }
         }
     },
     "autoload": {
         "psr-4": {
-            "VaahCms\\Modules\\Cms\\": ""
+            "VaahCms\\Modules\\<%= package_name %>\\": ""
         }
     }
 }

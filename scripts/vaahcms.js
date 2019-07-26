@@ -125,7 +125,7 @@ const getPackageFiles =  (args) => {
     let files_list = [];
     files_list = scanFiles(template_path, files_list);
 
-    log.green('Package Name='+args.package_name+" | Namespace="+args.namespace);
+    log.green('Module Name='+args.package_name+" | Namespace="+args.namespace);
     log.green("Following files are generated:");
     log.green("========================================");
 
@@ -140,7 +140,7 @@ const getPackageFiles =  (args) => {
 | Get Destination Path
 |--------------------------------------------------------------------------
 */
-const getDestinationPath =  (file_path) => {
+const getDestinationPath =  (file_path, args) => {
 
     //log.yellow('file path-->'+file_path);
     let replace_path;
@@ -157,7 +157,7 @@ const getDestinationPath =  (file_path) => {
 
     let file_name = path.basename(file_path);
     let destination = file_path.replace(replace_path, "");
-    destination = "./VaahCms/Modules/"+destination.replace(file_name, "");
+    destination = "./VaahCms/Modules/"+args.package_name+"/"+destination.replace(file_name, "");
 
     return destination;
 };
@@ -171,13 +171,9 @@ const copyPackageFile =  (file_path, args) => {
 
     let file_name = path.basename(file_path);
 
-    let destination = getDestinationPath(file_path);
+    let destination = getDestinationPath(file_path, args);
 
     let file_content = null;
-
-
-
-
 
     switch(file_name) {
         case 'config.ejs':
@@ -273,11 +269,15 @@ const copyPackageFile =  (file_path, args) => {
 const resetPackage = (args) => {
     let remove_list = {
         'folders': [
-            'src',
+            'VaahCms/Modules/'+args.package_name,
         ],
         'files': [
-            'vaah-config.json',
+            '.gitignore',
             'composer.json',
+            'package.json',
+            'README.md',
+            'settings.json',
+            'webpack.mix.js',
         ]
     };
 
@@ -350,7 +350,6 @@ const titleCase = (str) => {
 */
 const getPackageConfig = () => {
     let config = parseJsonFileContent('./vaah-config.json');
-
     return config;
 };
 
@@ -471,4 +470,4 @@ const generateLaravelFiles = (type, file_name) => {
 };
 
 
-module.exports = { generatePackage, resetPackage, generateLaravelFiles, parseJsonFileContent };
+module.exports = {getQuestions, generatePackage, resetPackage, generateLaravelFiles, parseJsonFileContent };
