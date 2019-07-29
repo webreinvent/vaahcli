@@ -11,7 +11,6 @@ import VaahCms from 'vaahcms-vue-helpers';
 
 //---------Configs
 Vue.config.delimiters = ['@{{', '}}'];
-//Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('content');
 Vue.config.async = false;
 //---------Configs
 
@@ -24,7 +23,7 @@ Vue.use(VaahCms);
 //---------/Helpers
 
 //---------Import Partials
-//import TopMenu from './partials/TopMenu';
+import TopMenu from './partials/TopMenu';
 //---------/Import Partials
 
 //---------Variables
@@ -57,7 +56,7 @@ const router = new VueRouter({
 const app = new Vue({
     el: '#app',
     components:{
-        //'top-menu': TopMenu
+        'top-menu': TopMenu
     },
     store: store,
     router,

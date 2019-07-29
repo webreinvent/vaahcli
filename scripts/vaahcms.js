@@ -206,7 +206,7 @@ const copyPackageFile =  (file_path, args) => {
         case 'SampleDataTableSeeder.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = file_name+'.php';
+            file_name = file_name_only+'.php';
             break;
         case 'SetupController.ejs':
             file_content = fs.readFileSync(file_path).toString();
@@ -221,24 +221,43 @@ const copyPackageFile =  (file_path, args) => {
         case 'RouteServiceProvider.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = file_name+'.php';
+            file_name = 'RouteServiceProvider.php';
             break;
         case 'ServiceProvider.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = args.package_name+'ServiceProvider'+'.php';
             break;
-        case 'app.ejs':
-        case 'app-routes.ejs':
-        case 'app-store.ejs':
+
         case 'aside-menu.blade.ejs':
         case 'dashboard.blade.ejs':
+        case 'app.blade.ejs':
         case 'api.ejs':
         case 'web.ejs':
         case 'admin.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = file_name_only+'.php';
+            break;
+
+        case 'app.ejs':
+        case 'app-routes.ejs':
+        case 'app-store.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = file_name_only+'.js';
+            break;
+
+        case 'TopMenu.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = file_name_only+'.vue';
+            break;
+
+        case 'TopMenuJs.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = file_name_only+'.js';
             break;
 
         case '.gitignore.ejs':
