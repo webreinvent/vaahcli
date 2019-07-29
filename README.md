@@ -68,6 +68,12 @@ List of commands:
 - `vaah lv:p-file migration fileName`
 
 
+## VaahCms Generators
+List of commands:
+- `vaah cms:m` : To generate module
+- `vaah cms:m-reset <module_name>` : To reset/delete module files
+
+
 ## Support us
 
 [WebReinvent](https://www.webreinvent.com) is a web agency based in Delhi, India. You'll find an overview of all our open source projects [on github](https://github.com/webreinvent).
