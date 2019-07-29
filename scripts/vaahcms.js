@@ -21,7 +21,7 @@ const  getQuestions = function () {
         {
             type : 'input',
             name : 'vendor_name',
-            default: 'WebReinvent',
+            default: 'VaahCms',
             message : 'Enter developer/vendor name: '
         },
         {
@@ -32,15 +32,21 @@ const  getQuestions = function () {
         },
         {
             type : 'input',
-            name : 'description',
-            default: 'description',
-            message : 'Enter your package description: '
+            name : 'title',
+            default: 'Module for VaahCMS',
+            message : 'Enter meaningful title for your module: '
         },
         {
             type : 'input',
-            name : 'homepage',
-            default: 'https://www.webreinvent.com',
-            message : 'Enter homepage url: '
+            name : 'has_sample_data',
+            default: 'false',
+            message : 'Will your module contains sample data (true/false): '
+        },
+        {
+            type : 'input',
+            name : 'description',
+            default: 'description',
+            message : 'Enter your module description: '
         },
         {
             type : 'input',
@@ -51,9 +57,21 @@ const  getQuestions = function () {
         {
             type : 'input',
             name : 'author_email',
-            default: 'we@webreinvent.com',
+            default: 'support@vaah.dev',
             message : 'Enter Author email: '
         },
+        {
+            type : 'input',
+            name : 'author_website',
+            default: 'https://vaah.dev',
+            message : 'Enter author website: '
+        },
+        {
+            type : 'input',
+            name : 'github_url',
+            default: 'https://github.com/webreinvent/vaahcms',
+            message : 'Enter github repository url: '
+        }
 
     ];
 
@@ -170,6 +188,9 @@ const getDestinationPath =  (file_path, args) => {
 const copyPackageFile =  (file_path, args) => {
 
     let file_name = path.basename(file_path);
+    let file_name_parse = path.parse(file_name);
+    let file_name_only = file_name_parse.name;
+    let file_name_ext = file_name_parse.ext;
 
     let destination = getDestinationPath(file_path, args);
 
@@ -179,7 +200,7 @@ const copyPackageFile =  (file_path, args) => {
         case 'config.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = args.package_name_lower+'.php';
+            file_name = 'config.php';
             break;
         case 'DatabaseTableSeeder.ejs':
         case 'SampleDataTableSeeder.ejs':
@@ -191,6 +212,11 @@ const copyPackageFile =  (file_path, args) => {
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = 'SetupController.php';
+            break;
+        case 'DashboardController.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'DashboardController.php';
             break;
         case 'RouteServiceProvider.ejs':
             file_content = fs.readFileSync(file_path).toString();
@@ -212,7 +238,7 @@ const copyPackageFile =  (file_path, args) => {
         case 'admin.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
-            file_name = file_name+'.php';
+            file_name = file_name_only+'.php';
             break;
 
         case '.gitignore.ejs':
@@ -266,19 +292,16 @@ const copyPackageFile =  (file_path, args) => {
 | Reset Package Files
 |--------------------------------------------------------------------------
 */
-const resetPackage = (args) => {
+
+
+const resetModule = (module_name) => {
+
+    let folder = './VaahCms/Modules/'+module_name;
+
     let remove_list = {
         'folders': [
-            'VaahCms/Modules/'+args.package_name,
+            folder,
         ],
-        'files': [
-            '.gitignore',
-            'composer.json',
-            'package.json',
-            'README.md',
-            'settings.json',
-            'webpack.mix.js',
-        ]
     };
 
     log.red("Following folders and files are deleted:");
@@ -289,10 +312,6 @@ const resetPackage = (args) => {
         log.red(item);
     });
 
-    remove_list.files.forEach(function(item) {
-        fsExtra.removeSync(item);
-        log.red(item);
-    });
 };
 
 /*
@@ -369,7 +388,7 @@ const replaceAll = (str, find, replace) => {
 | Generate Laravel Files
 |--------------------------------------------------------------------------
 */
-const generateLaravelFiles = (type, file_name) => {
+const generateModuleFiles = (module_name, file_type, file_name) => {
 
     var types = ["model", "view", "controller", "seed", "migration", "trait", "observer"];
     var exist = types.includes(type);
@@ -470,4 +489,4 @@ const generateLaravelFiles = (type, file_name) => {
 };
 
 
-module.exports = {getQuestions, generatePackage, resetPackage, generateLaravelFiles, parseJsonFileContent };
+module.exports = {getQuestions, generatePackage, resetModule, generateModuleFiles, parseJsonFileContent };

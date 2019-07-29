@@ -4,7 +4,7 @@
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use VaahCms\Modules\Cms\Providers\RouteServiceProvider;
+use <%= namespace %>\Providers\RouteServiceProvider;
 
 class <%= package_name %>ServiceProvider extends ServiceProvider
 {
@@ -115,7 +115,7 @@ class <%= package_name %>ServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
             return $path . '/views/vaahcms/modules/<%= package_name_lower %>';
-        }, \Config::get('view.paths')), [$sourcePath]), 'cms');
+        }, \Config::get('view.paths')), [$sourcePath]), '<%= package_name_lower %>');
 
     }
 

@@ -14,8 +14,8 @@ const vaahcms = require('./scripts/vaahcms');
 | Get Package Configurations
 |--------------------------------------------------------------------------
 */
-//global.globalAppEnv = "production";
-global.globalAppEnv = "dev";
+global.globalAppEnv = "production";
+//global.globalAppEnv = "dev";
 global.globalFileSourcePath = null;
 
 if(globalAppEnv == 'dev')
@@ -119,7 +119,7 @@ program
 |--------------------------------------------------------------------------
 */
 
-// node vaah cms:modules
+// node vaah cms:module
 let cms_questions = vaahcms.getQuestions();
 
 program
@@ -131,13 +131,27 @@ program
         })
     });
 
-// node vaah laravel:package-reset
+
+// node vaah cms:module-reset <name>
 program
     .command('cms:module-reset')
     .alias('cms:m-reset')
-    .option('-n, --name <name>', 'Add module name')
-    .action((args) => {
-        vaahcms.resetPackage(args);
+    .arguments('<module_name>')
+    .action((module_name) => {
+        vaahcms.resetModule(module_name);
     });
+
+
+// node vaah cms:file <name>
+program
+    .command('cms:module-file')
+    .alias('cms:m-file')
+    .arguments('<module_name>')
+    .arguments('<file_type>')
+    .arguments('<file_name>')
+    .action((module_name, file_type, file_name) => {
+        vaahcms.generateModuleFiles(module_name, file_type, file_name);
+    });
+
 
 program.parse(process.argv);

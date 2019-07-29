@@ -1,15 +1,15 @@
 {
     "name": "<%= package_name %>",
-    "title": "<%= package_name_lower %>",
+    "title": "<%= title %>",
     "slug": "<%= package_name_lower %>",
-    "thumbnail": "http://themepixels.me/dashforge/assets/img/placehold.jpg",
-    "excerpt": "<%= package_name_lower %>",
-    "description": "<%= package_name_lower %>",
-    "github_url": "",
+    "thumbnail": "https://placehold.jp/300x160.png",
+    "excerpt": "<%= description %>",
+    "description": "<%= description %>",
+    "github_url": "<%= github_url %>",
     "author_name": "<%= package_name_lower %>",
-    "author_website": "<%= package_name_lower %>",
+    "author_website": "<%= author_website %>",
     "version": "v0.0.1",
-    "is_sample_data_available": true,
+    "is_sample_data_available": <%= has_sample_data %>,
     "db_table_prefix": "vh_<%= package_name_lower %>_",
     "providers": [
         "\\VaahCms\\Modules\\<%= package_name %>\\Providers\\<%= package_name %>ServiceProvider"
