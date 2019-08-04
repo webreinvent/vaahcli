@@ -68,6 +68,23 @@ List of commands:
 - `vaah lv:p-file migration fileName`
 
 
+## VaahCms Generators
+List of commands:
+- `vaah cms:m` : To generate module
+- `vaah cms:m-reset <module_name>` : To reset/delete module files
+
+All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
+- `vaah cms:m:make migration <module> <name>` : To generate module migration
+- `vaah cms:m:make seed <module> <name>` : To generate module seed
+- `vaah cms:m:make model <module> <name>` : To generate module model
+- `vaah cms:m:make controller <module> <name>` : To generate module controller
+- `vaah cms:m:make view <module> <name>` : To generate module view
+- `vaah cms:m:make middleware <module> <name>` : To generate module middleware
+- `vaah cms:m:make observer <module> <name>` : To generate module observer
+- `vaah cms:m:make trait <module> <name>` : To generate module trait
+
+
+
 ## Support us
 
 [WebReinvent](https://www.webreinvent.com) is a web agency based in Delhi, India. You'll find an overview of all our open source projects [on github](https://github.com/webreinvent).

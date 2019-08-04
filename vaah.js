@@ -6,6 +6,7 @@ const {getInstalledPathSync}  = require('get-installed-path');
 
 const vaah = require('./scripts/vaah');
 const laravel = require('./scripts/laravel');
+const vaahcms = require('./scripts/vaahcms');
 
 
 /*
@@ -13,8 +14,8 @@ const laravel = require('./scripts/laravel');
 | Get Package Configurations
 |--------------------------------------------------------------------------
 */
-//global.globalAppEnv = "production";
-global.globalAppEnv = "dev";
+global.globalAppEnv = "production";
+//global.globalAppEnv = "dev";
 global.globalFileSourcePath = null;
 
 if(globalAppEnv == 'dev')
@@ -76,36 +77,81 @@ program
 
 /*
 |--------------------------------------------------------------------------
-| Laravel Commands | vaah laravel make:package
+| Laravel Commands | node vaah laravel:package
 |--------------------------------------------------------------------------
 */
-let questions = laravel.getQuestions();
+let lv_questions = laravel.getQuestions();
 
+
+// node vaah laravel:package
 program
-    .command('laravel make:package')
+    .command('laravel:package')
     .alias('lv:p')
     .action(() => {
-        prompt(questions).then(answers => {
+        prompt(lv_questions).then(answers => {
             laravel.generatePackage(answers);
         })
+    });
 
-});
-
+// node vaah laravel:package-reset
 program
-    .command('laravel make:package-reset')
+    .command('laravel:package-reset')
     .alias('lv:p-reset')
     .action((args) => {
         laravel.resetPackage(args);
     });
 
-
+// node vaah laravel:package-file
 program
-    .command('laravel make:package-file')
+    .command('laravel:package-file')
     .alias('lv:p-file')
     .arguments('<type>')
     .arguments('<name>')
     .action((type, name) => {
         laravel.generateLaravelFiles(type, name);
+    });
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Laravel Commands | node vaah cms:modules
+|--------------------------------------------------------------------------
+*/
+
+// node vaah cms:module
+let cms_questions = vaahcms.getQuestions();
+
+program
+    .command('cms:module')
+    .alias('cms:m')
+    .action(() => {
+        prompt(cms_questions).then(answers => {
+            vaahcms.generatePackage(answers);
+        })
+    });
+
+
+// node vaah cms:module-reset <name>
+program
+    .command('cms:module-reset')
+    .alias('cms:m-reset')
+    .arguments('<module_name>')
+    .action((module_name) => {
+        vaahcms.resetModule(module_name);
+    });
+
+
+// node vaah cms:file <name>
+program
+    .command('cms:module:make')
+    .alias('cms:m:make')
+    .arguments('<type>')
+    .arguments('<module>')
+    .arguments('<name>')
+    .option('-f, --folder [value]', 'Folder Name', "")
+    .action((type, module, name, args) => {
+        vaahcms.generateModuleFiles(type, module, name, args.folder);
     });
 
 
