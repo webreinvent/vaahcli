@@ -13,6 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/<%= package_name_lower %>', function (Request $request) {
+Route::middleware('auth:api')->get('/<%= module_name_lower %>', function (Request $request) {
     return $request->user();
 });

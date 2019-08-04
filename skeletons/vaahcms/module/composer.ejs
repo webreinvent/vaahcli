@@ -1,5 +1,5 @@
 {
-    "name": "<%= vendor_name_lower %>/<%= package_name_lower %>",
+    "name": "<%= vendor_name_lower %>/<%= module_name_lower %>",
     "description": "<%= description %>",
     "authors": [
         {
@@ -13,7 +13,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VaahCms\\Modules\\<%= package_name %>\\Providers\\<%= package_name %>ServiceProvider"
+                "VaahCms\\Modules\\<%= module_name %>\\Providers\\<%= module_name %>ServiceProvider"
             ],
             "aliases": {
             }
@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "VaahCms\\Modules\\<%= package_name %>\\": ""
+            "VaahCms\\Modules\\<%= module_name %>\\": ""
         }
     }
 }

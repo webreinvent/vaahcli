@@ -144,13 +144,14 @@ program
 
 // node vaah cms:file <name>
 program
-    .command('cms:module-file')
-    .alias('cms:m-file')
-    .arguments('<module_name>')
-    .arguments('<file_type>')
-    .arguments('<file_name>')
-    .action((module_name, file_type, file_name) => {
-        vaahcms.generateModuleFiles(module_name, file_type, file_name);
+    .command('cms:module:make')
+    .alias('cms:m:make')
+    .arguments('<type>')
+    .arguments('<module>')
+    .arguments('<name>')
+    .option('-f, --folder [value]', 'Folder Name', "")
+    .action((type, module, name, args) => {
+        vaahcms.generateModuleFiles(type, module, name, args.folder);
     });
 
 
