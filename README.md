@@ -82,6 +82,7 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 - `vaah cms:m:make middleware <module> <name>` : To generate module middleware
 - `vaah cms:m:make observer <module> <name>` : To generate module observer
 - `vaah cms:m:make trait <module> <name>` : To generate module trait
+- `vaah cms:m:make test <module> <name>` : To generate module browser test
 
 
 

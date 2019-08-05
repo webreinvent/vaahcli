@@ -230,6 +230,24 @@ const copyPackageFile =  (file_path, args) => {
             file_name = args.module_name+'ServiceProvider'+'.php';
             break;
 
+        case 'DuskTestCase.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'DuskTestCase.php';
+            break;
+
+        case 'CreatesApplication.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'CreatesApplication.php';
+            break;
+
+        case 'ExampleTest.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'ExampleTest.php';
+            break;
+
         case 'aside-menu.blade.ejs':
         case 'dashboard.blade.ejs':
         case 'app.blade.ejs':
@@ -416,20 +434,27 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
     console.log('test-->', file_name);
 
 
+    let folder_namespace;
+    let folder_path;
 
     if(!folder)
     {
         log.green('Type='+type+" | Module="+module_name+" | Name="+file_name);
+        folder_namespace = folder;
+        folder_path = folder;
     } else
     {
         log.green('Type='+type+" | Module="+module_name+" | Name="+file_name+" | Folder="+folder);
+        folder_namespace = "\\"+folder;
+        folder_path = folder+"/";
     }
 
     log.green("Following files are generated:");
     log.green("========================================");
 
 
-    var types = ["model", "view", "controller", "middleware", "seed", "migration", "trait", "observer"];
+    var types = ["model", "view", "controller", "middleware",
+        "seed", "migration", "trait", "test", "observer"];
     var exist = types.includes(type);
 
 
@@ -443,6 +468,7 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
     let namespace = "VaahCms\\Modules\\"+module_name;
     vaah_config = {
         name:file_name,
+        module_name:module_name,
         namespace: namespace
     };
 
@@ -457,40 +483,40 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
         case 'model':
             console.log('test-->');
             file_content = fs.readFileSync(template_path+'/model.ejs').toString();
-            vaah_config.namespace += "\\Entities\\"+folder;
+            vaah_config.namespace += "\\Entities"+folder_namespace;
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'.php';
-            des_path = des_path+'/Entities/'+folder+"/"+file_name;
+            des_path = des_path+'/Entities/'+folder_path+file_name;
             break;
         case 'view':
             file_content = fs.readFileSync(template_path+'/view.ejs').toString();
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'.blade.php';
-            des_path = des_path+'/Resources/views/'+folder+"/"+file_name;
+            des_path = des_path+'/Resources/views/'+folder_path+file_name;
             break;
         case 'controller':
             file_content = fs.readFileSync(template_path+'/controller.ejs').toString();
-            vaah_config.namespace += "\\Http\\Controllers\\"+folder;
+            vaah_config.namespace += "\\Http\\Controllers"+folder_namespace;
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'Controller.php';
-            des_path = des_path+'/Http/Controllers/'+folder+"/"+file_name;
+            des_path = des_path+'/Http/Controllers/'+folder_path+file_name;
             break;
 
         case 'middleware':
             file_content = fs.readFileSync(template_path+'/middleware.ejs').toString();
-            vaah_config.namespace += "\\Http\\Middleware\\"+folder;
+            vaah_config.namespace += "\\Http\\Middleware"+folder_namespace;
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'.php';
-            des_path = des_path+'/Http/Middleware/'+folder+"/"+file_name;
+            des_path = des_path+'/Http/Middleware/'+folder_path+file_name;
             break;
 
         case 'seed':
             file_content = fs.readFileSync(template_path+'/seed.ejs').toString();
-            vaah_config.namespace += "\\Database\\Seeds\\"+folder;
+            vaah_config.namespace += "\\Database\\Seeds"+folder_namespace;
 
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'TableSeeder.php';
-            des_path = des_path+'/Database/Seeds/'+folder+"/"+file_name;
+            des_path = des_path+'/Database/Seeds/'+folder_path+file_name;
             break;
         case 'migration':
             table_name = vaah_config.name;
@@ -510,27 +536,37 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
 
             file_content = ejs.render(file_content, vaah_config);
             file_name = dateFormat(now, "yyyy_mm_dd_HHMMss_")+vaah_config.name+'.php';
-            des_path = des_path+'/Database/Migrations/'+folder+"/"+file_name;
+            des_path = des_path+'/Database/Migrations/'+folder_path+file_name;
 
             break;
 
         case 'trait':
 
             file_content = fs.readFileSync(template_path+'/trait.ejs').toString();
-            vaah_config.namespace += "\\Traits\\"+folder;
+            vaah_config.namespace += "\\Traits"+folder_namespace;
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'.php';
-            des_path = des_path+'/Traits/'+folder+"/"+file_name;
+            des_path = des_path+'/Traits/'+folder_path+file_name;
 
             break;
 
         case 'observer':
 
             file_content = fs.readFileSync(template_path+'/observer.ejs').toString();
-            vaah_config.namespace += "\\Observers\\"+folder;
+            vaah_config.namespace += "\\Observers\\"+folder_namespace;
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'Observer.php';
-            des_path = des_path+'/Observers/'+folder+"/"+file_name;
+            des_path = des_path+'/Observers/'+folder_path+file_name;
+
+            break;
+
+        case 'test':
+
+            file_content = fs.readFileSync(template_path+'/test.ejs').toString();
+            vaah_config.namespace += "\\Tests\\Browser"+folder_namespace;
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'Test.php';
+            des_path = des_path+'/Tests/Browser/'+folder_path+file_name;
 
             break;
 
