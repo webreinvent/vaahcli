@@ -1,10 +1,10 @@
-<?php namespace <%= namespace %>\Http\Controllers\Admin;
+<?php namespace <%= namespace %>\Http\Controllers\Public;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class DashboardController extends Controller
+class PublicController extends Controller
 {
 
 
@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('<%= module_name_lower %>::admin.pages.dashboard');
+        return 'PublicController';
     }
 
 }

@@ -13,12 +13,13 @@
 
 Route::group(
     [
-        'prefix'     => 'admin/<%= module_name_lower %>',
-        'middleware' => ['web', 'has.admin.access']
+        'prefix'     => '<%= module_name_lower %>',
+        'middleware' => ['web'],
+        'namespace' => ['Public'],
     ],
     function () {
         //------------------------------------------------
-        Route::get( '/', 'DashboardController@index' )
-            ->name( 'vh.admin.<%= module_name_lower %>' );
+        Route::get( '/', 'PublicController@index' )
+        ->name( 'vh.public.<%= module_name_lower %>' );
         //------------------------------------------------
     });

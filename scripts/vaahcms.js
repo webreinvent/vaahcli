@@ -219,6 +219,11 @@ const copyPackageFile =  (file_path, args) => {
             file_content = ejs.render(file_content, args);
             file_name = 'DashboardController.php';
             break;
+        case 'PublicController.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'PublicController.php';
+            break;
         case 'RouteServiceProvider.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
@@ -252,7 +257,7 @@ const copyPackageFile =  (file_path, args) => {
         case 'dashboard.blade.ejs':
         case 'app.blade.ejs':
         case 'api.ejs':
-        case 'web.ejs':
+        case 'public.ejs':
         case 'admin.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
@@ -274,6 +279,18 @@ const copyPackageFile =  (file_path, args) => {
             break;
 
         case 'TopMenuJs.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = file_name_only+'.js';
+            break;
+
+        case 'Dashboard.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = file_name_only+'.vue';
+            break;
+
+        case 'DashboardJs.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = file_name_only+'.js';
