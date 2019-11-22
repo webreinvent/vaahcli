@@ -4,7 +4,7 @@
 	"bin": {
 		"vaah": "./vaah.js"
 	},
-	"version": "0.1.14",
+	"version": "0.1.15",
 	"description": "File generator for rapid development",
 	"main": "./vaah.js",
 	"repository": "git@github.com:webreinvent/vaah.git",
