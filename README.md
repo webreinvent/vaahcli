@@ -68,7 +68,7 @@ List of commands:
 - `vaah lv:p-file migration fileName`
 
 
-## VaahCms Generators
+## VaahCms Module Generators
 List of commands:
 - `vaah cms:m` : To generate module
 - `vaah cms:m-reset <module_name>` : To reset/delete module files
@@ -83,6 +83,22 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 - `vaah cms:m:make observer <module> <name>` : To generate module observer
 - `vaah cms:m:make trait <module> <name>` : To generate module trait
 - `vaah cms:m:make test <module> <name>` : To generate module browser test
+
+## VaahCms Theme Generators
+List of commands:
+- `vaah cms:t` : To generate theme
+- `vaah cms:t-reset <theme_name>` : To reset/delete theme files
+
+All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
+- `vaah cms:t:make migration <theme> <name>` : To generate theme migration
+- `vaah cms:t:make seed <theme> <name>` : To generate theme seed
+- `vaah cms:t:make model <theme> <name>` : To generate theme model
+- `vaah cms:t:make controller <theme> <name>` : To generate theme controller
+- `vaah cms:t:make view <module> <theme>` : To generate theme view
+- `vaah cms:t:make middleware <theme> <name>` : To generate theme middleware
+- `vaah cms:t:make observer <theme> <name>` : To generate theme observer
+- `vaah cms:t:make trait <theme> <name>` : To generate theme trait
+- `vaah cms:t:make test <theme> <name>` : To generate theme browser test
 
 
 

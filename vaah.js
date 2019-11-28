@@ -7,6 +7,7 @@ const {getInstalledPathSync}  = require('get-installed-path');
 const vaah = require('./scripts/vaah');
 const laravel = require('./scripts/laravel');
 const vaahcms = require('./scripts/vaahcms');
+const vaahcms_theme = require('./scripts/vaahcms-theme');
 
 
 /*
@@ -14,8 +15,8 @@ const vaahcms = require('./scripts/vaahcms');
 | Get Package Configurations
 |--------------------------------------------------------------------------
 */
-global.globalAppEnv = "production";
-//global.globalAppEnv = "dev";
+//global.globalAppEnv = "production";
+global.globalAppEnv = "dev";
 global.globalFileSourcePath = null;
 
 if(globalAppEnv == 'dev')
@@ -153,6 +154,59 @@ program
     .action((type, module, name, args) => {
         vaahcms.generateModuleFiles(type, module, name, args.folder);
     });
+
+
+program
+    .command('cms:module')
+    .alias('cms:m')
+    .action(() => {
+        prompt(cms_questions).then(answers => {
+            vaahcms.generatePackage(answers);
+        })
+    });
+
+
+/*
+|--------------------------------------------------------------------------
+| Laravel Commands | node vaah cms:theme
+|--------------------------------------------------------------------------
+*/
+
+// node vaah cms:theme
+let vaahcms_theme_questions = vaahcms_theme.getQuestions();
+
+program
+    .command('cms:theme')
+    .alias('cms:t')
+    .action(() => {
+        prompt(vaahcms_theme_questions).then(answers => {
+            vaahcms_theme.generatePackage(answers);
+        })
+    });
+
+
+// node vaah cms:theme-reset <name>
+program
+    .command('cms:theme-reset')
+    .alias('cms:t-reset')
+    .arguments('<module_name>')
+    .action((theme_name) => {
+        vaahcms_theme.resetTheme(theme_name);
+    });
+
+
+// node vaah cms:theme:make <name>
+program
+    .command('cms:theme:make')
+    .alias('cms:t:make')
+    .arguments('<type>')
+    .arguments('<theme>')
+    .arguments('<name>')
+    .option('-f, --folder [value]', 'Folder Name', "")
+    .action((type, theme, name, args) => {
+        vaahcms_theme.generateModuleFiles(type, theme, name, args.folder);
+    });
+
 
 
 program.parse(process.argv);
