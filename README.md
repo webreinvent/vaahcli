@@ -94,7 +94,7 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 - `vaah cms:t:make seed <theme> <name>` : To generate theme seed
 - `vaah cms:t:make model <theme> <name>` : To generate theme model
 - `vaah cms:t:make controller <theme> <name>` : To generate theme controller
-- `vaah cms:t:make view <module> <theme>` : To generate theme view
+- `vaah cms:t:make view <theme> <theme>` : To generate theme view
 - `vaah cms:t:make middleware <theme> <name>` : To generate theme middleware
 - `vaah cms:t:make observer <theme> <name>` : To generate theme observer
 - `vaah cms:t:make trait <theme> <name>` : To generate theme trait
