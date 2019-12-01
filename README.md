@@ -11,6 +11,14 @@ Please consider starring the project to show your :heart: and support.
 
 :white_check_mark: Laravel Files (migration, model, view, controller, seed )
 
+:white_check_mark: VaahCMS Modules
+
+:white_check_mark: VaahCMS Modules Files  (migration, model, view, controller, seed )
+
+:white_check_mark: VaahCMS Themes
+
+:white_check_mark: VaahCMS Themes Files  (migration, model, view, controller, seed )
+
 
 #### Planned
 :black_square_button: WordPress Theme
