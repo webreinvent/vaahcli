@@ -15,8 +15,8 @@ const vaahcms_theme = require('./scripts/vaahcms-theme');
 | Get Package Configurations
 |--------------------------------------------------------------------------
 */
-//global.globalAppEnv = "production";
-global.globalAppEnv = "dev";
+global.globalAppEnv = "production";
+//global.globalAppEnv = "dev";
 global.globalFileSourcePath = null;
 
 if(globalAppEnv == 'dev')
