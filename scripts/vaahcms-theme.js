@@ -88,7 +88,7 @@ const generatePackage = (args, getNamespace) => {
 
     args.vendor_name_lower = args.vendor_name.toLowerCase();
     args.theme_name_lower = args.theme_name.toLowerCase();
-    args.namespace = args.vendor_name+'\\Theme\\'+args.theme_name;
+    args.namespace = args.vendor_name+'\\Themes\\'+args.theme_name;
     args.year = dateFormat(now, 'yyyy');
 
     generateConfig(args);
