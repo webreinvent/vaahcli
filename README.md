@@ -91,6 +91,8 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 - `vaah cms:m:make observer <module> <name>` : To generate module observer
 - `vaah cms:m:make trait <module> <name>` : To generate module trait
 - `vaah cms:m:make test <module> <name>` : To generate module browser test
+- `vaah cms:m:make event <module> <name>` : To generate module events
+- `vaah cms:m:make listener <module> <name>` : To generate module listener
 
 ## VaahCms Theme Generators
 List of commands:

@@ -229,11 +229,17 @@ const copyPackageFile =  (file_path, args) => {
             file_content = ejs.render(file_content, args);
             file_name = 'RouteServiceProvider.php';
             break;
+        case 'EventServiceProvider.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'EventServiceProvider.php';
+            break;
         case 'ServiceProvider.ejs':
             file_content = fs.readFileSync(file_path).toString();
             file_content = ejs.render(file_content, args);
             file_name = args.module_name+'ServiceProvider'+'.php';
             break;
+
 
         case 'DuskTestCase.ejs':
             file_content = fs.readFileSync(file_path).toString();
@@ -574,6 +580,26 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'Observer.php';
             des_path = des_path+'/Observers/'+folder_path+file_name;
+
+            break;
+
+        case 'event':
+
+            file_content = fs.readFileSync(template_path+'/event.ejs').toString();
+            vaah_config.namespace += "\\Events\\"+folder_namespace;
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'Event.php';
+            des_path = des_path+'/Events/'+folder_path+file_name;
+
+            break;
+
+        case 'listener':
+
+            file_content = fs.readFileSync(template_path+'/listener.ejs').toString();
+            vaah_config.namespace += "\\Listeners\\"+folder_namespace;
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'Listener.php';
+            des_path = des_path+'/Listeners/'+folder_path+file_name;
 
             break;
 
