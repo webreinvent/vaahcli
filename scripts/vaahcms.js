@@ -478,7 +478,8 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
 
     var types = ["model", "view", "controller", "middleware",
         "seed", "migration", "trait", "test",
-        "event", "listener", "observer"
+        "event", "listener", "observer",
+        "mail", "notification"
     ];
     var exist = types.includes(type);
 
@@ -578,7 +579,7 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
         case 'observer':
 
             file_content = fs.readFileSync(template_path+'/observer.ejs').toString();
-            vaah_config.namespace += "\\Observers\\"+folder_namespace;
+            vaah_config.namespace += "\\Observers"+folder_namespace;
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'Observer.php';
             des_path = des_path+'/Observers/'+folder_path+file_name;
@@ -588,7 +589,7 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
         case 'event':
 
             file_content = fs.readFileSync(template_path+'/event.ejs').toString();
-            vaah_config.namespace += "\\Events\\"+folder_namespace;
+            vaah_config.namespace += "\\Events"+folder_namespace;
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'Event.php';
             des_path = des_path+'/Events/'+folder_path+file_name;
@@ -598,10 +599,35 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
         case 'listener':
 
             file_content = fs.readFileSync(template_path+'/listener.ejs').toString();
-            vaah_config.namespace += "\\Listeners\\"+folder_namespace;
+            vaah_config.namespace += "\\Listeners"+folder_namespace;
             file_content = ejs.render(file_content, vaah_config);
             file_name = vaah_config.name+'Listener.php';
             des_path = des_path+'/Listeners/'+folder_path+file_name;
+
+            break;
+
+        case 'mail':
+
+            file_content_email = fs.readFileSync(template_path+'/mailEmail.ejs').toString();
+            file_name_email = vaah_config.name+'Email.blade.php';
+            des_path_email = des_path+'/Resources/views/emails/'+file_name_email;
+            fsSync.write(des_path_email, file_content_email);
+
+            file_content = fs.readFileSync(template_path+'/mail.ejs').toString();
+            vaah_config.namespace += "\\Mails"+folder_namespace;
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'Email.php';
+            des_path = des_path+'/Mails/'+folder_path+file_name;
+
+            break;
+
+        case 'notification':
+
+            file_content = fs.readFileSync(template_path+'/notification.ejs').toString();
+            vaah_config.namespace += "\\Notifications"+folder_namespace;
+            file_content = ejs.render(file_content, vaah_config);
+            file_name = vaah_config.name+'Notification.php';
+            des_path = des_path+'/Notifications/'+folder_path+file_name;
 
             break;
 

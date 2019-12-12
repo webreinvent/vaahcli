@@ -93,6 +93,8 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 - `vaah cms:m:make test <module> <name>` : To generate module browser test
 - `vaah cms:m:make event <module> <name>` : To generate module events
 - `vaah cms:m:make listener <module> <name>` : To generate module listener
+- `vaah cms:m:make mail <module> <name>` : To generate module email
+- `vaah cms:m:make notification <module> <name>` : To generate module notification
 
 ## VaahCms Theme Generators
 List of commands:
