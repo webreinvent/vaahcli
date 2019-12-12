@@ -5,6 +5,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use <%= namespace %>\Providers\RouteServiceProvider;
+use <%= namespace %>\Providers\EventServiceProvider;
 
 class <%= module_name %>ServiceProvider extends ServiceProvider
 {
@@ -43,6 +44,7 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
     {
 
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $this->registerHelpers();
 

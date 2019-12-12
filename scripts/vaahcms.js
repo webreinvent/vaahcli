@@ -477,7 +477,9 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
 
 
     var types = ["model", "view", "controller", "middleware",
-        "seed", "migration", "trait", "test", "observer"];
+        "seed", "migration", "trait", "test",
+        "event", "listener", "observer"
+    ];
     var exist = types.includes(type);
 
 
