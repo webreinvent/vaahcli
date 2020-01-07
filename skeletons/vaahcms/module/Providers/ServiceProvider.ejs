@@ -28,6 +28,7 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerAssets();
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->registerSeeders();
@@ -120,6 +121,21 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
         }, \Config::get('view.paths')), [$sourcePath]), '<%= module_name_lower %>');
 
     }
+
+    /**
+     * Register views.
+     *
+     * @return void
+     */
+    public function registerAssets()
+    {
+        $publish = [
+            __DIR__.'/Resources/assets' => public_path('vaahcms/modules/<%= module_name_lower %>')
+        ];
+
+        $this->publishes($publish, 'assets');
+    }
+
 
     /**
      * Register translations.

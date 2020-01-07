@@ -332,6 +332,12 @@ const copyPackageFile =  (file_path, args) => {
             file_name = 'webpack.mix.js';
             break;
 
+        case 'welcome.blade.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'welcome.blade.php';
+            break;
+
     }
 
     destination = destination+file_name;
