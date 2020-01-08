@@ -1,10 +1,12 @@
 window.Vue = require('vue');
+window.$ = require('jquery');
+window.JQuery = require('jquery');
 
 //---------Package imports
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueRouter from 'vue-router';
-import Vuex from 'vuex'
+import Vuex from 'vuex';
 //---------/Package imports
 
 //---------Configs
@@ -16,11 +18,10 @@ Vue.config.async = false;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 //---------Helpers
-Vue.use(VueResource);
+Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
 Vue.use(Vuex);
 //---------/Helpers
-
 
 //---------Variables
 var base_url = $('base').attr('href');

@@ -127,11 +127,13 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
      */
     public function registerAssets()
     {
-        $publish = [
-            __DIR__.'/Resources/assets' => public_path('vaahcms/themes/<%= theme_name_lower %>')
-        ];
+        $sourcePath = __DIR__.'/../Resources/assets';
 
-        $this->publishes($publish, 'assets');
+        $desPath = public_path('vaahcms/themes/<%= module_name_lower %>/assets';
+
+        $this->publishes([
+            $sourcePath => $desPath
+        ],'assets');
     }
 
 
