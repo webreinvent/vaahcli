@@ -129,7 +129,7 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
     {
         $sourcePath = __DIR__.'/../Resources/assets';
 
-        $desPath = public_path('vaahcms/themes/<%= module_name_lower %>/assets';
+        $desPath = public_path('vaahcms/themes/<%= theme_name_lower %>/assets';
 
         $this->publishes([
             $sourcePath => $desPath

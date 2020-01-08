@@ -15,12 +15,11 @@ const fs_extra = require('fs-extra');
  |
  */
 
-let path = './../../../public/vaahcms/modules/<%= theme_name_lower %>/assets';
+let path = './../../../public/vaahcms/modules/<%= module_name_lower %>/assets';
 
 mix.setPublicPath(path);
 let css_path = path+'/css/';
 
-var path = __dirname+'/Resources/assets/';
 var path_vue = __dirname+"/Vue/app.js";
 
 mix.js(path_vue,  './builds').version();

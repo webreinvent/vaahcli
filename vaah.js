@@ -156,15 +156,6 @@ program
     });
 
 
-program
-    .command('cms:module')
-    .alias('cms:m')
-    .action(() => {
-        prompt(cms_questions).then(answers => {
-            vaahcms.generatePackage(answers);
-        })
-    });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -189,7 +180,7 @@ program
 program
     .command('cms:theme-reset')
     .alias('cms:t-reset')
-    .arguments('<module_name>')
+    .arguments('<theme_name>')
     .action((theme_name) => {
         vaahcms_theme.resetTheme(theme_name);
     });
