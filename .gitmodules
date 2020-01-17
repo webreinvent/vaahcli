@@ -1,0 +1,3 @@
+[submodule "skeletons/vaahnuxt"]
+	path = skeletons/vaahnuxt
+	url = git@github.com:webreinvent/vaahnuxt.git
