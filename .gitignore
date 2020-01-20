@@ -6,3 +6,4 @@ package-lock.json
 src/
 composer.json
 vaah-config.json
+/.nuxt

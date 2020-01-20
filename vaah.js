@@ -8,6 +8,7 @@ const vaah = require('./scripts/vaah');
 const laravel = require('./scripts/laravel');
 const vaahcms = require('./scripts/vaahcms');
 const vaahcms_theme = require('./scripts/vaahcms-theme');
+const nuxt = require('./scripts/nuxt');
 
 
 /*
@@ -16,8 +17,8 @@ const vaahcms_theme = require('./scripts/vaahcms-theme');
 |--------------------------------------------------------------------------
 */
 global.globalAppEnv = "production";
-//global.globalAppEnv = "dev";
-global.globalFileSourcePath = null;
+global.globalAppEnv = "dev";
+//global.globalFileSourcePath = null;
 
 if(globalAppEnv == 'dev')
 {
@@ -199,5 +200,28 @@ program
     });
 
 
+/*
+|--------------------------------------------------------------------------
+| Nuxt | node vaah nuxt:<commands>
+|--------------------------------------------------------------------------
+*/
+
+// node vaah nuxt:install -folder Foo
+program
+    .command('nuxt:install')
+    .alias('nuxt:i')
+    .option('-f, --folder <name>')
+    .action((args) => {
+        nuxt.install(args.folder);
+    });
+
+// node vaah nuxt:update -folder Foo
+program
+    .command('nuxt:update')
+    .alias('nuxt:u')
+    .option('-f, --folder <name>')
+    .action((args) => {
+        nuxt.update(args.folder);
+    });
 
 program.parse(process.argv);
