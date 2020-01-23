@@ -206,7 +206,7 @@ program
 |--------------------------------------------------------------------------
 */
 
-// node vaah nuxt:install -folder Foo
+// node vaah nuxt:install --folder Foo
 program
     .command('nuxt:install')
     .alias('nuxt:i')
