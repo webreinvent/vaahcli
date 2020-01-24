@@ -21,9 +21,11 @@
 		"fs-extra": "^7.0.1",
 		"fs-sync": "^1.0.6",
 		"get-installed-path": "^4.0.8",
+		"https": "^1.0.0",
 		"inquirer": "^3.0.6",
 		"mongoose": "^5.7.5",
 		"path": "^0.12.7",
+		"progress": "^2.0.3",
 		"readline-sync": "^1.4.9"
 	},
 	"globalAppEnv": "production"
