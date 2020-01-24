@@ -9,6 +9,7 @@ let fsExtra = require('fs-extra');
 let dateFormat = require('dateformat');
 var ProgressBar = require('progress');
 var https = require('https');
+const axios = require('axios');
 
 const {getInstalledPathSync}  = require('get-installed-path');
 let now = new Date();
@@ -22,54 +23,77 @@ let now = new Date();
 */
 const install = (name) => {
 
-    /*let template_path = globalFileSourcePath+'/skeletons/vaahnuxt/assets';
-
-    let des = './';
-
-    if(name)
-    {
-        des += name+'/';
-    }
-
-    fsExtra.copySync(template_path, des);*/
-
-    /*var req = https.request({
-        host: 'github.com',
-        port: 443,
-        path: '/webreinvent/vaahnuxt/archive/master.zip'
-    });*/
-
-
     let url;
 
-
-    url = "https://codeload.github.com/webreinvent/vaahnuxt/zip/master";
-    url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
-    url = "http://github.com/webreinvent/vaahnuxt/zipball/master";
-    url = "https://api.github.com/repos/jgm/pandoc/zipball/2.9.1.1";
-    url = "https://codeload.github.com/jgm/pandoc/zip/master";
-    url = "https://codeload.github.com/modernpk/detect/zip/master";
-    url = "https://api.github.com/repos/atom/atom/zipball";
-    url = "https://codeload.github.com/TotallyInformation/alternate-node-red-installer/zip/master";
+    //url = "https://codeload.github.com/webreinvent/vaahnuxt/zip/master";
+    //url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
+    //url = "http://github.com/webreinvent/vaahnuxt/zipball/master";
+    //url = "https://codeload.github.com/jgm/pandoc/zip/master";
+    //url = "https://api.github.com/repos/atom/atom/zipball";
+    //url = "https://codeload.github.com/TotallyInformation/alternate-node-red-installer/zip/master";
+    //url = "https://file-examples.com/wp-content/uploads/2017/02/zip_9MB.zip"; // with this url everything seems working
     url = "https://codeload.github.com/webreinvent/vaahcms/zip/master";
+    //url = "https://codeload.github.com/modernpk/detect/zip/master";
+    //url = "https://api.github.com/repos/jgm/pandoc/zipball/2.9.1.1";
 
 
-    //https://file-examples.com/wp-content/uploads/2017/02/file-sample_1MB.docx
 
-    //https://file-examples.com/wp-content/uploads/2017/02/zip_9MB.zip
 
-    //https://github.com/webreinvent/vaahnuxt/archive/master.zip
 
-    //https://codeload.github.com/TotallyInformation/alternate-node-red-installer/zip/master
+    /*if (fs.existsSync(dest)) {
+        fs.unlink(dest, function (err) {
+            if (err) throw err;
+            // if no error, file has been deleted successfully
+            console.log('File deleted!');
+        });
+    }
 
-    let dest = './file.zip';
+    download(url, dest, afterPackageDownload);*/
 
-    download(url, dest, afterPackageDownload);
+    let dest = 'master.zip';
+    downloadFile(url, dest);
 
     console.info('success | vendor: '+name);
 
 };
 
+
+
+const downloadFile = async function  (url, dest) {
+
+    //delete the file if alre
+    if (fs.existsSync("./"+dest)) {
+        fs.unlink(dest, function (err) {
+            if (err) throw err;
+            // if no error, file has been deleted successfully
+            //console.log('File deleted!');
+        });
+    }
+
+    let inputs = {
+        url: url,
+        method: 'GET',
+        responseType: 'stream'
+    };
+
+    const { data, headers } = await axios(inputs);
+
+    const totalLength = headers['content-length'];
+
+    const progressBar = new ProgressBar('Downloading [:bar] :percent :etas', {
+        width: 40,
+        complete: '=',
+        incomplete: ' ',
+        renderThrottle: 1,
+        total: parseInt(totalLength)
+    });
+
+    const Path = path.resolve(__dirname, './../', 'master.zip');
+    const writer = fs.createWriteStream(Path);
+
+    data.on('data', (chunk) => progressBar.tick(chunk.length));
+    data.pipe(writer);
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -143,4 +167,4 @@ const download = (url, dest, cb) => {
 
 };
 
-module.exports = {install, update};
+module.exports = {install, update, afterPackageDownload, download};
