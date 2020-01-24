@@ -10,6 +10,7 @@ let dateFormat = require('dateformat');
 var ProgressBar = require('progress');
 var https = require('https');
 const axios = require('axios');
+const unzipper = require('unzipper');
 
 const {getInstalledPathSync}  = require('get-installed-path');
 let now = new Date();
@@ -21,7 +22,7 @@ let now = new Date();
 | Install NuxtJs Setup
 |--------------------------------------------------------------------------
 */
-const install = (name) => {
+const install = (folder) => {
 
     let url;
 
@@ -36,37 +37,69 @@ const install = (name) => {
     //url = "https://codeload.github.com/modernpk/detect/zip/master";
     //url = "https://api.github.com/repos/jgm/pandoc/zipball/2.9.1.1";
 
+    let folder_name = null;
+    let source = "";
 
-
-
-
-    /*if (fs.existsSync(dest)) {
-        fs.unlink(dest, function (err) {
-            if (err) throw err;
-            // if no error, file has been deleted successfully
-            console.log('File deleted!');
-        });
+    if(folder)
+    {
+        folder_name = folder;
+        //source = "./"+folder+"/";
     }
 
-    download(url, dest, afterPackageDownload);*/
+    let file_name = 'master.zip';
 
-    let dest = 'master.zip';
-    downloadFile(url, dest);
+    //source += source+file_name;
 
-    console.info('success | vendor: '+name);
+
+    //console.log('--->', source);
+
+    downloadFile(url, file_name, folder_name);
+
+
+ /*   fs.createReadStream(source)
+        .pipe(unzipper.Extract({ path: "./"+folder }));
+*/
 
 };
 
 
+/*
+|--------------------------------------------------------------------------
+| Check Directory Exist if not then create
+|--------------------------------------------------------------------------
+*/
+const checkDirectorySync = function(directory) {
+    try {
+        fs.statSync(directory);
+    } catch(e) {
+        fs.mkdirSync(directory);
+    }
+};
 
-const downloadFile = async function  (url, dest) {
+/*
+|--------------------------------------------------------------------------
+| Download file
+|--------------------------------------------------------------------------
+*/
+const downloadFile = async function  (url, file_name, folder_name) {
+
+    let dest = "";
+    if(folder_name)
+    {
+        checkDirectorySync(folder_name);
+
+        dest += "./"+folder_name+"/";
+    }
+    dest += file_name;
+
+    console.log('--->dest', dest);
 
     //delete the file if alre
-    if (fs.existsSync("./"+dest)) {
+    if (fs.existsSync(dest)) {
         fs.unlink(dest, function (err) {
             if (err) throw err;
             // if no error, file has been deleted successfully
-            //console.log('File deleted!');
+            console.log('File deleted!');
         });
     }
 
@@ -88,7 +121,16 @@ const downloadFile = async function  (url, dest) {
         total: parseInt(totalLength)
     });
 
-    const Path = path.resolve(__dirname, './../', 'master.zip');
+    let path_dest = './../';
+
+    if(folder_name)
+    {
+        path_dest += folder_name+"/";
+    }
+
+    console.log('--->', path_dest);
+
+    const Path = path.resolve(__dirname, path_dest, file_name);
     const writer = fs.createWriteStream(Path);
 
     data.on('data', (chunk) => progressBar.tick(chunk.length));

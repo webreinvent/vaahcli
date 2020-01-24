@@ -27,7 +27,8 @@
 		"mongoose": "^5.7.5",
 		"path": "^0.12.7",
 		"progress": "^2.0.3",
-		"readline-sync": "^1.4.9"
+		"readline-sync": "^1.4.9",
+		"unzipper": "^0.10.7"
 	},
 	"globalAppEnv": "production"
 }
