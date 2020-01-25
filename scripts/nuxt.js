@@ -27,13 +27,13 @@ const install = (folder) => {
     let url;
 
     //url = "https://codeload.github.com/webreinvent/vaahnuxt/zip/master";
-    //url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
     //url = "http://github.com/webreinvent/vaahnuxt/zipball/master";
     //url = "https://codeload.github.com/jgm/pandoc/zip/master";
     //url = "https://api.github.com/repos/atom/atom/zipball";
     //url = "https://codeload.github.com/TotallyInformation/alternate-node-red-installer/zip/master";
     //url = "https://file-examples.com/wp-content/uploads/2017/02/zip_9MB.zip"; // with this url everything seems working
     url = "https://codeload.github.com/webreinvent/vaahcms/zip/master";
+    //url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
     //url = "https://codeload.github.com/modernpk/detect/zip/master";
     //url = "https://api.github.com/repos/jgm/pandoc/zipball/2.9.1.1";
 
@@ -109,32 +109,42 @@ const downloadFile = async function  (url, file_name, folder_name) {
         responseType: 'stream'
     };
 
-    const { data, headers } = await axios(inputs);
 
-    const totalLength = headers['content-length'];
+    try {
+        const { data, headers } = await axios(inputs);
 
-    const progressBar = new ProgressBar('Downloading [:bar] :percent :etas', {
-        width: 40,
-        complete: '=',
-        incomplete: ' ',
-        renderThrottle: 1,
-        total: parseInt(totalLength)
-    });
+        const totalLength = parseInt(headers['content-length'], 10);
 
-    let path_dest = './../';
+        const progressBar = new ProgressBar('Downloading [:bar] :percent :etas', {
+            width: 40,
+            complete: '=',
+            incomplete: ' ',
+            renderThrottle: 1,
+            total: parseInt(totalLength)
+        });
 
-    if(folder_name)
-    {
-        path_dest += folder_name+"/";
+        let path_dest = './../';
+
+        if(folder_name)
+        {
+            path_dest += folder_name+"/";
+        }
+
+        console.log('--->', path_dest);
+
+        const Path = path.resolve(__dirname, path_dest, file_name);
+        const writer = fs.createWriteStream(Path);
+
+        data.on('data', (chunk) => progressBar.tick(chunk.length));
+        data.pipe(writer);
+
+    } catch (e) {
+        console.log(e.response) // undefined
     }
 
-    console.log('--->', path_dest);
 
-    const Path = path.resolve(__dirname, path_dest, file_name);
-    const writer = fs.createWriteStream(Path);
 
-    data.on('data', (chunk) => progressBar.tick(chunk.length));
-    data.pipe(writer);
+
 };
 
 /*
