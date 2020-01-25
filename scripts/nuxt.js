@@ -93,8 +93,7 @@ const downloadFile = async function  (url, file_name, folder_name, callback) {
     if(folder_name)
     {
         checkDirectorySync(folder_name);
-
-        dest += "./"+folder_name+"/";
+        dest += __dirname+"/"+folder_name+"/";
     }
     dest += file_name;
 
@@ -131,7 +130,15 @@ const downloadFile = async function  (url, file_name, folder_name, callback) {
             total: parseInt(totalLength)
         });
 
-        let path_dest = './../';
+        let path_dest;
+
+        if(globalAppEnv == 'dev')
+        {
+            path_dest = './../';
+        } else
+        {
+            path_dest = "./";
+        }
 
         if(folder_name)
         {
@@ -140,7 +147,7 @@ const downloadFile = async function  (url, file_name, folder_name, callback) {
 
         console.log('--->', path_dest);
 
-        const Path = path.resolve(__dirname, path_dest, file_name);
+        const Path = path.resolve('./', path_dest, file_name);
         const writer = fs.createWriteStream(Path);
 
         data.on('data', (chunk) => progressBar.tick(chunk.length));
