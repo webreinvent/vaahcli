@@ -31,34 +31,40 @@ const install = (folder) => {
     //url = "https://codeload.github.com/jgm/pandoc/zip/master";
     //url = "https://api.github.com/repos/atom/atom/zipball";
     //url = "https://codeload.github.com/TotallyInformation/alternate-node-red-installer/zip/master";
-    //url = "https://file-examples.com/wp-content/uploads/2017/02/zip_9MB.zip"; // with this url everything seems working
-    url = "https://codeload.github.com/webreinvent/vaahcms/zip/master";
+    url = "https://file-examples.com/wp-content/uploads/2017/02/zip_9MB.zip"; // with this url everything seems working
+    //url = "https://codeload.github.com/webreinvent/vaahcms/zip/master";
     //url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
     //url = "https://codeload.github.com/modernpk/detect/zip/master";
     //url = "https://api.github.com/repos/jgm/pandoc/zipball/2.9.1.1";
 
     let folder_name = null;
-    let source = "";
 
     if(folder)
     {
         folder_name = folder;
-        //source = "./"+folder+"/";
     }
 
     let file_name = 'master.zip';
 
-    //source += source+file_name;
+    downloadFile(url, file_name, folder_name, afterDownload);
+
+};
 
 
-    //console.log('--->', source);
-
-    downloadFile(url, file_name, folder_name);
-
-
- /*   fs.createReadStream(source)
-        .pipe(unzipper.Extract({ path: "./"+folder }));
+/*
+|--------------------------------------------------------------------------
+| Check Directory Exist if not then create
+|--------------------------------------------------------------------------
 */
+const afterDownload = function(folder_name) {
+    console.log('--->afterDownload-->', folder_name);
+
+
+    let source = './'+folder_name+'/';
+    let file = source+"master.zip";
+
+    fs.createReadStream(file)
+    .pipe(unzipper.Extract({ path: source }));
 
 };
 
@@ -81,7 +87,7 @@ const checkDirectorySync = function(directory) {
 | Download file
 |--------------------------------------------------------------------------
 */
-const downloadFile = async function  (url, file_name, folder_name) {
+const downloadFile = async function  (url, file_name, folder_name, callback) {
 
     let dest = "";
     if(folder_name)
@@ -115,6 +121,8 @@ const downloadFile = async function  (url, file_name, folder_name) {
 
         const totalLength = parseInt(headers['content-length'], 10);
 
+        console.log('--->totalLength', totalLength);
+
         const progressBar = new ProgressBar('Downloading [:bar] :percent :etas', {
             width: 40,
             complete: '=',
@@ -138,12 +146,17 @@ const downloadFile = async function  (url, file_name, folder_name) {
         data.on('data', (chunk) => progressBar.tick(chunk.length));
         data.pipe(writer);
 
+
+        writer.on('finish', function () {
+            console.log('--->Finished' );
+            callback(folder_name);
+        })
+
+
+
     } catch (e) {
         console.log(e.response) // undefined
     }
-
-
-
 
 };
 
