@@ -84,28 +84,16 @@ const afterDownload = function(folder_name) {
     let writer = fs.createReadStream(file)
         .pipe(unzipper.Extract({ path: Path }))
         .on("close", function() {
-            console.log('--->Renamed' );
-
             if(folder_name)
             {
                 fs.renameSync('./vaahnuxt-master', './'+folder_name);
             } else
             {
-
-                fsExtra.copy('./vaahnuxt-master', './')
-                    .then(function () {
-                        fs.unlink('./vaahnuxt-master');
-                    })
-                    .catch(err => console.error(err))
-
-
-                //fsExtra.moveSync('./detect-master', './', { overwrite: true });
-
-                /*let source = fs.createReadStream('./detect-master');
-                let dest = fs.createWriteStream('./');
-                source.pipe(dest);*/
-
+                fsExtra.copySync('./vaahnuxt-master', './');
+                fsExtra.removeSync('./vaahnuxt-master');
             }
+            fsExtra.removeSync("./master.zip");
+
         });
 
 };
