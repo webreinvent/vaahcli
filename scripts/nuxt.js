@@ -125,10 +125,10 @@ const downloadFile = async function  (url, file_name, folder_name, callback) {
     try {
         const { data, headers } = await axios(inputs);
 
-        if(headers['content-length'] === undefined)
+        /*if(headers['content-length'] === undefined)
         {
-            headers['content-length'] = 100
-        }
+            headers['content-length'] = 1
+        }*/
 
         const totalLength = parseInt(headers['content-length'], 10);
 
