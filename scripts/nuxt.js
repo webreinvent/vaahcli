@@ -11,6 +11,7 @@ var ProgressBar = require('progress');
 var https = require('https');
 const axios = require('axios');
 const unzipper = require('unzipper');
+let merge = require('merge-package-json');
 
 const {getInstalledPathSync}  = require('get-installed-path');
 let now = new Date();
@@ -44,9 +45,18 @@ const install = (folder) => {
         folder_name = folder;
     }
 
-    let file_name = 'master.zip';
+    let file_name = 'master-install.zip';
 
-    downloadFile(url, file_name, folder_name, afterDownload);
+    //delete the folder if already
+    if(folder_name)
+    {
+        if (fs.existsSync("./"+folder_name)) {
+            fsExtra.removeSync("./"+folder_name);
+        }
+    }
+
+
+    downloadFile(url, file_name, folder_name, processInstallation);
 
 };
 
@@ -56,30 +66,11 @@ const install = (folder) => {
 | Check Directory Exist if not then create
 |--------------------------------------------------------------------------
 */
-const afterDownload = function(folder_name) {
-    console.log('--->afterDownload');
+const processInstallation = function(folder_name) {
 
-    let dest = './';
-    let file = './master.zip';
-
-
-    if(folder_name)
-    {
-        dest = './';
-        file = './master.zip';
-    } else
-    {
-        dest = "./";
-        file = './master.zip';
-
-
-    }
+    let file = './master-install.zip';
 
     const Path = path.resolve('./', './');
-
-
-    console.log('source --->', file);
-    console.log('dest --->', dest);
 
     let writer = fs.createReadStream(file)
         .pipe(unzipper.Extract({ path: Path }))
@@ -92,10 +83,13 @@ const afterDownload = function(folder_name) {
                 fsExtra.copySync('./vaahnuxt-master', './');
                 fsExtra.removeSync('./vaahnuxt-master');
             }
-            fsExtra.removeSync("./master.zip");
+            fsExtra.removeSync("./master-install.zip");
+
+            log.green('Installation was successful. Run following commands');
+            log.green('npm install');
+            log.green('npm run dev');
 
         });
-
 };
 
 
@@ -119,23 +113,7 @@ const checkDirectorySync = function(directory) {
 */
 const downloadFile = async function  (url, file_name, folder_name, callback) {
 
-    //delete the folder if already
-
-    if(folder_name)
-    {
-        if (fs.existsSync("./"+folder_name)) {
-            fs.unlink("./"+folder_name, function (err) {
-                if (err) throw err;
-                // if no error, file has been deleted successfully
-                console.log('File deleted!');
-            });
-        }
-    }
-
-
     let path_dest = "./";
-
-    console.log('--->path_dest', path_dest);
 
     let inputs = {
         url: url,
@@ -147,31 +125,20 @@ const downloadFile = async function  (url, file_name, folder_name, callback) {
     try {
         const { data, headers } = await axios(inputs);
 
-        console.log('--->', headers['content-length']);
-
-        if(!headers['content-length'])
+        if(headers['content-length'] === undefined)
         {
             headers['content-length'] = 100
         }
 
-        console.log('--->', headers['content-length']);
-
-
-        const totalLength = parseInt(headers['content-length'], 10) | 1;
-
-        console.log('--->totalLength', totalLength);
+        const totalLength = parseInt(headers['content-length'], 10);
 
         const progressBar = new ProgressBar('Downloading [:bar] :percent :etas', {
             width: 40,
             complete: '=',
             incomplete: ' ',
             renderThrottle: 1,
-            total: parseInt(totalLength)
+            total: totalLength
         });
-
-
-
-        console.log('--->', path_dest);
 
         const Path = path.resolve('./', path_dest, file_name);
         const writer = fs.createWriteStream(Path);
@@ -179,16 +146,13 @@ const downloadFile = async function  (url, file_name, folder_name, callback) {
         data.on('data', (chunk) => progressBar.tick(chunk.length));
         data.pipe(writer);
 
-
         writer.on('finish', function () {
-            console.log('--->Finished' );
             callback(folder_name);
         })
 
-
-
     } catch (e) {
-        console.log(e.response) // undefined
+        console.log(e.response); // undefined
+        log.blue("Try again.") // undefined
     }
 
 };
@@ -198,12 +162,25 @@ const downloadFile = async function  (url, file_name, folder_name, callback) {
 | Update NuxtJs Setup
 |--------------------------------------------------------------------------
 */
-const afterPackageDownload = () => {
+const update = (folder) => {
 
-    console.info('Package downloaded ==> ');
+    let url;
+
+    url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
+
+
+    let folder_name = null;
+
+    if(folder)
+    {
+        folder_name = folder;
+    }
+
+    let file_name = 'master-update.zip';
+
+    downloadFile(url, file_name, folder_name, processUpdate);
 
 };
-
 
 
 /*
@@ -211,58 +188,69 @@ const afterPackageDownload = () => {
 | Update NuxtJs Setup
 |--------------------------------------------------------------------------
 */
-const update = (name) => {
 
-    console.info('success | vendor: '+name);
+const processUpdate = (folder_name) => {
+
+
+    let file = './master-update.zip';
+
+    const Path = path.resolve('./', './');
+
+    let writer = fs.createReadStream(file)
+        .pipe(unzipper.Extract({ path: Path }))
+        .on("close", function() {
+
+            let removable = [
+                'nuxt.config.js',
+                'README.md',
+                'LICENSE',
+                '.gitignore',
+                '.editorconfig',
+            ];
+
+            removable.forEach(function (item) {
+                fsExtra.removeSync('./vaahnuxt-master/'+item);
+            });
+
+            let src_path = './vaahnuxt-master/package.json';
+            let dst_path;
+
+            if(folder_name)
+            {
+                dst_path = './'+folder_name+'/package.json';
+            } else
+            {
+                dst_path = './package.json';
+            }
+
+
+            let dst = fs.readFileSync(dst_path);
+            let src = fs.readFileSync(src_path);
+
+            //merge package files
+            let package_data = merge(src, dst, true);
+            fsExtra.outputFileSync(dst_path, package_data);
+            fsExtra.removeSync('./vaahnuxt-master/package.json');
+
+            if(folder_name)
+            {
+                fsExtra.copySync('./vaahnuxt-master', './'+folder_name);
+            } else
+            {
+                fsExtra.copySync('./vaahnuxt-master', './');
+            }
+
+            fsExtra.removeSync('./vaahnuxt-master');
+            fsExtra.removeSync("./master-update.zip");
+
+            log.green('Update was successful. Run following commands');
+            log.green('npm install');
+            log.green('npm run dev');
+
+        });
+
 
 };
 
 
-/*
-|--------------------------------------------------------------------------
-| Update NuxtJs Setup
-|--------------------------------------------------------------------------
-*/
-const download = (url, dest, cb) => {
-
-    console.log('--->url', url);
-
-    const file = fs.createWriteStream(dest);
-    const req = https.get(url, function (response) {
-        response.pipe(file);
-        file.on('finish', function () {
-            file.close(cb);  // close() is async, call cb after close completes.
-        });
-    }).on('error', function (err) { // Handle errors
-        fs.unlink(dest); // Delete the file async. (But we don't check the result)
-        if (cb) cb(err.message);
-    });
-
-
-    req.on('response', function(res){
-
-        var len = parseInt(res.headers['content-length'], 10);
-
-        console.log();
-        var bar = new ProgressBar('downloading [:bar] :rate/bps :percent :etas', {
-            complete: '=',
-            incomplete: ' ',
-            width: 20,
-            total: len
-        });
-
-        res.on('data', function (chunk) {
-            bar.tick(chunk.length);
-        });
-
-        res.on('end', function () {
-            console.log('Download Completed');
-        });
-
-    });
-
-    req.end();
-
-};
-
-module.exports = {install, update, afterPackageDownload, download};
+module.exports = {install, update};
