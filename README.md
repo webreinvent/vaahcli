@@ -112,7 +112,12 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 - `vaah cms:t:make trait <theme> <name>` : To generate theme trait
 - `vaah cms:t:make test <theme> <name>` : To generate theme browser test
 
-
+## VaahNuxt
+List of commands:
+- `vaah nuxt:install` : To install the vaahnuxt
+- `vaah nuxt:install -f <folder>` or - `vaah nuxt:install --folder <folder>`: To install the vaahnuxt in the `<folder>`
+- `vaah nuxt:update` : To update the vaahnuxt
+- `vaah nuxt:update -f <folder>` or - `vaah nuxt:update --folder <folder>`: To update the vaahnuxt in the `<folder>`
 
 ## Support us
 
