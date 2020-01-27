@@ -31,9 +31,9 @@ const install = (folder) => {
     //url = "https://codeload.github.com/jgm/pandoc/zip/master";
     //url = "https://api.github.com/repos/atom/atom/zipball";
     //url = "https://codeload.github.com/TotallyInformation/alternate-node-red-installer/zip/master";
-    url = "https://file-examples.com/wp-content/uploads/2017/02/zip_9MB.zip"; // with this url everything seems working
+    //url = "https://file-examples.com/wp-content/uploads/2017/02/zip_9MB.zip"; // with this url everything seems working
     //url = "https://codeload.github.com/webreinvent/vaahcms/zip/master";
-    //url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
+    url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
     //url = "https://codeload.github.com/modernpk/detect/zip/master";
     //url = "https://api.github.com/repos/jgm/pandoc/zipball/2.9.1.1";
 
@@ -57,14 +57,56 @@ const install = (folder) => {
 |--------------------------------------------------------------------------
 */
 const afterDownload = function(folder_name) {
-    console.log('--->afterDownload-->', folder_name);
+    console.log('--->afterDownload');
+
+    let dest = './';
+    let file = './master.zip';
 
 
-    let source = './'+folder_name+'/';
-    let file = source+"master.zip";
+    if(folder_name)
+    {
+        dest = './';
+        file = './master.zip';
+    } else
+    {
+        dest = "./";
+        file = './master.zip';
 
-    fs.createReadStream(file)
-    .pipe(unzipper.Extract({ path: source }));
+
+    }
+
+    const Path = path.resolve('./', './');
+
+
+    console.log('source --->', file);
+    console.log('dest --->', dest);
+
+    let writer = fs.createReadStream(file)
+        .pipe(unzipper.Extract({ path: Path }))
+        .on("close", function() {
+            console.log('--->Renamed' );
+
+            if(folder_name)
+            {
+                fs.renameSync('./vaahnuxt-master', './'+folder_name);
+            } else
+            {
+
+                fsExtra.copy('./vaahnuxt-master', './')
+                    .then(function () {
+                        fs.unlink('./vaahnuxt-master');
+                    })
+                    .catch(err => console.error(err))
+
+
+                //fsExtra.moveSync('./detect-master', './', { overwrite: true });
+
+                /*let source = fs.createReadStream('./detect-master');
+                let dest = fs.createWriteStream('./');
+                source.pipe(dest);*/
+
+            }
+        });
 
 };
 
@@ -89,24 +131,23 @@ const checkDirectorySync = function(directory) {
 */
 const downloadFile = async function  (url, file_name, folder_name, callback) {
 
-    let dest = "";
+    //delete the folder if already
+
     if(folder_name)
     {
-        checkDirectorySync(folder_name);
-        dest += __dirname+"/"+folder_name+"/";
+        if (fs.existsSync("./"+folder_name)) {
+            fs.unlink("./"+folder_name, function (err) {
+                if (err) throw err;
+                // if no error, file has been deleted successfully
+                console.log('File deleted!');
+            });
+        }
     }
-    dest += file_name;
 
-    console.log('--->dest', dest);
 
-    //delete the file if alre
-    if (fs.existsSync(dest)) {
-        fs.unlink(dest, function (err) {
-            if (err) throw err;
-            // if no error, file has been deleted successfully
-            console.log('File deleted!');
-        });
-    }
+    let path_dest = "./";
+
+    console.log('--->path_dest', path_dest);
 
     let inputs = {
         url: url,
@@ -118,7 +159,17 @@ const downloadFile = async function  (url, file_name, folder_name, callback) {
     try {
         const { data, headers } = await axios(inputs);
 
-        const totalLength = parseInt(headers['content-length'], 10);
+        console.log('--->', headers['content-length']);
+
+        if(!headers['content-length'])
+        {
+            headers['content-length'] = 100
+        }
+
+        console.log('--->', headers['content-length']);
+
+
+        const totalLength = parseInt(headers['content-length'], 10) | 1;
 
         console.log('--->totalLength', totalLength);
 
@@ -130,20 +181,7 @@ const downloadFile = async function  (url, file_name, folder_name, callback) {
             total: parseInt(totalLength)
         });
 
-        let path_dest;
 
-        if(globalAppEnv == 'dev')
-        {
-            path_dest = './../';
-        } else
-        {
-            path_dest = "./";
-        }
-
-        if(folder_name)
-        {
-            path_dest += folder_name+"/";
-        }
 
         console.log('--->', path_dest);
 
