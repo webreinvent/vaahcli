@@ -338,6 +338,12 @@ const copyPackageFile =  (file_path, args) => {
             file_name = 'welcome.blade.php';
             break;
 
+        case 'master.blade.ejs':
+            file_content = fs.readFileSync(file_path).toString();
+            file_content = ejs.render(file_content, args);
+            file_name = 'master.blade.php';
+            break;
+
     }
 
     destination = destination+file_name;
@@ -451,11 +457,6 @@ const replaceAll = (str, find, replace) => {
 */
 const generateThemeFiles = (type, theme_name, file_name, folder) => {
 
-    console.log('file_type-->', type);
-    console.log('test-->', theme_name);
-    console.log('test-->', file_name);
-    console.log('test-->', file_name);
-
 
     let folder_namespace;
     let folder_path;
@@ -472,9 +473,6 @@ const generateThemeFiles = (type, theme_name, file_name, folder) => {
         folder_path = folder+"/";
     }
 
-    log.green("Following files are generated:");
-    log.green("========================================");
-
 
     var types = ["model", "view", "controller", "middleware",
         "seed", "migration", "trait", "test", "observer"];
@@ -483,21 +481,24 @@ const generateThemeFiles = (type, theme_name, file_name, folder) => {
 
     if(!exist)
     {
-        log.red("Unknown command type: `vaah cms:m:make "+type+" "+themee_name+" "+file_name+"`. Check for typos.");
+        log.red("Unknown command type: `vaah cms:t:make "+type+" "+theme_name+" "+file_name+"`. Check for typos.");
         return false;
     }
 
 
     let namespace = "VaahCms\\Themes\\"+theme_name;
+
     vaah_config = {
         name:file_name,
+        name_lower:file_name.toLowerCase(),
         theme_name:theme_name,
+        theme_name_lower: theme_name.toLowerCase(),
         namespace: namespace
     };
 
     let des_path = "./VaahCms/Themes/"+theme_name;
 
-    log.red(globalFileSourcePath);
+    //log.red(globalFileSourcePath);
 
     let template_path  = globalFileSourcePath+"/skeletons/vaahcms/theme-files";
 

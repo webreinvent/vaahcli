@@ -26,7 +26,7 @@ class <%= name %>Email extends Mailable {
      */
     public function build()
     {
-        return $this->view('<%= module_name_lower %>::emails.<%= name_lower %>');
+        return $this->view('<%= theme_name_lower %>::emails.<%= name_lower %>');
     }
 
 }

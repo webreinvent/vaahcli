@@ -2,12 +2,12 @@
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class <%= name %>Email extends Mailable {
+class <%= name %>Notification extends Notification {
 
-    use Queueable, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
@@ -24,9 +24,9 @@ class <%= name %>Email extends Mailable {
      *
      * @return array
      */
-    public function build()
+    public function broadcastOn()
     {
-        return $this->view('<%= module_name_lower %>::emails.<%= name_lower %>');
+        return new PrivateChannel('channel-name');
     }
 
 }
