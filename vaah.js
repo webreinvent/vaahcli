@@ -196,7 +196,7 @@ program
     .arguments('<name>')
     .option('-f, --folder [value]', 'Folder Name', "")
     .action((type, theme, name, args) => {
-        vaahcms_theme.generateModuleFiles(type, theme, name, args.folder);
+        vaahcms_theme.generateThemeFiles(type, theme, name, args.folder);
     });
 
 

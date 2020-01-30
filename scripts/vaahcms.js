@@ -451,11 +451,13 @@ const replaceAll = (str, find, replace) => {
 */
 const generateModuleFiles = (type, module_name, file_name, folder) => {
 
+/*
     console.log('file_type-->', type);
     console.log('test-->', module_name);
     console.log('test-->', file_name);
     console.log('test-->', file_name);
 
+*/
 
     let folder_namespace;
     let folder_path;
@@ -471,9 +473,6 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
         folder_namespace = "\\"+folder;
         folder_path = folder+"/";
     }
-
-    log.green("Following files are generated:");
-    log.green("========================================");
 
 
     var types = ["model", "view", "controller", "middleware",
@@ -494,7 +493,9 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
     let namespace = "VaahCms\\Modules\\"+module_name;
     vaah_config = {
         name:file_name,
+        name_lower:file_name.toLowerCase(),
         module_name:module_name,
+        module_name_lower:module_name.toLowerCase(),
         namespace: namespace
     };
 
