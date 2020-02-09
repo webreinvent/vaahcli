@@ -610,7 +610,7 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
         case 'mail':
 
             file_content_email = fs.readFileSync(template_path+'/mailEmail.ejs').toString();
-            file_name_email = vaah_config.name+'Email.blade.php';
+            file_name_email = vaah_config.name_lower+'.blade.php';
             des_path_email = des_path+'/Resources/views/emails/'+file_name_email;
             fsSync.write(des_path_email, file_content_email);
 
