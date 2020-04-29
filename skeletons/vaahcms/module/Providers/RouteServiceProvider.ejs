@@ -32,8 +32,8 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-        $this->mapAdminRoutes();
-        $this->mapPublicRoutes();
+        $this->mapBackendRoutes();
+        $this->mapFrontendRoutes();
     }
 
     /**
@@ -43,11 +43,11 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapAdminRoutes()
+    protected function mapBackendRoutes()
     {
-        Route::middleware('web')
+        Route::middleware(['web','has.backend.access'])
             ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/admin.php');
+            ->group(__DIR__ . '/../Routes/backend.php');
     }
 
 
@@ -58,11 +58,11 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapPublicRoutes()
+    protected function mapFrontendRoutes()
     {
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/public.php');
+            ->group(__DIR__ . '/../Routes/frontend.php');
     }
 
     /**

@@ -47,7 +47,9 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+
         $this->registerHelpers();
+        $this->registerLibraries();
 
     }
 
@@ -73,13 +75,24 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
 
     }
 
+    /**
+     *
+     */
+    private function registerLibraries()
+    {
+        //load all the helpers
+        foreach (glob(__DIR__.'/Libraries/*.php') as $filename){
+            require_once($filename);
+        }
+    }
+
 
     /**
      *
      */
     private function registerSeeders() {
 
-        //load all the helpers
+        //load all the seeds
         foreach (glob(__DIR__.'/../Database/Seeds/*.php') as $filename){
             require_once($filename);
         }

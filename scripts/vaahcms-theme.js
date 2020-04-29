@@ -32,12 +32,6 @@ const  getQuestions = function () {
         },
         {
             type : 'input',
-            name : 'has_sample_data',
-            default: 'false',
-            message : 'Will your theme contains sample data (true/false): '
-        },
-        {
-            type : 'input',
             name : 'description',
             default: 'description',
             message : 'Enter your theme description: '
@@ -45,7 +39,7 @@ const  getQuestions = function () {
         {
             type : 'input',
             name : 'author_name',
-            default: 'pradeep',
+            default: 'vaah',
             message : 'Enter Author name: '
         },
         {
@@ -62,10 +56,22 @@ const  getQuestions = function () {
         },
         {
             type : 'input',
-            name : 'github_url',
-            default: 'https://github.com/webreinvent/vaahcms',
-            message : 'Enter github repository url: '
-        }
+            name : 'download_link',
+            default: '',
+            message : 'Enter download url: '
+        },
+        {
+            type : 'input',
+            name : 'is_migratable',
+            default: 'true',
+            message : 'Do you want to run migration when activated (true/false): '
+        },
+        {
+            type : 'input',
+            name : 'has_sample_data',
+            default: 'false',
+            message : 'Will your theme contains sample data (true/false): '
+        },
 
     ];
 
@@ -179,6 +185,7 @@ const getDestinationPath =  (file_path, args) => {
     return destination;
 };
 
+
 /*
 |--------------------------------------------------------------------------
 | Copy Package File
@@ -196,154 +203,67 @@ const copyPackageFile =  (file_path, args) => {
     let destination = getDestinationPath(file_path, args);
 
     let file_content = null;
+    file_content = fs.readFileSync(file_path).toString();
+    file_content = ejs.render(file_content, args);
 
     switch(file_name) {
-        case 'config.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'config.php';
-            break;
-        case 'DatabaseTableSeeder.ejs':
-        case 'SampleDataTableSeeder.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = file_name_only+'.php';
-            break;
-        case 'SetupController.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'SetupController.php';
-            break;
-        case 'DashboardController.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'DashboardController.php';
-            break;
-        case 'PublicController.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'PublicController.php';
-            break;
-        case 'RouteServiceProvider.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'RouteServiceProvider.php';
-            break;
-        case 'ServiceProvider.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = args.theme_name+'ServiceProvider'+'.php';
-            break;
-
-        case 'DuskTestCase.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'DuskTestCase.php';
-            break;
-
-        case 'CreatesApplication.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'CreatesApplication.php';
-            break;
-
-        case 'ExampleTest.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'ExampleTest.php';
-            break;
-
-        case 'aside-menu.blade.ejs':
-        case 'dashboard.blade.ejs':
-        case 'app.blade.ejs':
-        case 'api.ejs':
-        case 'public.ejs':
-        case 'admin.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = file_name_only+'.php';
-            break;
-
         case 'app.ejs':
         case 'app-routes.ejs':
         case 'app-store.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = file_name_only+'.js';
             break;
 
         case 'TopMenu.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = file_name_only+'.vue';
             break;
 
         case 'TopMenuJs.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = file_name_only+'.js';
             break;
 
         case 'Dashboard.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = file_name_only+'.vue';
             break;
 
         case 'DashboardJs.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = file_name_only+'.js';
             break;
 
         case '.gitignore.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = '.gitignore';
             break;
 
         case 'composer.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = 'composer.json';
             break;
 
         case 'package.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = 'package.json';
             break;
 
         case 'README.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = 'README.md';
             break;
 
         case 'settings.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = 'settings.json';
             break;
 
         case 'webpack.mix.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
             file_name = 'webpack.mix.js';
             break;
 
-        case 'welcome.blade.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'welcome.blade.php';
+        case '.gitkeep':
+            file_name = '.gitkeep';
             break;
 
-        case 'master.blade.ejs':
-            file_content = fs.readFileSync(file_path).toString();
-            file_content = ejs.render(file_content, args);
-            file_name = 'master.blade.php';
+        case 'ServiceProvider.ejs':
+            file_name = args.theme_name+'ServiceProvider.php';
             break;
 
+        default:
+            file_name = file_name_only+'.php';
+            break;
     }
 
     destination = destination+file_name;
@@ -352,6 +272,7 @@ const copyPackageFile =  (file_path, args) => {
     //log.grey('------------------------------');
 
 };
+
 
 
 /*

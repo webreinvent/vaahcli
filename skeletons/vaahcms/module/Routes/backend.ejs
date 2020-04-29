@@ -13,13 +13,13 @@
 
 Route::group(
     [
-        'prefix'     => '<%= module_name_lower %>',
-        'middleware' => ['web'],
-        'namespace' => 'Public',
+        'prefix'     => 'backend/<%= module_name_lower %>',
+        'middleware' => ['web', 'has.backend.access'],
+        'namespace' => 'Backend',
     ],
     function () {
         //------------------------------------------------
-        Route::get( '/', 'PublicController@index' )
-        ->name( 'vh.public.<%= module_name_lower %>' );
+        Route::get( '/', 'DashboardController@index' )
+            ->name( 'vh.backend.<%= module_name_lower %>' );
         //------------------------------------------------
     });

@@ -27,16 +27,17 @@ const install = (folder) => {
 
     let url;
 
-    //url = "https://codeload.github.com/webreinvent/vaahnuxt/zip/master";
+
     //url = "http://github.com/webreinvent/vaahnuxt/zipball/master";
     //url = "https://codeload.github.com/jgm/pandoc/zip/master";
     //url = "https://api.github.com/repos/atom/atom/zipball";
     //url = "https://codeload.github.com/TotallyInformation/alternate-node-red-installer/zip/master";
     //url = "https://file-examples.com/wp-content/uploads/2017/02/zip_9MB.zip"; // with this url everything seems working
     //url = "https://codeload.github.com/webreinvent/vaahcms/zip/master";
-    url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
+    //url = "https://github.com/webreinvent/vaahnuxt/archive/master.zip";
     //url = "https://codeload.github.com/modernpk/detect/zip/master";
     //url = "https://api.github.com/repos/jgm/pandoc/zipball/2.9.1.1";
+    url = "https://codeload.github.com/webreinvent/vaahnuxt/zip/master";
 
     let folder_name = null;
 
