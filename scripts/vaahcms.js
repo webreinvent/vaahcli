@@ -197,73 +197,21 @@ const copyPackageFile =  (file_path, args) => {
     let file_name_only = file_name_parse.name;
     let file_name_ext = file_name_parse.ext;
 
-
-
     let destination = getDestinationPath(file_path, args);
 
     let file_content = null;
     file_content = fs.readFileSync(file_path).toString();
     file_content = ejs.render(file_content, args);
 
-    switch(file_name) {
-        case 'app.ejs':
-        case 'app-routes.ejs':
-        case 'app-store.ejs':
-            file_name = file_name_only+'.js';
-            break;
 
-        case 'TopMenu.ejs':
-            file_name = file_name_only+'.vue';
-            break;
-
-        case 'TopMenuJs.ejs':
-            file_name = file_name_only+'.js';
-            break;
-
-        case 'Dashboard.ejs':
-            file_name = file_name_only+'.vue';
-            break;
-
-        case 'DashboardJs.ejs':
-            file_name = file_name_only+'.js';
-            break;
-
-        case '.gitignore.ejs':
-            file_name = '.gitignore';
-            break;
-
-        case 'composer.ejs':
-            file_name = 'composer.json';
-            break;
-
-        case 'package.ejs':
-            file_name = 'package.json';
-            break;
-
-        case 'README.ejs':
-            file_name = 'README.md';
-            break;
-
-        case 'settings.ejs':
-            file_name = 'settings.json';
-            break;
-
-        case 'webpack.mix.ejs':
-            file_name = 'webpack.mix.js';
-            break;
-
-        case '.gitkeep':
-            file_name = '.gitkeep';
-            break;
-
-        case 'ServiceProvider.ejs':
-            file_name = args.module_name+'ServiceProvider.php';
-            break;
-
-        default:
-            file_name = file_name_only+'.php';
-            break;
+    if(file_name == "ServiceProvider.php.ejs")
+    {
+        file_name = args.module_name+'ServiceProvider.php';
+    } else
+    {
+        file_name = file_name.replace('.ejs', "");
     }
+
 
     destination = destination+file_name;
     fsSync.write(destination, file_content);
