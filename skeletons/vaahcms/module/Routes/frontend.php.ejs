@@ -19,7 +19,7 @@ Route::group(
     ],
     function () {
         //------------------------------------------------
-        Route::get( '/', 'PublicController@index' )
-        ->name( 'vh.public.<%= module_name_lower %>' );
+        Route::get( '/', 'FrontendController@index' )
+        ->name( 'vh.frontend.<%= module_name_lower %>' );
         //------------------------------------------------
     });

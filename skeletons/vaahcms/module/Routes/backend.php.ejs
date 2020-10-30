@@ -19,7 +19,7 @@ Route::group(
     ],
     function () {
         //------------------------------------------------
-        Route::get( '/', 'DashboardController@index' )
+        Route::get( '/', 'BackendController@index' )
             ->name( 'vh.backend.<%= module_name_lower %>' );
         //------------------------------------------------
     });

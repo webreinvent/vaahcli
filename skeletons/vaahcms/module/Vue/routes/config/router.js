@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {store} from './../store/store';
+import {store} from './../../store/store';
 
 Vue.use(VueRouter);
 
-import middlewarePipeline from './middleware/middlewarePipeline'
+import middlewarePipeline from './middlewarePipeline'
 
 
 let allRoutes = [];
 
-import routes from './routes';
+import routes from './../routes';
 
 //allRoutes = allRoutes.concat(routes);
 allRoutes = routes;

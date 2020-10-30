@@ -37,6 +37,12 @@ class ExtendController extends Controller
     {
         $links = [];
 
+        $list[0] = [
+            'link' => route('vh.backend.<%= module_name_lower %>'),
+            'icon' => 'cubes',
+            'label'=> '<%= module_name %>'
+        ];
+
         $response['status'] = 'success';
         $response['data'] = $links;
 
