@@ -1,27 +1,23 @@
 <?php
 
-$config = array();
+return [
 
-/*
-|--------------------------------------------------------------------------
-| Get Theme Settings
-|--------------------------------------------------------------------------
-*/
-$path = __DIR__."/../settings.json";
-if (File::exists($path)) {
-    $file = File::get($path);
-    $plugin_config = json_decode($file);
-    $config = (array)$plugin_config;
-}
+    "name"=> "<%= theme_name %>",
+    "title"=> "<%= title %>",
+    "slug"=> "<%= theme_name_lower %>",
+    "thumbnail"=> "https://placehold.jp/300x160.png",
+    "excerpt"=> "<%= description %>",
+    "description"=> "<%= description %>",
+    "download_link"=> "<%= download_link %>",
+    "author_name"=> "<%= theme_name_lower %>",
+    "author_website"=> "<%= author_website %>",
+    "version"=> "v0.0.1",
+    "is_migratable"=> <%= is_migratable %>,
+    "is_sample_data_available"=> <%= has_sample_data %>,
+    "db_table_prefix"=> "vh_<%= theme_name_lower %>_",
+    "providers": [
+        "\\VaahCms\\Themes\\<%= theme_name %>\\Providers\\<%= theme_name %>ServiceProvider"
+    ],
+    "aside-menu-order"=> null
 
-/*
-|--------------------------------------------------------------------------
-| Custom Theme Settings
-|--------------------------------------------------------------------------
-*/
-
-$theme_settings = [];
-
-$config = array_merge($config, $theme_settings);
-
-return $config;
+];

@@ -33,6 +33,7 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->registerSeeders();
         $this->registerBladeDirectives();
+        $this->registerBladeComponents();
     }
 
 
@@ -209,4 +210,19 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
         */
 
     }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function registerBladeComponents()
+    {
+
+        /*
+        \Blade::component('example', Example::class);
+        */
+
+    }
+
 }

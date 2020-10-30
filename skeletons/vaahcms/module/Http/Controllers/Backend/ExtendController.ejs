@@ -22,7 +22,6 @@ class ExtendController extends Controller
         return $response;
 
     }
-
     //----------------------------------------------------------
     public static function topRightUserMenu()
     {
@@ -33,7 +32,16 @@ class ExtendController extends Controller
 
         return $response;
     }
+    //----------------------------------------------------------
+    public static function sidebarMenu()
+    {
+        $links = [];
 
+        $response['status'] = 'success';
+        $response['data'] = $links;
+
+        return $response;
+    }
     //----------------------------------------------------------
 
 }

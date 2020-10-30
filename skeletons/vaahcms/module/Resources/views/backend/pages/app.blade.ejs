@@ -1,4 +1,4 @@
-@extends("vaahcms::admin.default.layouts.app")
+@extends("vaahcms::backend.vaahone.layouts.backend")
 
 @section('vaahcms_extend_admin_css')
 
@@ -11,12 +11,18 @@
 
 @section('content')
 
-    <div id="app">
+    <div id="app-<%= module_name_lower %>">
 
-        <top-menu></top-menu>
-        <div class="content-body">
-            <router-view></router-view>
-        </div>
+        <!--sections-->
+        <section class="section">
+            <div class="container">
+                <h1 class="title"><%= module_name %> (Vue)</h1>
+                <h2 class="subtitle">
+                    Your <strong>"<%= module_name %>"</strong> module's dashboard is ready!
+                </h2>
+            </div>
+        </section>
+        <!--sections-->
 
     </div>
 

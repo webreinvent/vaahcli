@@ -1,4 +1,4 @@
-@extends("vaahcms::admin.default.layouts.dashboard")
+@extends("vaahcms::backend.vaahone.layouts.backend")
 
 @section('vaahcms_extend_admin_css')
 
@@ -11,36 +11,17 @@
 
 @section('content')
 
-    <div id="app">
-
-        <!--header-->
-        <div class="row">
-            <div class="col-sm">
-                <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
-                    <!--title-->
-                    <div><h4 class="mg-b-0 tx-spacing--1">Welcome to Dashboard</h4></div>
-                    <!--/title-->
-
-                    <!--header-actions-->
-                    <div class="d-none d-md-block">
-                        <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase">
-                            <i class="fas fa-plus"></i> Add New
-                        </button>
-                    </div>
-                    <!--/header-actions-->
-                </div>
-            </div>
+    <!--sections-->
+    <section class="section">
+        <div class="container">
+            <h1 class="title"><%= module_name %></h1>
+            <h2 class="subtitle">
+                Your <strong>"<%= module_name %>"</strong> module's dashboard is ready!
+            </h2>
         </div>
-        <!--/header-->
+    </section>
+    <!--sections-->
 
-        <!--content-->
-        <div class="row mg-b-10 mg-t-10">
-            <div class="col-sm">
-                <p>Your "<%= module_name %>" module's dashboard is ready!</p>
-            </div>
-        </div>
-        <!--/content-->
 
-    </div>
 
 @endsection
