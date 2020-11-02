@@ -1,11 +1,10 @@
 <?php
 
 return [
-
     "name"=> "<%= theme_name %>",
     "title"=> "<%= title %>",
     "slug"=> "<%= theme_name_lower %>",
-    "thumbnail"=> "https://placehold.jp/300x160.png",
+    "thumbnail"=> "https=>//placehold.jp/300x160.png",
     "excerpt"=> "<%= description %>",
     "description"=> "<%= description %>",
     "download_link"=> "<%= download_link %>",
@@ -15,9 +14,8 @@ return [
     "is_migratable"=> <%= is_migratable %>,
     "is_sample_data_available"=> <%= has_sample_data %>,
     "db_table_prefix"=> "vh_<%= theme_name_lower %>_",
-    "providers": [
+    "providers"=> [
         "\\VaahCms\\Themes\\<%= theme_name %>\\Providers\\<%= theme_name %>ServiceProvider"
     ],
     "aside-menu-order"=> null
-
 ];

@@ -5,6 +5,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use <%= namespace %>\Providers\RouteServiceProvider;
+use <%= namespace %>\Providers\EventServiceProvider;
 
 class <%= theme_name %>ServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,7 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->registerSeeders();
         $this->registerBladeDirectives();
+        $this->registerBladeComponents();
     }
 
 
@@ -44,8 +46,11 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
     {
 
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+
         $this->registerHelpers();
+        $this->registerLibraries();
 
     }
 
@@ -71,13 +76,24 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
 
     }
 
+    /**
+     *
+     */
+    private function registerLibraries()
+    {
+        //load all the helpers
+        foreach (glob(__DIR__.'/Libraries/*.php') as $filename){
+            require_once($filename);
+        }
+    }
+
 
     /**
      *
      */
     private function registerSeeders() {
 
-        //load all the helpers
+        //load all the seeds
         foreach (glob(__DIR__.'/../Database/Seeds/*.php') as $filename){
             require_once($filename);
         }
@@ -127,6 +143,7 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
      */
     public function registerAssets()
     {
+
         $sourcePath = __DIR__.'/../Resources/assets';
 
         $desPath = public_path('vaahcms/themes/<%= theme_name_lower %>/assets');
@@ -134,6 +151,8 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
         $this->publishes([
             $sourcePath => $desPath
         ],'assets');
+
+
     }
 
 
@@ -144,7 +163,7 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('/lang/vaahcms/theme/<%= theme_name_lower %>');
+        $langPath = resource_path('/lang/vaahcms/themes/<%= theme_name_lower %>');
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, '<%= theme_name_lower %>');
@@ -155,7 +174,7 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
 
     /**
      * Register an additional directory of factories.
-     *
+     * 
      * @return void
      */
     public function registerFactories()
@@ -191,4 +210,19 @@ class <%= theme_name %>ServiceProvider extends ServiceProvider
         */
 
     }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function registerBladeComponents()
+    {
+
+        /*
+        \Blade::component('example', Example::class);
+        */
+
+    }
+
 }

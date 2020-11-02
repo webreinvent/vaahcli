@@ -13,17 +13,13 @@
 
 Route::group(
     [
-        'prefix'     => 'backend/<%= module_name_lower %>',
-        'middleware' => ['web', 'has.backend.access'],
-        'namespace' => 'Backend',
+        'prefix'     => '/',
+        'middleware' => ['web'],
+        'namespace' => 'Frontend',
     ],
     function () {
         //------------------------------------------------
-        Route::get( '/', 'BackendController@index' )
-            ->name( 'vh.backend.<%= module_name_lower %>' );
-        //------------------------------------------------
-        //------------------------------------------------
-        Route::post( '/assets', 'BackendController@getAssets' )
-            ->name( 'vh.backend.<%= module_name_lower %>.assets' );
+        Route::get( '/', 'FrontendController@index' )
+        ->name( 'vh.frontend.<%= theme_name_lower %>' );
         //------------------------------------------------
     });

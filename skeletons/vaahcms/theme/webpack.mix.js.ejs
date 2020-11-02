@@ -15,15 +15,14 @@ const fs_extra = require('fs-extra');
  |
  */
 
+let path = './../../../public/vaahcms/themes/<%= theme_name_lower %>/assets';
 
-mix.setPublicPath('./../../../public/vaahcms/themes/<%= theme_name_lower %>/assets');
-let css_path = './../../../public/vaahcms/themes/<%= theme_name_lower %>/assets/css/';
-
-//mix.sass('Resources/assets/sass/site.scss', css_path+'all.css');
-//mix.style('Resources/assets/css/style.css', css_path+'style.css');
+mix.setPublicPath(path);
+let css_path = path+'/css/';
 
 var path_vue = __dirname+"/Vue/app.js";
-mix.js(path_vue,  "./builds");
+
+mix.js(path_vue,  './builds').version();
 
 mix.webpackConfig({
     watchOptions: {
@@ -40,6 +39,7 @@ mix.webpackConfig({
             '/Routes/',
             '/node_modules/',
             '/vendor/',
+
         ]
     }
 });

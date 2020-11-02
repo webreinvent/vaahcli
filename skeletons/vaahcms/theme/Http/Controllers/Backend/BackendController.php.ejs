@@ -15,7 +15,7 @@ class BackendController extends Controller
 
     public function index()
     {
-        return view('<%= module_name_lower %>::backend.pages.index');
+        return view('<%= theme_name_lower %>::backend.pages.index');
     }
 
     public function getAssets(Request $request)

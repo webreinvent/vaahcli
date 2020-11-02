@@ -13,12 +13,17 @@
 
 Route::group(
     [
-        'prefix'     => '/',
-        'middleware' => ['web'],
+        'prefix'     => 'backend/<%= theme_name_lower %>',
+        'middleware' => ['web', 'has.backend.access'],
+        'namespace' => 'Backend',
     ],
     function () {
         //------------------------------------------------
-        Route::get( '/', 'PublicController@index' )
-        ->name( '<%= theme_name_lower %>.index' );
+        Route::get( '/', 'BackendController@index' )
+            ->name( 'vh.backend.<%= theme_name_lower %>' );
+        //------------------------------------------------
+        //------------------------------------------------
+        Route::post( '/assets', 'BackendController@getAssets' )
+            ->name( 'vh.backend.<%= theme_name_lower %>.assets' );
         //------------------------------------------------
     });
