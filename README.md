@@ -151,6 +151,14 @@ node vaah.js cms:m
 node vaah.js cms:t
 ```
 
+#### Step 5:
+Once you're done with the development, comment `global.globalAppEnv = "dev"` and uncomment `global.globalAppEnv = "production"`.
+
+And run following command to publish the package to `npm`:
+```sh
+npm publish
+```
+
 #### Framework
 - https://oclif.io/
 
