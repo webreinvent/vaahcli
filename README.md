@@ -165,6 +165,24 @@ To generate `CHANGELOG.md`, use following command:
 node changelog-generator/index.js
 ```
 
+
+---
+
+### Change Log
+- Install `npm install auto-changelog -g`
+- To generate `CHANGELOG.md`, run `auto-changelog` in the root folder of the project
+
+Maintain following pre-fixes to your commit messages:
+```md
+Added:
+Changed:
+Deprecated:
+Removed:
+Fixed:
+Security:
+```
+
+
 #### Framework
 - https://oclif.io/
 
