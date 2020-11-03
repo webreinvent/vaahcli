@@ -159,6 +159,12 @@ And run following command to publish the package to `npm`:
 npm publish
 ```
 
+#### Step 6: Change log
+To generate `CHANGELOG.md`, use following command:
+```sh
+node changelog-generator/index.js
+```
+
 #### Framework
 - https://oclif.io/
 
