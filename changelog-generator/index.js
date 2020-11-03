@@ -11,6 +11,8 @@ let types = [
     "## Security",
 ];
 
+let changelog_path = "./CHANGELOG.md";
+
 
 //########## CODE TO GENERATE LOG FILE
 
@@ -31,7 +33,13 @@ const commitsArray = output
 
 
 
-const currentChangelog = fs.readFileSync("./CHANGELOG.md", "utf-8");
+if (!fs.existsSync(changelog_path)) {
+    fs.writeFileSync(changelog_path);
+}
+
+const currentChangelog = fs.readFileSync(changelog_path, "utf-8");
+
+
 //const currentVersion = Number(require("./../package.json").version);
 const currentVersion = require("./../package.json").version;
 
