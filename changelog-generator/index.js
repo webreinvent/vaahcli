@@ -11,7 +11,7 @@ let types = [
     "## Security",
 ];
 
-let changelog_path = "./CHANGELOG.md";
+let changelog_path = "./../CHANGELOG.md";
 
 
 //########## CODE TO GENERATE LOG FILE
@@ -138,4 +138,4 @@ types.forEach(type=>{
 });
 
 
-fs.writeFileSync("./CHANGELOG.md", `${newChangelog}${currentChangelog}`);
+fs.writeFileSync(changelog_path, `${newChangelog}${currentChangelog}`);
