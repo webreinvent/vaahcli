@@ -33,14 +33,21 @@ const commitsArray = output
 
 const currentChangelog = fs.readFileSync("./CHANGELOG.md", "utf-8");
 //const currentVersion = Number(require("./../package.json").version);
-const currentVersion = require("./../package.json").version;
+let currentVersion = require("./../package.json").version;
+
 
 
 const newVersion = currentVersion;
 
+console.log('--->', newVersion);
+
+
+
+
 let newChangelog = `# Version ${newVersion} (${
     new Date().toISOString().split("T")[0]
 })\n\n`;
+
 
 
 function findStringBetween(str, start, end) {
@@ -124,4 +131,3 @@ types.forEach(type=>{
 
 
 fs.writeFileSync("./CHANGELOG.md", `${newChangelog}${currentChangelog}`);
-
