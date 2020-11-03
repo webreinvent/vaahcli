@@ -12,7 +12,6 @@ let types = [
 ];
 
 
-
 //########## CODE TO GENERATE LOG FILE
 
 const child = require("child_process");
