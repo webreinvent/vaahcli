@@ -11,7 +11,7 @@ let types = [
     "## Security",
 ];
 
-let changelog_path = "./CHANGELOG.md";
+let changelog_path = "./../CHANGELOG.md";
 
 
 //########## CODE TO GENERATE LOG FILE
