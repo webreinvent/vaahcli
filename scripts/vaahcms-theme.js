@@ -93,6 +93,7 @@ const generatePackage = (args, getNamespace) => {
     args.vendor_name = 'VaahCms';
 
     args.vendor_name_lower = args.vendor_name.toLowerCase();
+    args.theme_name_upper = args.theme_name.toUpperCase();
     args.theme_name_lower = args.theme_name.toLowerCase();
     args.namespace = args.vendor_name+'\\Themes\\'+args.theme_name;
     args.year = dateFormat(now, 'yyyy');
