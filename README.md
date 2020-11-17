@@ -148,6 +148,7 @@ Now you can run `vaah` commands from terminal like:
 ```sh
 node vaah.js lv:p
 node vaah.js cms:m
+node vaah.js cms:m:crud
 node vaah.js cms:t
 ```
 

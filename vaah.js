@@ -7,6 +7,7 @@ const {getInstalledPathSync}  = require('get-installed-path');
 const vaah = require('./scripts/vaah');
 const laravel = require('./scripts/laravel');
 const vaahcms = require('./scripts/vaahcms');
+const vaahcms_module_crud = require('./scripts/vaahcms-module-crud');
 const vaahcms_theme = require('./scripts/vaahcms-theme');
 const nuxt = require('./scripts/nuxt');
 
@@ -16,8 +17,8 @@ const nuxt = require('./scripts/nuxt');
 | Get Package Configurations
 |--------------------------------------------------------------------------
 */
-global.globalAppEnv = "production";
-//global.globalAppEnv = "dev";
+//global.globalAppEnv = "production";
+global.globalAppEnv = "dev";
 //global.globalFileSourcePath = null;
 
 if(globalAppEnv == 'dev')
@@ -154,6 +155,18 @@ program
     .option('-f, --folder [value]', 'Folder Name', "")
     .action((type, module, name, args) => {
         vaahcms.generateModuleFiles(type, module, name, args.folder);
+    });
+
+let vaahcms_module_crud_questions = vaahcms_module_crud.getQuestions();
+
+
+program
+    .command('cms:module:crud')
+    .alias('cms:m:crud')
+    .action(() => {
+        prompt(vaahcms_module_crud_questions).then(answers => {
+            vaahcms_module_crud.generatePackage(answers);
+        })
     });
 
 
