@@ -27,6 +27,7 @@ class <%= model_name %> extends Model {
         'uuid',
         'name',
         'slug',
+        'is_active',
         'created_by',
         'updated_by',
         'deleted_by',
@@ -70,6 +71,26 @@ class <%= model_name %> extends Model {
         return $query->select( array_diff( $this->getTableColumns(),$columns) );
     }
 
+    //-------------------------------------------------
+    public function scopeBetweenDates($query, $from, $to)
+    {
+
+        if($from)
+        {
+            $from = \Illuminate\Support\Carbon::parse($from)
+                ->startOfDay()
+                ->toDateTimeString();
+        }
+
+        if($to)
+        {
+            $to = Carbon::parse($to)
+                ->endOfDay()
+                ->toDateTimeString();
+        }
+
+        $query->whereBetween('updated_at',[$from,$to]);
+    }
     //-------------------------------------------------
     public static function createItem($request)
     {
@@ -214,8 +235,6 @@ class <%= model_name %> extends Model {
 
         $update->name = $input['name'];
         $update->slug = Str::slug($input['slug']);
-        $update->details = $input['details'];
-        $update->is_active = $input['is_active'];
         $update->save();
 
 
@@ -269,7 +288,6 @@ class <%= model_name %> extends Model {
         $response['messages'][] = 'Action was successful';
 
         return $response;
-
 
     }
     //-------------------------------------------------
@@ -381,7 +399,7 @@ class <%= model_name %> extends Model {
             'slug' => 'required|max:150',
         );
 
-        $validator = \Validator::make( $inputs, $rules, $messages);
+        $validator = \Validator::make( $inputs, $rules);
         if ( $validator->fails() ) {
 
             $errors             = errorsToArray($validator->errors());

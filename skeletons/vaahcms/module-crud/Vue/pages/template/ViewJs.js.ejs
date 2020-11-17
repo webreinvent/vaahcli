@@ -1,5 +1,7 @@
 let namespace = '<%= controller_name_lower %>';
 
+
+
 export default {
     computed:{
         root() {return this.$store.getters['root/state']},
@@ -9,10 +11,7 @@ export default {
         item() {return this.$store.getters[namespace+'/state'].active_item},
     },
     components:{
-        ...GlobalComponents,
-        TableTrView,
-        TableTrStatus,
-        TableTrActedBy,
+
     },
     data()
     {

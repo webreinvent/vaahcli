@@ -3,18 +3,18 @@ import <%= controller_name %>Create from "../pages/<%= controller_name_lower %>/
 import <%= controller_name %>View from "./../pages/<%= controller_name_lower %>/View";
 import <%= controller_name %>Edit from "./../pages/<%= controller_name_lower %>/Edit";
 
-import Get<%= model_name %>Assets from './middleware/Get<%= controller_name_lower %>Assets'
+import GetAssets from './middleware/GetAssets'
 import LayoutBackend from "./../layouts/Backend";
 
-let routes=[];
+let routes_<%= controller_name_lower %>=[];
 
-let routes_<%= controller_name_lower %> =     {
+let list =     {
     path: '/<%= controller_name_lower %>',
     component: LayoutBackend,
     props: true,
     meta: {
         middleware: [
-            Get<%= model_name %>Assets
+            GetAssets
         ]
     },
     children: [
@@ -25,7 +25,7 @@ let routes_<%= controller_name_lower %> =     {
             props: true,
             meta: {
                 middleware: [
-                    Get<%= model_name %>Assets
+                    GetAssets
                 ]
             },
             children: [
@@ -36,7 +36,7 @@ let routes_<%= controller_name_lower %> =     {
                     props: true,
                     meta: {
                         middleware: [
-                            Get<%= model_name %>Assets
+                            GetAssets
                         ]
                     },
                 },
@@ -47,7 +47,7 @@ let routes_<%= controller_name_lower %> =     {
                     props: true,
                     meta: {
                         middleware: [
-                            Get<%= model_name %>Assets
+                            GetAssets
                         ]
                     },
                 },
@@ -58,7 +58,7 @@ let routes_<%= controller_name_lower %> =     {
                     props: true,
                     meta: {
                         middleware: [
-                            Get<%= model_name %>Assets
+                            GetAssets
                         ]
                     },
                 }
@@ -70,4 +70,6 @@ let routes_<%= controller_name_lower %> =     {
 };
 
 
-routes.push(routes_<%= controller_name_lower %>);
+routes_<%= controller_name_lower %>.push(list);
+
+export default routes_<%= controller_name_lower %>;

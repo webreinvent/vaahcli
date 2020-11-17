@@ -1,4 +1,0 @@
-export default async function Get<%= model_name %>Assets ({ to, from, next, store }){
-    await store.dispatch('<%= controller_name_lower %>/getAssets');
-    return next()
-}

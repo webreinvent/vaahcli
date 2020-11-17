@@ -17,8 +17,8 @@ const nuxt = require('./scripts/nuxt');
 | Get Package Configurations
 |--------------------------------------------------------------------------
 */
-//global.globalAppEnv = "production";
-global.globalAppEnv = "dev";
+global.globalAppEnv = "production";
+//global.globalAppEnv = "dev";
 //global.globalFileSourcePath = null;
 
 if(globalAppEnv == 'dev')

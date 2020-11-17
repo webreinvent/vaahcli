@@ -119,6 +119,13 @@ const getPackageFiles =  (args) => {
         copyPackageFile(item, args);
     });
 
+    log.green("========================================");
+    log.green('Edit and included respective generated files in following files:');
+    log.green("1: Routes/backend.php");
+    log.green("2: Vue/routes/routes.js");
+    log.green("3: Vue/store/store.js");
+    log.green("========================================");
+
 };
 
 
