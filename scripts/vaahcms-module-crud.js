@@ -197,19 +197,25 @@ const copyPackageFile =  (file_path, args) => {
         case 'routes-template.php':
             file_name = 'routes-'+args.controller_name_lower+".php";
             break;
-        case 'store-template.js':
-            file_name = args.controller_name_lower+".js";
+
+        case 'GetTemplateAssets.js':
+            file_name = 'Get'+args.controller_name+"Assets.js";
             break;
         case 'vue-routes-template.js':
             file_name = 'routes-'+args.controller_name_lower+".js";
             break;
+        case 'store-template.js':
+            file_name = args.controller_name_lower+".js";
+            break;
     }
 
-    if(destination.includes('Vue\\pages\\template'))
+    if(destination.includes('Vue\\pages\\template\\partials'))
+    {
+        destination = getDestinationPrefixPath(args)+'\\Vue\\pages\\'+args.controller_name_lower+"\\partials\\";
+    } else if(destination.includes('Vue\\pages\\template'))
     {
         destination = getDestinationPrefixPath(args)+'\\Vue\\pages\\'+args.controller_name_lower+"\\";
     }
-
 
     destination = destination+file_name;
 

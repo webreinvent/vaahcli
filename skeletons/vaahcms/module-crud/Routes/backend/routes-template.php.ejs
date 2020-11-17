@@ -2,30 +2,31 @@
 
 Route::group(
 [
- 'prefix' => 'routes',
- 'middleware' => ['web'],
+ 'prefix' => 'backend/<%= module_name_lower %>/<%= controller_name_lower %>',
+ 'middleware' => ['web', 'has.backend.access'],
+ 'namespace' => 'Backend',
 ],
 function () {
      //---------------------------------------------------------
-     Route::get('/', 'RoutesController@getIndex')
-    ->name('routes.index');
+     Route::get('/', '<%= controller_name %>Controller@getIndex')
+    ->name('vh.backend.<%= module_name_lower %>.<%= controller_name_lower %>');
      //---------------------------------------------------------
-     Route::any('/assets', 'RoutesController@getAssets')
-    ->name('routes.assets');
+     Route::any('/assets', '<%= controller_name %>Controller@getAssets')
+    ->name('vh.backend.<%= module_name_lower %>.<%= controller_name_lower %>.assets');
      //---------------------------------------------------------
-     Route::post('/create', 'RoutesController@postCreate')
-    ->name('routes.create');
+     Route::post('/create', '<%= controller_name %>Controller@postCreate')
+    ->name('vh.backend.<%= module_name_lower %>.<%= controller_name_lower %>.create');
      //---------------------------------------------------------
-     Route::any('/list', 'RoutesController@getList')
-    ->name('routes.list');
+     Route::any('/list', '<%= controller_name %>Controller@getList')
+    ->name('vh.backend.<%= module_name_lower %>.<%= controller_name_lower %>.list');
      //---------------------------------------------------------
-     Route::any('/item/{uuid}', 'RoutesController@getItem')
-    ->name('routes.item');
+     Route::any('/item/{uuid}', '<%= controller_name %>Controller@getItem')
+    ->name('vh.backend.<%= module_name_lower %>.<%= controller_name_lower %>.item');
      //---------------------------------------------------------
-     Route::post('/store/{uuid}', 'RoutesController@postStore')
-    ->name('routes.store');
+     Route::post('/store/{uuid}', '<%= controller_name %>Controller@postStore')
+    ->name('vh.backend.<%= module_name_lower %>.<%= controller_name_lower %>.store');
      //---------------------------------------------------------
-     Route::post('/actions/{action_name}', 'RoutesController@postActions')
-    ->name('routes.actions');
+     Route::post('/actions/{action_name}', '<%= controller_name %>Controller@postActions')
+    ->name('vh.backend.<%= module_name_lower %>.<%= controller_name_lower %>.actions');
      //---------------------------------------------------------
 });

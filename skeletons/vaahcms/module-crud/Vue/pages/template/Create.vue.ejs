@@ -58,7 +58,7 @@
                         <p class="control">
                             <b-button tag="router-link"
                                       type="is-light"
-                                      :to="{name: 'role.list'}"
+                                      :to="{name: '<%= controller_name_lower %>.list'}"
                                       icon-left="times">
                             </b-button>
                         </p>
@@ -78,29 +78,11 @@
                 <div class="block">
 
                     <b-field label="Name" :label-position="labelPosition">
-                        <b-input name="role-name" dusk="role-name" v-model="new_item.name"></b-input>
+                        <b-input name="<%= controller_name_lower %>-name" dusk="<%= controller_name_lower %>-name" v-model="new_item.name"></b-input>
                     </b-field>
 
                     <b-field label="Slug" :label-position="labelPosition">
-                        <b-input name="role-slug" dusk="role-slug" v-model="new_item.slug"></b-input>
-                    </b-field>
-
-                    <b-field label="Detail" :label-position="labelPosition">
-                        <b-input type="textarea" name="role-detail" dusk="role-detail" v-model="new_item.details"></b-input>
-                    </b-field>
-
-                    <b-field label="Is Active" :label-position="labelPosition">
-                        <b-radio-button name="role-is_active" dusk="role-is_active"
-                                        v-model="new_item.is_active"
-                                        :native-value=1>
-                            <span>Yes</span>
-                        </b-radio-button>
-
-                        <b-radio-button type="is-danger" name="role-is_active" dusk="role-is_active"
-                                        v-model="new_item.is_active"
-                                        :native-value=0>
-                            <span>No</span>
-                        </b-radio-button>
+                        <b-input name="<%= controller_name_lower %>-slug" dusk="<%= controller_name_lower %>-slug" v-model="new_item.slug"></b-input>
                     </b-field>
 
 

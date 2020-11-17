@@ -1,9 +1,4 @@
-import GlobalComponents from '../../vaahvue/helpers/GlobalComponents'
-import TableTrView from '../../vaahvue/reusable/TableTrView'
-import TableTrActedBy from '../../vaahvue/reusable/TableTrActedBy'
-import TableTrStatus from './partials/TableTrStatus'
-
-let namespace = 'roles';
+let namespace = '<%= controller_name_lower %>';
 
 export default {
     computed:{
@@ -99,7 +94,7 @@ export default {
             {
                 //if item does not exist or delete then redirect to list
                 this.update('active_item', null);
-                this.$router.push({name: 'role.list'});
+                this.$router.push({name: '<%= controller_name_lower %>.list'});
             }
         },
         //---------------------------------------------------------------------
@@ -129,7 +124,7 @@ export default {
 
                 if(action == 'bulk-delete')
                 {
-                    this.$router.push({name: 'role.list'});
+                    this.$router.push({name: '<%= controller_name_lower %>.list'});
                 } else
                 {
                     this.getItem();
@@ -195,7 +190,7 @@ export default {
         //---------------------------------------------------------------------
         resetActiveItem: function () {
             this.update('active_item', null);
-            this.$router.push({name:'role.list'});
+            this.$router.push({name:'<%= controller_name_lower %>.list'});
         },
         //---------------------------------------------------------------------
         hasPermission: function(slug)

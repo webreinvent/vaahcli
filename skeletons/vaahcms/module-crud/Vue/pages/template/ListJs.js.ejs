@@ -1,8 +1,7 @@
-import GlobalComponents from '../../vaahvue/helpers/GlobalComponents';
 import ListLargeView from './partials/ListLargeView';
 import ListSmallView from './partials/ListSmallView';
 
-let namespace = 'roles';
+let namespace = '<%= controller_name_lower %>';
 
 export default {
     computed:{
@@ -294,7 +293,7 @@ export default {
         //---------------------------------------------------------------------
         updateActiveItem: function () {
 
-            if(this.$route.fullPath.includes('roles/?')){
+            if(this.$route.fullPath.includes('<%= controller_name_lower %>/?')){
                 this.update('active_item', null);
             }
         },

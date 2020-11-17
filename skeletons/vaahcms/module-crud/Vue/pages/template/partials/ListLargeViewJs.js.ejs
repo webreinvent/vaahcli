@@ -1,4 +1,4 @@
-let namespace = 'roles';
+let namespace = '<%= controller_name_lower %>';
 export default {
     computed: {
         root() {return this.$store.getters['root/state']},
@@ -57,7 +57,7 @@ export default {
         //---------------------------------------------------------------------
         setActiveItem: function (item) {
             this.update('active_item', item);
-            this.$router.push({name: 'role.view', params:{id:item.id}})
+            this.$router.push({name: '<%= controller_name_lower %>.view', params:{id:item.id}})
         },
         //---------------------------------------------------------------------
         changeStatus: function (id) {
@@ -75,16 +75,7 @@ export default {
             this.update('is_list_loading', false);
 
         },
-        //---------------------------------------------------------------------
-        getRolePermission: function (item) {
-            this.update('active_item', item);
-            this.$router.push({name: 'role.perm', params:{id:item.id}})
-        },
-        //---------------------------------------------------------------------
-        getRoleUser: function (item) {
-            this.update('active_item', item);
-            this.$router.push({name: 'role.user', params:{id:item.id}})
-        },
+
         //---------------------------------------------------------------------
         copiedData: function (data) {
 

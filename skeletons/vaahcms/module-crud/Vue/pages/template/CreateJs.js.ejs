@@ -1,8 +1,4 @@
-import GlobalComponents from '../../vaahvue/helpers/GlobalComponents'
-import DatePicker from '../../vaahvue/reusable/DatePicker'
-import AutoComplete from '../../vaahvue/reusable/AutoComplete'
-
-let namespace = 'roles';
+let namespace = '<%= controller_name_lower %>';
 
 export default {
     computed:{
@@ -14,11 +10,6 @@ export default {
         new_item_errors() {return this.$store.getters[namespace+'/state'].new_item_errors},
     },
     components:{
-        ...GlobalComponents,
-        DatePicker,
-        'AutoCompleteTimeZone': AutoComplete,
-        'AutoCompleteCountry': AutoComplete,
-
     },
     data()
     {
@@ -64,17 +55,16 @@ export default {
         //---------------------------------------------------------------------
         onLoad: function()
         {
-            if(!this.hasPermission('can-create-roles'))
+            if(!this.hasPermission('can-create-<%= controller_name_lower %>'))
             {
                 this.update('active_item', null);
-                this.$router.push({name: 'role.list'});
+                this.$router.push({name: '<%= controller_name_lower %>.list'});
                 this.$vaah.toastErrors(['Permission denied']);
             }
 
-
-
             this.updateView();
             this.getAssets();
+
         },
         //---------------------------------------------------------------------
         async getAssets() {
@@ -142,7 +132,7 @@ export default {
         //---------------------------------------------------------------------
         saveAndClose: function () {
             this.update('active_item', null);
-            this.$router.push({name:'role.list'});
+            this.$router.push({name:'<%= controller_name_lower %>.list'});
         },
         //---------------------------------------------------------------------
         saveAndNew: function () {
@@ -152,7 +142,7 @@ export default {
         //---------------------------------------------------------------------
         saveAndClone: function () {
             this.fillNewItem();
-            this.$router.push({name:'role.create'});
+            this.$router.push({name:'<%= controller_name_lower %>.create'});
         },
         //---------------------------------------------------------------------
         getNewItem: function()

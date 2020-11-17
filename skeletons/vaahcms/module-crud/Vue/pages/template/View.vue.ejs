@@ -23,16 +23,16 @@
                                 <small><b>#{{item.id}}</b></small>
                             </b-button>
                         </p>
-                        <p v-if="hasPermission('can-update-roles')" class="control">
+                        <p v-if="hasPermission('can-update-<%= controller_name_lower %>')" class="control">
                             <b-button icon-left="edit"
                                       type="is-light"
                                       tag="router-link"
-                                      :to="{name:'role.edit', params:{id: item.id}}">
+                                      :to="{name:'<%= controller_name_lower %>.edit', params:{id: item.id}}">
                                 Edit
                             </b-button>
                         </p>
 
-                        <p v-if="hasPermission('can-update-roles')" class="control">
+                        <p v-if="hasPermission('can-update-<%= controller_name_lower %>')" class="control">
 
 
                             <b-dropdown aria-role="list" position="is-bottom-left">

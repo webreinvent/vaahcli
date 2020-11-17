@@ -1,12 +1,13 @@
-<?php namespace WebReinvent\VaahCms\Http\Controllers;
+<?php namespace <%= namespace %>\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use VaahCms\Modules\<%= module_name %>\Entities\<%= model_name %>;
 
 
-class RolesController extends Controller
+class <%= controller_name %>Controller extends Controller
 {
 
     public $theme;
@@ -22,23 +23,8 @@ class RolesController extends Controller
     public function getAssets(Request $request)
     {
 
-        if(!\Auth::user()->hasPermission('has-access-of-roles-section'))
-        {
-            $response['status'] = 'failed';
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
-
-        $module = Permission::withTrashed()->select('module')->get()->unique('module');
-
-        $data['country_calling_code'] = vh_get_country_list();
-        $data['country'] = vh_get_country_list();
-        $data['country_code'] = vh_get_country_list();
-        $data['registration_statuses'] = vh_registration_statuses();
-        $data['bulk_actions'] = vh_general_bulk_actions();
-        $data['name_titles'] = vh_name_titles();
-        $data['module'] = $module;
+        $data = [];
+        $data['permission'] = [];
 
         $response['status'] = 'success';
         $response['data'] = $data;
@@ -50,60 +36,26 @@ class RolesController extends Controller
     //----------------------------------------------------------
     public function postCreate(Request $request)
     {
-        if(!\Auth::user()->hasPermission('can-create-roles'))
-        {
-            $response['status'] = 'failed';
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
-
-        $response = Role::create($request);
+        $response = <%= model_name %>::createItem($request);
         return response()->json($response);
     }
     //----------------------------------------------------------
     public function getList(Request $request)
     {
-        if(!\Auth::user()->hasPermission('has-access-of-roles-section'))
-        {
-            $response['status'] = 'failed';
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
-
-        $response = Role::getList($request);
+        $response = <%= model_name %>::getList($request);
         return response()->json($response);
     }
     //----------------------------------------------------------
     public function getItem(Request $request, $id)
     {
-
-        if(!\Auth::user()->hasPermission('can-read-roles'))
-        {
-            $response['status'] = 'failed';
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
-
-        $response = Role::getItem($id);
+        $response = <%= model_name %>::getItem($id);
         return response()->json($response);
-
     }
 
     //----------------------------------------------------------
     public function postStore(Request $request,$id)
     {
-        if(!\Auth::user()->hasPermission('can-update-roles'))
-        {
-            $response['status'] = 'failed';
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
-
-        $response = Role::postStore($request,$id);
+        $response = <%= model_name %>::postStore($request,$id);
         return response()->json($response);
     }
     //----------------------------------------------------------
@@ -134,46 +86,28 @@ class RolesController extends Controller
             //------------------------------------
             case 'bulk-change-status':
 
-                $response = Role::bulkStatusChange($request);
+                $response = <%= model_name %>::bulkStatusChange($request);
 
                 break;
             //------------------------------------
             case 'bulk-trash':
 
-                $response = Role::bulkTrash($request);
+                $response = <%= model_name %>::bulkTrash($request);
 
                 break;
             //------------------------------------
             case 'bulk-restore':
 
-                $response = Role::bulkRestore($request);
+                $response = <%= model_name %>::bulkRestore($request);
 
                 break;
 
             //------------------------------------
             case 'bulk-delete':
 
-                $response = Role::bulkDelete($request);
+                $response = <%= model_name %>::bulkDelete($request);
 
                 break;
-            //------------------------------------
-            case 'toggle_permission_active_status':
-
-                $response = Role::bulkChangePermissionStatus($request);
-
-                break;
-            //------------------------------------
-            case 'toggle_user_active_status':
-
-                $response = Role::bulkChangeUserStatus($request);
-
-                break;
-            //------------------------------------
-            case 'change-role-permission-status':
-
-                $response = Role::bulkPermissionStatusChange($request);
-                break;
-            //------------
             //------------------------------------
             //------------------------------------
 

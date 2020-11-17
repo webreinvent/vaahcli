@@ -1,6 +1,4 @@
-import GlobalComponents from '../../vaahvue/helpers/GlobalComponents'
-
-let namespace = 'roles';
+let namespace = '<%= controller_name_lower %>';
 
 export default {
     props: ['id'],
@@ -11,8 +9,6 @@ export default {
         item() {return this.$store.getters[namespace+'/state'].active_item},
     },
     components:{
-        ...GlobalComponents,
-
     },
     data()
     {
@@ -87,7 +83,7 @@ export default {
             {
                 //if item does not exist or delete then redirect to list
                 this.update('active_item', null);
-                this.$router.push({name: 'role.list'});
+                this.$router.push({name: '<%= controller_name_lower %>.list'});
             }
         },
         //---------------------------------------------------------------------
@@ -127,7 +123,7 @@ export default {
 
                 if(this.local_action === 'save')
                 {
-                    this.$router.push({name: 'role.view', params:{id:this.id}});
+                    this.$router.push({name: '<%= controller_name_lower %>.view', params:{id:this.id}});
                     this.$root.$emit('eReloadItem');
                 }
 
@@ -142,19 +138,19 @@ export default {
         //---------------------------------------------------------------------
         saveAndClose: function () {
             this.update('active_item', null);
-            this.$router.push({name:'role.list'});
+            this.$router.push({name:'<%= controller_name_lower %>.list'});
         },
         //---------------------------------------------------------------------
         saveAndNew: function () {
             this.update('active_item', null);
             this.resetNewItem();
-            this.$router.push({name:'role.create'});
+            this.$router.push({name:'<%= controller_name_lower %>.create'});
         },
         //---------------------------------------------------------------------
         saveAndClone: function () {
             this.fillNewItem();
             this.update('active_item', null);
-            this.$router.push({name:'role.create'});
+            this.$router.push({name:'<%= controller_name_lower %>.create'});
         },
         //---------------------------------------------------------------------
         getNewItem: function()
