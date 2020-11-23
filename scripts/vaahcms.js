@@ -323,7 +323,7 @@ const replaceAll = (str, find, replace) => {
 | Generate Laravel Files
 |--------------------------------------------------------------------------
 */
-const generateModuleFiles = (type, module_name, file_name, folder) => {
+const generateModuleFiles = (type, module_name, file_name, folder='Backend') => {
 
 /*
     console.log('file_type-->', type);
@@ -333,8 +333,15 @@ const generateModuleFiles = (type, module_name, file_name, folder) => {
 
 */
 
+
+
     let folder_namespace;
     let folder_path;
+
+    if(!folder && type=='controller')
+    {
+        folder = 'Backend'
+    }
 
     if(!folder)
     {

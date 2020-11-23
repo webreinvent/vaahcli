@@ -331,6 +331,13 @@ const generateThemeFiles = (type, theme_name, file_name, folder) => {
     let folder_namespace;
     let folder_path;
 
+
+    if(!folder && type=='controller')
+    {
+        folder = 'Frontend'
+    }
+
+
     if(!folder)
     {
         log.green('Type='+type+" | Theme="+theme_name+" | Name="+file_name);
