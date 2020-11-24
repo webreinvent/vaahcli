@@ -5,6 +5,7 @@ let ora = require('ora');
 const execa = require('execa');
 const Listr = require('listr');
 var shell = require('shelljs');
+const { exec } = require('child_process');
 
 
 const chalk = require('chalk');
@@ -15,6 +16,8 @@ const log = console.log;
 export default class CmsInstall extends Command {
   inputs: {[k: string]: any} = {};
   spinner: {[k: string]: any} = {};
+  repo: string = 'https://github.com/webreinvent/vaahcms-ready';
+  target_dir: string = './';
 
 
   static description = 'Install VaahCMS';
@@ -26,9 +29,11 @@ export default class CmsInstall extends Command {
    *---------------------------------------------------
    */
   static flags = {
+    here: flags.boolean({
+      description: 'If you want to VaahCMS in current director',
+      default: false,
+    }),
     help: flags.help({char: 'h'}),
-    name: flags.help({char: 'n'}),
-    force: flags.boolean({char: 'f'}),
   };
 
 
@@ -37,7 +42,13 @@ export default class CmsInstall extends Command {
    * Command Arguments
    *---------------------------------------------------
    */
-  static args = [{name: 'Project Name'}];
+  static args = [
+    {
+      name: 'project_name',
+      description: 'Enter the project folder name',
+      default: 'vaahcms',
+    }
+  ];
 
 
   /*
@@ -49,10 +60,20 @@ export default class CmsInstall extends Command {
 
     const {args, flags} = this.parse(CmsInstall);
 
+
+    if(!flags.here)
+    {
+      this.target_dir = this.target_dir+args.project_name+"/";
+    }
+
+
+    if (!fs.existsSync(this.target_dir)){
+      fs.mkdirSync(this.target_dir);
+    }
+
+
     await this.spin();
     await this.install();
-
-
 
   }
 
@@ -65,26 +86,16 @@ export default class CmsInstall extends Command {
         task: () => new Promise((resolve, reject) => {
           {
 
-            const folder = './../repo-download-test/vaahcms-ready/';
-            const path = './../repo-download-test/vaahcms-ready';
-
-            fs.rmdirSync(folder, { recursive: true });
-
-            //shell.cd(path);
-            //execa('git clone https://github.com/webreinvent/vaahcms-ready');
+            shell.cd(this.target_dir);
 
             let options = [
               'clone',
-              'https://github.com/webreinvent/vaahcms-ready',
-              path
+              this.repo,
+              this.target_dir
             ] ;
 
             let git = execa('git', options);
 
-            fs.rmdirSync(folder+'.git/', { recursive: true });
-
-
-            //const cmd = execa('npm', ['run', 'test']);
             git.then(resolve)
               .catch(() => {
                 reject(new Error('Failed'));
@@ -100,15 +111,21 @@ export default class CmsInstall extends Command {
         task: () => new Promise((resolve, reject) => {
           {
 
-            const folder = './../repo-download-test/vaahcms-ready/';
 
-            shell.cd(folder);
+            shell.cd(this.target_dir);
+
+            fs.rmdirSync(this.target_dir+'.git/', { recursive: true });
 
             let options = [
               'install',
             ];
 
-            let composer = execa('composer', options);
+            let composer = execa('composer', options, {
+              buffer: true,
+              stderr: "inherit"
+            });
+
+            composer.stdout.pipe(process.stdout);
 
             composer.then(resolve)
               .catch(() => {
@@ -120,17 +137,37 @@ export default class CmsInstall extends Command {
         })
       },
       {
-        title: 'Run tests',
-        task: () => execa('npm', ['install'])
-      }
-      /*{
-        title: 'Run tests',
-        task: () => execa('npm', ['test'])
+        title: 'Configuring VaahCMS',
+        task: () => new Promise((resolve, reject) => {
+          {
+
+            shell.cd(this.target_dir);
+
+            let options = [
+              'artisan',
+              'vendor:publish',
+              '--provider="WebReinvent\\VaahCms\\VaahCmsServiceProvider"',
+              '--tag=assets',
+              '--force',
+            ];
+
+            let command = execa('php', options, {
+              buffer: true,
+              stderr: "inherit"
+            });
+
+            command.stdout.pipe(process.stdout);
+
+            command.then(resolve)
+              .catch(() => {
+                reject(new Error('Failed'));
+              });
+
+            return command;
+          }
+        })
       },
-      {
-        title: 'Publish package',
-        task: () => execa('npm', ['publish'])
-      }*/
+
     ]);
 
     tasks.run().then(()=>{
@@ -145,19 +182,48 @@ export default class CmsInstall extends Command {
   //-----------------------------------
   async spin() {
 
-    let options = {
-      spinner: 'toggle9'
+
+    this.spinner = ora();
+
+
+    this.spinner.start('Installing VaahCMS...');
+
+    this.spinner._spinner = {
+      "interval": 80,
+      "frames": [
+        "⠋",
+        "⠙",
+        "⠹",
+        "⠸",
+        "⠼",
+        "⠴",
+        "⠦",
+        "⠧",
+        "⠇",
+        "⠏"
+      ]
     };
 
-    this.spinner = ora(options);
-
-
-    this.spinner.start('Spinning');
   }
   //-----------------------------------
   async spinStop()
   {
+
     this.spinner.succeed();
+
+    log(chalk.red(`
+ /\\   /\\ __ _   __ _ | |__    / __\\ /\\/\\  / _\\
+ \\ \\ / // _\` | / _\` || '_ \\  / /   /    \\ \\ \\
+  \\ V /| (_| || (_| || | | |/ /___/ /\\/\\ \\_\\ \\
+   \\_/  \\__,_| \\__,_||_| |_|\\____/\\/    \\/\\__/
+`));
+
+    log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
+
+    log(chalk.green("=================================================================="));
+    log("Run "+chalk.green("php artisan server")+" and visit following url to setup:");
+    log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
+    log(chalk.green("=================================================================="));
 
   }
   //-----------------------------------

@@ -77,6 +77,10 @@ List of commands:
 - `vaah lv:p-file migration fileName`
 
 
+## VaahCms Installer
+- `vaah cms:install [FOLDER]` : To install VaahCMS
+- `vaah cms:install --here` : To install VaahCMS in current director
+
 ## VaahCms Module Generators
 List of commands:
 - `vaah cms:m` : To generate module
