@@ -128,12 +128,13 @@ Run `npm install`
 
 
 #### Step 4:
-Now you can run `vaah` commands from terminal like:
+Now you can run `vaah` commands in development mode from terminal like:
 ```sh
-bin\run vaah lv:p
-bin\run vaah cms:m
-bin\run vaah cms:m:crud
-bin\run vaah cms:t
+bin\run [COMMAND]
+bin\run lv:p
+bin\run cms:m
+bin\run cms:m:crud
+bin\run cms:t
 ```
 
 #### Step 5:
