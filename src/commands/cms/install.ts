@@ -1,15 +1,20 @@
 import {Command, flags} from '@oclif/command'
 
+let fs = require('fs');
+let ora = require('ora');
 const execa = require('execa');
 const Listr = require('listr');
+var shell = require('shelljs');
 
 
 const chalk = require('chalk');
+
 const log = console.log;
 
 
 export default class CmsInstall extends Command {
   inputs: {[k: string]: any} = {};
+  spinner: {[k: string]: any} = {};
 
 
   static description = 'Install VaahCMS';
@@ -44,70 +49,120 @@ export default class CmsInstall extends Command {
 
     const {args, flags} = this.parse(CmsInstall);
 
+    await this.spin();
+    await this.install();
 
+
+
+  }
+
+  //-----------------------------------
+  async install()
+  {
     const tasks = new Listr([
       {
-        title: 'Git',
-        task: async () => {
+        title: 'Downloading Repository',
+        task: () => new Promise((resolve, reject) => {
+          {
 
-          const {stdout} = await execa('echo', ['unicorns']);
-          console.log(stdout);
+            const folder = './../repo-download-test/vaahcms-ready/';
+            const path = './../repo-download-test/vaahcms-ready';
 
+            fs.rmdirSync(folder, { recursive: true });
 
-          /*return new Listr([
-            {
-              title: 'Checking git status',
-              task: () => execa.stdout('git', ['status', '--porcelain']).then((result: string) => {
-                if (result !== '') {
-                  throw new Error('Unclean working tree. Commit or stash changes first.');
-                }
-              })
-            },
-            {
-              title: 'Checking remote history',
-              task: () => execa.stdout('git', ['rev-list', '--count', '--left-only', '@{u}...HEAD']).then((result: string) => {
-                if (result !== '0') {
-                  throw new Error('Remote history differ. Please pull changes.');
-                }
-              })
-            }
-          ], {concurrent: true});*/
+            //shell.cd(path);
+            //execa('git clone https://github.com/webreinvent/vaahcms-ready');
+
+            let options = [
+              'clone',
+              'https://github.com/webreinvent/vaahcms-ready',
+              path
+            ] ;
+
+            let git = execa('git', options);
+
+            fs.rmdirSync(folder+'.git/', { recursive: true });
 
 
+            //const cmd = execa('npm', ['run', 'test']);
+            git.then(resolve)
+              .catch(() => {
+                reject(new Error('Failed'));
+              });
 
 
-        }
+            return git;
+          }
+        })
       },
       {
-        title: 'Install package dependencies with Yarn',
-        task: (ctx: { yarn: boolean; }, task: { skip: (arg0: string) => void; }) => execa('yarn')
-          .catch(() => {
-            ctx.yarn = false;
+        title: 'Installing Dependencies via Composer',
+        task: () => new Promise((resolve, reject) => {
+          {
 
-            task.skip('Yarn not available, install it via `npm install -g yarn`');
-          })
+            const folder = './../repo-download-test/vaahcms-ready/';
+
+            shell.cd(folder);
+
+            let options = [
+              'install',
+            ];
+
+            let composer = execa('composer', options);
+
+            composer.then(resolve)
+              .catch(() => {
+                reject(new Error('Failed'));
+              });
+
+            return composer;
+          }
+        })
       },
       {
-        title: 'Install package dependencies with npm',
-        enabled: (ctx: { yarn: boolean; }) => ctx.yarn === false,
+        title: 'Run tests',
         task: () => execa('npm', ['install'])
-      },
-      {
+      }
+      /*{
         title: 'Run tests',
         task: () => execa('npm', ['test'])
       },
       {
         title: 'Publish package',
         task: () => execa('npm', ['publish'])
-      }
+      }*/
     ]);
 
-    tasks.run().catch((err: any) => {
+    tasks.run().then(()=>{
+      this.spinStop();
+    }).catch((err: any) => {
       console.error(err);
     });
 
+  }
+  //-----------------------------------
+  //-----------------------------------
+  //-----------------------------------
+  async spin() {
+
+    let options = {
+      spinner: 'toggle9'
+    };
+
+    this.spinner = ora(options);
+
+
+    this.spinner.start('Spinning');
+  }
+  //-----------------------------------
+  async spinStop()
+  {
+    this.spinner.succeed();
 
   }
+  //-----------------------------------
+  //-----------------------------------
+  //-----------------------------------
 
 
 }
