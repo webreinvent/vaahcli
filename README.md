@@ -80,7 +80,6 @@ List of commands:
 ## VaahCms Module Generators
 List of commands:
 - `vaah cms:m` : To generate module
-- `vaah cms:m-reset <module_name>` : To reset/delete module files
 
 All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
 - `vaah cms:m:make migration <module> <name>` : To generate module migration
@@ -100,7 +99,7 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 ## VaahCms Theme Generators
 List of commands:
 - `vaah cms:t` : To generate theme
-- `vaah cms:t-reset <theme_name>` : To reset/delete theme files
+
 
 All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
 - `vaah cms:t:make migration <theme> <name>` : To generate theme migration
@@ -136,6 +135,11 @@ bin\run lv:p
 bin\run cms:m
 bin\run cms:m:crud
 bin\run cms:t
+```
+
+*Windows: If you want to debug the command then run following command first on:
+```shell script
+set DEBUG=*
 ```
 
 #### Step 5:
@@ -189,41 +193,56 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah hello`](#vaah-hello)
+* [`vaah cms:install [FILE]`](#vaah-cmsinstall-file)
+* [`vaah cms:m [FILE]`](#vaah-cmsm-file)
+* [`vaah hello [FILE]`](#vaah-hello-file)
 * [`vaah help [COMMAND]`](#vaah-help-command)
 
-## `vaah cms:m`
+## `vaah cms:install [FILE]`
 
 ```
 USAGE
-  $ vaah cms:m
+  $ vaah cms:install [FILE]
 
 OPTIONS
+  -f, --force
+  -h, --help       show CLI help
   -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
 ```
 
-_See code: [src/commands/cms/m.js](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/cms/m.js)_
+_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/cms/install.ts)_
 
-## `vaah hello`
+## `vaah cms:m [FILE]`
 
 ```
 USAGE
+  $ vaah cms:m [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help   show CLI help
+  -n, --name   show CLI help
+```
+
+_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/cms/m.ts)_
+
+## `vaah hello [FILE]`
+
+```
+USAGE
+  $ vaah hello [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+
+EXAMPLE
   $ vaah hello
-
-OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  hello world from ./src/hello.ts!
 ```
 
-_See code: [src/commands/hello.js](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/hello.js)_
+_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/hello.ts)_
 
 ## `vaah help [COMMAND]`
 
@@ -240,6 +259,12 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
 <!-- commandsstop -->
+
+
+
+
+#### Oclif Docs:
+- Spinner - https://oclif.io/docs/spinner 
 
 
 #### Framework
