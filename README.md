@@ -131,6 +131,7 @@ Run `npm install`
 Now you can run `vaah` commands in development mode from terminal like:
 ```sh
 bin\run [COMMAND]
+bin\run DEBUG=* [COMMAND] //for command debbuging
 bin\run lv:p
 bin\run cms:m
 bin\run cms:m:crud
@@ -168,6 +169,7 @@ Security:
 ---
 
 <!-- toc -->
+* [Vaah](#vaah)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -187,8 +189,25 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`vaah cms:m`](#vaah-cmsm)
 * [`vaah hello`](#vaah-hello)
 * [`vaah help [COMMAND]`](#vaah-help-command)
+
+## `vaah cms:m`
+
+```
+USAGE
+  $ vaah cms:m
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/cms/m.js](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/cms/m.js)_
 
 ## `vaah hello`
 
