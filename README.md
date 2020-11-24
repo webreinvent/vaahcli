@@ -4,27 +4,27 @@
 
 Please consider starring the project to show your :heart: and support.
 
+
 ## Feature Roadmap
 
 #### Completed
-:white_check_mark: Laravel Package Development
-
-:white_check_mark: Laravel Files (migration, model, view, controller, seed )
-
-:white_check_mark: VaahCMS Modules
-
-:white_check_mark: VaahCMS Modules Files  (migration, model, view, controller, seed )
-
-:white_check_mark: VaahCMS Themes
-
-:white_check_mark: VaahCMS Themes Files  (migration, model, view, controller, seed )
-
+:white_check_mark: VaahCMS Installer
+:white_check_mark: VaahCMS Module Generator
 
 #### Planned
+:black_square_button: Laravel Package Development
+
+:black_square_button: Laravel Files (migration, model, view, controller, seed )
+
+:black_square_button: VaahCMS Modules Files  (migration, model, view, controller, seed )
+
+:black_square_button: VaahCMS Themes
+
+:black_square_button: VaahCMS Themes Files  (migration, model, view, controller, seed )
+
 :black_square_button: WordPress Theme
 
 :black_square_button: WordPress Plugin
-
 
 
 ## Install
@@ -34,6 +34,7 @@ Install with [npm](https://www.npmjs.com/):
 ```sh
 npm install -g vaah
 ```
+
 
 ## Laravel Generators
 
@@ -76,10 +77,13 @@ List of commands:
 - `vaah lv:p-file migration fileName`
 
 
+## VaahCms Installer
+- `vaah cms:install [FOLDER]` : To install VaahCMS
+- `vaah cms:install --here` : To install VaahCMS in current director
+
 ## VaahCms Module Generators
 List of commands:
 - `vaah cms:m` : To generate module
-- `vaah cms:m-reset <module_name>` : To reset/delete module files
 
 All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
 - `vaah cms:m:make migration <module> <name>` : To generate module migration
@@ -99,7 +103,7 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 ## VaahCms Theme Generators
 List of commands:
 - `vaah cms:t` : To generate theme
-- `vaah cms:t-reset <theme_name>` : To reset/delete theme files
+
 
 All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
 - `vaah cms:t:make migration <theme> <name>` : To generate theme migration
@@ -112,17 +116,10 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 - `vaah cms:t:make trait <theme> <name>` : To generate theme trait
 - `vaah cms:t:make test <theme> <name>` : To generate theme browser test
 
-## VaahNuxt
-List of commands:
-- `vaah nuxt:install` : To install the vaahnuxt
-- `vaah nuxt:install -f <folder>` or - `vaah nuxt:install --folder <folder>`: To install the vaahnuxt in the `<folder>`
-- `vaah nuxt:update` : To update the vaahnuxt
-- `vaah nuxt:update -f <folder>` or - `vaah nuxt:update --folder <folder>`: To update the vaahnuxt in the `<folder>`
 
 ## Support us
 
 [WebReinvent](https://www.webreinvent.com) is a web agency based in Delhi, India. You'll find an overview of all our open source projects [on github](https://github.com/webreinvent).
-
 
 ## Setup Development Environment 
 
@@ -132,30 +129,25 @@ Clone this repository
 #### Step 2:
 Run `npm install`
 
-#### Step 3:
-Change following variable, comment `global.globalAppEnv = "production"` and uncomment `global.globalAppEnv = "dev"`:
-
-```javascript
-...
-//global.globalAppEnv = "production";
-global.globalAppEnv = "dev";
-...
-
-```
 
 #### Step 4:
-Now you can run `vaah` commands from terminal like:
+Now you can run `vaah` commands in development mode from terminal like:
 ```sh
-node vaah.js lv:p
-node vaah.js cms:m
-node vaah.js cms:m:crud
-node vaah.js cms:t
+bin\run [COMMAND]
+bin\run DEBUG=* [COMMAND] //for command debbuging
+bin\run lv:p
+bin\run cms:m
+bin\run cms:m:crud
+bin\run cms:t
+```
+
+*Windows: If you want to debug the command then run following command first on:
+```shell script
+set DEBUG=*
 ```
 
 #### Step 5:
-Once you're done with the development, comment `global.globalAppEnv = "dev"` and uncomment `global.globalAppEnv = "production"`.
-
-And run following command to publish the package to `npm`:
+Run following command to publish the package to `npm`:
 ```sh
 npm publish
 ```
@@ -163,9 +155,8 @@ npm publish
 #### Step 6: Change log
 To generate `CHANGELOG.md`, use following command:
 ```sh
-node changelog-generator/index.js
+auto-changelog
 ```
-
 
 ---
 
@@ -182,6 +173,102 @@ Removed:
 Fixed:
 Security:
 ```
+
+---
+
+<!-- toc -->
+* [Vaah](#vaah)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
+# Usage
+<!-- usage -->
+```sh-session
+$ npm install -g vaah
+$ vaah COMMAND
+running command...
+$ vaah (-v|--version|version)
+vaah/1.0.0 win32-x64 node-v12.16.1
+$ vaah --help [COMMAND]
+USAGE
+  $ vaah COMMAND
+...
+```
+<!-- usagestop -->
+# Commands
+<!-- commands -->
+* [`vaah cms:install [FILE]`](#vaah-cmsinstall-file)
+* [`vaah cms:m [FILE]`](#vaah-cmsm-file)
+* [`vaah hello [FILE]`](#vaah-hello-file)
+* [`vaah help [COMMAND]`](#vaah-help-command)
+
+## `vaah cms:install [FILE]`
+
+```
+USAGE
+  $ vaah cms:install [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/cms/install.ts)_
+
+## `vaah cms:m [FILE]`
+
+```
+USAGE
+  $ vaah cms:m [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help   show CLI help
+  -n, --name   show CLI help
+```
+
+_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/cms/m.ts)_
+
+## `vaah hello [FILE]`
+
+```
+USAGE
+  $ vaah hello [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+
+EXAMPLE
+  $ vaah hello
+  hello world from ./src/hello.ts!
+```
+
+_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/hello.ts)_
+
+## `vaah help [COMMAND]`
+
+```
+USAGE
+  $ vaah help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
+<!-- commandsstop -->
+
+
+
+
+#### Oclif Docs:
+- Spinner - https://oclif.io/docs/spinner 
 
 
 #### Framework

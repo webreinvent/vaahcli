@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factory;
 use <%= namespace %>\Providers\RouteServiceProvider;
 use <%= namespace %>\Providers\EventServiceProvider;
 
-class <%= module_name %>ServiceProvider extends ServiceProvider
+class ServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -174,7 +174,7 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
 
     /**
      * Register an additional directory of factories.
-     * 
+     *
      * @return void
      */
     public function registerFactories()

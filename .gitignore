@@ -1,9 +1,9 @@
-/.git
-/node_modules
-/vendor
+*-debug.log
+*-error.log
+/.nyc_output
+/dist
+/tmp
+/yarn.lock
+node_modules
 /.idea
 package-lock.json
-src/
-composer.json
-vaah-config.json
-/.nuxt
