@@ -6,6 +6,8 @@ const execa = require('execa');
 const Listr = require('listr');
 var shell = require('shelljs');
 const { exec } = require('child_process');
+let fsSync = require('fs-sync');
+const fsPromises = fs.promises;
 
 
 const chalk = require('chalk');
@@ -14,6 +16,8 @@ const log = console.log;
 
 
 export default class CmsInstall extends Command {
+  args: {[k: string]: any} = {};
+  flags: {[k: string]: any} = {};
   inputs: {[k: string]: any} = {};
   spinner: {[k: string]: any} = {};
   repo: string = 'https://github.com/webreinvent/vaahcms-ready';
@@ -60,27 +64,53 @@ export default class CmsInstall extends Command {
 
     const {args, flags} = this.parse(CmsInstall);
 
+    this.args = args;
+    this.flags = flags;
+
+    await this.printName();
+
+    await this.spin();
 
     if(!flags.here)
     {
-      this.target_dir = this.target_dir+args.project_name+"/";
+      this.target_dir = this.target_dir+args.project_name;
     }
 
-
-    if (!fs.existsSync(this.target_dir)){
-      fs.mkdirSync(this.target_dir);
-    }
-
-
-    await this.spin();
     await this.install();
 
+
   }
+
+  //-----------------------------------
 
   //-----------------------------------
   async install()
   {
     const tasks = new Listr([
+      {
+        title: 'Creating Project Folder',
+        task: () => new Promise((resolve, reject) => {
+          {
+
+            let self = this;
+            if(this.args.project_name)
+            {
+
+              fs.mkdir(self.target_dir, (error: null, result: unknown) => {
+                if (error != null) {
+                  log("");
+                  log(chalk.red("- Project Folder Already Exists"));
+                  return reject(error);
+                }
+
+                resolve(result);
+              });
+
+
+            }
+          }
+        })
+      },
       {
         title: 'Downloading Repository',
         task: () => new Promise((resolve, reject) => {
@@ -91,8 +121,8 @@ export default class CmsInstall extends Command {
             let options = [
               'clone',
               this.repo,
-              this.target_dir
-            ] ;
+              './'
+            ];
 
             let git = execa('git', options);
 
@@ -107,32 +137,40 @@ export default class CmsInstall extends Command {
         })
       },
       {
-        title: 'Installing Dependencies via Composer',
+        title: 'Installing Dependencies via Composer (Takes 5 - 6 minutes)',
         task: () => new Promise((resolve, reject) => {
           {
 
+            log(chalk.yellow("Be patient, this can take up to 5 - 6 minutes.."));
 
             shell.cd(this.target_dir);
 
-            fs.rmdirSync(this.target_dir+'.git/', { recursive: true });
+            let project = '.git';
+
+            fs.rmdirSync(project, {recursive: true});
 
             let options = [
               'install',
             ];
 
-            let composer = execa('composer', options, {
-              buffer: true,
+            let output_options = {
+              buffer: false,
               stderr: "inherit"
-            });
+            };
 
-            composer.stdout.pipe(process.stdout);
+            //let composer = execa('composer', options, output_options);
+            //composer.stdout.pipe(process.stdout);
+
+
+            let composer = execa('composer', options);
 
             composer.then(resolve)
-              .catch(() => {
-                reject(new Error('Failed'));
+              .catch((error: any) => {
+                return reject(error);
               });
 
             return composer;
+
           }
         })
       },
@@ -166,25 +204,27 @@ export default class CmsInstall extends Command {
             return command;
           }
         })
-      },
+      }
 
     ]);
 
     tasks.run().then(()=>{
       this.spinStop();
     }).catch((err: any) => {
+
       console.error(err);
+      this.spinStopWithError();
+
     });
 
   }
   //-----------------------------------
-  //-----------------------------------
+
   //-----------------------------------
   async spin() {
 
 
     this.spinner = ora();
-
 
     this.spinner.start('Installing VaahCMS...');
 
@@ -206,17 +246,22 @@ export default class CmsInstall extends Command {
 
   }
   //-----------------------------------
-  async spinStop()
+  async printName()
   {
-
-    this.spinner.succeed();
-
     log(chalk.red(`
  /\\   /\\ __ _   __ _ | |__    / __\\ /\\/\\  / _\\
  \\ \\ / // _\` | / _\` || '_ \\  / /   /    \\ \\ \\
   \\ V /| (_| || (_| || | | |/ /___/ /\\/\\ \\_\\ \\
    \\_/  \\__,_| \\__,_||_| |_|\\____/\\/    \\/\\__/
 `));
+  }
+  //-----------------------------------
+  async spinStop()
+  {
+
+    this.spinner.succeed();
+
+
 
     log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
 
@@ -227,6 +272,14 @@ export default class CmsInstall extends Command {
 
   }
   //-----------------------------------
+  async spinStopWithError()
+  {
+
+    this.spinner.succeed();
+
+    log(chalk.white.bgRed.bold("      VaahCMS Installation Failed!      "));
+
+  }
   //-----------------------------------
   //-----------------------------------
 
