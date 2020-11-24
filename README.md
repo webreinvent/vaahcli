@@ -4,6 +4,7 @@
 
 Please consider starring the project to show your :heart: and support.
 
+
 ## Feature Roadmap
 
 #### Completed
@@ -26,7 +27,6 @@ Please consider starring the project to show your :heart: and support.
 :black_square_button: WordPress Plugin
 
 
-
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
@@ -34,6 +34,7 @@ Install with [npm](https://www.npmjs.com/):
 ```sh
 npm install -g vaah
 ```
+
 
 ## Laravel Generators
 
@@ -112,17 +113,10 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 - `vaah cms:t:make trait <theme> <name>` : To generate theme trait
 - `vaah cms:t:make test <theme> <name>` : To generate theme browser test
 
-## VaahNuxt
-List of commands:
-- `vaah nuxt:install` : To install the vaahnuxt
-- `vaah nuxt:install -f <folder>` or - `vaah nuxt:install --folder <folder>`: To install the vaahnuxt in the `<folder>`
-- `vaah nuxt:update` : To update the vaahnuxt
-- `vaah nuxt:update -f <folder>` or - `vaah nuxt:update --folder <folder>`: To update the vaahnuxt in the `<folder>`
 
 ## Support us
 
 [WebReinvent](https://www.webreinvent.com) is a web agency based in Delhi, India. You'll find an overview of all our open source projects [on github](https://github.com/webreinvent).
-
 
 ## Setup Development Environment 
 
@@ -132,30 +126,18 @@ Clone this repository
 #### Step 2:
 Run `npm install`
 
-#### Step 3:
-Change following variable, comment `global.globalAppEnv = "production"` and uncomment `global.globalAppEnv = "dev"`:
-
-```javascript
-...
-//global.globalAppEnv = "production";
-global.globalAppEnv = "dev";
-...
-
-```
 
 #### Step 4:
 Now you can run `vaah` commands from terminal like:
 ```sh
-node vaah.js lv:p
-node vaah.js cms:m
-node vaah.js cms:m:crud
-node vaah.js cms:t
+bin\run vaah lv:p
+bin\run vaah cms:m
+bin\run vaah cms:m:crud
+bin\run vaah cms:t
 ```
 
 #### Step 5:
-Once you're done with the development, comment `global.globalAppEnv = "dev"` and uncomment `global.globalAppEnv = "production"`.
-
-And run following command to publish the package to `npm`:
+Run following command to publish the package to `npm`:
 ```sh
 npm publish
 ```
@@ -163,9 +145,8 @@ npm publish
 #### Step 6: Change log
 To generate `CHANGELOG.md`, use following command:
 ```sh
-node changelog-generator/index.js
+auto-changelog
 ```
-
 
 ---
 
@@ -182,6 +163,63 @@ Removed:
 Fixed:
 Security:
 ```
+
+---
+
+<!-- toc -->
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
+# Usage
+<!-- usage -->
+```sh-session
+$ npm install -g vaah
+$ vaah COMMAND
+running command...
+$ vaah (-v|--version|version)
+vaah/1.0.0 win32-x64 node-v12.16.1
+$ vaah --help [COMMAND]
+USAGE
+  $ vaah COMMAND
+...
+```
+<!-- usagestop -->
+# Commands
+<!-- commands -->
+* [`vaah hello`](#vaah-hello)
+* [`vaah help [COMMAND]`](#vaah-help-command)
+
+## `vaah hello`
+
+```
+USAGE
+  $ vaah hello
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/hello.js](https://github.com/webreinvent/vaah/blob/v1.0.0/src/commands/hello.js)_
+
+## `vaah help [COMMAND]`
+
+```
+USAGE
+  $ vaah help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
+<!-- commandsstop -->
 
 
 #### Framework
