@@ -8,20 +8,20 @@ Please consider starring the project to show your :heart: and support.
 ## Feature Roadmap
 
 #### Completed
-:white_check_mark: Laravel Package Development
-
-:white_check_mark: Laravel Files (migration, model, view, controller, seed )
-
-:white_check_mark: VaahCMS Modules
-
-:white_check_mark: VaahCMS Modules Files  (migration, model, view, controller, seed )
-
-:white_check_mark: VaahCMS Themes
-
-:white_check_mark: VaahCMS Themes Files  (migration, model, view, controller, seed )
-
+:white_check_mark: VaahCMS Installer
+:white_check_mark: VaahCMS Module Generator
 
 #### Planned
+:black_square_button: Laravel Package Development
+
+:black_square_button: Laravel Files (migration, model, view, controller, seed )
+
+:black_square_button: VaahCMS Modules Files  (migration, model, view, controller, seed )
+
+:black_square_button: VaahCMS Themes
+
+:black_square_button: VaahCMS Themes Files  (migration, model, view, controller, seed )
+
 :black_square_button: WordPress Theme
 
 :black_square_button: WordPress Plugin
