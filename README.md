@@ -10,6 +10,7 @@ Please consider starring the project to show your :heart: and support.
 #### Completed
 :white_check_mark: VaahCMS Installer
 :white_check_mark: VaahCMS Module Generator
+:white_check_mark: VaahCMS Themes
 
 #### Planned
 :black_square_button: Laravel Package Development
@@ -17,8 +18,6 @@ Please consider starring the project to show your :heart: and support.
 :black_square_button: Laravel Files (migration, model, view, controller, seed )
 
 :black_square_button: VaahCMS Modules Files  (migration, model, view, controller, seed )
-
-:black_square_button: VaahCMS Themes
 
 :black_square_button: VaahCMS Themes Files  (migration, model, view, controller, seed )
 
@@ -231,6 +230,7 @@ USAGE
 <!-- commands -->
 * [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
 * [`vaah cms:m`](#vaah-cmsm)
+* [`vaah cms:t [FILE]`](#vaah-cmst-file)
 * [`vaah hello [FILE]`](#vaah-hello-file)
 * [`vaah help [COMMAND]`](#vaah-help-command)
 
@@ -263,6 +263,20 @@ OPTIONS
 ```
 
 _See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v1.0.2/src/commands/cms/m.ts)_
+
+## `vaah cms:t [FILE]`
+
+```
+USAGE
+  $ vaah cms:t [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v1.0.2/src/commands/cms/t.ts)_
 
 ## `vaah hello [FILE]`
 
