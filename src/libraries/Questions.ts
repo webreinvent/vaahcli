@@ -144,6 +144,41 @@ export default class Generator {
   }
 
   //-------------------------------------------------------
+  getModuleCrudQuestions()
+  {
+
+    this.questions =  [
+      {
+        type : 'input',
+        name : 'module_name',
+        default: 'HelloWorld',
+        message : 'Enter your module name: '
+      },
+      {
+        type : 'input',
+        name : 'model_name',
+        default: 'Article',
+        message : 'Enter your model name: '
+      },
+      {
+        type : 'input',
+        name : 'table_name',
+        default: 'articles',
+        message : 'Enter your table name: '
+      },
+      {
+        type : 'input',
+        name : 'controller_name',
+        default: 'Articles',
+        message : 'Enter your controller name: '
+      },
+    ];
+
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
   //-------------------------------------------------------
   //-------------------------------------------------------
   //-------------------------------------------------------

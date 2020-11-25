@@ -10,7 +10,8 @@ Please consider starring the project to show your :heart: and support.
 #### Completed
 :white_check_mark: VaahCMS Installer
 :white_check_mark: VaahCMS Module Generator
-:white_check_mark: VaahCMS Themes
+:white_check_mark: VaahCMS Module CRUD Generator
+:white_check_mark: VaahCMS Theme Generator
 
 #### Planned
 :black_square_button: Laravel Package Development
@@ -33,6 +34,47 @@ Install with [npm](https://www.npmjs.com/):
 ```sh
 npm install -g vaah
 ```
+
+
+## VaahCms Installer
+- `vaah cms:install [FOLDER]` : To install VaahCMS
+- `vaah cms:install --here` : To install VaahCMS in current director
+
+## VaahCms Module Generators
+List of commands:
+- `vaah cms:m` : To generate module
+- `vaah cms:m-crud` : To generator crud operation file for module
+
+All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
+- `vaah cms:m-make migration <module> <name>` : To generate module migration
+- `vaah cms:m-make seed <module> <name>` : To generate module seed
+- `vaah cms:m-make model <module> <name>` : To generate module model
+- `vaah cms:m-make controller <module> <name>` : To generate module controller
+- `vaah cms:m-make view <module> <name>` : To generate module view
+- `vaah cms:m-make middleware <module> <name>` : To generate module middleware
+- `vaah cms:m-make observer <module> <name>` : To generate module observer
+- `vaah cms:m-make trait <module> <name>` : To generate module trait
+- `vaah cms:m-make test <module> <name>` : To generate module browser test
+- `vaah cms:m-make event <module> <name>` : To generate module events
+- `vaah cms:m-make listener <module> <name>` : To generate module listener
+- `vaah cms:m-make mail <module> <name>` : To generate module email
+- `vaah cms:m-make notification <module> <name>` : To generate module notification
+
+## VaahCms Theme Generators
+List of commands:
+- `vaah cms:t` : To generate theme
+
+
+All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
+- `vaah cms:t-make migration <theme> <name>` : To generate theme migration
+- `vaah cms:t-make seed <theme> <name>` : To generate theme seed
+- `vaah cms:t-make model <theme> <name>` : To generate theme model
+- `vaah cms:t-make controller <theme> <name>` : To generate theme controller
+- `vaah cms:t-make view <theme> <theme>` : To generate theme view
+- `vaah cms:t-make middleware <theme> <name>` : To generate theme middleware
+- `vaah cms:t-make observer <theme> <name>` : To generate theme observer
+- `vaah cms:t-make trait <theme> <name>` : To generate theme trait
+- `vaah cms:t-make test <theme> <name>` : To generate theme browser test
 
 
 ## Laravel Generators
@@ -74,47 +116,6 @@ List of commands:
 - `vaah lv:p-file controller fileName`
 - `vaah lv:p-file seed fileName`
 - `vaah lv:p-file migration fileName`
-
-
-## VaahCms Installer
-- `vaah cms:install [FOLDER]` : To install VaahCMS
-- `vaah cms:install --here` : To install VaahCMS in current director
-
-## VaahCms Module Generators
-List of commands:
-- `vaah cms:m` : To generate module
-
-All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
-- `vaah cms:m:make migration <module> <name>` : To generate module migration
-- `vaah cms:m:make seed <module> <name>` : To generate module seed
-- `vaah cms:m:make model <module> <name>` : To generate module model
-- `vaah cms:m:make controller <module> <name>` : To generate module controller
-- `vaah cms:m:make view <module> <name>` : To generate module view
-- `vaah cms:m:make middleware <module> <name>` : To generate module middleware
-- `vaah cms:m:make observer <module> <name>` : To generate module observer
-- `vaah cms:m:make trait <module> <name>` : To generate module trait
-- `vaah cms:m:make test <module> <name>` : To generate module browser test
-- `vaah cms:m:make event <module> <name>` : To generate module events
-- `vaah cms:m:make listener <module> <name>` : To generate module listener
-- `vaah cms:m:make mail <module> <name>` : To generate module email
-- `vaah cms:m:make notification <module> <name>` : To generate module notification
-
-## VaahCms Theme Generators
-List of commands:
-- `vaah cms:t` : To generate theme
-
-
-All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
-- `vaah cms:t:make migration <theme> <name>` : To generate theme migration
-- `vaah cms:t:make seed <theme> <name>` : To generate theme seed
-- `vaah cms:t:make model <theme> <name>` : To generate theme model
-- `vaah cms:t:make controller <theme> <name>` : To generate theme controller
-- `vaah cms:t:make view <theme> <theme>` : To generate theme view
-- `vaah cms:t:make middleware <theme> <name>` : To generate theme middleware
-- `vaah cms:t:make observer <theme> <name>` : To generate theme observer
-- `vaah cms:t:make trait <theme> <name>` : To generate theme trait
-- `vaah cms:t:make test <theme> <name>` : To generate theme browser test
-
 
 ## Support us
 
@@ -196,8 +197,24 @@ Security:
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+* [Vaah](#vaah)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 # Usage
 <!-- usage -->
+```sh-session
+$ npm install -g vaah
+$ vaah COMMAND
+running command...
+$ vaah (-v|--version|version)
+vaah/1.0.10 win32-x64 node-v12.16.1
+$ vaah --help [COMMAND]
+USAGE
+  $ vaah COMMAND
+...
+```
+<!-- usagestop -->
 ```sh-session
 $ npm install -g vaah
 $ vaah COMMAND
@@ -260,6 +277,104 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
+* [`vaah cms:m`](#vaah-cmsm)
+* [`vaah cms:m-crud [FILE]`](#vaah-cmsm-crud-file)
+* [`vaah cms:t`](#vaah-cmst)
+* [`vaah hello [FILE]`](#vaah-hello-file)
+* [`vaah help [COMMAND]`](#vaah-help-command)
+
+## `vaah cms:install [PROJECT_NAME]`
+
+```
+USAGE
+  $ vaah cms:install [PROJECT_NAME]
+
+ARGUMENTS
+  PROJECT_NAME  [default: vaahcms] Enter the project folder name
+
+OPTIONS
+  -h, --help  show CLI help
+  --here      If you want to VaahCMS in current director
+```
+
+_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v1.0.10/src/commands/cms/install.ts)_
+
+## `vaah cms:m`
+
+```
+USAGE
+  $ vaah cms:m
+
+OPTIONS
+  -f, --force
+  -h, --help   show CLI help
+  -n, --name   show CLI help
+```
+
+_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v1.0.10/src/commands/cms/m.ts)_
+
+## `vaah cms:m-crud [FILE]`
+
+```
+USAGE
+  $ vaah cms:m-crud [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v1.0.10/src/commands/cms/m-crud.ts)_
+
+## `vaah cms:t`
+
+```
+USAGE
+  $ vaah cms:t
+
+OPTIONS
+  -f, --force
+  -h, --help   show CLI help
+  -n, --name   show CLI help
+```
+
+_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v1.0.10/src/commands/cms/t.ts)_
+
+## `vaah hello [FILE]`
+
+```
+USAGE
+  $ vaah hello [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+
+EXAMPLE
+  $ vaah hello
+  hello world from ./src/hello.ts!
+```
+
+_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v1.0.10/src/commands/hello.ts)_
+
+## `vaah help [COMMAND]`
+
+```
+USAGE
+  $ vaah help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
+<!-- commandsstop -->
 * [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
 * [`vaah cms:m`](#vaah-cmsm)
 * [`vaah cms:t`](#vaah-cmst)
