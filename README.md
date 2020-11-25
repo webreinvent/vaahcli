@@ -10,6 +10,7 @@ Please consider starring the project to show your :heart: and support.
 #### Completed
 :white_check_mark: VaahCMS Installer
 :white_check_mark: VaahCMS Module Generator
+:white_check_mark: VaahCMS Themes
 
 #### Planned
 :black_square_button: Laravel Package Development
@@ -17,8 +18,6 @@ Please consider starring the project to show your :heart: and support.
 :black_square_button: Laravel Files (migration, model, view, controller, seed )
 
 :black_square_button: VaahCMS Modules Files  (migration, model, view, controller, seed )
-
-:black_square_button: VaahCMS Themes
 
 :black_square_button: VaahCMS Themes Files  (migration, model, view, controller, seed )
 
@@ -185,8 +184,24 @@ Security:
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+* [Vaah](#vaah)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 # Usage
 <!-- usage -->
+```sh-session
+$ npm install -g vaah
+$ vaah COMMAND
+running command...
+$ vaah (-v|--version|version)
+vaah/1.0.2 win32-x64 node-v12.16.1
+$ vaah --help [COMMAND]
+USAGE
+  $ vaah COMMAND
+...
+```
+<!-- usagestop -->
 ```sh-session
 $ npm install -g vaah
 $ vaah COMMAND
@@ -213,6 +228,89 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
+* [`vaah cms:m`](#vaah-cmsm)
+* [`vaah cms:t [FILE]`](#vaah-cmst-file)
+* [`vaah hello [FILE]`](#vaah-hello-file)
+* [`vaah help [COMMAND]`](#vaah-help-command)
+
+## `vaah cms:install [PROJECT_NAME]`
+
+```
+USAGE
+  $ vaah cms:install [PROJECT_NAME]
+
+ARGUMENTS
+  PROJECT_NAME  [default: vaahcms] Enter the project folder name
+
+OPTIONS
+  -h, --help  show CLI help
+  --here      If you want to VaahCMS in current director
+```
+
+_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v1.0.2/src/commands/cms/install.ts)_
+
+## `vaah cms:m`
+
+```
+USAGE
+  $ vaah cms:m
+
+OPTIONS
+  -f, --force
+  -h, --help   show CLI help
+  -n, --name   show CLI help
+```
+
+_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v1.0.2/src/commands/cms/m.ts)_
+
+## `vaah cms:t [FILE]`
+
+```
+USAGE
+  $ vaah cms:t [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v1.0.2/src/commands/cms/t.ts)_
+
+## `vaah hello [FILE]`
+
+```
+USAGE
+  $ vaah hello [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+
+EXAMPLE
+  $ vaah hello
+  hello world from ./src/hello.ts!
+```
+
+_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v1.0.2/src/commands/hello.ts)_
+
+## `vaah help [COMMAND]`
+
+```
+USAGE
+  $ vaah help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
+<!-- commandsstop -->
 * [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
 * [`vaah cms:m`](#vaah-cmsm)
 * [`vaah hello [FILE]`](#vaah-hello-file)
