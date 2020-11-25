@@ -12,7 +12,7 @@ class SetupController extends Controller
     }
 
     /**
-     * Run when module is activated
+     * Run when theme is activated
      */
     public static function activate($theme)
     {
@@ -22,7 +22,7 @@ class SetupController extends Controller
     }
 
     /**
-     * Run when module is activated
+     * Run when theme is activated
      */
     public static function dependencies()
     {
@@ -34,7 +34,7 @@ class SetupController extends Controller
     }
 
     /**
-     * Run when module is deactivate
+     * Run when theme is deactivate
      */
     public static function deactivate()
     {
@@ -46,7 +46,7 @@ class SetupController extends Controller
     }
 
     /**
-     * Run when module's sample data link is clicked
+     * Run when theme's sample data link is clicked
      */
     public static function importSampleData()
     {
@@ -58,7 +58,7 @@ class SetupController extends Controller
     }
 
     /**
-     * Run when module is deleted
+     * Run when theme is deleted
      */
     public static function delete()
     {
@@ -68,5 +68,17 @@ class SetupController extends Controller
         return $response;
 
     }
+
+      /**
+       * Run when theme is marked as default
+       */
+      public static function makeDefault()
+      {
+
+          $response['status'] = 'success';
+          $response['data'] = [];
+          return $response;
+
+      }
 
 }
