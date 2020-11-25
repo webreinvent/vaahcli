@@ -1,21 +1,21 @@
 <?php
 
 return [
-    "name"=> "<%= theme_name %>",
+    "name"=> "<%= module_name %>",
     "title"=> "<%= title %>",
-    "slug"=> "<%= theme_name_lower %>",
+    "slug"=> "<%= module_name_lower %>",
     "thumbnail"=> "https://placehold.jp/300x160.png",
     "excerpt"=> "<%= description %>",
     "description"=> "<%= description %>",
     "download_link"=> "<%= download_link %>",
-    "author_name"=> "<%= theme_name_lower %>",
+    "author_name"=> "<%= module_name_lower %>",
     "author_website"=> "<%= author_website %>",
-    "version"=> "v0.0.1",
+    "version"=> "0.0.1",
     "is_migratable"=> <%= is_migratable %>,
     "is_sample_data_available"=> <%= has_sample_data %>,
-    "db_table_prefix"=> "vh_<%= theme_name_lower %>_",
+    "db_table_prefix"=> "vh_<%= module_name_lower %>_",
     "providers"=> [
-        "\\VaahCms\\Themes\\<%= theme_name %>\\Providers\\<%= theme_name %>ServiceProvider"
+        "\\VaahCms\\Modules\\<%= module_name %>\\Providers\\<%= module_name %>ServiceProvider"
     ],
     "aside-menu-order"=> null
 ];

@@ -74,8 +74,10 @@ export default class Generator {
 
       //let fullPath = path.join(dir, file);
       let fullPath = path.join(dir, file);
+      //console.log('--->', fullPath);
 
-      let short_path = fullPath.split("src");
+
+      let short_path = fullPath.split("skeletons");
 
       let file_path;
 
@@ -98,7 +100,7 @@ export default class Generator {
   //-------------------------------------------------------
   getFilesFromSkeletonDirector() {
 
-    let template_path = __dirname+'/../'+this.skeleton_dir;
+    let template_path = __dirname+'/../../'+this.skeleton_dir;
     let files_list: any[] = [];
     files_list = this.scanRecursiveFiles(template_path, files_list);
     return files_list;
@@ -125,6 +127,7 @@ export default class Generator {
 
     let get_files = this.getFilesFromSkeletonDirector();
 
+    //console.log('--->', get_files);
 
     let self = this;
 
@@ -142,7 +145,9 @@ export default class Generator {
 
     let destination: string = '';
 
-    destination = file_path.replace(this.skeleton_dir, "");
+    let replace_path = this.skeleton_dir.replace('\\skeletons\\', '');
+
+    destination = file_path.replace(replace_path, "");
 
     destination = this.target_dir+'/'+destination;
 
@@ -152,16 +157,26 @@ export default class Generator {
   copyFilesToDestination(file_path:string)
   {
 
-    let file_name = path.basename(file_path);
+    //console.log('--->', file_path);
+
+
 
     let destination = this.getFileDestination(file_path);
 
-    let file_readable_path = __dirname+"./../"+file_path;
+    let file_readable_path = __dirname+"./../../skeletons/"+file_path;
 
     let file_content = fs.readFileSync(file_readable_path).toString();
     let parsed_file_content = ejs.render(file_content, this.inputs);
 
     destination = destination.replace('.ejs', "");
+
+    let file_name = path.basename(destination);
+
+    if(file_name == 'ServiceProvider.php')
+    {
+      destination = destination.replace('ServiceProvider.php', this.inputs['service_provider_name']);
+    }
+
 
     fsSync.write(destination, parsed_file_content);
 

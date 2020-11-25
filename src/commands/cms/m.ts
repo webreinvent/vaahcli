@@ -60,6 +60,8 @@ export default class CmsM extends Command {
     let source = '\\skeletons\\vaahcms\\module\\';
     let target = "./VaahCms/Modules/"+this.inputs.module_name;
 
+    this.inputs['service_provider_name'] = this.inputs.module_name+'ServiceProvide.php';
+
     let generator = new Generator(args, flags, this.inputs, source, target);
 
 

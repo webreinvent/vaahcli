@@ -1,7 +1,7 @@
 {
   "name": "vaah",
   "description": "CLI of VaahCMS - VaahCLI",
-  "version": "1.0.3",
+  "version": "1.0.9",
   "author": "Vaah",
   "bin": {
     "vaah": "./bin/run"
@@ -48,6 +48,7 @@
     "node": ">=8.0.0"
   },
   "files": [
+    "/skeletons",
     "/bin",
     "/lib",
     "/npm-shrinkwrap.json",
