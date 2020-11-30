@@ -39,12 +39,14 @@ npm install -g vaah
 ```
 
 
+---
+
+[Quick Command Generator](https://vaah.dev/cms/docs/generators)
+
 ## VaahCms Installer
 - `vaah cms:install [FOLDER]` : To install VaahCMS
 - `vaah cms:install --here` : To install VaahCMS in current director
 
-
-[Quick Command Generator](https://vaah.dev/cms/docs/generators):
 
 ## VaahCms Module Generators
 List of commands:
