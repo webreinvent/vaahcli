@@ -24,6 +24,7 @@ export default class CmsInstall extends Command {
   spinner: {[k: string]: any} = {};
   repo: string = 'https://github.com/webreinvent/vaahcms-ready';
   target_dir: string = './';
+  source_dir: string = '';
 
 
   static description = 'Install VaahCMS';
@@ -118,24 +119,34 @@ export default class CmsInstall extends Command {
       },
       {
         title: 'Downloading VaahCMS',
-        task: () => async () => {
+        task: () => new Promise((resolve, reject) => {
           {
 
-            shell.cd(this.target_dir);
-
-            let downloaded_path  = await fetch('webreinvent/vaahcms-ready');
-
-            const destination = this.target_dir;
-
-            await extract(downloaded_path, destination);
-
-            return true;
-
+            let self = this;
+             fetch('webreinvent/vaahcms-ready').then(download => {
+              console.log('data-->', download);
+              self.source_dir = download;
+            }).then(resolve)
+              .catch(() => {
+                reject(new Error('Failed'));
+              });
           }
-        }
+        })
       },
       {
-        title: 'Installing Dependencies via Composer (Takes 5 - 6 minutes)',
+        title: 'Extracting VaahCMS Files',
+        task: () => new Promise((resolve, reject) => {
+          {
+
+            extract(this.source_dir, this.target_dir).then(resolve)
+              .catch(() => {
+                reject(new Error('Failed'));
+              });
+          }
+        })
+      },
+      {
+        title: 'Installing Dependencies via Composer (Takes 3 - 5 minutes)',
         task: () => new Promise((resolve, reject) => {
           {
 
@@ -143,9 +154,9 @@ export default class CmsInstall extends Command {
 
             shell.cd(this.target_dir);
 
-            let project = '.git';
+            //let project = '.git';
 
-            fs.rmdirSync(project, {recursive: true});
+            //fs.rmdirSync(project, {recursive: true});
 
             let options = [
               'install',
@@ -264,8 +275,11 @@ export default class CmsInstall extends Command {
     log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
 
     log(chalk.green("=================================================================="));
-    log("Run "+chalk.green("php artisan server")+" and visit following url to setup:");
+    log(chalk.green("Open")+" the project folder and ");
+    log("run "+chalk.green("php artisan server")+" then visit following url to setup:");
     log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
+    log("In case of  "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
+    log(chalk.green("http://localhost/<project-folder-path>/public/vaahcms/setup"));
     log(chalk.green("=================================================================="));
 
   }
