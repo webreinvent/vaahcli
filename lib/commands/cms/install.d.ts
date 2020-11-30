@@ -14,6 +14,7 @@ export default class CmsInstall extends Command {
     };
     repo: string;
     target_dir: string;
+    source_dir: string;
     static description: string;
     static flags: {
         here: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
