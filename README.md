@@ -16,9 +16,9 @@ Please consider starring the project to show your :heart: and support.
 
 :white_check_mark: VaahCMS Theme Generator
 
-:black_square_button: VaahCMS Modules Files  (migration, model, view, controller, seed )
+:white_check_mark: VaahCMS Modules Files  (migration, model, view, controller, seed )
 
-:black_square_button: VaahCMS Themes Files  (migration, model, view, controller, seed )
+:white_check_mark: VaahCMS Themes Files  (migration, model, view, controller, seed )
 
 #### Planned
 :black_square_button: Laravel Package Development
