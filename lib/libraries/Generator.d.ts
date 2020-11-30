@@ -15,6 +15,7 @@ export default class Generator {
     scanRecursiveFiles(dir: string, files?: any[]): any[];
     getFilesFromSkeletonDirector(): any[];
     files(): void;
+    file(): void;
     getFileDestination(file_path: string): string;
     copyFilesToDestination(file_path: string): void;
 }

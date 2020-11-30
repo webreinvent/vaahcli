@@ -8,6 +8,8 @@ var shell = require('shelljs');
 const { exec } = require('child_process');
 let fsSync = require('fs-sync');
 const fsPromises = fs.promises;
+import { fetch, extract }  from 'gitly';
+
 
 
 const chalk = require('chalk');
@@ -86,6 +88,9 @@ export default class CmsInstall extends Command {
   //-----------------------------------
   async install()
   {
+
+
+
     const tasks = new Listr([
       {
         title: 'Creating Project Folder',
@@ -112,29 +117,22 @@ export default class CmsInstall extends Command {
         })
       },
       {
-        title: 'Downloading Repository',
-        task: () => new Promise((resolve, reject) => {
+        title: 'Downloading VaahCMS',
+        task: () => async () => {
           {
 
             shell.cd(this.target_dir);
 
-            let options = [
-              'clone',
-              this.repo,
-              './'
-            ];
+            let downloaded_path  = await fetch('webreinvent/vaahcms-ready');
 
-            let git = execa('git', options);
+            const destination = this.target_dir;
 
-            git.then(resolve)
-              .catch(() => {
-                reject(new Error('Failed'));
-              });
+            await extract(downloaded_path, destination);
 
+            return true;
 
-            return git;
           }
-        })
+        }
       },
       {
         title: 'Installing Dependencies via Composer (Takes 5 - 6 minutes)',
