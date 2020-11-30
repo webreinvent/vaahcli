@@ -1,13 +1,10 @@
 <?php  namespace <%= namespace %>;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class <%= name %>Email extends Mailable {
+class <%= name %> {
 
-    use Queueable, SerializesModels;
+    use SerializesModels;
 
     /**
      * Create a new event instance.
@@ -17,6 +14,7 @@ class <%= name %>Email extends Mailable {
     public function __construct()
     {
         //
+
     }
 
     /**
@@ -24,9 +22,9 @@ class <%= name %>Email extends Mailable {
      *
      * @return array
      */
-    public function build()
+    public function broadcastOn()
     {
-        return $this->view('<%= module_name_lower %>::emails.<%= name_lower %>');
+        return [];
     }
 
 }
