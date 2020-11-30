@@ -4,6 +4,7 @@ let fs = require('fs');
 let path = require('path');
 let ejs = require('ejs');
 let fsSync = require('fs-sync');
+var dateFormat = require('dateformat');
 
 const log = console.log;
 
@@ -64,22 +65,76 @@ export default class Helpers {
   }
 
   //-------------------------------------------------------
+  replaceAll(str:string, find:string, replace:string){
+    return str.replace(new RegExp(find, 'g'), replace);
+  }
+  //-------------------------------------------------------
+  titleCase(str:string)
+  {
+    let wordsArray = str.toLowerCase().split(/\s+/);
+    let upperCased = wordsArray.map(function(word) {
+      return word.charAt(0).toUpperCase() + word.substr(1);
+    });
+    return upperCased.join(" ");
+  }
+  //-------------------------------------------------------
+  getClassName(str:string)
+  {
+    let class_name = '';
+
+    class_name = str;
+    class_name = this.replaceAll(class_name, "_", " ");
+    class_name = this.titleCase(class_name);
+    class_name = this.replaceAll(class_name, " ", "");
+
+    return class_name;
+
+  }
+  //-------------------------------------------------------
+  getMigrationFileName(str:string)
+  {
+    var now = new Date();
+    let name = dateFormat(now, "yyyy_mm_dd_HHMMss_")+str;
+
+    name = this.replaceAll(name, " ", "_");
+    name = name.toLowerCase();
+    name = name+'_table.php';
+
+    return name;
+
+  }
+  //-------------------------------------------------------
+  getMigrationTableName(str:string)
+  {
+    let name = '';
+
+    name = str.toLowerCase();
+    name = this.replaceAll(name, " ", '_');
+
+    return name;
+
+  }
+  //-------------------------------------------------------
   getDerivedVariables()
   {
 
     let params = {
       namespace: '',
       target_dir: '',
+      table_name: '',
+      class_name: '',
+      file_name: '',
     };
 
 
     let namespace = 'VaahCms';
-    let target_dir = './';
+    let target_dir = './VaahCms/';
+
 
     switch (this.inputs.for) {
 
       case 'module':
-        namespace = namespace+'\\Modules\\'+this.args.module
+        namespace = namespace+'\\Modules\\'+this.args.module;
         target_dir = target_dir+'Modules/'+this.args.module;
         break;
 
@@ -90,7 +145,6 @@ export default class Helpers {
 
     }
 
-    console.log('--->', target_dir);
 
     switch (this.args.type) {
 
@@ -98,13 +152,17 @@ export default class Helpers {
 
         target_dir = target_dir+'/Database/Migrations';
 
+        params.file_name = this.getMigrationFileName(this.args.name);
+        params.class_name = this.getClassName(this.args.name);
+        params.table_name = this.getMigrationTableName(this.args.name);
+
         break;
 
       case 'seed':
 
         namespace = namespace+'\\Database\\Seeders';
-
         target_dir = target_dir+'/Database/Seeders';
+        params.file_name = this.args.name+'TableSeeder.php';
 
         break;
 
@@ -117,6 +175,8 @@ export default class Helpers {
 
       case 'controller':
 
+        params.file_name = this.args.name+'Controller.php';
+
         namespace = namespace+'\\Http\\Controllers';
         target_dir = target_dir+'/Http/Controllers';
 
@@ -124,9 +184,7 @@ export default class Helpers {
         {
           namespace = namespace+'\\Frontend';
           target_dir = target_dir+'/Frontend';
-        }
-
-        if(this.flags.backend)
+        } else if(this.flags.backend)
         {
           namespace = namespace+'\\Backend';
           target_dir = target_dir+'/Backend';
@@ -142,6 +200,8 @@ export default class Helpers {
         break;
 
       case 'observer':
+
+        params.file_name = this.args.name+'Observer.php';
 
         namespace = namespace+'\\Observers';
         target_dir = target_dir+'/Observers';
@@ -171,6 +231,8 @@ export default class Helpers {
 
       case 'listener':
 
+        params.file_name = this.args.name+'Listener.php';
+
         namespace = namespace+'\\Listeners';
 
         target_dir = target_dir+'/Listeners';
@@ -179,6 +241,8 @@ export default class Helpers {
 
 
       case 'mail':
+
+        params.file_name = this.args.name+'Mail.php';
 
         namespace = namespace+'\\Mails';
 
@@ -189,9 +253,26 @@ export default class Helpers {
 
       case 'notification':
 
+        params.file_name = this.args.name+'Notification.php';
+
         namespace = namespace+'\\Notifications';
 
         target_dir = target_dir+'/Notifications';
+
+        break;
+
+      case 'view':
+
+        params.file_name = this.args.name+'.blade.php';
+        target_dir = target_dir+'/Resources/views';
+
+        if(this.flags.frontend)
+        {
+          target_dir = target_dir+'/frontend/pages';
+        } else if(this.flags.backend)
+        {
+          target_dir = target_dir+'/backend/pages';
+        }
 
         break;
 

@@ -9,18 +9,21 @@ Please consider starring the project to show your :heart: and support.
 
 #### Completed
 :white_check_mark: VaahCMS Installer
+
 :white_check_mark: VaahCMS Module Generator
+
 :white_check_mark: VaahCMS Module CRUD Generator
+
 :white_check_mark: VaahCMS Theme Generator
+
+:black_square_button: VaahCMS Modules Files  (migration, model, view, controller, seed )
+
+:black_square_button: VaahCMS Themes Files  (migration, model, view, controller, seed )
 
 #### Planned
 :black_square_button: Laravel Package Development
 
 :black_square_button: Laravel Files (migration, model, view, controller, seed )
-
-:black_square_button: VaahCMS Modules Files  (migration, model, view, controller, seed )
-
-:black_square_button: VaahCMS Themes Files  (migration, model, view, controller, seed )
 
 :black_square_button: WordPress Theme
 
@@ -39,6 +42,9 @@ npm install -g vaah
 ## VaahCms Installer
 - `vaah cms:install [FOLDER]` : To install VaahCMS
 - `vaah cms:install --here` : To install VaahCMS in current director
+
+
+[Quick Command Generator](https://vaah.dev/cms/docs/generators):
 
 ## VaahCms Module Generators
 List of commands:

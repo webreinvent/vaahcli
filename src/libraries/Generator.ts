@@ -120,7 +120,7 @@ export default class Generator {
     log(this.flags);
 
 
-    log(chalk.blue(`===RESPONSE===`));
+    log(chalk.blue(`===INPUTS===`));
     log(this.inputs);
 */
 
@@ -142,7 +142,7 @@ export default class Generator {
   file()
   {
 
-    log(chalk.red(`===ARG===`));
+/*    log(chalk.red(`===ARG===`));
     log(this.args);
 
 
@@ -150,8 +150,8 @@ export default class Generator {
     log(this.flags);
 
 
-    log(chalk.blue(`===RESPONSE===`));
-    log(this.inputs);
+    log(chalk.blue(`===INPUTS===`));
+    log(this.inputs);*/
 
 
     let file_path = __dirname+"/../.."+this.skeleton_dir+this.args.type+'.php.ejs';
@@ -160,6 +160,12 @@ export default class Generator {
     let parsed_file_content = ejs.render(file_content, this.inputs);
 
     let file_name = this.inputs['name']+".php";
+
+    if(this.inputs['file_name'])
+    {
+      file_name = this.inputs['file_name'];
+    }
+
 
     let destination = this.target_dir+'/'+file_name;
 

@@ -25,6 +25,7 @@
     "ora": "^5.1.0",
     "path": "^0.12.7",
     "shelljs": "^0.8.4",
+    "dateformat": "^4.0.0",
     "tslib": "^1.14.1"
   },
   "devDependencies": {

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <title>{{$data->title ?? "<%= theme_name %>"}}</title>
+    <meta name="csrf-token" id="_token" content="{{ csrf_token() }}">
+
+    <base href="{{\URL::to('/')}}">
+
+    <meta name="current-url" id="current_url" content="{{ url()->current() }}">
+
+    <meta name="debug" id="debug" content="true">
+
     @yield('vaahcms_extend_frontend_head')
 
     @yield('vaahcms_extend_frontend_css')

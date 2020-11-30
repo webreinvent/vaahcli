@@ -1,13 +1,10 @@
 <?php  namespace <%= namespace %>;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use Illuminate\Queue\SerializesModels;
 
-class <%= name %>Notification extends Notification {
+class <%= name %> {
 
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
 
     /**
      * Create a new event instance.
@@ -17,6 +14,7 @@ class <%= name %>Notification extends Notification {
     public function __construct()
     {
         //
+
     }
 
     /**
@@ -26,7 +24,7 @@ class <%= name %>Notification extends Notification {
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return [];
     }
 
 }

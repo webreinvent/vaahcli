@@ -5,7 +5,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class <%= name %>Email extends Mailable {
+class <%= name %>Mail extends Mailable {
 
     use Queueable, SerializesModels;
 
@@ -26,7 +26,7 @@ class <%= name %>Email extends Mailable {
      */
     public function build()
     {
-        return $this->view('<%= module_name_lower %>::emails.<%= name_lower %>');
+        return $this->view('<%= module_lower %>::emails.<%= name_lower %>');
     }
 
 }

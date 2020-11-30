@@ -1,8 +1,6 @@
 import {Command, flags} from '@oclif/command'
-import * as inquirer from 'inquirer';
 const Listr = require('listr');
 
-import Questions from "../../libraries/Questions";
 import Generator from "../../libraries/Generator";
 import Helpers from "../../libraries/Helpers";
 

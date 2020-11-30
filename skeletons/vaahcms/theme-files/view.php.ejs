@@ -1,13 +1,19 @@
-@extends("<%= theme_name_lower %>::layouts.master")
+@extends("<%= theme_lower %>::frontend.layouts.default")
 
-@section('head')
+@section('vaahcms_extend_frontend_head')
+
+@endsection
+
+@section('vaahcms_extend_frontend_css')
 
 @endsection
 
+@section('vaahcms_extend_frontend_scripts')
 
-@section('scripts')
+    <!--<script src="{{vh_theme_assets_url("<%= theme %>", "build/app.js")}}"></script>-->
 
 @endsection
+
 
 @section('content')
 <h1><%= name %></h1>
