@@ -144,6 +144,41 @@ export default class Generator {
   }
 
   //-------------------------------------------------------
+  getCmsCrudQuestions()
+  {
+
+    this.questions =  [
+      {
+        type : 'input',
+        name : 'namespace',
+        default: 'WebReinvent\\VaahCms',
+        message : 'Enter your namespace name: '
+      },
+      {
+        type : 'input',
+        name : 'model_name',
+        default: 'Article',
+        message : 'Enter your model name: '
+      },
+      {
+        type : 'input',
+        name : 'table_name',
+        default: 'articles',
+        message : 'Enter your table name: '
+      },
+      {
+        type : 'input',
+        name : 'controller_name',
+        default: 'Articles',
+        message : 'Enter your controller name: '
+      },
+    ];
+
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
   getModuleCrudQuestions()
   {
 

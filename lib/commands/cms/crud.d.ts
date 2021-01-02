@@ -1,5 +1,5 @@
 import { Command } from '@oclif/command';
-export default class CmsMCrud extends Command {
+export default class CmsCrud extends Command {
     questions: {
         [k: string]: any;
     };
@@ -12,7 +12,11 @@ export default class CmsMCrud extends Command {
         name: import("@oclif/parser/lib/flags").IBooleanFlag<void>;
         force: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
     };
-    static args: never[];
+    static args: {
+        name: string;
+        required: boolean;
+        default: string;
+    }[];
     run(): Promise<void>;
     successMessage(): void;
 }

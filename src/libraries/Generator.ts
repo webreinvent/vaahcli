@@ -221,6 +221,86 @@ export default class Generator {
 
   }
   //-------------------------------------------------------
+  copyCrudFilesToDestination(file_path:string)
+  {
+
+    let destination = this.getFileDestination(file_path);
+
+    let file_readable_path = __dirname+"./../../skeletons/"+file_path;
+
+    let file_content = fs.readFileSync(file_readable_path).toString();
+    let parsed_file_content = ejs.render(file_content, this.inputs);
+
+    destination = destination.replace('.ejs', "");
+
+    let file_name = path.basename(destination);
+
+    if(file_name == 'Model.php')
+    {
+      destination = destination.replace('Model', this.inputs['model_name']);
+    }
+
+    if(file_name == 'Controller.php')
+    {
+      destination = destination.replace('Controller.php',
+        this.inputs['controller_name']+'Controller.php');
+    }
+
+
+    if(file_name == 'routes-template.php')
+    {
+      destination = destination.replace('routes-template', this.inputs['table_name']);
+    }
+
+    if(file_name == 'vue-routes-template.js')
+    {
+      destination = destination.replace('vue-routes-template', 'routes-'+this.inputs['table_name']);
+    }
+
+    if(file_name == 'store-template.js')
+    {
+      destination = destination.replace('store-template', 'store-'+this.inputs['table_name']);
+    }
+
+
+    destination = destination.replace('Vue\\pages\\template',
+      'Vue\\pages\\'+this.inputs['table_name']);
+
+
+    fsSync.write(destination, parsed_file_content);
+
+    log(chalk.green(destination));
+
+  }
+  //-------------------------------------------------------
+  curdFiles()
+  {
+
+    /*
+        log(chalk.red(`===ARG===`));
+        log(this.args);
+
+
+        log(chalk.green(`===FLAGS===`));
+        log(this.flags);
+
+
+        log(chalk.blue(`===INPUTS===`));
+        log(this.inputs);
+    */
+
+
+    let get_files = this.getFilesFromSkeletonDirector();
+
+    //console.log('--->', get_files);
+
+    let self = this;
+
+    get_files.forEach(function(file) {
+      self.copyCrudFilesToDestination(file);
+    });
+
+  }
   //-------------------------------------------------------
   //-------------------------------------------------------
 

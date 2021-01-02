@@ -18,4 +18,6 @@ export default class Generator {
     file(): void;
     getFileDestination(file_path: string): string;
     copyFilesToDestination(file_path: string): void;
+    copyCrudFilesToDestination(file_path: string): void;
+    curdFiles(): void;
 }

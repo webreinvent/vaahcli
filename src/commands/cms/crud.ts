@@ -10,7 +10,7 @@ const chalk = require('chalk');
 const log = console.log;
 
 
-export default class CmsMCrud extends Command {
+export default class CmsCrud extends Command {
   questions: {[k: string]: any} = {};
   inputs: {[k: string]: any} = {};
 
@@ -35,7 +35,13 @@ export default class CmsMCrud extends Command {
    * Command Arguments
    *---------------------------------------------------
    */
-  static args = [];
+  static args = [
+    {
+      name: 'path',
+      required: false,
+      default: './',
+    },
+  ];
 
 
   /*
@@ -44,22 +50,22 @@ export default class CmsMCrud extends Command {
    *---------------------------------------------------
    */
   async run() {
-    const {args, flags} = this.parse(CmsMCrud)
+    const {args, flags} = this.parse(CmsCrud)
 
     let questions = new Questions();
 
-    this.inputs = await inquirer.prompt(questions.getModuleCrudQuestions());
+    this.inputs = await inquirer.prompt(questions.getCmsCrudQuestions());
 
-    this.inputs['namespace'] = 'VaahCms\\Modules\\'+this.inputs.module_name;
+    this.inputs['namespace'] = this.inputs.namespace;
 
-    let source = '\\skeletons\\vaahcms\\module-crud\\';
-    let target = "./VaahCms/Modules/"+this.inputs.module_name;
+    let source = '\\skeletons\\vaahcms\\crud\\';
+    let target = args.path;
 
     let generator = new Generator(args, flags, this.inputs, source, target);
 
 
     log(chalk.green('======================================='));
-    log('Generating CRUD for Module: '+chalk.green(this.inputs.module_name));
+    log('Generating CRUD for VaahCMS');
     log(chalk.green('---------------------------------------'));
 
 
@@ -67,7 +73,7 @@ export default class CmsMCrud extends Command {
       {
         title: 'Files Generated for CRUD operations',
         task: function () {
-          generator.files();
+          generator.curdFiles();
         }
       }
     ]);
@@ -84,8 +90,7 @@ export default class CmsMCrud extends Command {
 
   }
 
-
-  //---------------------------------------------------
+  //-----------------------------
   successMessage()
   {
     log(chalk.white.bgGreen.bold("      Files Generated!      "));
@@ -97,8 +102,5 @@ export default class CmsMCrud extends Command {
     log(chalk.green("=================================================================="));
 
   }
-
-  //---------------------------------------------------
-  //---------------------------------------------------
 
 }

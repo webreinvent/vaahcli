@@ -9,6 +9,9 @@ export default class Generator {
     getVaahCmsThemeQuestions(): {
         [k: string]: any;
     };
+    getCmsCrudQuestions(): {
+        [k: string]: any;
+    };
     getModuleCrudQuestions(): {
         [k: string]: any;
     };
