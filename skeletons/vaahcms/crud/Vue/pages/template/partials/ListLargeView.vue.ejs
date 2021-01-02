@@ -4,6 +4,7 @@
         <b-table :data="page.list_is_empty ? [] : page.list.data"
                  :checked-rows.sync="page.bulk_action.selected_items"
                  checkbox-position="left"
+                 checkable
                  :hoverable="true"
                  :row-class="setRowClass"
         >
