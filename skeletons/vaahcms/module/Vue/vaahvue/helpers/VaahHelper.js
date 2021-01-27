@@ -27,7 +27,7 @@ const VaahHelper = {
             params: params
         };
 
-        let data = await Vue.axios.get(url, q)
+        let data = await axios.get(url, q)
             .then(response => {
                 if(response.data.status)
                 {
@@ -100,7 +100,7 @@ const VaahHelper = {
             params: query
         };
 
-        let data = await Vue.axios.post(url, params, q)
+        let data = await axios.post(url, params, q)
             .then(response => {
                 this.processResponse(response);
                 if(callback)
