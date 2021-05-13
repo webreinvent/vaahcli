@@ -15,4 +15,7 @@ export default class Generator {
     getModuleCrudQuestions(): {
         [k: string]: any;
     };
+    getCrudQuestions(): {
+        [k: string]: any;
+    };
 }

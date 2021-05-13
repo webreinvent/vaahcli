@@ -1,22 +1,25 @@
 import { Command } from '@oclif/command';
 export default class CmsCrud extends Command {
-    questions: {
+    args: {
+        [k: string]: any;
+    };
+    flags: {
         [k: string]: any;
     };
     inputs: {
         [k: string]: any;
     };
+    spinner: {
+        [k: string]: any;
+    };
+    repo: string;
+    target_dir: string;
+    source_dir: string;
     static description: string;
     static flags: {
-        help: import("@oclif/parser/lib/flags").IBooleanFlag<void>;
-        name: import("@oclif/parser/lib/flags").IBooleanFlag<void>;
-        force: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
+        help: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
     };
-    static args: {
-        name: string;
-        required: boolean;
-        default: string;
-    }[];
+    static args: never[];
     run(): Promise<void>;
     successMessage(): void;
 }

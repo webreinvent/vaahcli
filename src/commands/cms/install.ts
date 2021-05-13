@@ -8,6 +8,7 @@ var shell = require('shelljs');
 const { exec } = require('child_process');
 let fsSync = require('fs-sync');
 const fsPromises = fs.promises;
+// @ts-ignore
 import { fetch, extract }  from 'gitly';
 
 
@@ -37,7 +38,7 @@ export default class CmsInstall extends Command {
    */
   static flags = {
     here: flags.boolean({
-      description: 'If you want to VaahCMS in current director',
+      description: 'If you want to install VaahCMS in current directory',
       default: false,
     }),
     help: flags.help({char: 'h'}),
@@ -123,7 +124,8 @@ export default class CmsInstall extends Command {
           {
 
             let self = this;
-             fetch('webreinvent/vaahcms-ready').then(download => {
+             // @ts-ignore
+            fetch('webreinvent/vaahcms-ready').then(download => {
               console.log('data-->', download);
               self.source_dir = download;
             }).then(resolve)
