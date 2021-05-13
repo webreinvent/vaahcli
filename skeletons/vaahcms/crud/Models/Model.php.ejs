@@ -104,7 +104,9 @@ class <%= model_name %> extends Model {
         $inputs = $request->new_item;
 
         $validation = self::validation($inputs);
-        if(isset($validation['status']) && $validation['status'] == 'failed')
+        if( isset($validation['status'])
+            && $validation['status'] == 'failed'
+            )
         {
             return $validation;
         }
@@ -131,7 +133,7 @@ class <%= model_name %> extends Model {
             return $response;
         }
 
-        $item = new static();
+        $item = new self();
         $item->fill($inputs);
         $item->slug = Str::slug($inputs['slug']);
         $item->save();
@@ -217,7 +219,8 @@ class <%= model_name %> extends Model {
         }
 
         // check if name exist
-        $user = self::where('id','!=',$input['id'])->where('name',$input['name'])->first();
+        $user = self::where('id','!=',$input['id'])
+        ->where('name',$input['name'])->first();
 
         if($user)
         {
@@ -228,7 +231,8 @@ class <%= model_name %> extends Model {
 
 
         // check if slug exist
-        $user = self::where('id','!=',$input['id'])->where('slug',$input['slug'])->first();
+        $user = self::where('id','!=',$input['id'])
+        ->where('slug',$input['slug'])->first();
 
         if($user)
         {

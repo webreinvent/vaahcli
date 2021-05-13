@@ -2,13 +2,13 @@
 
 Route::group(
 [
- 'prefix' => '<%= url+controller_name_lower %>',
- <%if (section_name == 'Backend') { %>
- 'middleware' => ['web', 'has.backend.access'],
- <% } else{ %>
- 'middleware' => ['web'],
- <% } %>
- 'namespace' => '<%= section_name %>',
+    'prefix' => '<%= url+controller_name_lower %>',
+    <%if (section_name == 'Backend') { %>
+    'middleware' => ['web', 'has.backend.access'],
+    <% } else{ %>
+    'middleware' => ['web'],
+    <% } %>
+    'namespace' => '<%= section_name %>',
 ],
 function () {
      //---------------------------------------------------------
