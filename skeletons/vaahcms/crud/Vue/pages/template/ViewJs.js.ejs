@@ -7,6 +7,7 @@ export default {
         root() {return this.$store.getters['root/state']},
         permissions() {return this.$store.getters['root/state'].permissions},
         page() {return this.$store.getters[namespace+'/state']},
+        assets() {return this.$store.getters[namespace+'/state'].assets},
         ajax_url() {return this.$store.getters[namespace+'/state'].ajax_url},
         item() {return this.$store.getters[namespace+'/state'].active_item},
     },
