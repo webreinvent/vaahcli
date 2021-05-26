@@ -2,6 +2,8 @@ import {Command, flags} from '@oclif/command'
 import Questions from '../../libraries/Questions'
 import * as inquirer from 'inquirer'
 import Generator from '../../libraries/Generator'
+import Helpers from '../../libraries/Helpers'
+import Functions from '../../libraries/Functions'
 
 let fs = require('fs');
 let ora = require('ora');
@@ -53,6 +55,15 @@ export default class CmsCrud extends Command {
    *---------------------------------------------------
    */
   async run() {
+
+    let functions = new Functions();
+    let is_updates_available = await functions.isUpdatesAvailable();
+    if(is_updates_available)
+    {
+      return true;
+    }
+
+
     const {args, flags} = this.parse(CmsCrud)
 
     let questions = new Questions();

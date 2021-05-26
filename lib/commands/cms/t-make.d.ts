@@ -28,5 +28,5 @@ export default class CmsTMake extends Command {
         required: boolean;
         options?: undefined;
     })[];
-    run(): Promise<void>;
+    run(): Promise<true | undefined>;
 }

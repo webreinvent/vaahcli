@@ -1,3 +1,4 @@
+const axios = require('axios');
 
 const chalk = require('chalk');
 let fs = require('fs');
@@ -12,6 +13,7 @@ export default class Helpers {
   args: {[k: string]: any} = {};
   flags: {[k: string]: any} = {};
   inputs: {[k: string]: any} = {};
+  package_url: string = 'https://api.npms.io/v2/package/vaah';
 
 
   constructor(args: object, flags: object, inputs: object) {
@@ -23,6 +25,16 @@ export default class Helpers {
     this.setLowerAndUpperCaseValues();
   }
 
+  //-------------------------------------------------------
+  isPackageUpdated()
+  {
+
+    axios.get(this.package_url).then(function (response: any) {
+      console.log(response);
+    })
+
+
+  }
   //-------------------------------------------------------
 
   setLowerAndUpperCaseValues()

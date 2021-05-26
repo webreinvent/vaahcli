@@ -4,6 +4,7 @@ const Listr = require('listr');
 
 import Questions from "../../libraries/Questions";
 import Generator from "../../libraries/Generator";
+import Functions from '../../libraries/Functions'
 
 
 const chalk = require('chalk');
@@ -45,6 +46,13 @@ export default class CmsM extends Command {
    *---------------------------------------------------
    */
   async run() {
+
+    let functions = new Functions();
+    let is_updates_available = await functions.isUpdatesAvailable();
+    if(is_updates_available)
+    {
+      return true;
+    }
 
     const {args, flags} = this.parse(CmsM);
 

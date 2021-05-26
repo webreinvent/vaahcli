@@ -8,7 +8,9 @@ export default class Helpers {
     inputs: {
         [k: string]: any;
     };
+    package_url: string;
     constructor(args: object, flags: object, inputs: object);
+    isPackageUpdated(): void;
     setLowerAndUpperCaseValues(): void;
     replaceAll(str: string, find: string, replace: string): string;
     titleCase(str: string): string;

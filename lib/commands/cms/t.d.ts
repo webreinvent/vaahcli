@@ -13,5 +13,5 @@ export default class CmsT extends Command {
         force: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
     };
     static args: never[];
-    run(): Promise<void>;
+    run(): Promise<true | undefined>;
 }

@@ -10,6 +10,7 @@ let fsSync = require('fs-sync');
 const fsPromises = fs.promises;
 // @ts-ignore
 import { fetch, extract }  from 'gitly';
+import Functions from '../../libraries/Functions'
 
 
 
@@ -65,6 +66,13 @@ export default class CmsInstall extends Command {
    *---------------------------------------------------
    */
   async run() {
+
+    let functions = new Functions();
+    let is_updates_available = await functions.isUpdatesAvailable();
+    if(is_updates_available)
+    {
+      return true;
+    }
 
     const {args, flags} = this.parse(CmsInstall);
 
