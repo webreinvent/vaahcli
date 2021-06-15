@@ -83,14 +83,14 @@ class <%= model_name %> extends Model {
 
         if($from)
         {
-            $from = \Illuminate\Support\Carbon::parse($from)
+            $from = \Carbon::parse($from)
                 ->startOfDay()
                 ->toDateTimeString();
         }
 
         if($to)
         {
-            $to = Carbon::parse($to)
+            $to = \Carbon::parse($to)
                 ->endOfDay()
                 ->toDateTimeString();
         }

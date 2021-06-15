@@ -9,7 +9,7 @@ const { exec } = require('child_process');
 let fsSync = require('fs-sync');
 const fsPromises = fs.promises;
 // @ts-ignore
-import { fetch, extract }  from 'gitly';
+import { download, extract }  from 'gitly';
 import Functions from '../../libraries/Functions'
 
 
@@ -133,8 +133,7 @@ export default class CmsInstall extends Command {
 
             let self = this;
              // @ts-ignore
-            fetch('webreinvent/vaahcms-ready').then(download => {
-              console.log('data-->', download);
+            download('webreinvent/vaahcms-ready').then(download => {
               self.source_dir = download;
             }).then(resolve)
               .catch(() => {
@@ -147,7 +146,6 @@ export default class CmsInstall extends Command {
         title: 'Extracting VaahCMS Files',
         task: () => new Promise((resolve, reject) => {
           {
-
             extract(this.source_dir, this.target_dir).then(resolve)
               .catch(() => {
                 reject(new Error('Failed'));
@@ -170,6 +168,7 @@ export default class CmsInstall extends Command {
 
             let options = [
               'install',
+              '--ignore-platform-reqs'
             ];
 
             let output_options = {

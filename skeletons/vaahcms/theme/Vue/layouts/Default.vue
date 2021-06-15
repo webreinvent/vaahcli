@@ -1,4 +1,4 @@
-<script src="./BackendJs.js"></script>
+<script src="./DefaultJs.js"></script>
 
 <template>
 

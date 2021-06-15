@@ -13,12 +13,12 @@ import GetAssets from './middleware/GetAssets'
 |--------------------------------------------------------------------------
 */
 
-import Backend from './../layouts/Backend'
+import Default from './../layouts/Default'
 import Index from './../pages/dashboard/Index'
 
 routes_list =     {
     path: '/',
-    component: Backend,
+    component: Default,
     props: true,
     meta: {
         middleware: [
@@ -28,7 +28,7 @@ routes_list =     {
     children: [
         {
             path: '/',
-            name: 'cms.index',
+            name: 'theme.index',
             component: Index,
             props: true,
             meta: {

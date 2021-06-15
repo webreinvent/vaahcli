@@ -322,7 +322,7 @@ export default class Generator {
 
     get_files.forEach((file_path) => {
 
-      log("Source file--> "+chalk.green(file_path));
+      //log("Source file--> "+chalk.green(file_path));
 
       //-- destination path
       destination = this.getFileDestination(file_path);

@@ -1,7 +1,7 @@
 {
   "name": "vaah",
   "description": "CLI of VaahCMS - VaahCLI",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "author": "Vaah",
   "bin": {
     "vaah": "./bin/run"
@@ -23,7 +23,7 @@
     "execa": "^4.1.0",
     "fs": "0.0.1-security",
     "fs-sync": "^1.0.6",
-    "gitly": "^2.1.0",
+    "gitly": "^2.1.1",
     "inquirer": "^7.3.3",
     "listr": "^0.14.3",
     "ora": "^5.1.0",

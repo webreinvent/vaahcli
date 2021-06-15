@@ -15,7 +15,7 @@ const log = console.log;
 
 export default class Helpers {
 
-  package_url: string = 'https://api.npms.io/v2/package/vaah';
+  package_url: string = 'https://registry.npmjs.org/vaah/latest';
 
 
   //-------------------------------------------------------
@@ -23,17 +23,13 @@ export default class Helpers {
   {
     let version = 0;
     let pack = {
-      collected: {
-        metadata: {
-          version: 0
-        }
-      },
+      version: 0
     };
     pack = await axios.get(this.package_url).then(function (response: any) {
       return response.data;
     })
 
-    version = pack.collected.metadata.version;
+    version = pack.version;
 
     let is_updates_available = semver.gt(version, package_json.version);
 
