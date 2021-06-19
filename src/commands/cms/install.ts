@@ -285,7 +285,7 @@ export default class CmsInstall extends Command {
 
     log(chalk.green("=================================================================="));
     log(chalk.green("Open")+" the project folder and ");
-    log("run "+chalk.green("php artisan server")+" then visit following url to setup:");
+    log("run "+chalk.green("php artisan serve")+" command then visit following url to setup:");
     log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
     log("In case of  "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
     log(chalk.green("http://localhost/<project-folder-path>/public/vaahcms/setup"));
