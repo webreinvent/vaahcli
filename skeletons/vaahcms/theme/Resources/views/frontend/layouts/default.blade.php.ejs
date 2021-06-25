@@ -10,6 +10,20 @@
 
     <meta name="debug" id="debug" content="true">
 
+    <!--<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" />
+
+    <link  href="{{vh_theme_assets_url("<%= theme_name %>", "css/build.css")}}"
+    rel="stylesheet" media="screen">
+
+
+    @if(env('THEME_<%= theme_name_upper %>_ENV') == 'develop')
+        <link href="http://localhost:8080/<%= theme_name_lower %>/assets/css/style.css"
+              rel="stylesheet" media="screen">
+    @else
+        <link  href="{{vh_theme_assets_url("<%= theme_name %>", "css/style.css")}}"
+            rel="stylesheet" media="screen">
+    @endif-->
+
     @yield('vaahcms_extend_frontend_head')
 
     @yield('vaahcms_extend_frontend_css')

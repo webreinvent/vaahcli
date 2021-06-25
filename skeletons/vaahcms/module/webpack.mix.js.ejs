@@ -17,9 +17,8 @@ const fs_extra = require('fs-extra');
 
 let publish_folder;
 let output_folder;
-let source_vue_folder;
-
-source_vue_folder = __dirname+'/Vue';
+let source_vue_folder = __dirname+'/Vue';;
+let source_assets_folder = "Resources/assets/";
 
 
 if (mix.inProduction()) {
@@ -41,9 +40,11 @@ if (mix.inProduction()) {
 } else {
 
     publish_folder = './../../../public/vaahcms/modules/';
+    mix.setPublicPath(publish_folder);
+
     output_folder = "./<%= module_name_lower %>/assets/";
 
-    mix.setPublicPath(publish_folder);
+    //mix.sass(source_assets_folder+'/scss/build.scss', output_folder+'css/');
 
     mix.js(source_vue_folder+"/app.js",  output_folder+'/build/app.js').vue();
 

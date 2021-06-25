@@ -110,7 +110,7 @@ export default class Helpers {
 
     name = this.replaceAll(name, " ", "_");
     name = name.toLowerCase();
-    name = name+'_table.php';
+    name = name+'.php';
 
     return name;
 

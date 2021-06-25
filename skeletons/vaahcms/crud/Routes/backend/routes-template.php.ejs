@@ -13,24 +13,24 @@ Route::group(
 function () {
      //---------------------------------------------------------
      Route::get('/', '<%= controller_name %>Controller@getIndex')
-    ->name('vh.backend.<%= folder_name_lower %>.<%= controller_name_lower %>');
+    ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>');
      //---------------------------------------------------------
      Route::any('/assets', '<%= controller_name %>Controller@getAssets')
-    ->name('vh.backend.<%= folder_name_lower %>.<%= controller_name_lower %>.assets');
+    ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.assets');
      //---------------------------------------------------------
      Route::post('/create', '<%= controller_name %>Controller@postCreate')
-    ->name('vh.backend.<%= folder_name_lower %>.<%= controller_name_lower %>.create');
+    ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.create');
      //---------------------------------------------------------
      Route::any('/list', '<%= controller_name %>Controller@getList')
-    ->name('vh.backend.<%= folder_name_lower %>.<%= controller_name_lower %>.list');
+    ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.list');
      //---------------------------------------------------------
      Route::any('/item/{uuid}', '<%= controller_name %>Controller@getItem')
-    ->name('vh.backend.<%= folder_name_lower %>.<%= controller_name_lower %>.item');
+    ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.item');
      //---------------------------------------------------------
      Route::post('/store/{uuid}', '<%= controller_name %>Controller@postStore')
-    ->name('vh.backend.<%= folder_name_lower %>.<%= controller_name_lower %>.store');
+    ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.store');
      //---------------------------------------------------------
      Route::post('/actions/{action_name}', '<%= controller_name %>Controller@postActions')
-    ->name('vh.backend.<%= folder_name_lower %>.<%= controller_name_lower %>.actions');
+    ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.actions');
      //---------------------------------------------------------
 });
