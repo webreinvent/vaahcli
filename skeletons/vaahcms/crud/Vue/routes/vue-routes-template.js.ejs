@@ -4,8 +4,11 @@ import <%= controller_name %>View from "./../pages/<%= controller_name_lower %>/
 import <%= controller_name %>Edit from "./../pages/<%= controller_name_lower %>/Edit";
 
 import GetAssets from './middleware/GetAssets'
+<%if (section_name == 'Backend') { %>
 import LayoutBackend from "./../layouts/Backend";
-
+<% } else{ %>
+import LayoutBackend from "./../layouts/Default";
+<% } %>
 let routes_<%= controller_name_lower %>=[];
 
 let list =     {
