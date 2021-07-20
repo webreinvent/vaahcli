@@ -21,4 +21,5 @@ export default class Generator {
     copyCrudFilesToDestination(file_path: string): void;
     curdFiles(): void;
     generateCrudFiles(): void;
+    generateAuthFiles(): void;
 }

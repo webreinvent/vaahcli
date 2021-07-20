@@ -18,4 +18,7 @@ export default class Generator {
     getCrudQuestions(): {
         [k: string]: any;
     };
+    getAuthQuestions(): {
+        [k: string]: any;
+    };
 }
