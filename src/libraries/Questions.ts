@@ -268,6 +268,22 @@ export default class Generator {
 
   }
   //-------------------------------------------------------
+  getAuthQuestions()
+  {
+
+    this.questions =  [
+      {
+        type : 'input',
+        name : 'theme_name',
+        default: 'HelloWorld',
+        message : 'Enter the Theme folder name: '
+      }
+    ];
+
+
+    return this.questions;
+
+  }
   //-------------------------------------------------------
   //-------------------------------------------------------
   //-------------------------------------------------------

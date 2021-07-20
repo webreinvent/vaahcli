@@ -13,7 +13,7 @@ Route::group(
 function () {
      //---------------------------------------------------------
      Route::get('/', '<%= controller_name %>Controller@getIndex')
-    ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>');
+    ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.home');
      //---------------------------------------------------------
      Route::any('/assets', '<%= controller_name %>Controller@getAssets')
     ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.assets');

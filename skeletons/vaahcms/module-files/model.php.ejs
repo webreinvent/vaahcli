@@ -1,11 +1,10 @@
 <?php namespace <%= namespace %>;
 
-use CarbonCarbon;
-use IlluminateDatabaseEloquentModel;
-use IlluminateDatabaseEloquentSoftDeletes;
-use IlluminateSupportStr;
-use WebReinventVaahCmsTraitsCrudWithUuidObservantTrait;
-use WebReinventVaahCmsEntitiesUser;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use WebReinvent\VaahCms\Entities\User;
+use WebReinvent\VaahCms\Traits\CrudWithUuidObservantTrait;
 
 class <%= name %> extends Model {
 
@@ -66,6 +65,39 @@ class <%= name %> extends Model {
             'deleted_by', 'id'
         )->select('id', 'uuid', 'first_name', 'last_name', 'email');
     }
+    //-------------------------------------------------
+    public function getTableColumns()
+        {
+            return $this->getConnection()
+                ->getSchemaBuilder()
+                ->getColumnListing($this->getTable());
+        }
+
+        //-------------------------------------------------
+        public function scopeExclude($query, $columns)
+        {
+            return $query->select(array_diff($this->getTableColumns(), $columns));
+        }
+
+        //-------------------------------------------------
+        public function scopeBetweenDates($query, $from, $to)
+        {
+
+            if ($from) {
+                $from = \Carbon::parse($from)
+                    ->startOfDay()
+                    ->toDateTimeString();
+            }
+
+            if ($to) {
+                $to = \Carbon::parse($to)
+                    ->endOfDay()
+                    ->toDateTimeString();
+            }
+
+            $query->whereBetween('updated_at', [$from, $to]);
+        }
+
     //-------------------------------------------------
 
 }

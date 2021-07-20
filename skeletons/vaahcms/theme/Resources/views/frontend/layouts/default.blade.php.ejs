@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <head>
+        {!! config('settings.global.script_after_head_start') !!}
+
     <title>{{$data->title ?? "<%= theme_name %>"}}</title>
     <meta name="csrf-token" id="_token" content="{{ csrf_token() }}">
 
@@ -28,21 +31,19 @@
 
     @yield('vaahcms_extend_frontend_css')
 
+        {!! config('settings.global.script_before_head_close') !!}
+    </head>
+
 	<body>
+        {!! config('settings.global.script_after_body_start') !!}
 
-	<?php
+        @include("vaahcms::frontend.partials.alerts")
+        @include("vaahcms::frontend.partials.flash")
 
-	//vh_get_modules_extended_views('menu');
+        @yield('content')
 
-	?>
+        @yield('vaahcms_extend_frontend_scripts')
 
-    @include("vaahcms::frontend.partials.alerts")
-    @include("vaahcms::frontend.partials.flash")
-
-    @yield('content')
-
-
-    @yield('vaahcms_extend_frontend_scripts')
-
+        {!! config('settings.global.script_before_body_close') !!}
 	</body>
 </html>
