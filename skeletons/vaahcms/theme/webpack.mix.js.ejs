@@ -1,8 +1,4 @@
 const mix = require('laravel-mix');
-var fs = require('fs');
-const fs_extra = require('fs-extra');
-
-
 
 /*
  |--------------------------------------------------------------------------
@@ -33,8 +29,11 @@ if (mix.inProduction()) {
 
     publish_folder = './Resources/assets/';
     output_folder = "./";
-
     mix.setPublicPath(publish_folder);
+
+    //mix.sass(source_assets_folder+'/scss/build.scss', output_folder+'css/');
+    //mix.sass(source_assets_folder+'/scss/style.scss', output_folder+'css/');
+
     mix.js(source_vue_folder+"/app.js",  output_folder+'/build/app.js').vue();
 
 } else {
@@ -48,7 +47,6 @@ if (mix.inProduction()) {
     //mix.sass(source_assets_folder+'/scss/style.scss', output_folder+'css/');
 
     mix.js(source_vue_folder+"/app.js",  output_folder+'/build/app.js').vue();
-
 }
 
 mix.webpackConfig({

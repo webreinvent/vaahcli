@@ -107,11 +107,28 @@ export default class CmsCrud extends Command {
     log(chalk.green("=================================================================="));
     log(chalk.green("Following steps:"));
     log("1) Include Routes/frontend/routes-auth.php in Routes/frontend.php of the theme");
-    log("2) Include VueScripts.js in webpack.mix.js");
-    log("3) Run 'npm run dev'");
-    log(chalk.green("Following routes are created:"));
-    log("1) <public-url>/signin");
-    log("2) <public-url>/signup");
+    log("2) Include VueScripts.js in webpack.mix.js, sample code is below:");
+
+    let code = '    //To js minification\n' +
+      '    let jses = [\n' +
+      '        \'./Resources/assets/js/VueScripts.js\',\n' +
+      '    ];\n' +
+      '\n' +
+      '    mix.js(jses,  output_folder+\'/build/script.js\');'
+
+    log(chalk.blue(code));
+
+    log("3) Include the script in your master blade layout:");
+
+    code = '    <script src="{{vh_theme_assets_url("ThemeName", "build/script.js")}}"></script>'
+
+    log(chalk.blue(code));
+
+    log("4) Run 'npm run dev' in the root folder of the theme");
+
+    log(chalk.green("5) Now, following routes will be available:"));
+    log(chalk.green("a) <public-url>/signin"));
+    log(chalk.green("b) <public-url>/signup"));
     log(chalk.green("=================================================================="));
 
   }
