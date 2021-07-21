@@ -268,7 +268,7 @@ $ npm install -g vaah
 $ vaah COMMAND
 running command...
 $ vaah (-v|--version|version)
-vaah/1.10.4 win32-x64 node-v14.15.3
+vaah/1.10.5 win32-x64 node-v14.15.3
 $ vaah --help [COMMAND]
 USAGE
   $ vaah COMMAND
@@ -502,7 +502,7 @@ OPTIONS
   --help  Generate Auth operation for VaahCMS Themes
 ```
 
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v1.10.4/src/commands/cms/auth.ts)_
+_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v1.10.5/src/commands/cms/auth.ts)_
 
 ## `vaah cms:crud`
 
@@ -514,7 +514,7 @@ OPTIONS
   --help  Generate CRUD operation for VaahCMS
 ```
 
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v1.10.4/src/commands/cms/crud.ts)_
+_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v1.10.5/src/commands/cms/crud.ts)_
 
 ## `vaah cms:install [PROJECT_NAME]`
 
@@ -530,7 +530,7 @@ OPTIONS
   --here      If you want to install VaahCMS in current directory
 ```
 
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v1.10.4/src/commands/cms/install.ts)_
+_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v1.10.5/src/commands/cms/install.ts)_
 
 ## `vaah cms:m`
 
@@ -544,7 +544,7 @@ OPTIONS
   -n, --name   show CLI help
 ```
 
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v1.10.4/src/commands/cms/m.ts)_
+_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v1.10.5/src/commands/cms/m.ts)_
 
 ## `vaah cms:m-crud`
 
@@ -558,7 +558,7 @@ OPTIONS
   -n, --name   show CLI help
 ```
 
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v1.10.4/src/commands/cms/m-crud.ts)_
+_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v1.10.5/src/commands/cms/m-crud.ts)_
 
 ## `vaah cms:m-make TYPE MODULE NAME`
 
@@ -573,7 +573,7 @@ OPTIONS
   -n, --name      show CLI help
 ```
 
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v1.10.4/src/commands/cms/m-make.ts)_
+_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v1.10.5/src/commands/cms/m-make.ts)_
 
 ## `vaah cms:t`
 
@@ -587,7 +587,7 @@ OPTIONS
   -n, --name   show CLI help
 ```
 
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v1.10.4/src/commands/cms/t.ts)_
+_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v1.10.5/src/commands/cms/t.ts)_
 
 ## `vaah cms:t-make TYPE THEME NAME`
 
@@ -602,7 +602,7 @@ OPTIONS
   -n, --name      show CLI help
 ```
 
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v1.10.4/src/commands/cms/t-make.ts)_
+_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v1.10.5/src/commands/cms/t-make.ts)_
 
 ## `vaah hello [FILE]`
 
@@ -620,7 +620,7 @@ EXAMPLE
   hello world from ./src/hello.ts!
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v1.10.4/src/commands/hello.ts)_
+_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v1.10.5/src/commands/hello.ts)_
 
 ## `vaah help [COMMAND]`
 

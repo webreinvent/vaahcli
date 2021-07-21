@@ -118,15 +118,26 @@ export default class CmsCrud extends Command {
 
     log(chalk.blue(code));
 
-    log("3) Include the script in your master blade layout:");
+    log("3) Include the CSS in <head> tag of master/default blade layout of the theme if not included:");
 
-    code = '    <script src="{{vh_theme_assets_url("ThemeName", "build/script.js")}}"></script>'
+    code = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">\n' +
+      '    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">\n';
 
     log(chalk.blue(code));
 
-    log("4) Run 'npm run dev' in the root folder of the theme");
+    log("4) Include the JS script before </body> tag of master/default blade layout of the theme if not included:");
 
-    log(chalk.green("5) Now, following routes will be available:"));
+    code = '    <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.js"></script>\n' +
+      '    <script src="https://unpkg.com/axios@0.21.1/dist/axios.min.js"></script>\n' +
+      '    <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>\n' +
+      '    <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>\n' +
+      '    <script src="{{vh_theme_assets_url("'+this.inputs['theme_name']+'", "build/script.js")}}"></script>'
+
+    log(chalk.blue(code));
+
+    log("5) Run "+chalk.green('npm run dev')+" in the root folder of the theme");
+
+    log("6) Now, following routes will be available:");
     log(chalk.green("a) <public-url>/signin"));
     log(chalk.green("b) <public-url>/signup"));
     log(chalk.green("=================================================================="));
