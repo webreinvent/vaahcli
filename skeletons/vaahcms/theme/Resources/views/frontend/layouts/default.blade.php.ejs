@@ -49,7 +49,7 @@
 	<body>
         {!! config('settings.global.script_after_body_start') !!}
 
-        @include("vaahcms::frontend.partials.alerts")
+        @include("vaahcms::frontend.partials.errors")
         @include("vaahcms::frontend.partials.flash")
 
         @yield('content')
