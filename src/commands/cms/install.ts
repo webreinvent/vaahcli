@@ -171,16 +171,20 @@ export default class CmsInstall extends Command {
               '--ignore-platform-reqs'
             ];
 
+            let composer;
+
+            composer = execa('composer', options);
+
+            //---print composer command progress
             let output_options = {
-              buffer: false,
+              buffer: true,
               stderr: "inherit"
             };
-
-            //let composer = execa('composer', options, output_options);
+            //composer = execa('composer', options, output_options);
             //composer.stdout.pipe(process.stdout);
+            //---end of print composer command progress
 
 
-            let composer = execa('composer', options);
 
             composer.then(resolve)
               .catch((error: any) => {
@@ -191,7 +195,9 @@ export default class CmsInstall extends Command {
 
           }
         })
-      },
+      }
+
+      /*,
       {
         title: 'Configuring VaahCMS',
         task: () => new Promise((resolve, reject) => {
@@ -222,7 +228,7 @@ export default class CmsInstall extends Command {
             return command;
           }
         })
-      }
+      }*/
 
     ]);
 
@@ -279,17 +285,17 @@ export default class CmsInstall extends Command {
 
     this.spinner.succeed();
 
-
-
     log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
 
-    log(chalk.green("=================================================================="));
-    log(chalk.green("Open")+" the project folder and ");
-    log("run "+chalk.green("php artisan serve")+" command then visit following url to setup:");
+    log(chalk.black("=================================================================="));
+    log("Open the project folder and run the following command ");
+    log(chalk.green("php artisan serve"));
+    log("then visit following url to setup:");
     log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
-    log("In case of  "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
+    log("Or");
+    log("In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
     log(chalk.green("http://localhost/<project-folder-path>/public/vaahcms/setup"));
-    log(chalk.green("=================================================================="));
+    log(chalk.black("=================================================================="));
 
   }
   //-----------------------------------
