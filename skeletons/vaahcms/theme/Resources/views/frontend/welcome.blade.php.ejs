@@ -13,8 +13,21 @@
 @endsection
 
 @section('content')
-<h1><%= theme_name %></h1>
-<p>Welcome Page.</p>
-<p>This page should contain welcome message which does not require any database to run.
-You can write theme setup information.</p>
+<div class="container has-text-centered mt-6">
+
+        <div class="notification is-link is-light">
+            This page should contain welcome message which does not require any database to run.
+            You can write theme setup information.
+        </div>
+
+        <section class="hero">
+            <div class="hero-body">
+                <p class="title"><%= theme_name %></p>
+
+                <p class="subtitle">Welcome Page.</p>
+
+            </div>
+        </section>
+
+</div>
 @endsection

@@ -114,9 +114,10 @@ export default class CmsCrud extends Command {
     log(chalk.white.bgGreen.bold("      Files Generated!      "));
     log(chalk.green("=================================================================="));
     log(chalk.green("Following steps:"));
-    log("1) Include the laravel router file");
+    log("1) Include the laravel router file in the module's route file");
     log("2) Include the vue router file");
     log("3) Include the vue store file");
+    log("4) Add vue router link to you menu");
     log(chalk.green("=================================================================="));
 
   }

@@ -1,7 +1,7 @@
 {
   "name": "vaah",
   "description": "CLI of VaahCMS - VaahCLI",
-  "version": "1.10.8",
+  "version": "1.11.0",
   "author": "Vaah",
   "bin": {
     "vaah": "./bin/run"

@@ -5,7 +5,7 @@ let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
 let debug = document.getElementById('debug').getAttribute('content');
 //---------/Variables
 
-let ajax_url = base_url+"/<%= url+controller_name_lower %>";
+let ajax_url = base_url+"/<%= url+folder_name_lower %>/<%= controller_name_lower %>";
 
 export default {
     namespaced: true,

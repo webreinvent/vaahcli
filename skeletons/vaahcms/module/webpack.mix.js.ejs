@@ -53,21 +53,29 @@ if (mix.inProduction()) {
 
 
 mix.webpackConfig({
+
     watchOptions: {
+
         aggregateTimeout: 2000,
-        poll: 20,
+        poll: 1000,
         ignored: [
+            '**/*.php',
+            '**/node_modules',
             '/Config/',
             '/Database/',
-            '/Entities/',
             '/Helpers/',
             '/Http/',
+            '/jobs/',
+            '/Libraries/',
+            '/Mails/',
+            '/Models/',
+            '/node_modules/',
+            '/Notifications/',
             '/Providers/',
             '/Resources/',
             '/Routes/',
-            '/node_modules/',
-            '/vendor/',
-
+            '/Tests/',
+            '/Wiki/',
         ]
     }
 });
