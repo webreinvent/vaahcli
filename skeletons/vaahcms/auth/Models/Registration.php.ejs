@@ -58,7 +58,15 @@ class <%= theme_name %>Registration extends Registration
         $item->activation_code_sent_at = \Carbon::now();
         $item->save();
 
-        $item->notify(new ActivationLinkNotification($item));
+        try{
+            $item->notify(new ActivationLinkNotification($item));
+        }catch(\Exception $e)
+        {
+            $response['status'] = 'failed';
+            $response['errors'][] = 'Make sure environment variables for MAIL are set and correct in the active .env file';
+            $response['errors'][] = $e->getMessage();
+            return $response;
+        }
 
         $response['status'] = 'success';
         $response['data'][] = '';
@@ -82,8 +90,16 @@ class <%= theme_name %>Registration extends Registration
             return $response;
         }
 
+        $user_request = new Request($signup->toArray());
+
         // Create User
-        $user = <%= theme_name %>User::createUser($signup->id);
+        $user = <%= theme_name %>User::createUser($user_request);
+
+        if($user)
+        {
+            $signup->vh_user_id = $user->id;
+            $signup->save();
+        }
 
         $response['status'] = 'success';
         $response['data']['redirect_url'] = route('vh.frontend.<%= theme_name_lower %>.signin');

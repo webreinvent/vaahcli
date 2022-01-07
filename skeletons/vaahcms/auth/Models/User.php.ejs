@@ -15,10 +15,21 @@ class <%= theme_name %>User extends User
         $user = self::where('email', $request->email)
             ->first();
 
+        $except = [
+            'id',
+            'uuid',
+            'created_at',
+            'updated_at',
+            'deleted_at',
+        ];
+
+        $inputs = $request->except($except);
+
         if(!$user)
         {
+
             $user = new self();
-            $user->fill($request->all());
+            $user->fill($inputs);
             if(!isset($request->username))
             {
                 $user->username = Str::slug($request->email);
@@ -28,10 +39,14 @@ class <%= theme_name %>User extends User
             $user->is_active = 1;
         } else
         {
-            $user->fill($request->all());
+            $user->fill($inputs);
         }
 
-        $user->registration_id = $request->id;
+        if($request->has('id'))
+        {
+            $user->registration_id = $request->id;
+        }
+
         $user->save();
 
         return $user;
