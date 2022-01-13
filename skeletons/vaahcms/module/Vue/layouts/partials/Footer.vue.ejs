@@ -1,18 +1,29 @@
-import AsideMenu from "./partials/AsideMenu";
-import Footer from "./partials/Footer";
+<template>
 
+    <footer>
+      <div class="content has-text-centered">
+        <p v-if="assets">
+          {{root.assets.module.name}} <b>v{{root.assets.module.version}}</b>
+        </p v-else>
+        <%= module_name_lower %>  <b>v0.0.1</b>
+        </p>
+      </div>
+    </footer>
+
+</template>
+
+<script>
 export default {
     computed:{
         root() {return this.$store.getters['root/state']},
+        assets() {return this.$store.getters['root/state'].assets},
     },
     components:{
-        AsideMenu,
-        Footer,
+
     },
     data()
     {
         let obj = {
-            assets: null,
         };
 
         return obj;
@@ -35,3 +46,4 @@ export default {
         //---------------------------------------------------------------------
     }
 }
+</script>

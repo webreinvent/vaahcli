@@ -19,6 +19,8 @@
     </div>
     <!--/columns-->
 
+      <Footer/>
+
   </div>
     <!--module-->
 

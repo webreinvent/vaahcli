@@ -22,6 +22,11 @@ class BackendController extends Controller
     {
         $data=[];
 
+        $data['module'] = [
+            'name' => config('<%= module_name_lower %>.name'),
+            'version' => config('<%= module_name_lower %>.version')
+        ];
+
         $response['status'] = 'success';
         $response['data'] = $data;
 
