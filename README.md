@@ -46,15 +46,15 @@ npm install -g vaah
 [Quick Command Generator](https://vaah.dev/cms/docs/generators)
 
 ## VaahCms Installer
-- `vaah cms:install` : It will install vaahcms in newly created `vaahcms` folder
+- `vaah cms:install` or `npx vaah cms:install` : It will install vaahcms in newly created `vaahcms` folder
 - `vaah cms:install [FOLDER]` : To install VaahCMS
 - `vaah cms:install --here` : To install VaahCMS in current director
 
 
 ## VaahCms Module Generators
 List of commands:
-- `vaah cms:m` : To generate module
-- `vaah cms:crud` : To generator crud operation file for module
+- `vaah cms:m`  or `npx vaah cms:m` : To generate module
+- `vaah cms:crud`  or `npx vaah cms:crud` : To generator crud operation file for module
 
 All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
 - `vaah cms:m-make migration <module> <name>` : To generate module migration
@@ -73,8 +73,8 @@ All following commands accept option parameter `-f <folder_name>` or `-folder <f
 
 ## VaahCms Theme Generators
 List of commands:
-- `vaah cms:t` : To generate theme
-- `vaah cms:auth` : Generate Sign in & Sign up, authentication scaffolding
+- `vaah cms:t`  or `npx vaah cms:t` : To generate theme
+- `vaah cms:auth`  or `npx vaah cms:auth`: Generate Sign in & Sign up, authentication scaffolding
 
 
 All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
