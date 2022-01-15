@@ -3,7 +3,7 @@
 <template>
 
     <!--module-->
-    <div class="container">
+    <div class="container  is-fullhd">
 
     <!--columns-->
     <div class="columns">
