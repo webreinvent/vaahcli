@@ -2,27 +2,23 @@
 
 <template>
 
-    <!--sections-->
-    <section class="section">
-        <div class="container">
+  <div class="container is-fluid is-paddingless">
 
-            <!--columns-->
-            <div class="columns">
-                <div class="column is-2">
-                    <AsideMenu/>
-                </div>
+    <!--columns-->
+    <div class="columns">
+      <div class="column is-2">
+        <AsideMenu/>
+      </div>
 
-                <div class="column is-10">
+      <div class="column is-10">
 
-                    <router-view></router-view>
+        <router-view></router-view>
 
-                </div>
-            </div>
-            <!--/columns-->
+      </div>
+    </div>
+    <!--/columns-->
 
-        </div>
-    </section>
-    <!--sections-->
+  </div>
 
 
 </template>

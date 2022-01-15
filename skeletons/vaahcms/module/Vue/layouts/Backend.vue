@@ -3,7 +3,7 @@
 <template>
 
     <!--module-->
-    <div class="container  is-fullhd">
+    <div class="container is-fluid is-paddingless">
 
     <!--columns-->
     <div class="columns">
