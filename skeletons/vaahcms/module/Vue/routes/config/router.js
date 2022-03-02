@@ -24,7 +24,12 @@ const router = new VueRouter({
       return qs.parse(query);
     },
     stringifyQuery(query) {
-      let result = qs.stringify(query, { arrayFormat: 'brackets', encode: false });
+      let result = qs.stringify(query,
+        {
+          arrayFormat: 'brackets',
+          encode: false,
+          skipNulls: true
+        });
       return result ? ('?' + result) : '';
     }
 });
