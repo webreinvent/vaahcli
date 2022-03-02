@@ -4,8 +4,9 @@
       <div class="content has-text-centered">
         <p v-if="assets">
           {{root.assets.module.name}} <b>v{{root.assets.module.version}}</b>
-        </p v-else>
-        <%= module_name_lower %>  <b>v0.0.1</b>
+        </p >
+          <p v-else>
+        <%= module_name %>  <b>v0.0.1</b>
         </p>
       </div>
     </footer>

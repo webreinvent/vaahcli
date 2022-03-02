@@ -321,10 +321,14 @@ let VueCommon = Vue.extend({
 
 //==============================================
 
-const loginSignUpApp = new VueCommon({
+let base_url = document.getElementsByTagName("base")[0].getAttribute("href");
+let current_url = document.getElementsById("current_url").getAttribute("content");
+
+const authApp = new VueCommon({
     el: '#frontendApp',
     data: {
-        current_url: null,
+        base_url: base_url,
+        current_url: current_url,
         assets: null,
         is_btn_loading: false,
         is_btn_loading_otp: false,
@@ -386,31 +390,7 @@ const loginSignUpApp = new VueCommon({
         },
     },
     computed: {
-        filteredFrameworkCategory() {
 
-            let list = null;
-
-            if(this.selected_framework && this.search_category)
-            {
-                console.log('--->', this.selected_framework);
-
-                list =  this.selected_framework.categories.filter(option => {
-                    return (
-                        option.name
-                            .toString()
-                            .toLowerCase()
-                            .indexOf(this.search_category.toLowerCase()) >= 0
-                    )
-                })
-            }
-
-            console.log('--->list', list);
-
-
-            return list;
-
-
-        },
     },
     watch: {
         'login.type': {
@@ -450,9 +430,7 @@ const loginSignUpApp = new VueCommon({
     },
     mounted: function () {
 
-        //---------------------------------------------
-        this.current_url = this.getCurrentUrlWithoutHash();
-        this.url = new URL(this.current_url);
+
         //---------------------------------------------
         this.getFormAssets();
 
@@ -460,54 +438,15 @@ const loginSignUpApp = new VueCommon({
     },
     methods:{
         //---------------------------------------------
-        getCurrentUrlWithoutHash: function()
-        {
-            return document.location.protocol +"//"+ document.location.hostname
-                + document.location.pathname;
-        },
-        //---------------------------------------------
-        getFormAssets: function ()
-        {
-            let get_assets = false;
-            if(this.current_url.includes('blocks/new'))
-            {
-                get_assets = true;
-            }
-
-            if(get_assets)
-            {
-                this.getAssets();
-            }
-        },
-        //---------------------------------------------
         getAssets: function () {
             let params = {};
-            let url = this.current_url+'/assets';
-            console.log('--->', url);
+            let url = this.base_url+'/assets';
             this.ajax(url, params, this.getAssetsAfter);
         },
         //---------------------------------------------------------------------
         getAssetsAfter: function (data) {
             this.assets = data;
         },
-        //---------------------------------------------
-        setSelectedFramework: function ()
-        {
-            let framework = this.findInArrayByKey(this.assets.frameworks, 'id', this.blocks_create.framework);
-
-            if(framework)
-            {
-                this.selected_framework = framework;
-            }
-
-        },
-        //---------------------------------------------
-        onCategorySections: function (category) {
-            this.blocks_create.category = category.id;
-            console.log('--->category', category);
-        },
-        //---------------------------------------------------------------------
-
         //---------------------------------------------
         moveToElement: function (event, next_el_id, previous_el_id) {
 
@@ -539,7 +478,6 @@ const loginSignUpApp = new VueCommon({
         //---------------------------------------------
         onOtpPaste: function(event)
         {
-            console.log('--->paste value', event.target.value);
             let paste_otp =  this.getClipboardValue(event);
 
             if(paste_otp)
@@ -569,7 +507,7 @@ const loginSignUpApp = new VueCommon({
         loginPost: function (e) {
             e.preventDefault();
             this.is_btn_loading = true;
-            var url = this.current_url+'/post';
+            var url = this.base_url+'/signin/post';
             var params = this.login;
             this.ajax(url, params, this.loginPostAfter);
         },
@@ -586,8 +524,6 @@ const loginSignUpApp = new VueCommon({
         generateOtp: function (e) {
             e.preventDefault();
 
-            console.log('--->', this.login.attempts);
-
             if(this.login.attempts > 1)
             {
                 let messages = [
@@ -599,7 +535,7 @@ const loginSignUpApp = new VueCommon({
             }
 
             this.btn_generate_otp_loading = true;
-            var url = this.current_url+'/send/otp';
+            var url = this.base_url+'/signin/send/otp';
             var params = this.login;
             this.ajax(url, params, this.generateOtpAfter);
         },
@@ -613,7 +549,7 @@ const loginSignUpApp = new VueCommon({
             e.preventDefault();
             this.btn_reset_code_loading=true;
             let params = this.login;
-            let url = this.current_url+'/send/reset/code';
+            let url = this.base_url+'/signin/send/reset/code';
             this.ajax(url, params, this.sendResetPasswordCodeAfter);
         },
         //-----------------------------------------------
@@ -624,7 +560,7 @@ const loginSignUpApp = new VueCommon({
         resetPasswordAndLogin: function (e) {
             e.preventDefault();
             let params = this.login;
-            let url = this.current_url+'/password/reset';
+            let url = this.base_url+'/signin/password/reset';
             this.ajax(url, params, this.loginPostAfter);
         },
         //-----------------------------------------------
@@ -636,7 +572,7 @@ const loginSignUpApp = new VueCommon({
             e.preventDefault();
 
             this.is_btn_loading = true;
-            var url = this.current_url+'/post';
+            var url = this.base_url+'/signup/post';
             var params = this.signup;
             this.ajax(url, params, this.signupPostAfter);
         },
@@ -656,77 +592,20 @@ const loginSignUpApp = new VueCommon({
 
         },
         //---------------------------------------------
-        delayedSubDomainAvailability: function()
-        {
-            let self = this;
-            if(this.activate.sub_domain)
-            {
-                clearTimeout(this.search_delay);
-                this.search_delay = setTimeout(function() {
-
-                    //check for stop words
-                    let is_stop_word = self.checkStopWords(self.activate.sub_domain);
-
-                    if(is_stop_word)
-                    {
-                        let messages = [
-                            "Sub domain is not available"
-                        ];
-                        self.toastErrors(messages);
-                        return false;
-                    }
-
-                    self.checkSubDomainAvailability();
-                }, this.search_delay_time);
-            }
-
-        },
-        //---------------------------------------------
-        checkSubDomainAvailability: function()
-        {
-            if(this.activate.sub_domain.length < 3)
-            {
-                this.is_input_type = 'is-danger';
-                this.activate.is_sub_domain_available = false;
-                this.is_input_disabled = true;
-                this.is_input_message = 'More than 3 characters are required';
-                return false;
-            }
-
-            this.is_input_loading = true;
-            var url = this.current_url+'/available';
-            var params = this.activate;
-            this.ajax(url, params, this.checkSubDomainAvailabilityAfter);
-        },
-        //---------------------------------------------
-        checkSubDomainAvailabilityAfter: function(data, response)
-        {
-            if(data)
-            {
-                this.is_input_type = 'is-success';
-                this.is_input_loading = false;
-                this.is_input_disabled = false;
-                this.activate.is_sub_domain_available = true;
-                this.is_input_message = "Sub domain is available";
-            }
-        },
-        //---------------------------------------------
         activateAccount: function (e) {
 
             e.preventDefault();
 
             this.is_btn_loading = true;
-            var url = this.current_url+'/post';
+            var url = this.base_url+'/signup/post';
             var params = this.activate;
             this.ajax(url, params, this.activateAccountAfter);
         },
         //---------------------------------------------
         activateAccountAfter: function (data) {
             this.is_btn_loading = false;
-
             if(data && data.redirect_url)
             {
-
                 let messages = [
                     'Redirecting to sign in page in 5 seconds'
                 ];
@@ -738,8 +617,6 @@ const loginSignUpApp = new VueCommon({
                 }, 5000);
 
             }
-
-
         },
         //---------------------------------------------
         checkStopWords: function (str) {
@@ -749,26 +626,6 @@ const loginSignUpApp = new VueCommon({
                 return true
             }
             return false;
-        },
-        //---------------------------------------------
-        markAsAccepted: function (e) {
-            e.preventDefault();
-            this.signup_invite.invite_status = 'accepted';
-        },
-        //---------------------------------------------
-        signupInvitePost: function (e) {
-            e.preventDefault();
-            this.is_btn_loading = true;
-            let params = this.signup_invite;
-            let url = this.current_url+'/signup';
-            this.ajax(url, params, this.signupInvitePostAfter);
-        },
-        //---------------------------------------------------------------------
-        signupInvitePostAfter: function (data, res) {
-            this.is_btn_loading = false;
-            if(data){
-                window.location.href = data.redirect_url;
-            }
         },
         //---------------------------------------------
 
