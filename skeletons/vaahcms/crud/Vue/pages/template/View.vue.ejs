@@ -1,6 +1,6 @@
 <script src="./ViewJs.js"></script>
 <template>
-    <div class="column" v-if="page.assets">
+    <div class="column" v-if="assets">
 
         <div class="card" v-if="item">
 
@@ -23,7 +23,7 @@
                             <b-button icon-left="edit"
                                       type="is-light"
                                       tag="router-link"
-                                      :to="{name:'<%= table_name_lower %>.edit', params:{id: item.id}}">
+                                      :to="{name:'<%= controller_name_lower %>.edit', params:{id: item.id}}">
                                 Edit
                             </b-button>
                         </p>

@@ -1,0 +1,54 @@
+@extends("<%= theme_name_lower %>::frontend.layouts.default")
+
+@section('vaahcms_extend_frontend_head')
+
+@endsection
+
+@section('vaahcms_extend_frontend_css')
+
+@endsection
+
+@section('vaahcms_extend_frontend_scripts')
+
+@endsection
+
+@section('content')
+
+<div id="frontendApp">
+    <!--sections-->
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+
+                <!--columns-->
+                <div class="columns is-centered" id="loginSignUpApp">
+                    <div class="column is-4">
+                    <h4 class="title is-4">Activate your account</h4>
+
+                        <br/>
+
+                        <form @submit="activateAccount($event)">
+
+                            <div class="field">
+                                <p class="control">
+                                    <b-button native-type="submit"
+                                              type="is-primary"
+                                              :loading="is_btn_loading">
+                                        Activate
+                                    </b-button>
+                                </p>
+                            </div>
+
+                        </form>
+
+                </div>
+                </div>
+                <!--/columns-->
+
+            </div>
+        </div>
+
+    </section>
+    <!--sections-->
+</div>
+@endsection

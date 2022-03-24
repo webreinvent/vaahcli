@@ -25,7 +25,7 @@ export default class CmsInstall extends Command {
         description: string;
         default: string;
     }[];
-    run(): Promise<void>;
+    run(): Promise<true | undefined>;
     install(): Promise<void>;
     spin(): Promise<void>;
     printName(): Promise<void>;

@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {store} from './../../store/store';
+import qs from 'qs'
+import {store} from '../../store/store'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
-import middlewarePipeline from './middlewarePipeline'
-
+import middlewarePipeline from './middlewarePipeline';
 
 let allRoutes = [];
 
@@ -19,7 +19,19 @@ const router = new VueRouter({
     base: '/',
     //mode: 'history',
     linkActiveClass: "",
-    routes: allRoutes
+    routes: allRoutes,
+    parseQuery(query) {
+      return qs.parse(query);
+    },
+    stringifyQuery(query) {
+      let result = qs.stringify(query,
+        {
+          arrayFormat: 'brackets',
+          encode: false,
+          skipNulls: true
+        });
+      return result ? ('?' + result) : '';
+    }
 });
 
 //----PROTECT VUE ROUTES WITH MIDDLEWARE

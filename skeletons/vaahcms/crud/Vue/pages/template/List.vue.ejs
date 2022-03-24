@@ -1,6 +1,6 @@
 <script src="./ListJs.js"></script>
 <template>
-    <div class="form-page-v1-layout">
+    <div>
 
         <div class="columns">
 
@@ -12,7 +12,7 @@
                 </div>
 
                 <!--card-->
-                <div class="card" v-else-if="page.assets">
+                <div class="card" v-else-if="assets">
 
                     <!--header-->
                     <header class="card-header">
@@ -26,18 +26,6 @@
 
 
                         </div>
-
-                        <b-tooltip label="Reload" type="is-dark">
-                            <b-button type="is-text"
-                                      class="card-header-icon has-margin-top-5 has-margin-right-5"
-                                      icon-left="redo-alt"></b-button>
-                        </b-tooltip>
-
-                        <b-tooltip label="Reload" type="is-dark">
-                            <b-button type="is-text"
-                                      class="card-header-icon has-margin-top-5 has-margin-right-5"
-                                      icon-left="redo-alt"></b-button>
-                        </b-tooltip>
 
 
                         <div class="card-header-buttons">
@@ -76,7 +64,7 @@
                             <div class="level">
 
                                 <!--left-->
-                                <div class="level-left" >
+                                <div class="level-left" v-if="page.list_view == 'large'">
                                     <div  class="level-item">
                                         <b-field >
 
@@ -236,7 +224,7 @@
 
                                 <div class="block" style="margin-bottom: 0px;" >
 
-                                    <div v-if="page.list_view">
+                                    <div v-if="page.list_view == 'large'">
                                         <ListLargeView/>
                                     </div>
 

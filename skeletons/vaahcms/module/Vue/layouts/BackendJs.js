@@ -1,4 +1,5 @@
 import AsideMenu from "./partials/AsideMenu";
+import Footer from "./partials/Footer";
 
 export default {
     computed:{
@@ -6,6 +7,7 @@ export default {
     },
     components:{
         AsideMenu,
+        Footer,
     },
     data()
     {

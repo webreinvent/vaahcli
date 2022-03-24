@@ -3,6 +3,7 @@ const Listr = require('listr');
 
 import Generator from "../../libraries/Generator";
 import Helpers from "../../libraries/Helpers";
+import Functions from '../../libraries/Functions'
 
 
 const chalk = require('chalk');
@@ -81,6 +82,13 @@ export default class CmsTMake extends Command {
    *---------------------------------------------------
    */
   async run() {
+
+    let functions = new Functions();
+    let is_updates_available = await functions.isUpdatesAvailable();
+    if(is_updates_available)
+    {
+      return true;
+    }
 
     const {args, flags} = this.parse(CmsTMake);
 

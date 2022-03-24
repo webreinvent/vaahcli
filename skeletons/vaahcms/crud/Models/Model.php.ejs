@@ -1,6 +1,7 @@
-<?php namespace <%= namespace %>\Entities;
+<?php namespace <%= namespace %>\Models;
 
 use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -21,14 +22,6 @@ class <%= model_name %> extends Model {
         'deleted_at'
     ];
     //-------------------------------------------------
-    protected $casts = [
-        'created_at'  => 'date:Y-m-d H:i:s',
-        'updated_at'  => 'date:Y-m-d H:i:s',
-        'deleted_at'  => 'date:Y-m-d H:i:s',
-    ];
-    //-------------------------------------------------
-    protected $dateFormat = 'Y-m-d H:i:s';
-    //-------------------------------------------------
     protected $fillable = [
         'uuid',
         'name',
@@ -42,6 +35,12 @@ class <%= model_name %> extends Model {
     //-------------------------------------------------
     protected $appends  = [
     ];
+    //-------------------------------------------------
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        $date_time_format = config('settings.global.datetime_format');
+        return $date->format($date_time_format);
+    }
     //-------------------------------------------------
 
     public function createdByUser()
@@ -83,14 +82,14 @@ class <%= model_name %> extends Model {
 
         if($from)
         {
-            $from = \Illuminate\Support\Carbon::parse($from)
+            $from = \Carbon::parse($from)
                 ->startOfDay()
                 ->toDateTimeString();
         }
 
         if($to)
         {
-            $to = Carbon::parse($to)
+            $to = \Carbon::parse($to)
                 ->endOfDay()
                 ->toDateTimeString();
         }
@@ -104,7 +103,9 @@ class <%= model_name %> extends Model {
         $inputs = $request->new_item;
 
         $validation = self::validation($inputs);
-        if(isset($validation['status']) && $validation['status'] == 'failed')
+        if( isset($validation['status'])
+            && $validation['status'] == 'failed'
+            )
         {
             return $validation;
         }
@@ -131,7 +132,7 @@ class <%= model_name %> extends Model {
             return $response;
         }
 
-        $item = new static();
+        $item = new self();
         $item->fill($inputs);
         $item->slug = Str::slug($inputs['slug']);
         $item->save();
@@ -207,17 +208,18 @@ class <%= model_name %> extends Model {
     public static function postStore($request,$id)
     {
 
-        $input = $request->item;
+        $inputs = $request->item;
 
 
-        $validation = self::validation($input);
+        $validation = self::validation($inputs);
         if(isset($validation['status']) && $validation['status'] == 'failed')
         {
             return $validation;
         }
 
         // check if name exist
-        $user = self::where('id','!=',$input['id'])->where('name',$input['name'])->first();
+        $user = self::where('id','!=',$inputs['id'])
+        ->where('name',$inputs['name'])->first();
 
         if($user)
         {
@@ -228,7 +230,8 @@ class <%= model_name %> extends Model {
 
 
         // check if slug exist
-        $user = self::where('id','!=',$input['id'])->where('slug',$input['slug'])->first();
+        $user = self::where('id','!=',$inputs['id'])
+        ->where('slug',$inputs['slug'])->first();
 
         if($user)
         {
@@ -239,8 +242,8 @@ class <%= model_name %> extends Model {
 
         $update = self::where('id',$id)->withTrashed()->first();
 
-        $update->name = $input['name'];
-        $update->slug = Str::slug($input['slug']);
+        $update->name = $inputs['name'];
+        $update->slug = Str::slug($inputs['slug']);
         $update->save();
 
 

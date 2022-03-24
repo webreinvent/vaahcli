@@ -7,6 +7,7 @@ export default {
         root() {return this.$store.getters['root/state']},
         permissions() {return this.$store.getters['root/state'].permissions},
         page() {return this.$store.getters[namespace+'/state']},
+        assets() {return this.$store.getters[namespace+'/state'].assets},
         ajax_url() {return this.$store.getters[namespace+'/state'].ajax_url},
         item() {return this.$store.getters[namespace+'/state'].active_item},
     },
@@ -110,7 +111,7 @@ export default {
                 data: null
             };
 
-            let url = this.ajax_url+'/actions/'+this.page.bulk_action.action;
+            let url = this.ajax_url+'/actions/'+action;
             this.$vaah.ajax(url, params, this.actionsAfter);
 
         },

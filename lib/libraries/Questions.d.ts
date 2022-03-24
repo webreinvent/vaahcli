@@ -15,4 +15,10 @@ export default class Generator {
     getModuleCrudQuestions(): {
         [k: string]: any;
     };
+    getCrudQuestions(): {
+        [k: string]: any;
+    };
+    getAuthQuestions(): {
+        [k: string]: any;
+    };
 }

@@ -1,0 +1,128 @@
+<?php namespace <%= namespace %>\Http\Controllers\Frontend;
+
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
+use <%= namespace %>\Models\<%= theme_name %>User;
+use <%= namespace %>\Models\<%= theme_name %>Registration;
+
+
+class AuthController extends Controller
+{
+
+    //----------------------------------------------------------
+    public function login()
+    {
+      return redirect()->route('vh.frontend.<%= theme_name_lower %>.signin');
+    }
+    //----------------------------------------------------------
+    public function signOutUser()
+    {
+      \Auth::logout();
+    }
+    //----------------------------------------------------------
+    public function signout(Request $request)
+    {
+        $this->signOutUser();
+        return redirect('/');
+    }
+    //----------------------------------------------------------
+    public function signin()
+    {
+      $this->signOutUser();
+      return view('<%= theme_name_lower %>::frontend.auth.signin');
+    }
+    //----------------------------------------------------------
+    public function signinPost(Request $request)
+    {
+
+        if($request->type == 'password')
+        {
+            $response = <%= theme_name %>User::login($request);
+        } else if($request->type == 'otp')
+        {
+            if(is_array($request->login_otp))
+            {
+                $inputs = [
+                    'login_otp' => implode("", $request->login_otp)
+                ];
+
+                $request->merge($inputs);
+            }
+
+            $response = <%= theme_name %>User::loginViaOtp($request);
+        }
+
+        if($response['status'] == 'success')
+        {
+            $response['data']['redirect_url'] = url("/");
+        }
+
+        return response()->json($response);
+    }
+    //----------------------------------------------------------
+    public function sendOtp(Request $request)
+    {
+        $response = <%= theme_name %>User::sendLoginOtp($request);
+
+        return response()->json($response);
+    }
+    //----------------------------------------------------------
+    public function sendResetCode(Request $request)
+    {
+        $response = <%= theme_name %>User::sendResetPasswordEmail($request);
+
+        return response()->json($response);
+    }
+    //----------------------------------------------------------
+    public function passwordResetAndSignin(Request $request)
+    {
+        $response = <%= theme_name %>User::passwordResetAndSignin($request);
+
+        if($response['status'] == 'success')
+        {
+            $response['data']['redirect_url'] = url('/');
+        }
+
+        return response()->json($response);
+
+    }
+    //----------------------------------------------------------
+    public function signup()
+    {
+        $this->signOutUser();
+        return view('<%= theme_name_lower %>::frontend.auth.signup');
+    }
+
+    //---------------------------------------------------------
+    public function signupPost(Request $request)
+    {
+        $response = <%= theme_name %>Registration::postCreate($request);
+        return response()->json($response);
+    }
+    //---------------------------------------------------------
+    public function activate(Request $request, $code)
+    {
+        $this->signOutUser();
+        return view('<%= theme_name_lower %>::frontend.auth.activate');
+    }
+    //----------------------------------------------------------
+    public function activatePost(Request $request, $code)
+    {
+        $request->merge(['activation_code' => $code]);
+        $response = <%= theme_name %>Registration::activateRegistration($request);
+        return response()->json($response);
+    }
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+    //----------------------------------------------------------
+
+
+}

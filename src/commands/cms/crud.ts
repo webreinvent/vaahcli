@@ -1,22 +1,34 @@
 import {Command, flags} from '@oclif/command'
-import * as inquirer from 'inquirer';
+import Questions from '../../libraries/Questions'
+import * as inquirer from 'inquirer'
+import Generator from '../../libraries/Generator'
+import Helpers from '../../libraries/Helpers'
+import Functions from '../../libraries/Functions'
+
+let fs = require('fs');
+let ora = require('ora');
+const execa = require('execa');
 const Listr = require('listr');
-
-import Questions from "../../libraries/Questions";
-import Generator from "../../libraries/Generator";
-
+var shell = require('shelljs');
+const { exec } = require('child_process');
+let fsSync = require('fs-sync');
+const fsPromises = fs.promises;
 
 const chalk = require('chalk');
+
 const log = console.log;
 
-
 export default class CmsCrud extends Command {
-  questions: {[k: string]: any} = {};
+
+  args: {[k: string]: any} = {};
+  flags: {[k: string]: any} = {};
   inputs: {[k: string]: any} = {};
+  spinner: {[k: string]: any} = {};
+  repo: string = 'https://github.com/webreinvent/vaahcms-ready';
+  target_dir: string = './';
+  source_dir: string = '';
 
-
-  static description = 'To generate CRUD operations for VaahCMS Module';
-
+  static description = 'Generate CRUD operations for VaahCMS'
 
   /*
    *---------------------------------------------------
@@ -24,25 +36,18 @@ export default class CmsCrud extends Command {
    *---------------------------------------------------
    */
   static flags = {
-    help: flags.help({char: 'h'}),
-    name: flags.help({char: 'n'}),
-    force: flags.boolean({char: 'f'}),
+    help: flags.boolean({
+      description: 'Generate CRUD operation for VaahCMS',
+      default: false,
+    }),
   };
-
 
   /*
    *---------------------------------------------------
    * Command Arguments
    *---------------------------------------------------
    */
-  static args = [
-    {
-      name: 'path',
-      required: false,
-      default: './',
-    },
-  ];
-
+  static args = [];
 
   /*
    *---------------------------------------------------
@@ -50,30 +55,45 @@ export default class CmsCrud extends Command {
    *---------------------------------------------------
    */
   async run() {
+
+    let functions = new Functions();
+    let is_updates_available = await functions.isUpdatesAvailable();
+    if(is_updates_available)
+    {
+      return true;
+    }
+
+
     const {args, flags} = this.parse(CmsCrud)
 
     let questions = new Questions();
 
-    this.inputs = await inquirer.prompt(questions.getCmsCrudQuestions());
+    this.inputs = await inquirer.prompt(questions.getCrudQuestions());
 
-    this.inputs['namespace'] = this.inputs.namespace;
-
+    let target = "";
     let source = '\\skeletons\\vaahcms\\crud\\';
-    let target = args.path;
+
+    if(this.inputs.for == 'Module')
+    {
+      this.inputs['namespace'] = 'VaahCms\\Modules\\'+this.inputs.folder_name;
+      target = "./VaahCms/Modules/"+this.inputs.folder_name;
+    } else if(this.inputs.for == 'Theme')
+    {
+      this.inputs['namespace'] = 'VaahCms\\Themes\\'+this.inputs.folder_name;
+      target = "./VaahCms/Themes/"+this.inputs.folder_name;
+    }
 
     let generator = new Generator(args, flags, this.inputs, source, target);
 
-
     log(chalk.green('======================================='));
-    log('Generating CRUD for VaahCMS');
+    log('Generating CRUD Files');
     log(chalk.green('---------------------------------------'));
-
 
     const tasks = new Listr([
       {
         title: 'Files Generated for CRUD operations',
         task: function () {
-          generator.curdFiles();
+          generator.generateCrudFiles();
         }
       }
     ]);
@@ -86,21 +106,24 @@ export default class CmsCrud extends Command {
       console.error(err);
     });
 
-
-
   }
 
-  //-----------------------------
+  //---------------------------------------------------
   successMessage()
   {
     log(chalk.white.bgGreen.bold("      Files Generated!      "));
     log(chalk.green("=================================================================="));
     log(chalk.green("Following steps:"));
-    log("1) Include the router file");
+    log("1) Include the laravel router file in the module's route file");
     log("2) Include the vue router file");
     log("3) Include the vue store file");
+    log("4) Add vue router link to you menu");
     log(chalk.green("=================================================================="));
 
   }
+
+  //---------------------------------------------------
+  //---------------------------------------------------
+
 
 }

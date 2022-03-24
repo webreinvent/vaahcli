@@ -1,8 +1,4 @@
 const mix = require('laravel-mix');
-var fs = require('fs');
-const fs_extra = require('fs-extra');
-
-
 
 /*
  |--------------------------------------------------------------------------
@@ -17,9 +13,9 @@ const fs_extra = require('fs-extra');
 
 let publish_folder;
 let output_folder;
-let source_vue_folder;
+let source_vue_folder = __dirname+'/Vue';
+let source_assets_folder = "Resources/assets/";
 
-source_vue_folder = __dirname+'/Vue';
 
 if (mix.inProduction()) {
     /*
@@ -33,37 +29,50 @@ if (mix.inProduction()) {
 
     publish_folder = './Resources/assets/';
     output_folder = "./";
-
     mix.setPublicPath(publish_folder);
+
+    //mix.sass(source_assets_folder+'/scss/build.scss', output_folder+'css/');
+    //mix.sass(source_assets_folder+'/scss/style.scss', output_folder+'css/');
+
     mix.js(source_vue_folder+"/app.js",  output_folder+'/build/app.js').vue();
 
 } else {
 
     publish_folder = './../../../public/vaahcms/themes/';
-    output_folder = "./<%= theme_name_lower %>/assets/";
-
     mix.setPublicPath(publish_folder);
 
-    mix.js(source_vue_folder+"/app.js",  output_folder+'/build/app.js').vue();
+    output_folder = "./<%= theme_name_lower %>/assets/";
 
+    //mix.sass(source_assets_folder+'/scss/build.scss', output_folder+'css/');
+    //mix.sass(source_assets_folder+'/scss/style.scss', output_folder+'css/');
+
+    mix.js(source_vue_folder+"/app.js",  output_folder+'/build/app.js').vue();
 }
 
 mix.webpackConfig({
+
     watchOptions: {
+
         aggregateTimeout: 2000,
-        poll: 20,
+        poll: 1000,
         ignored: [
+            '**/*.php',
+            '**/node_modules',
             '/Config/',
             '/Database/',
-            '/Entities/',
             '/Helpers/',
             '/Http/',
+            '/jobs/',
+            '/Libraries/',
+            '/Mails/',
+            '/Models/',
+            '/node_modules/',
+            '/Notifications/',
             '/Providers/',
             '/Resources/',
             '/Routes/',
-            '/node_modules/',
-            '/vendor/',
-
+            '/Tests/',
+            '/Wiki/',
         ]
     }
 });

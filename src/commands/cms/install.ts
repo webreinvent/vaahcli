@@ -8,7 +8,9 @@ var shell = require('shelljs');
 const { exec } = require('child_process');
 let fsSync = require('fs-sync');
 const fsPromises = fs.promises;
-import { fetch, extract }  from 'gitly';
+// @ts-ignore
+import { download, extract }  from 'gitly';
+import Functions from '../../libraries/Functions'
 
 
 
@@ -37,7 +39,7 @@ export default class CmsInstall extends Command {
    */
   static flags = {
     here: flags.boolean({
-      description: 'If you want to VaahCMS in current director',
+      description: 'If you want to install VaahCMS in current directory',
       default: false,
     }),
     help: flags.help({char: 'h'}),
@@ -64,6 +66,13 @@ export default class CmsInstall extends Command {
    *---------------------------------------------------
    */
   async run() {
+
+    let functions = new Functions();
+    let is_updates_available = await functions.isUpdatesAvailable();
+    if(is_updates_available)
+    {
+      return true;
+    }
 
     const {args, flags} = this.parse(CmsInstall);
 
@@ -123,8 +132,8 @@ export default class CmsInstall extends Command {
           {
 
             let self = this;
-             fetch('webreinvent/vaahcms-ready').then(download => {
-              console.log('data-->', download);
+             // @ts-ignore
+            download('webreinvent/vaahcms-ready').then(download => {
               self.source_dir = download;
             }).then(resolve)
               .catch(() => {
@@ -137,7 +146,6 @@ export default class CmsInstall extends Command {
         title: 'Extracting VaahCMS Files',
         task: () => new Promise((resolve, reject) => {
           {
-
             extract(this.source_dir, this.target_dir).then(resolve)
               .catch(() => {
                 reject(new Error('Failed'));
@@ -160,18 +168,23 @@ export default class CmsInstall extends Command {
 
             let options = [
               'install',
+              '--ignore-platform-reqs'
             ];
 
+            let composer;
+
+            composer = execa('composer', options);
+
+            //---print composer command progress
             let output_options = {
-              buffer: false,
+              buffer: true,
               stderr: "inherit"
             };
-
-            //let composer = execa('composer', options, output_options);
+            //composer = execa('composer', options, output_options);
             //composer.stdout.pipe(process.stdout);
+            //---end of print composer command progress
 
 
-            let composer = execa('composer', options);
 
             composer.then(resolve)
               .catch((error: any) => {
@@ -182,7 +195,9 @@ export default class CmsInstall extends Command {
 
           }
         })
-      },
+      }
+
+      /*,
       {
         title: 'Configuring VaahCMS',
         task: () => new Promise((resolve, reject) => {
@@ -213,7 +228,7 @@ export default class CmsInstall extends Command {
             return command;
           }
         })
-      }
+      }*/
 
     ]);
 
@@ -270,17 +285,17 @@ export default class CmsInstall extends Command {
 
     this.spinner.succeed();
 
-
-
     log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
 
-    log(chalk.green("=================================================================="));
-    log(chalk.green("Open")+" the project folder and ");
-    log("run "+chalk.green("php artisan server")+" then visit following url to setup:");
+    log(chalk.black("=================================================================="));
+    log("Open the project folder and run the following command ");
+    log(chalk.green("php artisan serve"));
+    log("then visit following url to setup:");
     log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
-    log("In case of  "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
+    log("Or");
+    log("In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
     log(chalk.green("http://localhost/<project-folder-path>/public/vaahcms/setup"));
-    log(chalk.green("=================================================================="));
+    log(chalk.black("=================================================================="));
 
   }
   //-----------------------------------
