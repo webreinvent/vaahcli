@@ -4,6 +4,9 @@ let fs = require('fs');
 let path = require('path');
 let ejs = require('ejs');
 let fsSync = require('fs-sync');
+let dateFormat = require('dateformat');
+
+
 
 const log = console.log;
 
@@ -26,6 +29,69 @@ export default class Generator {
   }
 
   //-------------------------------------------------------
+  lowerCase(str: string) {
+    return str.toLowerCase();
+  }
+  //-------------------------------------------------------
+  upperCase(str: string) {
+    return str.toUpperCase();
+  }
+  //-------------------------------------------------------
+  removeNonWord(str: string) {
+    return str.replace(/[^0-9a-zA-Z\xC0-\xFF \-]/g, "");
+  }
+  //-------------------------------------------------------
+  replaceAccents(str: string) {
+    // verifies if the String has accents and replace them
+    if (str.search(/[\xC0-\xFF]/g) > -1) {
+      str = str
+        .replace(/[\xC0-\xC5]/g, "A")
+        .replace(/[\xC6]/g, "AE")
+        .replace(/[\xC7]/g, "C")
+        .replace(/[\xC8-\xCB]/g, "E")
+        .replace(/[\xCC-\xCF]/g, "I")
+        .replace(/[\xD0]/g, "D")
+        .replace(/[\xD1]/g, "N")
+        .replace(/[\xD2-\xD6\xD8]/g, "O")
+        .replace(/[\xD9-\xDC]/g, "U")
+        .replace(/[\xDD]/g, "Y")
+        .replace(/[\xDE]/g, "P")
+        .replace(/[\xE0-\xE5]/g, "a")
+        .replace(/[\xE6]/g, "ae")
+        .replace(/[\xE7]/g, "c")
+        .replace(/[\xE8-\xEB]/g, "e")
+        .replace(/[\xEC-\xEF]/g, "i")
+        .replace(/[\xF1]/g, "n")
+        .replace(/[\xF2-\xF6\xF8]/g, "o")
+        .replace(/[\xF9-\xFC]/g, "u")
+        .replace(/[\xFE]/g, "p")
+        .replace(/[\xFD\xFF]/g, "y");
+    }
+
+    return str;
+  }
+  //-------------------------------------------------------
+  toCamelCase(str: string)
+  {
+    str = this.replaceAccents(str);
+    str = this.removeNonWord(str)
+      .replace(/\-/g, " ") //convert all hyphens to spaces
+      .replace(/\s[a-z]/g, this.upperCase) //convert first char of each word to UPPERCASE
+      .replace(/\s+/g, "") //remove spaces
+      .replace(/^[A-Z]/g, this.lowerCase); //convert first char to lowercase
+    return str;
+  }
+  //-------------------------------------------------------
+  /**
+   * camelCase + UPPERCASE first char
+   */
+  toPascalCase(str: string) {
+    str = str.replace("_", " ");
+    str = str.replace("-", " ");
+    return this.toCamelCase(str).replace(/^[a-z]/, this.upperCase);
+  }
+
+  //-------------------------------------------------------
 
   setLowerAndUpperCaseValues()
   {
@@ -36,10 +102,13 @@ export default class Generator {
         if (typeof this.inputs[key] === 'string'){
           this.args[key+'_lower'] = this.args[key].toLowerCase();
           this.args[key+'_upper'] = this.args[key].toUpperCase();
+          this.args[key+'_pascal'] = this.toPascalCase(this.args[key]);
         }
 
       }
     }
+
+
 
     if(Object.keys(this.flags).length)
     {
@@ -47,6 +116,7 @@ export default class Generator {
         if (typeof this.inputs[key] === 'string'){
           this.flags[key+'_lower'] = this.flags[key].toLowerCase();
           this.flags[key+'_upper'] = this.flags[key].toUpperCase();
+          this.flags[key+'_pascal'] = this.toPascalCase(this.flags[key]);
         }
 
       }
@@ -59,6 +129,7 @@ export default class Generator {
         if (typeof this.inputs[key] === 'string'){
           this.inputs[key+'_lower'] = this.inputs[key].toLowerCase();
           this.inputs[key+'_upper'] = this.inputs[key].toUpperCase();
+          this.inputs[key+'_pascal'] = this.toPascalCase(this.inputs[key]);
         }
 
       }
@@ -302,6 +373,12 @@ export default class Generator {
 
   }
   //-------------------------------------------------------
+  getDateTimeForMigrationFile()
+  {
+    let now = new Date();
+    return dateFormat(now, "yyyy_mm_dd_HHMMss_");
+  }
+  //-------------------------------------------------------
   generateCrudFiles()
   {
     let get_files = this.getFilesFromSkeletonDirector();
@@ -324,18 +401,26 @@ export default class Generator {
 
       //log("Source file--> "+chalk.green(file_path));
 
+
+
+
       //-- destination path
       destination = this.getFileDestination(file_path);
 
       file_readable_path = __dirname+"./../../skeletons/"+file_path;
 
       file_content = fs.readFileSync(file_readable_path).toString();
+      this.inputs['for_name'] = this.inputs.for;
       parsed_file_content = ejs.render(file_content, this.inputs);
 
       destination = destination.replace('.ejs', "");
 
       file_name = path.basename(destination);
 
+      if(this.inputs['generate_migration'] === 'false' && file_name === 'migration-template.php')
+      {
+        return;
+      }
 
       switch(file_name)
       {
@@ -350,16 +435,15 @@ export default class Generator {
         destination = destination.replace('template.php', this.inputs['controller_name_lower']+'.php');
         destination = destination.replace('backend', this.inputs['section_name_lower']);
         break;
-      case 'Create.vue':
-      case 'CreateJs.js':
-      case 'Edit.vue':
-      case 'EditJs.js':
+      case 'api-routes-template.php':
+        destination = destination.replace('template.php', this.inputs['controller_name_lower']+'.php');
+        break;
       case 'List.vue':
       case 'ListJs.js':
-      case 'ListLargeView.vue':
-      case 'ListLargeViewJs.js':
-      case 'ListSmallView.vue':
-      case 'ListSmallViewJs.js':
+      case 'ListTable.vue':
+      case 'ListTableJs.js':
+      case 'Form.vue':
+      case 'FormJs.js':
       case 'View.vue':
       case 'ViewJs.js':
         destination = destination.replace('template', this.inputs['controller_name_lower']);
@@ -373,7 +457,11 @@ export default class Generator {
         destination = destination.replace('template.js', this.inputs['controller_name_lower']+'.js');
         destination = destination.replace('Vue', this.inputs['vue_folder_name']);
         break;
+      case 'migration-template.php':
+        destination = destination.replace('migration-template.php', this.getDateTimeForMigrationFile()+this.inputs['table_name_lower']+'.php');
+        break;
       }
+
 
       fsSync.write(destination, parsed_file_content);
 

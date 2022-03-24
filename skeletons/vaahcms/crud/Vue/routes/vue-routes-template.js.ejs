@@ -1,19 +1,20 @@
 import <%= controller_name %>List from "./../pages/<%= controller_name_lower %>/List";
-import <%= controller_name %>Create from "../pages/<%= controller_name_lower %>/Create";
 import <%= controller_name %>View from "./../pages/<%= controller_name_lower %>/View";
-import <%= controller_name %>Edit from "./../pages/<%= controller_name_lower %>/Edit";
+import Form from "./../pages/<%= controller_name_lower %>/Form";
 
 import GetAssets from './middleware/GetAssets'
+
 <%if (section_name == 'Backend') { %>
-import LayoutBackend from "./../layouts/Backend";
+import Layout from "./../layouts/Backend";
 <% } else{ %>
-import LayoutBackend from "./../layouts/Default";
+import Layout from "./../layouts/Default";
 <% } %>
+
 let routes_<%= controller_name_lower %>=[];
 
 let list =     {
     path: '/<%= controller_name_lower %>',
-    component: LayoutBackend,
+    component: Layout,
     props: true,
     meta: {
         middleware: [
@@ -35,7 +36,7 @@ let list =     {
                 {
                     path: 'create',
                     name: '<%= controller_name_lower %>.create',
-                    component: <%= controller_name %>Create,
+                    component: Form,
                     props: true,
                     meta: {
                         middleware: [
@@ -44,8 +45,8 @@ let list =     {
                     },
                 },
                 {
-                    path: 'view/:id',
-                    name: '<%= controller_name_lower %>.view',
+                    path: 'read/:id',
+                    name: '<%= controller_name_lower %>.read',
                     component: <%= controller_name %>View,
                     props: true,
                     meta: {
@@ -55,9 +56,9 @@ let list =     {
                     },
                 },
                 {
-                    path: 'edit/:id',
-                    name: '<%= controller_name_lower %>.edit',
-                    component: <%= controller_name %>Edit,
+                    path: 'update/:id',
+                    name: '<%= controller_name_lower %>.update',
+                    component: Form,
                     props: true,
                     meta: {
                         middleware: [

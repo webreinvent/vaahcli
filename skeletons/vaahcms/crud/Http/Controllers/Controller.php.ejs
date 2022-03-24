@@ -1,8 +1,6 @@
 <?php namespace <%= namespace %>\Http\Controllers\<%= section_name %>;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use <%= namespace %>\Models\<%= model_name %>;
 
@@ -23,97 +21,70 @@ class <%= controller_name %>Controller extends Controller
     {
 
         $data = [];
+
         $data['permission'] = [];
 
-        $response['status'] = 'success';
+        $data['fillable']['except'] = [
+            'uuid',
+            'created_by',
+            'updated_by',
+            'deleted_by',
+        ];
+
+        $model = new <%= model_name %>();
+        $fillable = $model->getFillable();
+        $data['fillable']['columns'] = array_diff(
+            $fillable, $data['fillable']['except']
+        );
+
+        foreach ($data['fillable']['columns'] as $column)
+        {
+            $data['empty_item'][$column] = null;
+        }
+
+        $data['actions'] = [];
+
+        $response['success'] = true;
         $response['data'] = $data;
 
-        return response()->json($response);
+        return $response;
     }
-    //----------------------------------------------------------
 
-    //----------------------------------------------------------
-    public function postCreate(Request $request)
-    {
-        $response = <%= model_name %>::createItem($request);
-        return response()->json($response);
-    }
     //----------------------------------------------------------
     public function getList(Request $request)
     {
-        $response = <%= model_name %>::getList($request);
-        return response()->json($response);
+        return <%= model_name %>::getList($request);
+    }
+    //----------------------------------------------------------
+    public function updateList(Request $request)
+    {
+        return <%= model_name %>::updateList($request);
+    }
+    //----------------------------------------------------------
+    public function deleteList(Request $request)
+    {
+        return <%= model_name %>::deleteList($request);
+    }
+    //----------------------------------------------------------
+    public function createItem(Request $request)
+    {
+        return <%= model_name %>::createItem($request);
     }
     //----------------------------------------------------------
     public function getItem(Request $request, $id)
     {
-        $response = <%= model_name %>::getItem($id);
-        return response()->json($response);
+        return <%= model_name %>::getItem($id);
     }
 
     //----------------------------------------------------------
-    public function postStore(Request $request,$id)
+    public function updateItem(Request $request,$id)
     {
-        $response = <%= model_name %>::postStore($request,$id);
-        return response()->json($response);
+        return <%= model_name %>::updateItem($request,$id);
     }
     //----------------------------------------------------------
-    public function postActions(Request $request, $action)
+    public function deleteItem(Request $request,$id)
     {
-        $rules = array(
-            'inputs' => 'required',
-        );
-
-        $validator = \Validator::make( $request->all(), $rules);
-        if ( $validator->fails() ) {
-
-            $errors             = errorsToArray($validator->errors());
-            $response['status'] = 'failed';
-            $response['errors'] = $errors;
-            return response()->json($response);
-        }
-
-        $response = [];
-
-        $response['status'] = 'success';
-
-        $inputs = $request->all();
-
-        switch ($action)
-        {
-
-            //------------------------------------
-            case 'bulk-change-status':
-
-                $response = <%= model_name %>::bulkStatusChange($request);
-
-                break;
-            //------------------------------------
-            case 'bulk-trash':
-
-                $response = <%= model_name %>::bulkTrash($request);
-
-                break;
-            //------------------------------------
-            case 'bulk-restore':
-
-                $response = <%= model_name %>::bulkRestore($request);
-
-                break;
-
-            //------------------------------------
-            case 'bulk-delete':
-
-                $response = <%= model_name %>::bulkDelete($request);
-
-                break;
-            //------------------------------------
-            //------------------------------------
-
-        }
-
-        return response()->json($response);
-
+        return <%= model_name %>::deleteItem($request,$id);
     }
     //----------------------------------------------------------
     //----------------------------------------------------------

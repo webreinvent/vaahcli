@@ -15,7 +15,11 @@ class BackendController extends Controller
 
     public function index()
     {
+
         return view('<%= module_name_lower %>::backend.pages.index');
+
+        // Use following blade file to use vue app
+        //return view('<%= module_name_lower %>::backend.pages.app');
     }
 
     public function getAssets(Request $request)
@@ -27,7 +31,10 @@ class BackendController extends Controller
             'version' => config('<%= module_name_lower %>.version')
         ];
 
-        $response['status'] = 'success';
+        $data['timezone'] = env("APP_TIMEZONE");
+        $data['server_date_time'] = \Carbon::now();
+
+        $response['success'] = true;
         $response['data'] = $data;
 
         return response()->json($response);
