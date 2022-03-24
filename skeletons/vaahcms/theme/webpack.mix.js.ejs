@@ -51,6 +51,10 @@ if (mix.inProduction()) {
 
 mix.webpackConfig({
 
+    devServer: {
+        port: '<%= webpack_port %>'
+    },
+
     watchOptions: {
 
         aggregateTimeout: 2000,

@@ -251,6 +251,12 @@ export default class Generator {
       },
       {
         type : 'input',
+        name : 'generate_migration',
+        default: 'true',
+        message : 'Do you want to generate migration file (true/false): '
+      },
+      {
+        type : 'input',
         name : 'model_name',
         default: 'Article',
         message : 'Enter your model name (singular): '

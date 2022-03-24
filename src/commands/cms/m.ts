@@ -60,6 +60,9 @@ export default class CmsM extends Command {
 
     this.inputs = await inquirer.prompt(questions.getVaahCmsModuleQuestions());
 
+    this.inputs['webpack_port'] = functions.generateRandom(8000, 8999);
+
+
     this.inputs['namespace'] = 'VaahCms\\Modules\\'+this.inputs.module_name;
     this.inputs['service_provider_name'] = this.inputs.module_name;
 
@@ -98,6 +101,8 @@ export default class CmsM extends Command {
 
 
   }
+
+
 
 
 

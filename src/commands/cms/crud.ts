@@ -111,9 +111,16 @@ export default class CmsCrud extends Command {
   //---------------------------------------------------
   successMessage()
   {
+
     log(chalk.white.bgGreen.bold("      Files Generated!      "));
     log(chalk.green("=================================================================="));
     log(chalk.green("Following steps:"));
+
+    if(this.inputs['generate_migration'] === 'true')
+    {
+      log("0) Re-activate module to run migrations");
+    }
+
     log("1) Include the laravel router file in the module's route file");
     log("2) Include the vue router file");
     log("3) Include the vue store file");
