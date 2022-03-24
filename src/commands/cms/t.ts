@@ -61,6 +61,8 @@ export default class CmsT extends Command {
 
     this.inputs = await inquirer.prompt(questions.getVaahCmsThemeQuestions());
 
+    this.inputs['webpack_port'] = functions.generateRandom(8000, 8999);
+
     this.inputs['namespace'] = 'VaahCms\\Themes\\'+this.inputs.theme_name;
     this.inputs['service_provider_name'] = this.inputs.theme_name+'ServiceProvider.php';
 
