@@ -4,17 +4,13 @@ import Form from "./../pages/<%= controller_name_lower %>/Form";
 
 import GetAssets from './middleware/GetAssets'
 
-<%if (section_name == 'Backend') { %>
-import Layout from "./../layouts/Backend";
-<% } else{ %>
-import Layout from "./../layouts/Default";
-<% } %>
+import LayoutDefault from "./../layouts/Default";
 
 let routes_<%= controller_name_lower %>=[];
 
 let list =     {
     path: '/<%= controller_name_lower %>',
-    component: Layout,
+    component: LayoutDefault,
     props: true,
     meta: {
         middleware: [

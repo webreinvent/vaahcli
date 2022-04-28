@@ -422,6 +422,14 @@ export default class Generator {
         return;
       }
 
+      let prefix_folder = "";
+      let prefix_folder_lower = "";
+
+      if(this.inputs['section_name'] === 'Tenant')
+      {
+        prefix_folder = "/Tenant/";
+      }
+
       switch(file_name)
       {
       case 'Model.php':
@@ -458,7 +466,7 @@ export default class Generator {
         destination = destination.replace('Vue', this.inputs['vue_folder_name']);
         break;
       case 'migration-template.php':
-        destination = destination.replace('migration-template.php', this.getDateTimeForMigrationFile()+this.inputs['table_name_lower']+'.php');
+        destination = destination.replace('migration-template.php', prefix_folder+this.getDateTimeForMigrationFile()+this.inputs['table_name_lower']+'.php');
         break;
       }
 

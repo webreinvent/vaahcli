@@ -13,12 +13,12 @@ import GetAssets from './middleware/GetAssets'
 |--------------------------------------------------------------------------
 */
 
-import Backend from './../layouts/Backend'
+import LayoutDefault from './../layouts/Default'
 import Index from './../pages/dashboard/Index'
 
 routes_list =     {
   path: '/',
-  component: Backend,
+  component: LayoutDefault,
   props: true,
   meta: {
     middleware: [
