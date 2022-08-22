@@ -100,7 +100,7 @@ class <%= model_name %> extends Model {
     public static function createItem($request)
     {
 
-        $inputs = $request->new_item;
+        $inputs = $request->all();
 
         $validation = self::validation($inputs);
         if( isset($validation['status'])

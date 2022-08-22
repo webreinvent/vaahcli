@@ -106,7 +106,7 @@ export default {
         getListAfter: function (data, res) {
             if(data)
             {
-                this.data.list = data;
+                this.data.list = data.list;
             }
             this.data.is_list_loading = null;
             this.$Progress.finish();
