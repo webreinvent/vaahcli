@@ -3,27 +3,34 @@
 
 Route::group(
     [
-    'prefix' => '<%= folder_name_lower %>/<%= controller_name_lower %>',
-    'namespace' => '<%= section_name %>',
+        'prefix' => '<%= folder_name_lower %>/<%= controller_name_lower %>',
+        'middleware' => ['auth:api'],
+        'namespace' => '<%= section_name %>',
     ],
     function () {
         //---------------------------------------------------------
         Route::get('/assets', '<%= controller_name %>Controller@getAssets')
-            ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.assets');
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.assets');
         //---------------------------------------------------------
         Route::get('/', '<%= controller_name %>Controller@getList')
-            ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.list');
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.list');
         //---------------------------------------------------------
-        Route::post('/{id}', '<%= controller_name %>Controller@createItem')
-            ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.create');
+        Route::match(['put', 'patch'], '/', '<%= controller_name %>Controller@updateList')
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.list.updates');
+        //---------------------------------------------------------
+        Route::delete('/', '<%= controller_name %>Controller@deleteList')
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.list.delete');
+        //---------------------------------------------------------
+        Route::post('/', '<%= controller_name %>Controller@createItem')
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.create');
         //---------------------------------------------------------
         Route::get('/{id}', '<%= controller_name %>Controller@getItem')
-            ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.read');
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.read');
         //---------------------------------------------------------
         Route::match(['put', 'patch'], '/{id}', '<%= controller_name %>Controller@updateItem')
-            ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.update');
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.update');
         //---------------------------------------------------------
-        Route::delete('/{id}', '<%= controller_name %>Controller@deteleItem')
-            ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.delete');
+        Route::delete('/{id}', '<%= controller_name %>Controller@deleteItem')
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.delete');
         //---------------------------------------------------------
     });
