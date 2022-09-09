@@ -68,25 +68,30 @@ export default class CmsM extends Command {
 
     this.inputs['year'] = (new Date()).getFullYear();
 
-    let source = '\\skeletons\\vaahcms\\module\\';
+    let source;
+
+    if(this.inputs['module-type'] === 'Module - Vue3 & PrimeVue')
+    {
+      source = '\\skeletons\\vaahcms\\module-vue3\\';
+    } else{
+      source = '\\skeletons\\vaahcms\\module\\';
+    }
+
     let target = "./VaahCms/Modules/"+this.inputs.module_name;
 
     this.inputs['service_provider_name'] = this.inputs.module_name+'ServiceProvider.php';
 
     let generator = new Generator(args, flags, this.inputs, source, target);
 
-
     log(chalk.green('======================================='));
     log('Generating Module: '+chalk.green(this.inputs.module_name));
     log(chalk.green('---------------------------------------'));
-
 
     const tasks = new Listr([
       {
         title: 'Files Generated',
         task: function () {
           generator.files();
-
         }
       }
     ]);

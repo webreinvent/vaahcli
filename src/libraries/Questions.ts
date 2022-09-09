@@ -17,6 +17,13 @@ export default class Generator {
 
     this.questions = [
       {
+        type : 'list',
+        name : 'module-type',
+        default: 'Module - Vue3 & PrimeVue',
+        message : 'For which you want to create CRUD: ',
+        choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy"],
+      },
+      {
         type : 'input',
         name : 'module_name',
         default: 'HelloWorld',
