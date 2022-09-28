@@ -6,7 +6,7 @@ moment.tz.setDefault(timezone);
 
 import copy from 'copy-to-clipboard';
 
-import {store} from './../../store/store';
+import {store} from './../../stores/store';
 import {ToastProgrammatic as Toast} from "buefy";
 import {SnackbarProgrammatic as Snackbar} from "buefy";
 

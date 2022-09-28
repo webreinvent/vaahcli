@@ -3,7 +3,7 @@ import axios from "vue-axios";
 import qs from 'qs';
 import {ToastProgrammatic as Toast} from "buefy";
 import {SnackbarProgrammatic as Snackbar} from "buefy";
-import {store} from "../../store/store";
+import {store} from "../../stores/store";
 import moment from "moment-timezone";
 
 let debug = document.getElementById('debug').getAttribute('content');

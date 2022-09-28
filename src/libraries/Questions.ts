@@ -230,7 +230,7 @@ export default class Generator {
         name : 'for',
         default: 'Module',
         message : 'For which you want to create CRUD: ',
-        choices: ["Module", "Theme"],
+        choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy", "Theme"],
       },
       {
         type : 'input',

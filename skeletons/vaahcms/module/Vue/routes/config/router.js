@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import qs from 'qs'
-import {store} from '../../store/store'
+import {store} from '../../stores/store'
 
 Vue.use(VueRouter)
 
