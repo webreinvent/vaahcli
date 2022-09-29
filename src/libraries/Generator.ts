@@ -485,8 +485,6 @@ export default class Generator {
         break;
       }
 
-      console.log('destination--->', destination)
-
       fsSync.write(destination, parsed_file_content);
 
       log(chalk.green(destination));
