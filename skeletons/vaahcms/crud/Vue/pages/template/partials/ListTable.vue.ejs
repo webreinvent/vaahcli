@@ -5,8 +5,11 @@
             <b-table :data="data.list.length ? [] : data.list.data"
                      :checked-rows.sync="data.action.items"
                      checkbox-position="left"
+                     narrowed
+                     striped
                      :checkable="isViewLarge()"
                      :hoverable="true"
+                     :scrollable="true"
                      :row-class="setRowClass">
 
                 <template >
