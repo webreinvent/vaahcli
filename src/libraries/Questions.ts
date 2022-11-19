@@ -1,3 +1,5 @@
+import PromptUI = require('inquirer/lib/ui/prompt')
+
 const chalk = require('chalk');
 const log = console.log;
 
@@ -221,18 +223,47 @@ export default class Generator {
 
   }
   //-------------------------------------------------------
-  getCrudQuestions()
+  getCrudQuestionsPrimary()
   {
-
     this.questions =  [
       {
         type : 'list',
         name : 'for',
         default: 'Module',
         message : 'For which you want to create CRUD: ',
-        choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy", "Theme"],
+        choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy", "Theme", "Custom Path - Vue3 & PrimeVue"],
       },
-      {
+
+    ];
+
+
+    return this.questions;
+  }
+  //-------------------------------------------------------
+  getCrudQuestions(primary: string)
+  {
+
+    this.questions = [];
+
+    console.log('primary--->', primary)
+
+    if(primary === 'Custom Path - Vue3 & PrimeVue')
+    {
+      this.questions.push({
+          type : 'input',
+          name : 'path',
+          default: './custom',
+          message : 'Directory Path'
+        },
+        {
+          type : 'input',
+          name : 'namespace',
+          default: 'WebReinvent\\VaahCms',
+          message : 'Enter the namespace'
+        },)
+    }
+
+    this.questions.push({
         type : 'input',
         name : 'folder_name',
         default: 'HelloWorld',
@@ -273,8 +304,7 @@ export default class Generator {
         name : 'controller_name',
         default: 'Articles',
         message : 'Enter your controller name (plural): '
-      },
-    ];
+      },);
 
 
     return this.questions;

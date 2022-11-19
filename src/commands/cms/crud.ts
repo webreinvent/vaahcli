@@ -22,6 +22,7 @@ export default class CmsCrud extends Command {
 
   args: {[k: string]: any} = {};
   flags: {[k: string]: any} = {};
+  primary: {[k: string]: any} = {};
   inputs: {[k: string]: any} = {};
   spinner: {[k: string]: any} = {};
   repo: string = 'https://github.com/webreinvent/vaahcms-ready';
@@ -68,7 +69,13 @@ export default class CmsCrud extends Command {
 
     let questions = new Questions();
 
-    this.inputs = await inquirer.prompt(questions.getCrudQuestions());
+    this.primary = await inquirer.prompt(questions.getCrudQuestionsPrimary());
+
+    let get_questions = questions.getCrudQuestions(this.primary.for);
+
+    this.inputs = await inquirer.prompt(get_questions);
+
+    this.inputs.for = this.primary.for;
 
     let target = "";
     let source = '\\skeletons\\vaahcms\\crud\\';
@@ -89,7 +96,11 @@ export default class CmsCrud extends Command {
     {
       this.inputs['namespace'] = 'VaahCms\\Themes\\'+this.inputs.folder_name;
       target = "./VaahCms/Themes/"+this.inputs.folder_name;
+    } else{
+      target = this.inputs.path;
     }
+
+    //console.log('--->', this.inputs);
 
     let generator = new Generator(args, flags, this.inputs, source, target);
 
