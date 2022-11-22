@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, ref, watch} from "vue";
-import { use<%= model_name %>Store } from '../../stores/store-articles'
+import { use<%= model_name %>Store } from '../../stores/store-<%= controller_name_lower %>'
 
 import VhField from './../../vaahvue/vue-three/primeflex/VhField.vue'
 import {useRoute} from 'vue-router';

@@ -245,7 +245,6 @@ export default class Generator {
 
     this.questions = [];
 
-    console.log('primary--->', primary)
 
     if(primary === 'Custom Path - Vue3 & PrimeVue')
     {
@@ -258,29 +257,53 @@ export default class Generator {
         {
           type : 'input',
           name : 'namespace',
-          default: 'WebReinvent\\VaahCms',
+          default: 'WebReinvent\\\\VaahCms',
           message : 'Enter the namespace'
-        },)
+        },
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'Vaah',
+          message : 'Enter the Module/Theme/Entity name: '
+        },
+        )
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'HelloWorld',
+          message : 'Enter the Module/Theme/Entity name: '
+        },);
     }
 
-    this.questions.push({
-        type : 'input',
-        name : 'folder_name',
-        default: 'HelloWorld',
-        message : 'Enter the Module/Theme folder name: '
-      },
+    this.questions.push(
       {
         type : 'input',
         name : 'section_name',
         default: 'Backend',
         message : 'Enter the section name (Backend | Frontend or Folder name): '
-      },
-      {
-        type : 'input',
-        name : 'vue_folder_name',
-        default: 'Vue',
-        message : 'Vue folder name: '
-      },
+      },)
+
+    if(primary === 'Custom Path - Vue3 & PrimeVue') {
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue/vaahtwo',
+          message : 'Vue folder name/path: '
+        },)
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue',
+          message : 'Vue folder name/path: '
+        },)
+    }
+
+    this.questions.push(
       {
         type : 'input',
         name : 'table_name',

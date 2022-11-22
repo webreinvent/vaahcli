@@ -8,7 +8,7 @@ Route::group(
     <% } else{ %>
     'middleware' => ['web'],
     <% } %>
-    'namespace' => '<%= section_name %>',
+    'namespace' => '<%= (namespace_controller) ? namespace_controller+'\\' : '' %><%= section_name %>',
 ],
 function () {
     /**

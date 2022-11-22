@@ -97,10 +97,11 @@ export default class CmsCrud extends Command {
       this.inputs['namespace'] = 'VaahCms\\Themes\\'+this.inputs.folder_name;
       target = "./VaahCms/Themes/"+this.inputs.folder_name;
     } else{
+      source = '\\skeletons\\vaahcms\\crud-vue3\\';
+      this.inputs['namespace_controller'] = this.inputs['namespace']+'\\Http\\Controllers';
       target = this.inputs.path;
     }
 
-    //console.log('--->', this.inputs);
 
     let generator = new Generator(args, flags, this.inputs, source, target);
 

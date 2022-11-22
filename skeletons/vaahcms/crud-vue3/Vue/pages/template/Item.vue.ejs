@@ -2,7 +2,7 @@
 import {onMounted, ref, watch} from "vue";
 import {useRoute} from 'vue-router';
 
-import { use<%= model_name %>Store } from '../../stores/store-articles'
+import { use<%= model_name %>Store } from '../../stores/store-<%= controller_name_lower %>'
 
 import VhViewRow from '../../vaahvue/vue-three/primeflex/VhViewRow.vue';
 const store = use<%= model_name %>Store();

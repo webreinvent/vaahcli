@@ -1,6 +1,6 @@
 <script setup>
 import { vaah } from '../../../vaahvue/pinia/vaah'
-import { use<%= model_name %>Store } from '../../../stores/store-articles'
+import { use<%= model_name %>Store } from '../../../stores/store-<%= controller_name_lower %>'
 
 const store = use<%= model_name %>Store();
 const useVaah = vaah();

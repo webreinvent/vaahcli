@@ -3,11 +3,11 @@ import {acceptHMRUpdate, defineStore} from 'pinia'
 import qs from 'qs'
 import {vaah} from '../vaahvue/pinia/vaah'
 
-let model_namespace = 'VaahCms\\<%= for_name %>s\\<%= folder_name %>\\Models\\<%= model_name %>';
+let model_namespace = '<%= namespace %>\\Models\\<%= model_name %>';
 
 
 let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
-let ajax_url = base_url + "/<%= url+folder_name_lower %>/<%= controller_name_lower %>";
+let ajax_url = base_url + "/<%= folder_name_lower %>/<%= controller_name_lower %>";
 
 let empty_states = {
     query: {

@@ -2,7 +2,7 @@
 import {onMounted, reactive, ref} from "vue";
 import {useRoute} from 'vue-router';
 
-import {use<%= model_name %>Store} from '../../stores/store-articles'
+import {use<%= model_name %>Store} from '../../stores/store-<%= controller_name_lower %>'
 
 import Actions from "./components/Actions.vue";
 import Table from "./components/Table.vue";
