@@ -79,6 +79,7 @@ export default class CmsCrud extends Command {
 
     let target = "";
     let source = '\\skeletons\\vaahcms\\crud\\';
+    this.inputs['namespace_controller'] = '';
 
     if(this.inputs.for == 'Module - Vue3 & PrimeVue')
     {
