@@ -140,6 +140,21 @@ export const use<%= model_name %>Store = defineStore({
             )
         },
         //---------------------------------------------------------------------
+
+        if(this.item){
+                watch(() => this.item.name, (newVal,oldVal) =>
+                    {
+                        if(newVal && newVal !== "")
+                        {
+                            this.item.name = vaah().capitalising(newVal);
+                            this.item.slug = vaah().strToSlug(newVal);
+                            //this.calculate()
+                        }
+                    },{deep: true}
+                )
+            }
+
+        //---------------------------------------------------------------------
         async getAssets() {
 
             if(this.assets_is_fetching === true){
@@ -206,7 +221,7 @@ export const use<%= model_name %>Store = defineStore({
             }else{
                 this.$router.push({name: '<%= controller_name_lower %>.index'});
             }
-            this.getItemMenu();
+            await this.getItemMenu();
             await this.getFormMenu();
         },
         //---------------------------------------------------------------------
@@ -574,7 +589,7 @@ export const use<%= model_name %>Store = defineStore({
         //---------------------------------------------------------------------
         toList()
         {
-            this.item = null;
+            this.item = vaah().clone(this.assets.empty_item);
             this.$router.push({name: '<%= controller_name_lower %>.index'})
         },
         //---------------------------------------------------------------------

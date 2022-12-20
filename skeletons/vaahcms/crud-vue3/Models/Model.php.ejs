@@ -432,28 +432,28 @@ class <%= model_name %> extends Model
         }
 
         // check if name exist
-        $user = self::where('id', '!=', $inputs['id'])
+        $item = self::where('id', '!=', $inputs['id'])
             ->where('name', $inputs['name'])->first();
 
-        if ($user) {
+        if ($item) {
             $response['success'] = false;
             $response['messages'][] = "This name is already exist.";
             return $response;
         }
 
         // check if slug exist
-        $user = self::where('id', '!=', $inputs['id'])
+        $item = self::where('id', '!=', $inputs['id'])
             ->where('slug', $inputs['slug'])->first();
 
-        if ($user) {
+        if ($item) {
             $response['success'] = false;
             $response['messages'][] = "This slug is already exist.";
             return $response;
         }
 
-        $update = self::where('id', $id)->withTrashed()->first();
-        $update->fill($inputs);
-        $update->slug = Str::slug($inputs['slug']);
+        $item = self::where('id', $id)->withTrashed()->first();
+        $item->fill($inputs);
+        $item->slug = Str::slug($inputs['slug']);
         $update->save();
 
         $response = self::getItem($id);

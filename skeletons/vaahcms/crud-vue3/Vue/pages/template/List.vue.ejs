@@ -48,7 +48,7 @@ onMounted(async () => {
 </script>
 <template>
 
-    <div class="grid">
+    <div class="grid" v-if="store.assets">
 
         <div :class="'col-'+store.list_view_width">
             <Panel>

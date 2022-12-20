@@ -15,7 +15,7 @@ class <%= table_name_pascal %> extends Migration
     {
 
         Schema::create('<%= table_name_lower %>', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id')->unsigned();
             $table->uuid('uuid')->nullable()->index();
 
             $table->string('name')->nullable()->index();
@@ -25,15 +25,16 @@ class <%= table_name_pascal %> extends Migration
 
             //----common fields
             $table->text('meta')->nullable();
-            $table->integer('created_by')->nullable()->index();
-            $table->integer('updated_by')->nullable()->index();
-            $table->integer('deleted_by')->nullable()->index();
+            $table->bigInteger('created_by')->nullable()->index();
+            $table->bigInteger('updated_by')->nullable()->index();
+            $table->bigInteger('deleted_by')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
             $table->index(['created_at', 'updated_at', 'deleted_at']);
             //----/common fields
 
         });
+
     }
 
     /**

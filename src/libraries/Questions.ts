@@ -22,7 +22,7 @@ export default class Generator {
         type : 'list',
         name : 'module-type',
         default: 'Module - Vue3 & PrimeVue',
-        message : 'For which you want to create CRUD: ',
+        message : 'Choose the tech stack of the module: ',
         choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy"],
       },
       {
