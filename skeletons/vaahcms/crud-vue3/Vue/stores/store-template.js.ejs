@@ -140,20 +140,20 @@ export const use<%= model_name %>Store = defineStore({
             )
         },
         //---------------------------------------------------------------------
-
-        if(this.item){
-                watch(() => this.item.name, (newVal,oldVal) =>
-                    {
-                        if(newVal && newVal !== "")
+        watchItem()
+        {
+            if(this.item){
+                    watch(() => this.item.name, (newVal,oldVal) =>
                         {
-                            this.item.name = vaah().capitalising(newVal);
-                            this.item.slug = vaah().strToSlug(newVal);
-                            //this.calculate()
-                        }
-                    },{deep: true}
-                )
-            }
-
+                            if(newVal && newVal !== "")
+                            {
+                                this.item.name = vaah().capitalising(newVal);
+                                this.item.slug = vaah().strToSlug(newVal);
+                            }
+                        },{deep: true}
+                    )
+                }
+        },
         //---------------------------------------------------------------------
         async getAssets() {
 

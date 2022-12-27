@@ -114,7 +114,7 @@ class <%= model_name %> extends Model
 
 
         // check if name exist
-        $item = self::where('name', $inputs['name'])->first();
+        $item = self::where('name', $inputs['name'])->withTrashed()->first();
 
         if ($item) {
             $response['success'] = false;
@@ -123,7 +123,7 @@ class <%= model_name %> extends Model
         }
 
         // check if slug exist
-        $item = self::where('slug', $inputs['slug'])->first();
+        $item = self::where('slug', $inputs['slug'])->withTrashed()->first();
 
         if ($item) {
             $response['success'] = false;
@@ -136,8 +136,7 @@ class <%= model_name %> extends Model
         $item->slug = Str::slug($inputs['slug']);
         $item->save();
 
-        $response['success'] = true;
-        $response['data']['item'] = $item;
+        $response = self::getItem($item->id);
         $response['messages'][] = 'Saved successfully.';
         return $response;
 
@@ -433,6 +432,7 @@ class <%= model_name %> extends Model
 
         // check if name exist
         $item = self::where('id', '!=', $inputs['id'])
+            ->withTrashed()
             ->where('name', $inputs['name'])->first();
 
         if ($item) {
@@ -443,6 +443,7 @@ class <%= model_name %> extends Model
 
         // check if slug exist
         $item = self::where('id', '!=', $inputs['id'])
+            ->withTrashed()
             ->where('slug', $inputs['slug'])->first();
 
         if ($item) {
@@ -454,11 +455,12 @@ class <%= model_name %> extends Model
         $item = self::where('id', $id)->withTrashed()->first();
         $item->fill($inputs);
         $item->slug = Str::slug($inputs['slug']);
-        $update->save();
+        $item->save();
 
-        $response = self::getItem($id);
-
+        $response = self::getItem($item->id);
+        $response['messages'][] = 'Saved successfully.';
         return $response;
+
     }
     //-------------------------------------------------
     public static function deleteItem($request, $id): array

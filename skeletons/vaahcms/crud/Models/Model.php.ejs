@@ -137,9 +137,9 @@ class <%= model_name %> extends Model {
         $item->slug = Str::slug($inputs['slug']);
         $item->save();
 
-        $response['status'] = 'success';
-        $response['data']['item'] = $item;
+        $response = self::getItem($item->id);
         $response['messages'][] = 'Saved successfully.';
+
         return $response;
 
     }
@@ -245,7 +245,7 @@ class <%= model_name %> extends Model {
 
     }
     //-------------------------------------------------
-        public static function updateList($request)
+    public static function updateList($request)
     {
 
         $inputs = $request->all();
@@ -379,28 +379,26 @@ class <%= model_name %> extends Model {
             return $response;
         }
 
-        $update = self::where('id', $id)->withTrashed()->first();
-        $update->fill($inputs);
-        $update->slug = Str::slug($inputs['slug']);
-        $update->save();
+        $item = self::where('id', $id)->withTrashed()->first();
+        $item->fill($inputs);
+        $item->slug = Str::slug($inputs['slug']);
+        $item->save();
 
         //check specific actions
 
         if (isset($inputs['action'])) {
             switch ($inputs['action']) {
                 case 'trash':
-                    $update->delete();
+                    $item->delete();
                     break;
                 case 'restore':
-                    $update->restore();
+                    $item->restore();
                     break;
             }
         }
 
-
-        $response['success'] = true;
-        $response['data'] = $update;
-        $response['messages'][] = 'Record has been updated';
+        $response = self::getItem($item->id);
+        $response['messages'][] = 'Saved successfully.';
 
         return $response;
 
@@ -409,14 +407,14 @@ class <%= model_name %> extends Model {
     //-------------------------------------------------
     public static function deleteItem($request, $id)
     {
-        $update = self::where('id', $id)->withTrashed()->first();
-        if (!$update) {
+        $item = self::where('id', $id)->withTrashed()->first();
+        if (!$item) {
             $response['failed'] = true;
             $response['messages'][] = 'Record does not exist.';
             return $response;
         }
 
-        $update->forceDelete();
+        $item->forceDelete();
 
         $response['success'] = true;
         $response['data'] = [];
