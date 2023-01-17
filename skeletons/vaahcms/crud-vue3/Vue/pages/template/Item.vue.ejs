@@ -78,12 +78,14 @@ const toggleItemMenu = (event) => {
                 <div class="p-inputgroup">
                     <Button label="Edit"
                             @click="store.toEdit(store.item)"
+                            data-testid="<%= controller_name_lower %>-item-to-edit"
                             icon="pi pi-save"/>
 
                     <!--item_menu-->
                     <Button
                         type="button"
                         @click="toggleItemMenu"
+                        data-testid="<%= controller_name_lower %>-item-menu"
                         icon="pi pi-angle-down"
                         aria-haspopup="true"/>
 
@@ -94,6 +96,7 @@ const toggleItemMenu = (event) => {
 
                     <Button class="p-button-primary"
                             icon="pi pi-times"
+                            data-testid="<%= controller_name_lower %>-item-to-list"
                             @click="store.toList()"/>
 
                 </div>
@@ -120,6 +123,7 @@ const toggleItemMenu = (event) => {
                         <div class="">
                             <Button label="Restore"
                                     class="p-button-sm"
+                                    data-testid="<%= controller_name_lower %>-item-restore"
                                     @click="store.itemAction('restore')">
                             </Button>
                         </div>

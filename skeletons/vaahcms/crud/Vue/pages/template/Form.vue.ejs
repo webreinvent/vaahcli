@@ -105,13 +105,13 @@
 
                 <b-field label="Name" :label-position="data.form.label_position">
                     <b-input name="<%= controller_name_lower %>-name"
-                             data-wdio="<%= controller_name_lower %>-name"
+                             data-testid="<%= controller_name_lower %>-name"
                              v-model="data.item.name"></b-input>
                 </b-field>
 
                 <b-field label="Slug" :label-position="data.form.label_position">
                     <b-input name="<%= controller_name_lower %>-slug"
-                             data-wdio="<%= controller_name_lower %>-slug"
+                             data-testid="<%= controller_name_lower %>-slug"
                              v-model="data.item.slug">
                     </b-input>
                 </b-field>
