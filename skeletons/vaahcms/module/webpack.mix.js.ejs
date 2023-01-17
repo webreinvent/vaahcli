@@ -50,12 +50,14 @@ if (mix.inProduction()) {
 
 }
 
-
+mix.options({
+    hmrOptions: {
+        host: 'localhost',
+        port: <%= webpack_port %>,
+    },
+});
 
 mix.webpackConfig({
-    devServer: {
-        port: '<%= webpack_port %>'
-    },
     watchOptions: {
 
         aggregateTimeout: 2000,

@@ -1,3 +1,5 @@
+import PromptUI = require('inquirer/lib/ui/prompt')
+
 const chalk = require('chalk');
 const log = console.log;
 
@@ -16,6 +18,13 @@ export default class Generator {
   {
 
     this.questions = [
+      {
+        type : 'list',
+        name : 'module-type',
+        default: 'Module - Vue3 & PrimeVue',
+        message : 'Choose the tech stack of the module: ',
+        choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy"],
+      },
       {
         type : 'input',
         name : 'module_name',
@@ -214,35 +223,87 @@ export default class Generator {
 
   }
   //-------------------------------------------------------
-  getCrudQuestions()
+  getCrudQuestionsPrimary()
   {
-
     this.questions =  [
       {
         type : 'list',
         name : 'for',
         default: 'Module',
         message : 'For which you want to create CRUD: ',
-        choices: ["Module", "Theme"],
+        choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy", "Theme", "Custom Path - Vue3 & PrimeVue"],
       },
-      {
-        type : 'input',
-        name : 'folder_name',
-        default: 'HelloWorld',
-        message : 'Enter the Module/Theme folder name: '
-      },
+
+    ];
+
+
+    return this.questions;
+  }
+  //-------------------------------------------------------
+  getCrudQuestions(primary: string)
+  {
+
+    this.questions = [];
+
+
+    if(primary === 'Custom Path - Vue3 & PrimeVue')
+    {
+      this.questions.push({
+          type : 'input',
+          name : 'path',
+          default: './custom',
+          message : 'Directory Path'
+        },
+        {
+          type : 'input',
+          name : 'namespace',
+          default: 'WebReinvent\\\\VaahCms',
+          message : 'Enter the namespace'
+        },
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'Vaah',
+          message : 'Enter the Module/Theme/Entity name: '
+        },
+        )
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'HelloWorld',
+          message : 'Enter the Module/Theme/Entity name: '
+        },);
+    }
+
+    this.questions.push(
       {
         type : 'input',
         name : 'section_name',
         default: 'Backend',
         message : 'Enter the section name (Backend | Frontend or Folder name): '
-      },
-      {
-        type : 'input',
-        name : 'vue_folder_name',
-        default: 'Vue',
-        message : 'Vue folder name: '
-      },
+      },)
+
+    if(primary === 'Custom Path - Vue3 & PrimeVue') {
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue/vaahtwo',
+          message : 'Vue folder name/path: '
+        },)
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue',
+          message : 'Vue folder name/path: '
+        },)
+    }
+
+    this.questions.push(
       {
         type : 'input',
         name : 'table_name',
@@ -266,8 +327,7 @@ export default class Generator {
         name : 'controller_name',
         default: 'Articles',
         message : 'Enter your controller name (plural): '
-      },
-    ];
+      },);
 
 
     return this.questions;

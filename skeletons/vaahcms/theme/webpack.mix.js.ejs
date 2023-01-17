@@ -49,11 +49,14 @@ if (mix.inProduction()) {
     mix.js(source_vue_folder+"/app.js",  output_folder+'/build/app.js').vue();
 }
 
-mix.webpackConfig({
-
-    devServer: {
-        port: '<%= webpack_port %>'
+mix.options({
+    hmrOptions: {
+        host: 'localhost',
+        port: <%= webpack_port %>,
     },
+});
+
+mix.webpackConfig({
 
     watchOptions: {
 

@@ -17,12 +17,16 @@
 
 @section('content')
 
-    <div id="app<%= module_name %>">
+<section class="section section has-padding-top-25 has-padding-left-25">
+    <div class="container">
+        <div id="app<%= module_name %>">
 
-        <router-view></router-view>
+            <router-view></router-view>
 
-        <vue-progress-bar></vue-progress-bar>
+            <vue-progress-bar></vue-progress-bar>
 
+        </div>
     </div>
+</section>
 
 @endsection

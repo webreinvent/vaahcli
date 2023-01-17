@@ -13,9 +13,9 @@ class FrontendController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return 'FrontendController';
+        return 'FrontendController - <%= module_name %>';
     }
 
 }

@@ -37,7 +37,7 @@ class <%= controller_name %>Controller extends Controller
             $fillable, $data['fillable']['except']
         );
 
-        foreach ($data['fillable']['columns'] as $column)
+        foreach ($fillable as $column)
         {
             $data['empty_item'][$column] = null;
         }

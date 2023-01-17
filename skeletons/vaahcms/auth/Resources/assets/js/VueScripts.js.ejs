@@ -322,7 +322,7 @@ let VueCommon = Vue.extend({
 //==============================================
 
 let base_url = document.getElementsByTagName("base")[0].getAttribute("href");
-let current_url = document.getElementsById("current_url").getAttribute("content");
+let current_url = document.getElementById("current_url").getAttribute("content");
 
 const authApp = new VueCommon({
     el: '#frontendApp',
@@ -432,8 +432,7 @@ const authApp = new VueCommon({
 
 
         //---------------------------------------------
-        this.getFormAssets();
-
+        //this.getAssets();
         //---------------------------------------------
     },
     methods:{

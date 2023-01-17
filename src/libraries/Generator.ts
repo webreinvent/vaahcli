@@ -410,7 +410,18 @@ export default class Generator {
       file_readable_path = __dirname+"./../../skeletons/"+file_path;
 
       file_content = fs.readFileSync(file_readable_path).toString();
-      this.inputs['for_name'] = this.inputs.for;
+
+      switch(this.inputs.for)
+      {
+      case 'Module - Vue3 & PrimeVue':
+      case 'Module - Vue2 & Buefy':
+        this.inputs['for_name'] = 'Module';
+        break;
+      default:
+        this.inputs['for_name'] = this.inputs.for;
+        break;
+      }
+
       parsed_file_content = ejs.render(file_content, this.inputs);
 
       destination = destination.replace('.ejs', "");
@@ -420,6 +431,14 @@ export default class Generator {
       if(this.inputs['generate_migration'] === 'false' && file_name === 'migration-template.php')
       {
         return;
+      }
+
+      let prefix_folder = "";
+      let prefix_folder_lower = "";
+
+      if(this.inputs['section_name'] === 'Tenant')
+      {
+        prefix_folder = "/Tenant/";
       }
 
       switch(file_name)
@@ -446,6 +465,10 @@ export default class Generator {
       case 'FormJs.js':
       case 'View.vue':
       case 'ViewJs.js':
+      case 'Actions.vue':
+      case 'Filters.vue':
+      case 'Table.vue':
+      case 'Item.vue':
         destination = destination.replace('template', this.inputs['controller_name_lower']);
         destination = destination.replace('Vue', this.inputs['vue_folder_name']);
         break;
@@ -458,10 +481,9 @@ export default class Generator {
         destination = destination.replace('Vue', this.inputs['vue_folder_name']);
         break;
       case 'migration-template.php':
-        destination = destination.replace('migration-template.php', this.getDateTimeForMigrationFile()+this.inputs['table_name_lower']+'.php');
+        destination = destination.replace('migration-template.php', prefix_folder+this.getDateTimeForMigrationFile()+this.inputs['table_name_lower']+'.php');
         break;
       }
-
 
       fsSync.write(destination, parsed_file_content);
 

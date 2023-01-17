@@ -6,6 +6,9 @@ export default class CmsCrud extends Command {
     flags: {
         [k: string]: any;
     };
+    primary: {
+        [k: string]: any;
+    };
     inputs: {
         [k: string]: any;
     };

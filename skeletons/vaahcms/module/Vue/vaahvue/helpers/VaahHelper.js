@@ -1,10 +1,15 @@
-import Vue from "vue";
-import moment from 'moment/moment';
+import Vue from 'vue';
+import axios from "axios";
+let moment = require('moment-timezone');
+let timezone = document.getElementById('app_timezone').getAttribute("content");
+moment.tz.setDefault(timezone);
+
 import copy from 'copy-to-clipboard';
 
-import {store} from './../../store/store';
+import {store} from './../../stores/store';
 import {ToastProgrammatic as Toast} from "buefy";
-import axios from "axios";
+import {SnackbarProgrammatic as Snackbar} from "buefy";
+
 
 var debug = document.getElementById('debug').getAttribute('content');
 
@@ -27,7 +32,7 @@ const VaahHelper = {
             params: params
         };
 
-        let data = await axios.get(url, q)
+        let data = await Vue.axios.get(url, q)
             .then(response => {
                 if(response.data.status)
                 {
@@ -88,7 +93,7 @@ const VaahHelper = {
     },
 
     //---------------------------------------------------------------------
-    async ajax(url, params, callback, query )
+    async ajax(url, params, callback, query, headers=null )
     {
 
         //To make axios request as ajax request
@@ -100,7 +105,15 @@ const VaahHelper = {
             params: query
         };
 
-        let data = await axios.post(url, params, q)
+        if(headers)
+        {
+            q.headers = headers;
+        }
+
+        console.log('--->', params);
+
+
+        let data = await Vue.axios.post(url, params, q)
             .then(response => {
                 this.processResponse(response);
                 if(callback)
@@ -234,6 +247,7 @@ const VaahHelper = {
     confirmCopiedData: function(data)
     {
         Toast.open({
+            container: '#buefy-snackbar',
             message: 'Copied',
             type: 'is-success'
         });
@@ -263,6 +277,7 @@ const VaahHelper = {
         if(list_html != "")
         {
             Toast.open({
+                container: '#buefy-snackbar',
                 message: list_html,
                 type: 'is-success',
                 duration: duration*i
@@ -275,7 +290,7 @@ const VaahHelper = {
     toastErrors(messages){
         let list_html = "";
         let i = 1;
-        let duration = 1000;
+        let duration = 2000;
 
         if(messages.length > 1)
         {
@@ -283,22 +298,32 @@ const VaahHelper = {
                 list_html += i+") "+error+"<br/>";
                 i++;
             });
+            duration = duration*i;
         } else
         {
             if(messages[0])
             {
                 list_html += messages[0];
+                let leng = list_html.length;
+                duration = leng*duration/10;
+
+
             }
+
+
         }
 
+        console.log('duration', duration+' ms');
         console.log('--->', list_html);
 
         if(list_html != "")
         {
-            Toast.open({
+            Snackbar.open({
+                container: '#buefy-snackbar',
                 message: list_html,
+                position: 'is-top',
                 type: 'is-danger',
-                duration: duration*i
+                duration: duration
             });
         }
 
@@ -379,7 +404,7 @@ const VaahHelper = {
             if (obj[key] && typeof obj[key] === 'object'){
                 self.removeEmpty(obj[key]);
             }
-            else if (obj[key] == null) {
+            else if (obj[key] == null || obj[key] == '') {
                 delete obj[key]
             }
         });
@@ -453,8 +478,6 @@ const VaahHelper = {
             return false;
         }
 
-        console.log("array===>", array);
-
         array.map(function(item, index) {
 
             if(item[key] == element[key])
@@ -519,6 +542,46 @@ const VaahHelper = {
         return moment(value).format('YYYY-MM-DD');
     },
     //---------------------------------------------------------------------
+    formatTime: function (value, format='HH:mm') {
+        if(!value)
+        {
+            return "";
+        }
+        return moment(value).format(format);
+    },
+    //---------------------------------------------------------------------
+    formatTimeUnix: function (value, format='HH:mm:ss') {
+        if(!value)
+        {
+            return "";
+        }
+        return moment.unix(value).format(format);
+    },
+    //---------------------------------------------------------------------
+    formatTimeUTC: function (value, format='HH:mm') {
+        if(!value)
+        {
+            return "";
+        }
+        return moment.utc(value).format(format);
+    },
+    //---------------------------------------------------------------------
+    formatDateTimeUTC: function (value) {
+        if(!value)
+        {
+            return "";
+        }
+        return moment.utc(value).format('YYYY-MM-DD HH:mm:ss')
+    },
+    //---------------------------------------------------------------------
+    formatDateTime: function (value, format='YYYY-MM-DD HH:mm:ss') {
+        if(!value)
+        {
+            return "";
+        }
+        return moment(value).format(format)
+    },
+    //---------------------------------------------------------------------
     fromNow: function (value) {
 
         if(!value)
@@ -526,9 +589,40 @@ const VaahHelper = {
             return null;
         }
 
+        if(store.getters['root/state'].assets.timezone)
+        {
+            let timezone = store.getters['root/state'].assets.timezone;
+            moment.tz.setDefault(timezone);
+        }
+
         return moment(value).fromNow();
     },
 
+    //---------------------------------------------------------------------
+    ago: function (value) {
+
+        if(!value)
+        {
+            return null;
+        }
+
+        if(store.getters['root/state'].assets.timezone)
+        {
+            let timezone = store.getters['root/state'].assets.timezone;
+            moment.tz.setDefault(timezone);
+        }
+
+        let dt = store.getters['root/state'].assets.server_date_time;
+
+        let server = moment(dt);
+        let time = moment(value);
+
+        if(time.isAfter(server)){
+            return server.from(time);
+        }
+        return time.fromNow();
+
+    },
     //---------------------------------------------------------------------
     currentDate: function () {
         return moment().format('YYYY-MM-DD')
@@ -636,14 +730,21 @@ const VaahHelper = {
     //---------------------------------------------------------------------
     toLabel: function(str)
     {
-        str = str.replace(/_/g, " ");
-        str = this.toUpperCaseWords(str);
-        return str;
+        if(typeof str === 'string' )
+        {
+            str = str.replace(/_/g, " ");
+            str = this.toUpperCaseWords(str);
+            return str;
+        }
+
     },
     //---------------------------------------------------------------------
     toUpperCaseWords: function(str)
     {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        if(str)
+        {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
     },
     //---------------------------------------------------------------------
     currencyToSymbol: function (currency) {
@@ -714,6 +815,46 @@ const VaahHelper = {
     //---------------------------------------------------------------------
     timeDifferenceInSeconds: function (started_at,ended_at) {
         let ms = moment(ended_at,"YYYY-MM-DD HH:mm:ss").diff(moment(started_at, "YYYY-MM-DD HH:mm:ss"));
+        let seconds = ms/1000;
+        return seconds;
+    },
+    //---------------------------------------------------------------------
+    formatUnixTime: function (timestamp, format=null) {
+        let time = moment(timestamp)
+        if(!format)
+        {
+            return time.toISOString();
+        } else{
+            return time.format(format);
+        }
+    }
+    ,
+    //---------------------------------------------------------------------
+    timeDifferenceInMSUnix: function (old_timestamp,new_timestamp=null) {
+        let start = moment(old_timestamp*1000);
+        let end = moment(new_timestamp*1000);
+
+        let diff = end.diff(start);
+
+        return diff;
+    },
+    //---------------------------------------------------------------------
+    timeDifferenceInSecondsUnix: function (started_at,ended_at=null) {
+        started_at = moment.unix(started_at);
+
+        if(ended_at){
+            ended_at = moment.unix(ended_at);
+        }else{
+            ended_at = moment(); // current time
+        }
+
+        let ms = ended_at.diff(started_at);
+        let seconds = ms/1000;
+        return seconds;
+    },
+    //---------------------------------------------------------------------
+    timeDifferenceInSecondsUTC: function (started_at,ended_at) {
+        let ms = moment(ended_at).diff(moment(started_at));
         let seconds = ms/1000;
         return seconds;
     },
@@ -790,6 +931,22 @@ const VaahHelper = {
         window.open(url, "_blank");
     },
     //---------------------------------------------------------------------
+    openPopup: function (event, url, width=600, height=500) {
+
+        if(event)
+        {
+            event.preventDefault();
+        }
+
+        window.open(url,'targetWindow', `toolbar=no,
+                                    location=no,
+                                    status=no,
+                                    menubar=no,
+                                    scrollbars=yes,
+                                    resizable=yes,
+                                    width=`+width+`,
+                                    height=`+height+``);
+    },
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     remainingCharacters: function (event, min_characters, max_characters, target_show_remaining) {
@@ -840,7 +997,7 @@ const VaahHelper = {
     //---------------------------------------------------------------------
 
     //---------------------------------------------------------------------
-    strToSlug: function (title) {
+    strToSlug: function (title,delimiter = '-') {
         let slug = "";
         // Change to lower case
         let titleLower = title.toLowerCase();
@@ -857,7 +1014,7 @@ const VaahHelper = {
         // Trim the last whitespace
         slug = slug.replace(/\s*$/g, '');
         // Change whitespace to "-"
-        slug = slug.replace(/\s+/g, '-');
+        slug = slug.replace(/\s+/g, delimiter);
 
         return slug;
     },
@@ -889,11 +1046,158 @@ const VaahHelper = {
             return extension;
         }
         return null;
+    },
+    //---------------------------------------------------------------------
+    getClipboardValue: function () {
+
+        let text =  (!!e.clipboardData)? e.clipboardData.getData("text/plain") : window.clipboardData.getData("Text");
+
+        return text;
+    },
+    //---------------------------------------------------------------------
+    getNonReactiveObject: function (obj) {
+        return JSON.parse(JSON.stringify(obj));
+    },
+    //---------------------------------------------------------------------
+    pluck: function (array, key)
+    {
+        return array.map(function(obj) {
+            return obj[key];
+        });
+    },
+    //---------------------------------------------------------------------
+    pusherAuth(pusher_auth_url, pusher_key, pusher_cluster, params=null){
+
+        if(debug === true) {
+            console.log('params--->', params);
+        }
+
+        return  new Pusher(pusher_key, {
+            authEndpoint: pusher_auth_url,
+            cluster: pusher_cluster ,
+            auth: {
+                headers: {
+                    'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                },
+                params: params,
+            }
+        });
+    },
+    //---------------------------------------------------------------------
+    pusherSubscribe: function (pusher_instance, channel_name, callback=null)
+    {
+        channel_name = "presence-"+channel_name;
+
+        let channel_instance =  pusher_instance.subscribe(channel_name);
+
+
+        channel_instance.bind('pusher:subscription_succeeded', function(members)
+        {
+            if(debug === true) {
+                console.log('SubscribedToChannel -->', channel_name);
+                console.log('LiveMembers -->', members);
+            }
+
+            if(callback)
+            {
+                callback(members);
+            }
+
+        });
+
+        return channel_instance;
+
+    },
+    //---------------------------------------------------------------------
+    pusherListenEvent: function (channel_instance, event_name, callback=null)
+    {
+        channel_instance.bind(event_name, function(data)
+        {
+            if(debug === true) {
+                console.log('ReceivedFromPusher | Event--> '+event_name+' | Data --->', data);
+            }
+
+            if(callback)
+            {
+                callback(data);
+            }
+        });
+
+    },
+    //---------------------------------------------------------------------
+
+
+    /*
+    *  Return Js Date for  specified, month, day, week and time
+    *  Note: if week_no is 0, we get date from last week
+    *  Examples:
+    *  - To get a date for Second Sunday in March at 2:00, use the following
+    *
+    *    let date = getNthDayOfMonth('March', 'Sunday', 2, '2:00');
+    *
+    *  - To get a date for Last Friday in October at 1:00
+    *
+    *    let date = getNthDayOfMonth('October', 'Friday', 0, '1:00');
+    * */
+    //---------------------------------------------------------------------
+    getNthDayOfMonth: function(month, day, week_no, time){
+        let moment_ref = moment();
+        const months = {
+            January: 0,
+            February: 1,
+            March: 2,
+            April: 3,
+            May: 4,
+            June: 5,
+            July: 6,
+            August: 7,
+            September: 8,
+            October: 9,
+            November: 10,
+            December: 11,
+        };
+        const days = {
+            Monday: 1,
+            Tuesday: 2,
+            Wednesday: 3,
+            Thursday: 4,
+            Friday: 5,
+            Saturday: 6,
+            Sunday: 7
+        };
+
+        // set month
+        moment_ref.set('month', months[month]);
+
+        // if last week
+        let date;
+        if(week_no == 0){
+            let m = moment_ref.clone()
+                .endOf('month')                     // go to the end of the month
+                .day(days[day]);
+
+
+            if (m.month() !== moment_ref.month()) m.subtract(7, 'd');
+            date = m.add(7 * (week_no - 1), 'd');
+        }
+        else{
+            let m = moment_ref.clone()
+                .startOf('month')                     // go to the beginning of the month
+                .day(days[day]);
+
+
+            if (m.month() !== moment_ref.month()) m.add(7, 'd');
+            date = m.add(7 * (week_no - 1), 'd');
+        }
+
+
+        // get shift time
+        let arr = time.split(':');
+        date.set('hour',arr[0]);
+        date.set('minute',arr[1]);
+
+        return date.toDate();
     }
-    //---------------------------------------------------------------------
-
-    //---------------------------------------------------------------------
-
     //---------------------------------------------------------------------
 
 
