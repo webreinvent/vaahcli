@@ -3,9 +3,9 @@
 </script>
 <template  >
 
-    <div>
-        <h1 class="text-4xl">Dashboard</h1>
-    </div>
+  <div class="mt-1">
+    <h1 class="text-4xl">Dashboard v2</h1>
+  </div>
 
 </template>
 
