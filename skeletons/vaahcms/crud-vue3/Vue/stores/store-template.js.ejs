@@ -160,7 +160,7 @@ export const use<%= model_name %>Store = defineStore({
             if(this.assets_is_fetching === true){
                 this.assets_is_fetching = false;
 
-                vaah().ajax(
+                await vaah().ajax(
                     this.ajax_url+'/assets',
                     this.afterGetAssets,
                 );
@@ -322,7 +322,7 @@ export const use<%= model_name %>Store = defineStore({
             );
         },
         //---------------------------------------------------------------------
-        itemAction(type, item=null){
+        async itemAction(type, item=null){
             if(!item)
             {
                 item = this.item;
@@ -384,7 +384,7 @@ export const use<%= model_name %>Store = defineStore({
                     break;
             }
 
-            vaah().ajax(
+            await vaah().ajax(
                 ajax_url,
                 this.itemActionAfter,
                 options
@@ -462,7 +462,7 @@ export const use<%= model_name %>Store = defineStore({
                 method: 'post',
             };
 
-            vaah().ajax(
+            await vaah().ajax(
                 url,
                 this.getFakerAfter,
                 options
