@@ -34,10 +34,13 @@ class BackendController extends Controller
         }
         */
 
+        <% if(is_using_vue){ %>
+        return view('<%= module_name_lower %>::backend.pages.app');
+        <% } else{ %>
         return view('<%= module_name_lower %>::backend.pages.index');
+        <% } %>
 
-        // Use following blade file to use vue app
-        //return view('<%= module_name_lower %>::backend.pages.app');
+
     }
 
     public function getAssets(Request $request)

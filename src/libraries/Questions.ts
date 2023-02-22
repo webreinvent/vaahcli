@@ -78,7 +78,13 @@ export default class Generator {
         name : 'has_sample_data',
         default: 'false',
         message : 'Will your module contains sample data (true/false): '
-      }
+      },
+      {
+        type : 'input',
+        name : 'is_using_vue',
+        default: 'true',
+        message : 'Do you want to vue in this module (true/false): '
+      },
 
     ];
 
