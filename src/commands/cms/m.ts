@@ -99,6 +99,16 @@ export default class CmsM extends Command {
 
     tasks.run().then((ctx: any) => {
       log(chalk.green('======================================='));
+      log(chalk.green("To use Vue in your project, follow the following steps:"));
+
+      log("0) Open Http/Controllers/Backend/BackendController.php, comment 'backend.pages.index' view and uncomment 'backend.pages.app'.");
+      log("1) Add MODULE_"+this.inputs.module_name_upper+"_ENV=develop in your .env file");
+      log("2) Run 'npm install' at VaahCms/Modules/"+this.inputs.module_name+" module folder");
+      log("3) Now run 'npm run dev' at VaahCms/Modules/"+this.inputs.module_name+" module folder");
+      log(`4) Visit <base-url>/public/backend/`+this.inputs.module_name_lower);
+
+
+
     }).catch((err: any) => {
       console.error(err);
     });
