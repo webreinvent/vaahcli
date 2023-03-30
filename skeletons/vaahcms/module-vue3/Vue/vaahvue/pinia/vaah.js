@@ -50,9 +50,15 @@ export const vaah = defineStore({
 
 
             //To make axios request as ajax request
+          if(headers && headers["Authorization"]){
             axios.defaults.headers.common = {
-                'X-Requested-With': 'XMLHttpRequest',
+              "Authorization": headers["Authorization"],
             };
+          } else{
+            axios.defaults.headers.common = {
+              'X-Requested-With': 'XMLHttpRequest',
+            };
+          }
 
             let q = {};
 

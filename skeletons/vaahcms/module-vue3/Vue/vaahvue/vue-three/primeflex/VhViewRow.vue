@@ -30,7 +30,7 @@ const props = defineProps({
     <tr>
         <td :style="{width: label_width}"><b>{{vaah().toLabel(label)}}</b></td>
         <template v-if="can_copy">
-            <td>{{value}}</td>
+            <td v-html="value"></td>
             <td style="width: 40px;">
                 <Button icon="pi pi-copy" @click="vaah().copy(value)" class=" p-button-text"></Button>
             </td>
@@ -53,7 +53,7 @@ const props = defineProps({
             </td>
         </template>
         <template v-else>
-            <td  colspan="2">{{value}}</td>
+            <td  colspan="2" v-html="value"></td>
         </template>
 
     </tr>

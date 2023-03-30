@@ -34,10 +34,13 @@ class BackendController extends Controller
         }
         */
 
+        <% if(is_using_vue){ %>
+        return view('<%= module_name_lower %>::backend.pages.app');
+        <% } else{ %>
         return view('<%= module_name_lower %>::backend.pages.index');
+        <% } %>
 
-        // Use following blade file to use vue app
-        //return view('<%= module_name_lower %>::backend.pages.app');
+
     }
 
     public function getAssets(Request $request)
@@ -51,7 +54,7 @@ class BackendController extends Controller
         $permission_slug = 'has-access-<%= module_name_lower %>';
         if(!\Auth::user()->hasPermission($permission_slug))
         {
-            $response['status'] = 'failed';
+            $response['success'] = false;
             $error_message = trans("vaahcms::messages.permission_denied");
             if(env('APP_DEBUG'))
             {
