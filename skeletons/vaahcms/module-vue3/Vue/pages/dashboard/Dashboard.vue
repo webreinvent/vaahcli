@@ -3,8 +3,8 @@
 </script>
 <template  >
 
-  <div class="mt-1">
-    <h1 class="text-4xl">Dashboard v2</h1>
+  <div style="margin-top: 8px;">
+    <h1 class="text-4xl">Dashboard</h1>
   </div>
 
 </template>

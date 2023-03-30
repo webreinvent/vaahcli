@@ -1,4 +1,8 @@
+@if(version_compare(config('vaahcms.version'), '2.0.0', '<' )))
 @extends("vaahcms::backend.vaahone.layouts.backend")
+@else
+@extends("vaahcms::backend.vaahtwo.layouts.backend")
+@endif
 
 @section('vaahcms_extend_backend_css')
 
