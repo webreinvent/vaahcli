@@ -16,7 +16,7 @@ class SetupController extends Controller
      */
     public static function activate($module)
     {
-        $response['status'] = 'success';
+        $response['success'] = true;
         $response['data'] = [];
         return $response;
     }
@@ -26,7 +26,7 @@ class SetupController extends Controller
      */
     public static function dependencies()
     {
-        $response['status'] = 'success';
+        $response['success'] = true;
         $response['data']['modules'] = [];
         $response['data']['themes'] = [];
 
@@ -39,7 +39,7 @@ class SetupController extends Controller
     public static function deactivate()
     {
 
-        $response['status'] = 'success';
+        $response['success'] = true;
         $response['data'] = [];
         return $response;
 
@@ -51,7 +51,7 @@ class SetupController extends Controller
     public static function importSampleData()
     {
 
-        $response['status'] = 'success';
+        $response['success'] = true;
         $response['data'] = [];
         return $response;
 
@@ -63,7 +63,7 @@ class SetupController extends Controller
     public static function delete()
     {
 
-        $response['status'] = 'success';
+        $response['success'] = true;
         $response['data'] = [];
         return $response;
 

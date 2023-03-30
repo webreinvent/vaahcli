@@ -54,7 +54,7 @@ class BackendController extends Controller
         $permission_slug = 'has-access-<%= module_name_lower %>';
         if(!\Auth::user()->hasPermission($permission_slug))
         {
-            $response['status'] = 'failed';
+            $response['success'] = false;
             $error_message = trans("vaahcms::messages.permission_denied");
             if(env('APP_DEBUG'))
             {
