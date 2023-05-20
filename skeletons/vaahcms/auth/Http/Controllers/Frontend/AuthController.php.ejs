@@ -54,7 +54,8 @@ class AuthController extends Controller
             $response = <%= theme_name %>User::loginViaOtp($request);
         }
 
-        if($response['status'] == 'success')
+        if((isset($response['status']) && $response['status'] == 'success')
+          || (isset($response['success']) && $response['success'] == true))
         {
             $response['data']['redirect_url'] = url("/");
         }
