@@ -106,7 +106,8 @@ class AuthController extends Controller
     public function activate(Request $request, $code)
     {
         $this->signOutUser();
-        return view('<%= theme_name_lower %>::frontend.auth.activate');
+        return view('<%= theme_name_lower %>::frontend.auth.activate')
+            ->with([ 'activation_code'=> $code ]);
     }
     //----------------------------------------------------------
     public function activatePost(Request $request, $code)
