@@ -1,7 +1,7 @@
 {
   "name": "vaah",
   "description": "CLI of VaahCMS - VaahCLI",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "author": "Vaah",
   "bin": {
     "vaah": "./bin/run"
@@ -30,7 +30,8 @@
     "path": "^0.12.7",
     "semver": "^7.3.5",
     "shelljs": "^0.8.4",
-    "tslib": "^1.14.1"
+    "tslib": "^1.14.1",
+    "download-git-repo": "^3.0.2"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.24.1",
@@ -47,8 +48,8 @@
     "nyc": "^14.1.1",
     "rimraf": "^3.0.2",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.7",
-    "download-git-repo": "^3.0.2"
+    "typescript": "^3.9.7"
+
   },
   "engines": {
     "node": ">=8.0.0"

@@ -10,7 +10,7 @@ let fsSync = require('fs-sync');
 const fsPromises = fs.promises;
 // @ts-ignore
 //import { download, extract }  from 'gitly';
-//import download  from 'download-git-repo';
+//import * as download  from 'download-git-repo';
 import Functions from '../../libraries/Functions'
 import Questions from '../../libraries/Questions'
 import * as inquirer from 'inquirer'
