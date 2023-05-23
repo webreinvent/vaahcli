@@ -131,11 +131,11 @@ let VueCommon = Vue.extend({
         //---------------------------------------------------------------------
         processResponse: function(response)
         {
-            if(response.data.status)
+            if(response.data.status || 'success' in response.data)
             {
-                if(response.data.status === 'failed')
+                if((response.data.status && response.data.status === 'failed' )
+                    ||  !response.data.success )
                 {
-                    console.log('--->response 138', response);
 
                     if(response.data.messages)
                     {
@@ -148,9 +148,9 @@ let VueCommon = Vue.extend({
                     }
                 }
 
-                if(response.data.status === 'success')
+                if((response.data.status && response.data.status === 'success' )
+                    || response.data.success )
                 {
-                    console.log('--->response 153', response);
 
                     if(response.data.messages)
                     {
@@ -158,7 +158,6 @@ let VueCommon = Vue.extend({
                     }
                 }
             }
-
 
 
             return response;
@@ -591,15 +590,15 @@ const authApp = new VueCommon({
 
         },
         //---------------------------------------------
-        activateAccount: function (e) {
+       activateAccount: function (e,code) {
 
-            e.preventDefault();
+           e.preventDefault();
 
-            this.is_btn_loading = true;
-            var url = this.base_url+'/signup/post';
-            var params = this.activate;
-            this.ajax(url, params, this.activateAccountAfter);
-        },
+           this.is_btn_loading = true;
+           var url = this.base_url+'/signup/activate/'+code+'/post';
+           var params = {};
+           this.ajax(url, params, this.activateAccountAfter);
+       },
         //---------------------------------------------
         activateAccountAfter: function (data) {
             this.is_btn_loading = false;

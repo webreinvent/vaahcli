@@ -1,4 +1,6 @@
 <?php namespace VaahCms\Themes\<%= theme_name %>\Models;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use VaahCms\Themes\<%= theme_name %>\Notifications\ActivationLinkNotification;
@@ -89,6 +91,8 @@ class <%= theme_name %>Registration extends Registration
             $response['errors'][] = 'Invalid activation code';
             return $response;
         }
+
+        $signup = $signup->makeVisible(['password']);
 
         $user_request = new Request($signup->toArray());
 

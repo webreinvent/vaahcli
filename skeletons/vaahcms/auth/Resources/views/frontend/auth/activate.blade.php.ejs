@@ -27,19 +27,21 @@
 
                         <br/>
 
-                        <form @submit="activateAccount($event)">
+                         @if(isset($activation_code))
+                              <form @submit="activateAccount($event,'{{$activation_code}}')">
 
-                            <div class="field">
-                                <p class="control">
-                                    <b-button native-type="submit"
-                                              type="is-primary"
-                                              :loading="is_btn_loading">
-                                        Activate
-                                    </b-button>
-                                </p>
-                            </div>
+                                  <div class="field">
+                                      <p class="control">
+                                          <b-button native-type="submit"
+                                                    type="is-primary"
+                                                    :loading="is_btn_loading">
+                                              Activate
+                                          </b-button>
+                                      </p>
+                                  </div>
 
-                        </form>
+                              </form>
+                         @endif
 
                 </div>
                 </div>
