@@ -3,6 +3,9 @@ export default class Generator {
         [k: string]: any;
     };
     constructor();
+    getVaahCmsVersions(): {
+        [k: string]: any;
+    };
     getVaahCmsModuleQuestions(): {
         [k: string]: any;
     };

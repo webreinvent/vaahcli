@@ -1,7 +1,7 @@
 {
   "name": "vaah",
   "description": "CLI of VaahCMS - VaahCLI",
-  "version": "2.0.35",
+  "version": "2.1.0",
   "author": "Vaah",
   "bin": {
     "vaah": "./bin/run"
@@ -47,7 +47,8 @@
     "nyc": "^14.1.1",
     "rimraf": "^3.0.2",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "download-git-repo": "^3.0.2"
   },
   "engines": {
     "node": ">=8.0.0"
