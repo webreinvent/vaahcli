@@ -1,5 +1,5 @@
 <script  setup>
-
+document.title = '<%= module_name %>';
 </script>
 <template  >
 
