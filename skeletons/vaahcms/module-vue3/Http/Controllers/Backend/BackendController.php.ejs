@@ -61,7 +61,7 @@ class BackendController extends Controller
                 $error_message .= ' Permission Slug: '.$permission_slug;
             }
             $response['errors'][] = $error_message;
-            return response()->json($response);
+            return vh_response($response);
         }
         */
 
@@ -78,7 +78,7 @@ class BackendController extends Controller
         $response['success'] = true;
         $response['data'] = $data;
 
-        return response()->json($response);
+        return vh_response($response);
 
     }
 
