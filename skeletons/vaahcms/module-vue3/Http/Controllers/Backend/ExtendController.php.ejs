@@ -40,15 +40,9 @@ class ExtendController extends Controller
 
         $links[0] = [
             'icon' => 'cubes',
-            'label'=> '<%= module_name %>'
+            'label'=> '<%= module_name %>',
+            'link'=> route('vh.backend.<%= module_name_lower %>')
         ];
-
-
-        if(version_compare(config('vaahcms.version'), '2.0.0', '<' )){
-            $links[0]['link'] = route('vh.backend.<%= module_name_lower %>'),
-        } else{
-            $links[0]['url'] = route('vh.backend.<%= module_name_lower %>'),
-        }
 
 
         $response['success'] = true;
