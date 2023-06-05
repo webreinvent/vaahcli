@@ -45,9 +45,9 @@ class ExtendController extends Controller
 
 
         if(version_compare(config('vaahcms.version'), '2.0.0', '<' )){
-            $links[0]['link'] = route('vh.backend.<%= module_name_lower %>'),
+            $links[0]['link'] = route('vh.backend.<%= module_name_lower %>');
         } else{
-            $links[0]['url'] = route('vh.backend.<%= module_name_lower %>'),
+            $links[0]['url'] = route('vh.backend.<%= module_name_lower %>');
         }
 
 
