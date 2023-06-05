@@ -54,7 +54,8 @@ class AuthController extends Controller
             $response = <%= theme_name %>User::loginViaOtp($request);
         }
 
-        if($response['status'] == 'success')
+        if((isset($response['status']) && $response['status'] == 'success')
+          || (isset($response['success']) && $response['success'] == true))
         {
             $response['data']['redirect_url'] = url("/");
         }
@@ -105,7 +106,8 @@ class AuthController extends Controller
     public function activate(Request $request, $code)
     {
         $this->signOutUser();
-        return view('<%= theme_name_lower %>::frontend.auth.activate');
+        return view('<%= theme_name_lower %>::frontend.auth.activate')
+            ->with([ 'activation_code'=> $code ]);
     }
     //----------------------------------------------------------
     public function activatePost(Request $request, $code)

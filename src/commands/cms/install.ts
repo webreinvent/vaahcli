@@ -9,11 +9,15 @@ const { exec } = require('child_process');
 let fsSync = require('fs-sync');
 const fsPromises = fs.promises;
 // @ts-ignore
-import { download, extract }  from 'gitly';
+//import { download, extract }  from 'gitly';
+//import * as download  from 'download-git-repo';
 import Functions from '../../libraries/Functions'
+import Questions from '../../libraries/Questions'
+import * as inquirer from 'inquirer'
 
 
 
+const download = require('download-git-repo');
 const chalk = require('chalk');
 
 const log = console.log;
@@ -81,14 +85,23 @@ export default class CmsInstall extends Command {
 
     await this.printName();
 
-    await this.spin();
+
 
     if(!flags.here)
     {
       this.target_dir = this.target_dir+args.project_name;
     }
 
-    await this.install();
+    let questions = new Questions();
+
+    this.inputs = await inquirer.prompt(questions.getVaahCmsVersions());
+
+    if(this.inputs.version)
+    {
+      await this.spin();
+      await this.install();
+    }
+
 
 
   }
@@ -132,17 +145,32 @@ export default class CmsInstall extends Command {
           {
 
             let self = this;
-             // @ts-ignore
-            download('webreinvent/vaahcms-ready').then(download => {
-              self.source_dir = download;
-            }).then(resolve)
-              .catch(() => {
-                reject(new Error('Failed'));
-              });
+            let repo = 'webreinvent/vaahcms-ready';
+
+
+
+            if(self.inputs.version === 'VaahCMS 2.x')
+            {
+              repo =  'webreinvent/vaahcms-ready#2.x';
+              self.inputs.documentation = "https://docs.vaah.dev/vaahcms-2/";
+              //repo =  'https://github.com/webreinvent/vaahcms-ready/archive/2.x.zip';
+            }
+
+            if(self.inputs.version === 'VaahCMS 1.x')
+            {
+              self.inputs.documentation = "https://docs.vaah.dev/vaahcms/";
+              repo =  'webreinvent/vaahcms-ready#1.x';
+            }
+
+            // @ts-ignore
+            download(repo, self.target_dir, function (err: any) {
+              console.log((err ? reject('Error') : resolve('Success')));
+            })
+
           }
         })
       },
-      {
+      /*{
         title: 'Extracting VaahCMS Files',
         task: () => new Promise((resolve, reject) => {
           {
@@ -152,8 +180,9 @@ export default class CmsInstall extends Command {
               });
           }
         })
-      },
-      {
+      }, */
+
+      /* {
         title: 'Installing Dependencies via Composer (Takes 3 - 5 minutes)',
         task: () => new Promise((resolve, reject) => {
           {
@@ -195,11 +224,10 @@ export default class CmsInstall extends Command {
 
           }
         })
-      }
-
-      /*,
-      {
-        title: 'Configuring VaahCMS',
+      }, */
+      /*
+       {
+        title: 'Publishing Assets',
         task: () => new Promise((resolve, reject) => {
           {
 
@@ -228,7 +256,7 @@ export default class CmsInstall extends Command {
             return command;
           }
         })
-      }*/
+      } */
 
     ]);
 
@@ -288,13 +316,18 @@ export default class CmsInstall extends Command {
     log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
 
     log(chalk.black("=================================================================="));
-    log("Open the project folder and run the following command ");
-    log(chalk.green("php artisan serve"));
-    log("then visit following url to setup:");
+    log("Open the project folder "+chalk.green(this.args.project_name)+" in terminal and follow the steps ");
+    log("Step 1. Run "+chalk.green("composer install")+" command");
+    log("Step 2. Run "+chalk.green("php artisan serve")+" command");
+    log("and visit following url to setup:");
     log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
-    log("Or");
-    log("In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
+    log(chalk.bold(chalk.blueBright("OR")));
+    log("Step 2. In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
     log(chalk.green("http://localhost/<project-folder-path>/public/vaahcms/setup"));
+
+    log(chalk.redBright("------"));
+
+    log(chalk.bold(chalk.blueBright("Documentation: "))+this.inputs.documentation);
     log(chalk.black("=================================================================="));
 
   }

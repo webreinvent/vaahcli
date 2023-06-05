@@ -34,11 +34,13 @@ class <%= theme_name %>User extends User
             {
                 $user->username = Str::slug($request->email);
             }
+            $user->prevent_password_hashing = true;
             $user->password = $request->password;
             $user->created_ip = request()->ip();
             $user->is_active = 1;
         } else
         {
+            $user->prevent_password_hashing = true;
             $user->fill($inputs);
         }
 

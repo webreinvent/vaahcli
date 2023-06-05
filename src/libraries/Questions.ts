@@ -13,6 +13,24 @@ export default class Generator {
   }
 
   //-------------------------------------------------------
+  getVaahCmsVersions()
+  {
+
+    this.questions = [
+      {
+        type : 'list',
+        name : 'version',
+        default: null,
+        message : 'Select the VaahCMS version:',
+        choices: ["VaahCMS 2.x", "VaahCMS 1.x"],
+      },
+
+    ];
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
 
   getVaahCmsModuleQuestions()
   {
