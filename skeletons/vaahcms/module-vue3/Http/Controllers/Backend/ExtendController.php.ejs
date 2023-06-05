@@ -40,7 +40,8 @@ class ExtendController extends Controller
 
         $links[0] = [
             'icon' => 'cubes',
-            'label'=> '<%= module_name %>'
+            'label'=> '<%= module_name %>',
+            'link'=> route('vh.backend.<%= module_name_lower %>')
         ];
 
 
