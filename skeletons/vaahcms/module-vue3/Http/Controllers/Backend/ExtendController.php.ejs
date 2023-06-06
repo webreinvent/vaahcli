@@ -19,7 +19,7 @@ class ExtendController extends Controller
         $response['success'] = true;
         $response['data'] = $links;
 
-        return $response;
+        return vh_response($response);
 
     }
     //----------------------------------------------------------
@@ -30,7 +30,7 @@ class ExtendController extends Controller
         $response['success'] = true;
         $response['data'] = $links;
 
-        return $response;
+        return vh_response($response);
     }
     //----------------------------------------------------------
     public static function sidebarMenu()
@@ -45,10 +45,17 @@ class ExtendController extends Controller
         ];
 
 
+        if(version_compare(config('vaahcms.version'), '2.0.0', '<' )){
+            $links[0]['link'] = route('vh.backend.<%= module_name_lower %>');
+        } else{
+            $links[0]['url'] = route('vh.backend.<%= module_name_lower %>');
+        }
+
+
         $response['success'] = true;
         $response['data'] = $links;
 
-        return $response;
+        return vh_response($response);
     }
     //----------------------------------------------------------
 
