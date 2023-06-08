@@ -14,9 +14,8 @@ onMounted(async () => {
     {
         await store.getItem(route.params.id);
     }
-    
+
     await store.getFormMenu();
-    await store.watchItem();
 });
 
 //--------form_menu
@@ -100,6 +99,7 @@ const toggleFormMenu = (event) => {
                     <InputText class="w-full"
                                name="<%= controller_name_lower %>-name"
                                data-testid="<%= controller_name_lower %>-name"
+                               @update:modelValue="store.watchItem"
                                v-model="store.item.name"/>
                 </VhField>
 
