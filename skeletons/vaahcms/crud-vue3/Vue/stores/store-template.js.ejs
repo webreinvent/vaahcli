@@ -152,16 +152,14 @@ export const use<%= model_name %>Store = defineStore({
             )
         },
         //---------------------------------------------------------------------
-        watchItem()
-        {
-            if(this.item){
-                if(this.item.name && this.item.name !== "")
-                {
-                    this.item.name = vaah().capitalising(this.item.name);
-                    this.item.slug = vaah().strToSlug(this.item.name);
-                }
-            }
-        },
+         watchItem(name)
+          {
+              if(name && name !== "")
+              {
+                  this.item.name = vaah().capitalising(name);
+                  this.item.slug = vaah().strToSlug(name);
+              }
+          },
         //---------------------------------------------------------------------
         async getAssets() {
 
