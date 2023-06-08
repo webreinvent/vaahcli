@@ -475,6 +475,99 @@ export default class Generator {
 
   }
   //-------------------------------------------------------
+  getTaxonomyQuestions(primary: string)
+  {
+
+    this.questions = [];
+
+
+    if(primary === 'Custom Path - Vue3 & PrimeVue')
+    {
+      this.questions.push({
+          type : 'input',
+          name : 'path',
+          default: './custom',
+          message : 'Directory Path'
+        },
+        {
+          type : 'input',
+          name : 'namespace',
+          default: 'WebReinvent\\\\VaahCms',
+          message : 'Enter the namespace'
+        },
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'Vaah',
+          message : 'Enter the Module/Theme/Entity name: '
+        },
+      )
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'HelloWorld',
+          message : 'Enter the Module/Theme/Entity name: '
+        },);
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'section_name',
+        default: 'Backend',
+        message : 'Enter the section name (Backend | Frontend or Folder name): '
+      },)
+
+    if(primary === 'Custom Path - Vue3 & PrimeVue') {
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue/vaahtwo',
+          message : 'Vue folder name/path: '
+        },)
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue',
+          message : 'Vue folder name/path: '
+        },)
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'table_name',
+        default: 'articles',
+        message : 'Enter your database table name: '
+      },
+      {
+        type : 'input',
+        name : 'generate_migration',
+        default: 'true',
+        message : 'Do you want to generate migration file (true/false): '
+      },
+      {
+        type : 'input',
+        name : 'model_name',
+        default: 'Article',
+        message : 'Enter your model name (singular): '
+      },
+      {
+        type : 'input',
+        name : 'controller_name',
+        default: 'Articles',
+        message : 'Enter your controller name (plural): '
+      },);
+
+
+    return this.questions;
+
+  }
   //-------------------------------------------------------
   //-------------------------------------------------------
 
