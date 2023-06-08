@@ -524,8 +524,8 @@ export default class Generator {
 
       switch(file_name)
       {
-      case 'User.php':
-        destination = destination.replace('User.php', this.inputs['theme_name']+'User.php');
+      case 'Model.php.ejs':
+        destination = destination.replace('Model.php.ejs', this.inputs['theme_name']+'Model.php.ejs');
         break;
       case 'Registration.php':
         destination = destination.replace('Registration.php', this.inputs['theme_name']+'Registration.php');
