@@ -29,7 +29,7 @@ export default class CmsCrud extends Command {
   target_dir: string = './';
   source_dir: string = '';
 
-  static description = 'Generate Taxonomies CRUD operations for VaahCMS'
+  static description = 'Vue 3: Generate Taxonomies CRUD operations for VaahCMS'
 
   /*
    *---------------------------------------------------
@@ -38,7 +38,7 @@ export default class CmsCrud extends Command {
    */
   static flags = {
     help: flags.boolean({
-      description: 'Vue 3: Generate CRUD operation for VaahCMS',
+      description: 'Vue 3: Generate Taxonomies CRUD operations for VaahCMS',
       default: false,
     }),
   };
@@ -69,9 +69,9 @@ export default class CmsCrud extends Command {
 
     let questions = new Questions();
 
-    this.primary = await inquirer.prompt(questions.getCrudQuestionsPrimary());
+    this.primary = await inquirer.prompt(questions.getTaxonomyQuestionsPrimary());
 
-    let get_questions = questions.getCrudQuestions(this.primary.for);
+    let get_questions = questions.getTaxonomyQuestions(this.primary.for);
 
     this.inputs = await inquirer.prompt(get_questions);
 

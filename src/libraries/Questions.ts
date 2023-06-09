@@ -264,6 +264,23 @@ export default class Generator {
     return this.questions;
   }
   //-------------------------------------------------------
+  getTaxonomyQuestionsPrimary()
+  {
+    this.questions =  [
+      {
+        type : 'list',
+        name : 'for',
+        default: 'Module',
+        message : 'For which you want to create CRUD: ',
+        choices: ["Module", "Theme", "Custom Path"],
+      },
+
+    ];
+
+
+    return this.questions;
+  }
+  //-------------------------------------------------------
   getUserQuestionsPrimary()
   {
     this.questions =  [
@@ -481,7 +498,7 @@ export default class Generator {
     this.questions = [];
 
 
-    if(primary === 'Custom Path - Vue3 & PrimeVue')
+    if(primary === 'Custom Path')
     {
       this.questions.push({
           type : 'input',
@@ -512,15 +529,7 @@ export default class Generator {
         },);
     }
 
-    this.questions.push(
-      {
-        type : 'input',
-        name : 'section_name',
-        default: 'Backend',
-        message : 'Enter the section name (Backend | Frontend or Folder name): '
-      },)
-
-    if(primary === 'Custom Path - Vue3 & PrimeVue') {
+    if(primary === 'Custom Path') {
       this.questions.push(
         {
           type : 'input',
@@ -542,8 +551,14 @@ export default class Generator {
       {
         type : 'input',
         name : 'table_name',
-        default: 'articles',
-        message : 'Enter your database table name: '
+        default: 'vh_taxonomies',
+        message : 'Enter your taxonomy database table name: '
+      },
+      {
+        type : 'input',
+        name : 'taxonomy_type_table_name',
+        default: 'vh_taxonomy_types',
+        message : 'Enter your taxonomy type database table name: '
       },
       {
         type : 'input',
@@ -554,13 +569,19 @@ export default class Generator {
       {
         type : 'input',
         name : 'model_name',
-        default: 'Article',
-        message : 'Enter your model name (singular): '
+        default: 'Taxonomy',
+        message : 'Enter your Taxonomy model name (singular): '
+      },
+      {
+        type : 'input',
+        name : 'taxonomy_type_model_name',
+        default: 'TaxonomyType',
+        message : 'Enter your Taxonomy type model name (singular): '
       },
       {
         type : 'input',
         name : 'controller_name',
-        default: 'Articles',
+        default: 'Taxonomies',
         message : 'Enter your controller name (plural): '
       },);
 
@@ -568,6 +589,24 @@ export default class Generator {
     return this.questions;
 
   }
+  //-------------------------------------------------------
+  getAuthQuestions()
+  {
+
+    this.questions =  [
+      {
+        type : 'input',
+        name : 'theme_name',
+        default: 'HelloWorld',
+        message : 'Enter the Theme folder name: '
+      }
+    ];
+
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
   //-------------------------------------------------------
   //-------------------------------------------------------
 
