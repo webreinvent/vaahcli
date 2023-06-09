@@ -1,10 +1,10 @@
 <script  setup>
 import {ref, reactive, watch, onMounted} from 'vue';
-import { useUserStore } from '../../../stores/store-users'
+import { use<%= model_name %>Store } from '../../stores/store-<%= controller_name_lower %>'
 
 import Filters from './Filters.vue'
 
-const store = useUserStore();
+const store = use<%= model_name %>Store();
 
 onMounted(async () => {
     store.getListSelectedMenu();
@@ -39,7 +39,7 @@ const toggleBulkMenuState = (event) => {
                 <Button class="p-button-sm"
                         aria-haspopup="true"
                         aria-controls="overlay_menu"
-                        data-testid="user-action_menu"
+                        data-testid="<%= controller_name_lower %>-action_menu"
                         @click="toggleSelectedMenuState"
                         v-if="store.hasPermission('can-update-users') || store.hasPermission('can-manage-users')"
                 >
@@ -60,7 +60,7 @@ const toggleBulkMenuState = (event) => {
                         icon="pi pi-ellipsis-h"
                         aria-haspopup="true"
                         aria-controls="bulk_menu_state"
-                        data-testid="user-action_bulk_menu"
+                        data-testid="<%= controller_name_lower %>-action_bulk_menu"
                         @click="toggleBulkMenuState"
                         v-if="store.hasPermission('can-update-users') || store.hasPermission('can-manage-users')"
                 />
@@ -85,18 +85,18 @@ const toggleBulkMenuState = (event) => {
                                        @keyup.enter.native="store.delayedSearch()"
                                        @keyup.13="store.delayedSearch()"
                                        placeholder="Search"
-                                       data-testid="user-action_search_input"
+                                       data-testid="<%= controller_name_lower %>-action_search_input"
                             />
 
                             <Button class="p-button-sm"
                                     icon="pi pi-search"
-                                    data-testid="user-action_search"
+                                    data-testid="<%= controller_name_lower %>-action_search"
                                     @click="store.delayedSearch()"
                             />
 
                             <Button class="p-button-sm"
                                     label="Filters"
-                                    data-testid="user-action_filter"
+                                    data-testid="<%= controller_name_lower %>-action_filter"
                                     @click="store.show_filters = true"
                             >
 
@@ -108,7 +108,7 @@ const toggleBulkMenuState = (event) => {
                             <Button class="p-button-sm"
                                     label="Reset"
                                     icon="pi pi-filter-slash"
-                                    data-testid="user-action_reset"
+                                    data-testid="<%= controller_name_lower %>-action_reset"
                                     @click="store.resetQuery()"
                             />
                         </div>

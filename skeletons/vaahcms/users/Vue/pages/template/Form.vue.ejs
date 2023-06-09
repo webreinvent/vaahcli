@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, ref, watch, watchEffect} from "vue";
-import { useUserStore } from '../../stores/store-users'
+import { use<%= model_name %>Store } from '../../stores/store-<%= controller_name_lower %>'
 import { vaah } from "../../vaahvue/pinia/vaah"
 import FileUploader from "./components/FileUploader.vue";
 
@@ -9,7 +9,7 @@ import VhField from './../../vaahvue/vue-three/primeflex/VhField.vue'
 import {useRoute} from 'vue-router';
 
 
-const store = useUserStore();
+const store = use<%= model_name %>Store();
 const route = useRoute();
 const useVaah = vaah();
 
@@ -63,7 +63,7 @@ const toggleFormMenu = (event) => {
                     <Button v-if="store.item && store.item.id"
                             class="p-button-sm"
                             :label=" '#' + store.item.id "
-                            data-testid="user-form_id"
+                            data-testid="<%= controller_name_lower %>-form_id"
                             @click="useVaah.copy(store.item.id)"
                     />
 
@@ -71,7 +71,7 @@ const toggleFormMenu = (event) => {
                             class="p-button-sm"
                             v-if="store.item && store.item.id && store.hasPermission('can-update-users')"
                             @click="store.itemAction('save')"
-                            data-testid="user-edit_save"
+                            data-testid="<%= controller_name_lower %>-edit_save"
                             icon="pi pi-save"
                     />
 
@@ -79,7 +79,7 @@ const toggleFormMenu = (event) => {
                             class="p-button-sm"
                             v-else
                             @click="store.itemAction('create-and-new')"
-                            data-testid="user-new_save"
+                            data-testid="<%= controller_name_lower %>-new_save"
                             icon="pi pi-save"
                             v-if="store.hasPermission('can-create-users')"
                     />
@@ -90,7 +90,7 @@ const toggleFormMenu = (event) => {
                             @click="toggleFormMenu"
                             icon="pi pi-angle-down"
                             aria-haspopup="true"
-                            data-testid="user-form_menu"
+                            data-testid="<%= controller_name_lower %>-form_menu"
                             v-if="store.hasPermission('can-update-users') || store.hasPermission('can-manage-users')"
                     />
 
@@ -104,13 +104,13 @@ const toggleFormMenu = (event) => {
                             class="p-button-sm"
                             icon="pi pi-eye"
                             v-tooltip.top="'View'"
-                            data-testid="user-form_view"
+                            data-testid="<%= controller_name_lower %>-form_view"
                             @click="store.toView(store.item)"
                     />
 
                     <Button class="p-button-sm"
                             icon="pi pi-times"
-                            data-testid="user-list_view"
+                            data-testid="<%= controller_name_lower %>-list_view"
                             @click="store.toList()"
                     />
                 </div>
@@ -134,7 +134,7 @@ const toggleFormMenu = (event) => {
 
                     <div v-if="store.item.avatar_url">
                         <Button class="p-button-sm w-max"
-                                data-testid="profile-save"
+                                data-testid="<%= controller_name_lower %>-save"
                                 @click="store.removeAvatar"
                                 label="Remove"></Button>
                     </div>
@@ -142,7 +142,7 @@ const toggleFormMenu = (event) => {
                     <div class="w-max">
                         <FileUploader placeholder="Upload Avatar"
                                       :is_basic="true"
-                                      data-testid="user-form_upload_avatar"
+                                      data-testid="<%= controller_name_lower %>-form_upload_avatar"
                                       :auto_upload="true"
                                       :uploadUrl="store.assets.upload_url" >
                         </FileUploader>
@@ -154,8 +154,8 @@ const toggleFormMenu = (event) => {
                     <InputText :class="'w-full '+ store.email_error.class"
                                v-model="store.item.email"
                                @input="store.validateEmail"
-                               name="account-email"
-                               data-testid="account-email"
+                               name="<%= controller_name_lower %>-email"
+                               data-testid="<%= controller_name_lower %>-email"
                                type="email"
                                aria-describedby="email-error"
                     />
@@ -165,8 +165,8 @@ const toggleFormMenu = (event) => {
                 <VhField label="Username">
                     <InputText class="w-full"
                                v-model="store.item.username"
-                               name="account-username"
-                               data-testid="account-username"
+                               name="<%= controller_name_lower %>-username"
+                               data-testid="<%= controller_name_lower %>-username"
                     />
                 </VhField>
 
@@ -175,8 +175,8 @@ const toggleFormMenu = (event) => {
                               v-model="store.item.password"
                               :feedback="false"
                               id="password"
-                              name="account-password"
-                              data-testid="account-password"
+                              name="<%= controller_name_lower %>-password"
+                              data-testid="<%= controller_name_lower %>-password"
                               inputClass="w-full"
                               toggleMask
                     />
@@ -185,8 +185,8 @@ const toggleFormMenu = (event) => {
                 <VhField label="Display Name" v-if="!store.isHidden('display_name')">
                     <InputText class="w-full"
                                v-model="store.item.display_name"
-                               name="account-display_name"
-                               data-testid="account-display_name"
+                               name="<%= controller_name_lower %>-display_name"
+                               data-testid="<%= controller_name_lower %>-display_name"
                     />
                 </VhField>
 
@@ -198,8 +198,8 @@ const toggleFormMenu = (event) => {
                                   optionLabel="name"
                                   optionValue="slug"
                                   id="Title"
-                                  name="account-title"
-                                  data-testid="account-title"
+                                  name="<%= controller_name_lower %>-title"
+                                  data-testid="<%= controller_name_lower %>-title"
                         />
                     </VhField>
                 </template>
@@ -207,32 +207,32 @@ const toggleFormMenu = (event) => {
                 <VhField label="Designation" v-if="!store.isHidden('designation')">
                     <InputText class="w-full"
                                v-model="store.item.designation"
-                               name="account-designation"
-                               data-testid="account-designation"
+                               name="<%= controller_name_lower %>-designation"
+                               data-testid="<%= controller_name_lower %>-designation"
                     />
                 </VhField>
 
                 <VhField label="First Name">
                     <InputText class="w-full"
                                v-model="store.item.first_name"
-                               name="account-first_name"
-                               data-testid="account-first_name"
+                               name="<%= controller_name_lower %>-first_name"
+                               data-testid="<%= controller_name_lower %>-first_name"
                     />
                 </VhField>
 
                 <VhField label="Middle Name" v-if="!store.isHidden('middle_name')">
                     <InputText class="w-full"
                                v-model="store.item.middle_name"
-                               name="account-middle_name"
-                               data-testid="account-middle_name"
+                               name="<%= controller_name_lower %>-middle_name"
+                               data-testid="<%= controller_name_lower %>-middle_name"
                     />
                 </VhField>
 
                 <VhField label="Last Name" v-if="!store.isHidden('last_name')">
                     <InputText class="w-full"
                                v-model="store.item.last_name"
-                               name="account-last_name"
-                               data-testid="account-last_name"
+                               name="<%= controller_name_lower %>-last_name"
+                               data-testid="<%= controller_name_lower %>-last_name"
                     />
                 </VhField>
 
@@ -242,8 +242,8 @@ const toggleFormMenu = (event) => {
                                   optionLabel="label"
                                   optionValue="value"
                                   aria-labelledby="custom"
-                                  name="account-gender"
-                                  data-testid="account-gender"
+                                  name="<%= controller_name_lower %>-gender"
+                                  data-testid="<%= controller_name_lower %>-gender"
                     >
                         <template #option="slotProps">
                             <p>{{ slotProps.option.label }}</p>
@@ -259,8 +259,8 @@ const toggleFormMenu = (event) => {
                                   @item-select="store.onSelectCountryCode"
                                   placeholder="Enter Your Country"
                                   optionLabel="name"
-                                  name="account-country"
-                                  data-testid="account-country"
+                                  name="<%= controller_name_lower %>-country"
+                                  data-testid="<%= controller_name_lower %>-country"
                                   inputClass="w-full"
                     />
                 </VhField>
@@ -273,32 +273,32 @@ const toggleFormMenu = (event) => {
                               optionLabel="calling_code"
                               optionValue="calling_code"
                               id="calling_code"
-                              name="account-country_calling_code"
-                              data-testid="account-country_calling_code"
+                              name="<%= controller_name_lower %>-country_calling_code"
+                              data-testid="<%= controller_name_lower %>-country_calling_code"
                     />
                 </VhField>
 
                 <VhField label="Phone" v-if="!store.isHidden('phone')">
                     <InputText class="w-full"
                                v-model="store.item.phone"
-                               name="account-phone"
-                               data-testid="account-phone"
+                               name="<%= controller_name_lower %>-phone"
+                               data-testid="<%= controller_name_lower %>-phone"
                     />
                 </VhField>
 
                 <VhField label="bio" v-if="!store.isHidden('bio')">
                     <Editor v-model="store.item.bio"
                             editorStyle="height: 320px"
-                            name="account-bio"
-                            data-testid="account-bio"
+                            name="<%= controller_name_lower %>-bio"
+                            data-testid="<%= controller_name_lower %>-bio"
                     />
                 </VhField>
 
                 <VhField label="Website" v-if="!store.isHidden('website')">
                     <InputText class="w-full"
                                v-model="store.item.website"
-                               name="account-website"
-                               data-testid="account-website"
+                               name="<%= controller_name_lower %>-website"
+                               data-testid="<%= controller_name_lower %>-website"
                     />
                 </VhField>
 
@@ -310,7 +310,7 @@ const toggleFormMenu = (event) => {
                               :filter="true"
                               placeholder="Enter Your Timezone"
                               :showClear="true"
-                              data-testid="account-timezone"
+                              data-testid="<%= controller_name_lower %>-timezone"
                               class="w-full"
                     />
                 </VhField>
@@ -318,8 +318,8 @@ const toggleFormMenu = (event) => {
                 <VhField label="Alternate Email" v-if="!store.isHidden('alternate_email')">
                     <InputText class="w-full"
                                v-model="store.item.alternate_email"
-                               name="account-alternate_email"
-                               data-testid="account-alternate_email"
+                               name="<%= controller_name_lower %>-alternate_email"
+                               data-testid="<%= controller_name_lower %>-alternate_email"
                     />
                 </VhField>
 
@@ -329,8 +329,8 @@ const toggleFormMenu = (event) => {
                               inputId="basic"
                               v-model="store.item.birth"
                               autocomplete="off"
-                              name="account-birth"
-                              data-testid="account-birth"
+                              name="<%= controller_name_lower %>-birth"
+                              data-testid="<%= controller_name_lower %>-birth"
                               dateFormat="dd-mm-yy"
                               :showTime="false"
                     />
@@ -340,8 +340,8 @@ const toggleFormMenu = (event) => {
                     <InputText class="w-full"
                                type="number"
                                v-model="store.item.foreign_user_id"
-                               name="account-foreign_user_id"
-                               data-testid="account-foreign_user_id"
+                               name="<%= controller_name_lower %>-foreign_user_id"
+                               data-testid="<%= controller_name_lower %>-foreign_user_id"
                     />
                 </VhField>
 
@@ -352,8 +352,8 @@ const toggleFormMenu = (event) => {
                               optionLabel="label"
                               optionValue="value"
                               id="account-status"
-                              name="account-status"
-                              data-testid="account-status"
+                              name="<%= controller_name_lower %>-status"
+                              data-testid="<%= controller_name_lower %>-status"
                               @change="store.setIsActiveStatus"
                     />
                 </VhField>
@@ -361,8 +361,8 @@ const toggleFormMenu = (event) => {
                 <VhField label="Is Active">
                     <InputSwitch v-bind:false-value="0"
                                  v-bind:true-value="1"
-                                 name="users-is_active"
-                                 data-testid="users-is_active"
+                                 name="<%= controller_name_lower %>-is_active"
+                                 data-testid="<%= controller_name_lower %>-is_active"
                                  v-model="store.item.is_active"/>
                 </VhField>
 
@@ -376,8 +376,8 @@ const toggleFormMenu = (event) => {
                                   class="w-full"
                                   rows="5"
                                   cols="30"
-                                  :name=" 'account-meta_'+custom_field.slug"
-                                  :data-testid="'account-meta_'+custom_field.slug"
+                                  :name=" '<%= controller_name_lower %>-meta_'+custom_field.slug"
+                                  :data-testid="'<%= controller_name_lower %>-meta_'+custom_field.slug"
                                   :min="custom_field.min"
                                   :max="custom_field.max"
                                   :minlength="custom_field.minlength"
@@ -386,8 +386,8 @@ const toggleFormMenu = (event) => {
                         />
 
                         <Password v-else-if="custom_field.type === 'password'"
-                                  :name=" 'account-meta_'+custom_field.slug"
-                                  :data-testid="'account-meta_'+custom_field.slug"
+                                  :name=" '<%= controller_name_lower %>-meta_'+custom_field.slug"
+                                  :data-testid="'<%= controller_name_lower %>-meta_'+custom_field.slug"
                                   :min="custom_field.min"
                                   :max="custom_field.max"
                                   :minlength="custom_field.minlength"
@@ -400,8 +400,8 @@ const toggleFormMenu = (event) => {
 
                         <InputText v-else
                                    class="w-full"
-                                   :name=" 'account-meta_'+custom_field.slug"
-                                   :data-testid="'account-meta_'+custom_field.slug"
+                                   :name=" '<%= controller_name_lower %>-meta_'+custom_field.slug"
+                                   :data-testid="'<%= controller_name_lower %>-meta_'+custom_field.slug"
                                    :type="custom_field.type"
                                    :min="custom_field.min"
                                    :max="custom_field.max"

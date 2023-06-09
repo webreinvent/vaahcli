@@ -1,7 +1,7 @@
 <script setup>
 import {reactive, ref, watch } from 'vue';
 import {vaah} from '../../../vaahvue/pinia/vaah'
-import { useUserStore } from '../../../stores/store-users'
+import { use<%= model_name %>Store } from '../../stores/store-<%= controller_name_lower %>'
 import axios from 'axios';
 /**----------------------
  * Props
