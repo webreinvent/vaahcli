@@ -443,13 +443,13 @@ export default class Generator {
       {
         type : 'input',
         name : 'model_name',
-        default: 'Article',
+        default: 'User',
         message : 'Enter your model name (singular): '
       },
       {
         type : 'input',
         name : 'controller_name',
-        default: 'Articles',
+        default: 'Users',
         message : 'Enter your controller name (plural): '
       },);
 
