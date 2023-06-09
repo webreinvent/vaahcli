@@ -21,7 +21,13 @@ export default class Generator {
     getCrudQuestionsPrimary(): {
         [k: string]: any;
     };
+    getUserQuestionsPrimary(): {
+        [k: string]: any;
+    };
     getCrudQuestions(primary: string): {
+        [k: string]: any;
+    };
+    getUserQuestions(primary: string): {
         [k: string]: any;
     };
     getAuthQuestions(): {
