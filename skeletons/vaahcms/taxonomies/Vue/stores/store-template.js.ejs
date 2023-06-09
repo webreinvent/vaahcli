@@ -4,11 +4,11 @@ import qs from 'qs'
 import {vaah} from '../vaahvue/pinia/vaah'
 import { useRootStore } from "./root";
 
-let model_namespace = 'VaahCms\\Modules\\TaxonomyModule\\Models\\TaxonomyModule';
+let model_namespace = 'VaahCms\\Modules\\<%= folder_name %>\\Models\\<%= model_name %>';
 
 
 let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
-let ajax_url = base_url + "/module/taxonomies";
+let ajax_url = base_url + "/<%= folder_name_lower %>/<%= controller_name_lower %>";
 
 let empty_states = {
     query: {
@@ -28,10 +28,9 @@ let empty_states = {
     recount: null,
 };
 
-export const useTaxonomyStore = defineStore({
-    id: 'taxonomies',
+export const use<%= model_name %>Store = defineStore({
+    id: '<%= controller_name_lower %>',
     state: () => ({
-        title: 'Taxonomies - Manage',
         page: 1,
         rows: 20,
         base_url: base_url,
@@ -57,7 +56,7 @@ export const useTaxonomyStore = defineStore({
         },
         route: null,
         watch_stopper: null,
-        route_prefix: 'taxonomies.',
+        route_prefix: '<%= controller_name_lower %>.',
         view: 'large',
         show_filters: false,
         list_view_width: 12,
@@ -110,7 +109,7 @@ export const useTaxonomyStore = defineStore({
         {
             switch(route_name)
             {
-                case 'taxonomies.index':
+                case '<%= controller_name_lower %>.index':
                     this.view = 'large';
                     this.list_view_width = 12;
                     break;
@@ -238,7 +237,7 @@ export const useTaxonomyStore = defineStore({
             {
                 this.item = data;
             }else{
-                this.$router.push({name: 'taxonomies.index'});
+                this.$router.push({name: '<%= controller_name_lower %>.index'});
             }
             await this.getItemMenu();
             await this.getFormMenu();
@@ -437,7 +436,7 @@ export const useTaxonomyStore = defineStore({
                 case 'create-and-close':
                 case 'save-and-close':
                     this.setActiveItemAsEmpty();
-                    this.$router.push({name: 'taxonomies.index'});
+                    this.$router.push({name: '<%= controller_name_lower %>.index'});
                     break;
                 case 'create-and-clone':
                 case 'save-and-clone':
@@ -638,32 +637,32 @@ export const useTaxonomyStore = defineStore({
         //---------------------------------------------------------------------
         closeForm()
         {
-            this.$router.push({name: 'taxonomies.index'})
+            this.$router.push({name: '<%= controller_name_lower %>.index'})
         },
         //---------------------------------------------------------------------
         toList()
         {
             this.item = vaah().clone(this.assets.empty_item);
-            this.$router.push({name: 'taxonomies.index'})
+            this.$router.push({name: '<%= controller_name_lower %>.index'})
         },
         //---------------------------------------------------------------------
         toForm()
         {
             this.item = vaah().clone(this.assets.empty_item);
             this.getFormMenu();
-            this.$router.push({name: 'taxonomies.form'})
+            this.$router.push({name: '<%= controller_name_lower %>.form'})
         },
         //---------------------------------------------------------------------
         toView(item)
         {
             this.item = vaah().clone(item);
-            this.$router.push({name: 'taxonomies.view', params:{id:item.id}})
+            this.$router.push({name: '<%= controller_name_lower %>.view', params:{id:item.id}})
         },
         //---------------------------------------------------------------------
         toEdit(item)
         {
             this.item = item;
-            this.$router.push({name: 'taxonomies.form', params:{id:item.id}});
+            this.$router.push({name: '<%= controller_name_lower %>.form', params:{id:item.id}});
         },
         //---------------------------------------------------------------------
         isViewLarge()
@@ -1030,12 +1029,6 @@ export const useTaxonomyStore = defineStore({
         syncTreeData() {
             return this.assets.types;
         },
-        //---------------------------------------------------------------------
-        setPageTitle() {
-            if (this.title) {
-                document.title = this.title;
-            }
-        }
     }
 });
 
@@ -1043,5 +1036,5 @@ export const useTaxonomyStore = defineStore({
 
 // Pinia hot reload
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useTaxonomyStore, import.meta.hot))
+    import.meta.hot.accept(acceptHMRUpdate(use<%= model_name %>Store, import.meta.hot))
 }
