@@ -412,6 +412,15 @@ export default class Generator {
         },);
     }
 
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'section_name',
+        default: 'Backend',
+        message : 'Enter the section name (Backend | Frontend or Folder name): '
+      },)
+
+
     if(primary === 'Custom Path') {
       this.questions.push(
         {

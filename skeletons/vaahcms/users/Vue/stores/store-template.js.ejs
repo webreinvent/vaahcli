@@ -4,11 +4,11 @@ import { vaah } from '../vaahvue/pinia/vaah'
 import { useRootStore } from "./root";
 import qs from 'qs'
 
-let model_namespace = 'VaahCms\\Modules\\UserModule\\Models\\UserModule';
+let model_namespace = 'VaahCms\\Modules\\<%= folder_name %>\\Models\\<%= model_name %>';
 
 
 let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
-let ajax_url = base_url + "/usermodule/users";
+let ajax_url = base_url + "/<%= folder_name_lower %>/<%= controller_name_lower %>";
 
 let empty_states = {
     query: {
@@ -35,8 +35,8 @@ let empty_states = {
     }
 };
 
-export const useUserStore = defineStore({
-    id: 'users',
+export const use<%= model_name %>Store = defineStore({
+    id: '<%= controller_name_lower %>',
     state: () => ({
         title: 'Users',
         base_url: base_url,
@@ -62,7 +62,7 @@ export const useUserStore = defineStore({
         },
         route: null,
         watch_stopper: null,
-        route_prefix: 'users.',
+        route_prefix: '<%= controller_name_lower %>.',
         view: 'large',
         show_filters: false,
         list_view_width: 12,
@@ -158,7 +158,7 @@ export const useUserStore = defineStore({
         {
             switch(route_name)
             {
-                case 'users.index':
+                case '<%= controller_name_lower %>.index':
                     this.view = 'large';
                     this.list_view_width = 12;
                     break;
@@ -332,7 +332,7 @@ export const useUserStore = defineStore({
             {
                 this.item = data;
             }else{
-                this.$router.push({name: 'users.index'});
+                this.$router.push({name: '<%= controller_name_lower %>.index'});
             }
             this.getItemMenu();
             await this.getFormMenu();
@@ -694,17 +694,17 @@ export const useUserStore = defineStore({
                 case 'save-and-new':
                     this.setActiveItemAsEmpty();
                     this.route.params.id = null;
-                    this.$router.push({name: 'users.form'});
+                    this.$router.push({name: '<%= controller_name_lower %>.form'});
                     break;
                 case 'create-and-close':
                 case 'save-and-close':
                     this.setActiveItemAsEmpty();
-                    this.$router.push({name: 'users.index'});
+                    this.$router.push({name: '<%= controller_name_lower %>.index'});
                     break;
                 case 'save-and-clone':
                     this.item.id = null;
                     this.route.params.id = null;
-                    this.$router.push({name: 'users.form'});
+                    this.$router.push({name: '<%= controller_name_lower %>.form'});
                     break;
                 case 'trash':
                     this.item = null;
@@ -884,38 +884,38 @@ export const useUserStore = defineStore({
         //---------------------------------------------------------------------
         closeForm()
         {
-            this.$router.push({name: 'users.index'})
+            this.$router.push({name: '<%= controller_name_lower %>.index'})
         },
         //---------------------------------------------------------------------
         toList()
         {
             this.item = null;
-            this.$router.push({name: 'users.index'})
+            this.$router.push({name: '<%= controller_name_lower %>.index'})
         },
         //---------------------------------------------------------------------
         toForm()
         {
             this.item = vaah().clone(this.assets.empty_item);
             this.getFormMenu();
-            this.$router.push({name: 'users.form'})
+            this.$router.push({name: '<%= controller_name_lower %>.form'})
         },
         //---------------------------------------------------------------------
         toView(item)
         {
             this.item = vaah().clone(item);
-            this.$router.push({name: 'users.view', params:{id:item.id}})
+            this.$router.push({name: '<%= controller_name_lower %>.view', params:{id:item.id}})
         },
         //---------------------------------------------------------------------
         toEdit(item)
         {
             this.item = item;
-            this.$router.push({name: 'users.form', params:{id:item.id}})
+            this.$router.push({name: '<%= controller_name_lower %>.form', params:{id:item.id}})
         },
         //---------------------------------------------------------------------
         async toRole(item) {
             this.item = item;
             await this.getUserRoles();
-            this.$router.push({name: 'users.role', params: { id: item.id }})
+            this.$router.push({name: '<%= controller_name_lower %>.role', params: { id: item.id }})
         },
         //---------------------------------------------------------------------
         isViewLarge()
@@ -1288,11 +1288,7 @@ export const useUserStore = defineStore({
             }
         },
         //---------------------------------------------------------------------
-        setPageTitle() {
-            if (this.title) {
-                document.title = this.title;
-            }
-        }
+
     }
 });
 
@@ -1300,7 +1296,7 @@ export const useUserStore = defineStore({
 
 // Pinia hot reload
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
+    import.meta.hot.accept(acceptHMRUpdate(use<%= model_name %>Store import.meta.hot))
 }
 
 
