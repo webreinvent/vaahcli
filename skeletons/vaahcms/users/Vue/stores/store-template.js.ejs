@@ -1296,7 +1296,7 @@ export const use<%= model_name %>Store = defineStore({
 
 // Pinia hot reload
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(use<%= model_name %>Store import.meta.hot))
+    import.meta.hot.accept(acceptHMRUpdate(use<%= model_name %>Store, import.meta.hot))
 }
 
 
