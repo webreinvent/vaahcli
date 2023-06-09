@@ -46,6 +46,6 @@ class <%= table_name_pascal %> extends Migration
     */
     public function down()
     {
-        Schema::dropIfExists('<%= table_name %>');
+        Schema::dropIfExists('<%= table_name_lower %>');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class VhTaxonomies extends Migration
+class <%= second_table_name_pascal %> extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,14 @@ class VhTaxonomies extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('vh_taxonomies')) {
-            Schema::create('vh_taxonomies', function (Blueprint $table) {
+        if (!Schema::hasTable('<%= second_table_name_lower %>')) {
+            Schema::create('<%= second_table_name_lower %>', function (Blueprint $table) {
 
                 $table->increments('id');
                 $table->uuid()->nullable()->index();
                 $table->integer('parent_id')->nullable()->index();
-                $table->integer('vh_taxonomy_type_id')->nullable()->index();
                 $table->string('name')->nullable()->index();
                 $table->string('slug')->nullable()->index();
-
-                $table->mediumText('excerpt')->nullable();
-                $table->mediumText('details')->nullable();
-                $table->text('notes')->nullable();
 
                 $table->boolean('is_active')->nullable()->index();
 
@@ -41,7 +36,6 @@ class VhTaxonomies extends Migration
 
             });
         }
-
     }
 
     /**
@@ -51,6 +45,6 @@ class VhTaxonomies extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vh_taxonomies');
+        Schema::dropIfExists('<%= second_table_name_lower %>');
     }
 }
