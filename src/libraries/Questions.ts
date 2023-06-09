@@ -264,6 +264,23 @@ export default class Generator {
     return this.questions;
   }
   //-------------------------------------------------------
+  getUserQuestionsPrimary()
+  {
+    this.questions =  [
+      {
+        type : 'list',
+        name : 'for',
+        default: 'Module',
+        message : 'For which you want to create CRUD: ',
+        choices: ["Module", "Theme", "Custom Path"],
+      },
+
+    ];
+
+
+    return this.questions;
+  }
+  //-------------------------------------------------------
   getCrudQuestions(primary: string)
   {
 
@@ -350,6 +367,89 @@ export default class Generator {
         type : 'input',
         name : 'controller_name',
         default: 'Articles',
+        message : 'Enter your controller name (plural): '
+      },);
+
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
+  getUserQuestions(primary: string)
+  {
+
+    this.questions = [];
+
+
+    if(primary === 'Custom Path')
+    {
+      this.questions.push({
+          type : 'input',
+          name : 'path',
+          default: './custom',
+          message : 'Directory Path'
+        },
+        {
+          type : 'input',
+          name : 'namespace',
+          default: 'WebReinvent\\\\VaahCms',
+          message : 'Enter the namespace'
+        },
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'Vaah',
+          message : 'Enter the Module/Theme/Entity name: '
+        },
+      )
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'HelloWorld',
+          message : 'Enter the Module/Theme/Entity name: '
+        },);
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'section_name',
+        default: 'Backend',
+        message : 'Enter the section name (Backend | Frontend or Folder name): '
+      },)
+
+
+    if(primary === 'Custom Path') {
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue/vaahtwo',
+          message : 'Vue folder name/path: '
+        },)
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue',
+          message : 'Vue folder name/path: '
+        },)
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'model_name',
+        default: 'User',
+        message : 'Enter your model name (singular): '
+      },
+      {
+        type : 'input',
+        name : 'controller_name',
+        default: 'Users',
         message : 'Enter your controller name (plural): '
       },);
 

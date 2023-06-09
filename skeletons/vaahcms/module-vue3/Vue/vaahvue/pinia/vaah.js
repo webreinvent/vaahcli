@@ -130,11 +130,18 @@ export const vaah = defineStore({
         processResponse: function(response, show_success)
         {
             if(
-                (response.data.failed || response.data.success === false)
-                && response.data.messages
+              response.data.failed || response.data.success === false
             )
             {
+
+              if(response.data.messages){
                 this.toastErrors(response.data.messages);
+              }
+
+              if(response.data.errors){
+                this.toastErrors(response.data.errors);
+              }
+
             }
 
             if(
