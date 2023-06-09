@@ -8,7 +8,7 @@ import axios from 'axios';
  */
 
 const upload_refs = ref([])
-const store = useUserStore();
+const store = use<%= model_name %>Store();
 
 const temp_setter = ref(store.reset_uploader);
 
