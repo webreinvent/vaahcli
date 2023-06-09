@@ -1,0 +1,21 @@
+<?php namespace <%= namespace %>\Models;
+
+use WebReinvent\VaahCms\Models\Taxonomy as TaxonomyBase;
+
+class <%= model_name %> extends TaxonomyBase
+{
+  protected $table = '<%= table_name %>';
+
+  protected $fillable = [
+    'uuid','parent_id','vh_taxonomy_type_id',
+    'name','slug', 'excerpt','details',
+    'notes','is_active','meta',
+    'created_by','updated_by','deleted_by',
+  ];
+
+  //-------------------------------------------------
+
+  //-------------------------------------------------
+  //-------------------------------------------------
+
+}

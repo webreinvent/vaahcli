@@ -446,6 +446,9 @@ export default class Generator {
       case 'Model.php':
         destination = destination.replace('Model.php', this.inputs['model_name']+'.php');
         break;
+      case 'SecondModel.php':
+        destination = destination.replace('SecondModel.php', this.inputs['second_model_name']+'.php');
+        break;
       case 'Controller.php':
         destination = destination.replace('Controller.php', this.inputs['controller_name']+'Controller.php');
         destination = destination.replace('Controllers', 'Controllers/'+this.inputs['section_name']);
@@ -484,6 +487,9 @@ export default class Generator {
         break;
       case 'migration-template.php':
         destination = destination.replace('migration-template.php', prefix_folder+this.getDateTimeForMigrationFile()+this.inputs['table_name_lower']+'.php');
+        break;
+      case 'second-migration-template.php':
+        destination = destination.replace('second-migration-template.php', prefix_folder+this.getDateTimeForMigrationFile()+this.inputs['second_table_name_lower']+'.php');
         break;
       }
 

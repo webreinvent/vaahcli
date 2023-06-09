@@ -529,6 +529,14 @@ export default class Generator {
         },);
     }
 
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'section_name',
+        default: 'Backend',
+        message : 'Enter the section name (Backend | Frontend or Folder name): '
+      },)
+
     if(primary === 'Custom Path') {
       this.questions.push(
         {
@@ -556,7 +564,7 @@ export default class Generator {
       },
       {
         type : 'input',
-        name : 'taxonomy_type_table_name',
+        name : 'second_table_name',
         default: 'vh_taxonomy_types',
         message : 'Enter your taxonomy type database table name: '
       },
@@ -574,7 +582,7 @@ export default class Generator {
       },
       {
         type : 'input',
-        name : 'taxonomy_type_model_name',
+        name : 'second_model_name',
         default: 'TaxonomyType',
         message : 'Enter your Taxonomy type model name (singular): '
       },
