@@ -281,23 +281,6 @@ export default class Generator {
     return this.questions;
   }
   //-------------------------------------------------------
-  getUserQuestionsPrimary()
-  {
-    this.questions =  [
-      {
-        type : 'list',
-        name : 'for',
-        default: 'Module',
-        message : 'For which you want to create CRUD: ',
-        choices: ["Module", "Theme", "Custom Path"],
-      },
-
-    ];
-
-
-    return this.questions;
-  }
-  //-------------------------------------------------------
   getCrudQuestions(primary: string)
   {
 
@@ -392,7 +375,7 @@ export default class Generator {
 
   }
   //-------------------------------------------------------
-  getUserQuestions(primary: string)
+  getTaxonomyQuestions(primary: string)
   {
 
     this.questions = [];
@@ -437,7 +420,6 @@ export default class Generator {
         message : 'Enter the section name (Backend | Frontend or Folder name): '
       },)
 
-
     if(primary === 'Custom Path') {
       this.questions.push(
         {
@@ -459,14 +441,38 @@ export default class Generator {
     this.questions.push(
       {
         type : 'input',
+        name : 'table_name',
+        default: 'vh_taxonomies',
+        message : 'Enter your taxonomy database table name: '
+      },
+      {
+        type : 'input',
+        name : 'second_table_name',
+        default: 'vh_taxonomy_types',
+        message : 'Enter your taxonomy type database table name: '
+      },
+      {
+        type : 'input',
+        name : 'generate_migration',
+        default: 'true',
+        message : 'Do you want to generate migration file (true/false): '
+      },
+      {
+        type : 'input',
         name : 'model_name',
-        default: 'User',
-        message : 'Enter your model name (singular): '
+        default: 'Taxonomy',
+        message : 'Enter your Taxonomy model name (singular): '
+      },
+      {
+        type : 'input',
+        name : 'second_model_name',
+        default: 'TaxonomyType',
+        message : 'Enter your Taxonomy type model name (singular): '
       },
       {
         type : 'input',
         name : 'controller_name',
-        default: 'Users',
+        default: 'Taxonomies',
         message : 'Enter your controller name (plural): '
       },);
 

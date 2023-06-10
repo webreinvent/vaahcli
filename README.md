@@ -56,7 +56,6 @@ List of commands:
 - `vaah cms:m`  or `npx vaah cms:m` : To generate module
 - `vaah cms:crud`  or `npx vaah cms:crud` : To generator crud operation file for module
 - `vaah cms:taxonomies`  or `npx vaah cms:taxonomies` : Vue 3: To Generate Taxonomies CRUD operations for VaahCMS
-- `vaah cms:users`  or `npx vaah cms:users` : To generator VaahCMS User crud file for module
 
 All following commands accept option parameter `-f <folder_name>` or `-folder <folder_name>`
 - `vaah cms:m-make migration <module> <name>` : To generate module migration
