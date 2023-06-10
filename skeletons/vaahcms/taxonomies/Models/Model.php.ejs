@@ -14,7 +14,12 @@ class <%= model_name %> extends TaxonomyBase
   ];
 
   //-------------------------------------------------
-
+  public function type()
+  {
+      return $this->belongsTo(<%= second_model_name %>::class,
+          'vh_taxonomy_type_id', 'id'
+      );
+  }
   //-------------------------------------------------
   //-------------------------------------------------
 

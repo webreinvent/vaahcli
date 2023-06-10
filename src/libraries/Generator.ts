@@ -471,6 +471,8 @@ export default class Generator {
       case 'ViewJs.js':
       case 'ViewRole.vue':
       case 'FileUploader.vue':
+      case 'Loader.vue':
+      case 'TaxonomyTypeModal.vue':
       case 'Actions.vue':
       case 'Filters.vue':
       case 'Table.vue':
