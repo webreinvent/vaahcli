@@ -428,7 +428,8 @@ export default class Generator {
 
       file_name = path.basename(destination);
 
-      if(this.inputs['generate_migration'] === 'false' && file_name === 'migration-template.php')
+      if(this.inputs['generate_migration'] === 'false'
+        && file_name.includes('migration-template.php'))
       {
         return;
       }

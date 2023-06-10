@@ -1,12 +1,12 @@
 <script setup>
 
-import { useTaxonomyStore } from "../../../stores/store-taxonomies";
+import { use<%= model_name %>Store } from '../../../stores/store-<%= controller_name_lower %>'
 import { ref } from "vue";
 import { vaah } from "../../../vaahvue/pinia/vaah";
 import { TreeView } from "@grapoza/vue-tree";
 import Loader from "./Loader.vue"
 
-const store = useTaxonomyStore();
+const store = use<%= model_name %>Store();
 const useVaah = vaah();
 const selectedNode = ref();
 const tree_data = ref([]);
@@ -45,13 +45,13 @@ const modelDefaults = {
                         :options="store.assets.types"
                         placeholder="Select a Parent"
                         @node-select="store.selectedNode"
-                        name="parent-taxonomies-type-name"
-                        data-testid="parent-taxonomies-type-name"
+                        name="parent-<%= controller_name_lower %>-type-name"
+                        data-testid="parent-<%= controller_name_lower %>-type-name"
             />
 
             <InputText class="p-inputtext-sm"
-                       name="child-taxonomies-type-slug"
-                       data-testid="child-taxonomies-type-slug"
+                       name="child-<%= controller_name_lower %>-type-slug"
+                       data-testid="child-<%= controller_name_lower %>-type-slug"
                        v-model="store.taxonomy_type_items.name"
             />
 

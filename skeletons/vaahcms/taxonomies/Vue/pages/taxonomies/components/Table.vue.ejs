@@ -1,10 +1,10 @@
 <script setup>
 import { vaah } from '../../../vaahvue/pinia/vaah'
-import { useTaxonomyStore } from '../../../stores/store-taxonomies'
+import { use<%= model_name %>Store } from '../../../stores/store-<%= controller_name_lower %>'
 import { useDialog } from "primevue/usedialog";
 import TaxonomyTypeModal from "../components/TaxonomyTypeModal.vue"
 
-const store = useTaxonomyStore();
+const store = use<%= model_name %>Store();
 const useVaah = vaah();
 
 
@@ -74,7 +74,7 @@ const openTaxonomyTypeModal = () => {
                     {{ prop.data.slug }}
 
                     <Button class="p-button-tiny p-button-text"
-                            data-testid="taxonomies-table-to-edit"
+                            data-testid="<%= controller_name_lower %>-table-to-edit"
                             v-tooltip.top="'Copy Slug'"
                             @click="useVaah.copy(prop.data.slug)"
                             icon="pi pi-copy"
@@ -91,7 +91,7 @@ const openTaxonomyTypeModal = () => {
 
                      <template v-if="store.hasPermission('can-manage-taxonomy-types')">
                          <Button class="p-button-tiny p-button-text"
-                                 data-testid="taxonomies-table-to-manage-taxonomy-type-modal"
+                                 data-testid="<%= controller_name_lower %>-table-to-manage-taxonomy-type-modal"
                                  v-tooltip.top="'Manage Taxonomy Type'"
                                  icon="pi pi-pencil"
                                  @click="openTaxonomyTypeModal"
@@ -117,7 +117,7 @@ const openTaxonomyTypeModal = () => {
             >
                 <template #body="prop">
                     <InputSwitch v-model.bool="prop.data.is_active"
-                                 data-testid="taxonomies-table-is-active"
+                                 data-testid="<%= controller_name_lower %>-table-is-active"
                                  v-bind:false-value="0"
                                  v-bind:true-value="1"
                                  class="p-inputswitch-sm"
@@ -134,7 +134,7 @@ const openTaxonomyTypeModal = () => {
                     <div class="p-inputgroup">
 
                         <Button class="p-button-tiny p-button-text"
-                                data-testid="taxonomies-table-to-view"
+                                data-testid="<%= controller_name_lower %>-table-to-view"
                                 v-tooltip.top="'View'"
                                 @click="store.toView(prop.data)"
                                 v-if="store.hasPermission('can-read-taxonomies')"
@@ -142,7 +142,7 @@ const openTaxonomyTypeModal = () => {
                         />
 
                         <Button class="p-button-tiny p-button-text"
-                                data-testid="taxonomies-table-to-edit"
+                                data-testid="<%= controller_name_lower %>-table-to-edit"
                                 v-tooltip.top="'Update'"
                                 @click="store.toEdit(prop.data)"
                                 icon="pi pi-pencil"
@@ -150,7 +150,7 @@ const openTaxonomyTypeModal = () => {
                         />
 
                         <Button class="p-button-tiny p-button-danger p-button-text"
-                                data-testid="taxonomies-table-action-trash"
+                                data-testid="<%= controller_name_lower %>-table-action-trash"
                                 v-if="(store.isViewLarge() && !prop.data.deleted_at) || store.hasPermission('can-delete-taxonomies')"
                                 @click="store.itemAction('trash', prop.data)"
                                 v-tooltip.top="'Trash'"
@@ -158,7 +158,7 @@ const openTaxonomyTypeModal = () => {
                         />
 
                         <Button class="p-button-tiny p-button-success p-button-text"
-                                data-testid="taxonomies-table-action-restore"
+                                data-testid="<%= controller_name_lower %>-table-action-restore"
                                 v-if="store.isViewLarge() && prop.data.deleted_at"
                                 @click="store.itemAction('restore', prop.data)"
                                 v-tooltip.top="'Restore'"

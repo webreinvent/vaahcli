@@ -46,6 +46,7 @@ export const use<%= model_name %>Store = defineStore({
         list: null,
         item: null,
         fillable: null,
+        parent_options: [],
         empty_query:empty_states.query,
         empty_action:empty_states.action,
         query: vaah().clone(empty_states.query),
@@ -155,6 +156,15 @@ export const use<%= model_name %>Store = defineStore({
             )
         },
         //---------------------------------------------------------------------
+        watchItem(name)
+        {
+            if(name && name !== "")
+            {
+                this.item.name = vaah().capitalising(name);
+                this.item.slug = vaah().strToSlug(name);
+            }
+        },
+        //---------------------------------------------------------------------
         watchStates()
         {
             watch(this.query.filter, (newVal,oldVal) =>
@@ -221,6 +231,25 @@ export const use<%= model_name %>Store = defineStore({
             this.is_btn_loading = false;
         },
         //---------------------------------------------------------------------
+        getListByTypeId(id) {
+            let options = {
+
+            };
+            vaah().ajax(
+                this.ajax_url+'/type/'+id,
+                this.getListByTypeIdAfter,
+                options
+            );
+        },
+        //---------------------------------------------------------------------
+        getListByTypeIdAfter: function (data, res)
+        {
+            if (data) {
+                this.parent_options = data;
+            }
+
+        },
+        //---------------------------------------------------------------------
 
         async getItem(id) {
             if(id){
@@ -236,6 +265,13 @@ export const use<%= model_name %>Store = defineStore({
             if(data)
             {
                 this.item = data;
+                let type = this.item.type;
+
+                this.parent_options = [];
+                if(type){
+
+                    this.getListByTypeId(type.parent_id);
+                }
             }else{
                 this.$router.push({name: '<%= controller_name_lower %>.index'});
             }
@@ -943,6 +979,15 @@ export const use<%= model_name %>Store = defineStore({
         //---------------------------------------------------------------------
         async selectedNode(e) {
             this.taxonomy_type_items.parent_id = e.id;
+        },
+
+        //---------------------------------------------------------------------
+        async selectType(event) {
+            this.item.vh_taxonomy_type_id = event.id;
+            this.item.type = event;
+            if(this.item.type.parent_id){
+                this.getListByTypeId(this.item.type.parent_id)
+            }
         },
         //---------------------------------------------------------------------
         async selectedParent(event) {

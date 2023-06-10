@@ -1,11 +1,11 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
 import { useRoute } from 'vue-router';
-import { useTaxonomyStore } from '../../stores/store-taxonomies'
+import { use<%= model_name %>Store } from '../../stores/store-<%= controller_name_lower %>'
 import { vaah } from "../../vaahvue/pinia/vaah"
 
 import VhViewRow from '../../vaahvue/vue-three/primeflex/VhViewRow.vue';
-const store = useTaxonomyStore();
+const store = use<%= model_name %>Store();
 const route = useRoute();
 const useVaah = vaah();
 

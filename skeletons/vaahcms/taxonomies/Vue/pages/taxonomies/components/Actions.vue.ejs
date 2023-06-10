@@ -1,10 +1,10 @@
 <script  setup>
 import {ref, reactive, watch, onMounted} from 'vue';
-import { useTaxonomyStore } from '../../../stores/store-taxonomies'
+import { use<%= model_name %>Store } from '../../../stores/store-<%= controller_name_lower %>'
 
 import Filters from './Filters.vue'
 
-const store = useTaxonomyStore();
+const store = use<%= model_name %>Store();
 
 onMounted(async () => {
     store.getListSelectedMenu();
@@ -40,7 +40,7 @@ const toggleBulkMenuState = (event) => {
                         class="p-button-sm"
                         type="button"
                         @click="toggleSelectedMenuState"
-                        data-testid="taxonomies-actions-menu"
+                        data-testid="<%= controller_name_lower %>-actions-menu"
                         aria-haspopup="true"
                         aria-controls="overlay_menu"
                 >
@@ -59,7 +59,7 @@ const toggleBulkMenuState = (event) => {
                 <Button class="p-button-sm ml-1"
                         icon="pi pi-ellipsis-h"
                         @click="toggleBulkMenuState"
-                        data-testid="taxonomies-actions-bulk-menu"
+                        data-testid="<%= controller_name_lower %>-actions-bulk-menu"
                         aria-haspopup="true"
                         aria-controls="bulk_menu_state"
                         v-if="store.hasPermission('can-update-taxonomies') || store.hasPermission('can-manage-taxonomies')"
@@ -84,20 +84,20 @@ const toggleBulkMenuState = (event) => {
                                        @keyup.enter="store.delayedSearch()"
                                        @keyup.enter.native="store.delayedSearch()"
                                        @keyup.13="store.delayedSearch()"
-                                       data-testid="taxonomies-actions-search"
+                                       data-testid="<%= controller_name_lower %>-actions-search"
                                        placeholder="Search"
                             />
 
                             <Button @click="store.delayedSearch()"
                                     class="p-button-sm"
-                                    data-testid="taxonomies-actions-search-button"
+                                    data-testid="<%= controller_name_lower %>-actions-search-button"
                                     icon="pi pi-search"
                             />
 
                             <Button class="p-button-sm"
                                     label="Filters"
                                     type="button"
-                                    data-testid="taxonomies-actions-show-filters"
+                                    data-testid="<%= controller_name_lower %>-actions-show-filters"
                                     @click="store.show_filters = true"
                             >
                                 <Badge v-if="store.count_filters > 0" :value="store.count_filters"/>
@@ -106,7 +106,7 @@ const toggleBulkMenuState = (event) => {
                             <Button class="p-button-sm"
                                     type="button"
                                     icon="pi pi-filter-slash"
-                                    data-testid="taxonomies-actions-reset-filters"
+                                    data-testid="<%= controller_name_lower %>-actions-reset-filters"
                                     label="Reset"
                                     @click="store.resetQuery()"
                             />

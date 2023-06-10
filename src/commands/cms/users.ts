@@ -69,7 +69,7 @@ export default class CmsCrud extends Command {
 
     let questions = new Questions();
 
-    this.primary = await inquirer.prompt(questions.getUserQuestionsPrimary());
+    this.primary = await inquirer.prompt(questions.getVue3CrudQuestionsPrimary());
 
     let get_questions = questions.getUserQuestions(this.primary.for);
 
@@ -118,28 +118,18 @@ export default class CmsCrud extends Command {
   successMessage()
   {
 
+    let n = 1;
+
     log(chalk.white.bgGreen.bold("      Files Generated!      "));
     log(chalk.green("=================================================================="));
     log(chalk.green("Now, follow following steps:"));
 
-    if(this.inputs['generate_migration'] === 'true')
-    {
-      log("0.1) Update the migration file with the table name and columns");
-      log("0.2) Re-activate module to run migrations");
-    }
+    log(n+++") Include the crud router file in the module's backend route file");
+    log(n+++") Include the vue router file");
 
-    log("2) Include the crud router file in the module's backend route file");
-    log("3) Include the vue router file");
-
-    if(this.inputs.for == 'Module - Vue2 & Buefy')
+    if(this.inputs.for == 'Module')
     {
-      log("4) Include the vue store file");
-      log("5) Add vue router link to you menu");
-    }
-
-    if(this.inputs.for == 'Module - Vue3 & PrimeVue')
-    {
-      log("6) Add vue router link to you <module>/Vue/Components/Aside.vue file");
+      log(n+++") Add vue router link to you <module>/Vue/Components/Aside.vue file");
     }
 
 

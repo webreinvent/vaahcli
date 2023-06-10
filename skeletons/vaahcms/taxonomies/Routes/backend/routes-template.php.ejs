@@ -44,6 +44,11 @@ function () {
     Route::get('/{id}', '<%= controller_name %>Controller@getItem')
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.read');
     /**
+     * Get List by type id
+     */
+    Route::get('/type/{id}', '<%= controller_name %>Controller@getListByTypeId')
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.type.id');
+    /**
      * Update Item
      */
     Route::match(['put', 'patch'], '/{id}', '<%= controller_name %>Controller@updateItem')

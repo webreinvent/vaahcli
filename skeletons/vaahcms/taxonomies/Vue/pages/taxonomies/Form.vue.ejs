@@ -1,6 +1,6 @@
 <script setup>
 import {computed, onMounted, ref} from "vue";
-import { useTaxonomyStore } from '../../stores/store-taxonomies'
+import { use<%= model_name %>Store } from '../../stores/store-<%= controller_name_lower %>'
 import { useRootStore } from "../../stores/root";
 import { useRoute } from 'vue-router';
 import VhField from './../../vaahvue/vue-three/primeflex/VhField.vue'
@@ -8,7 +8,7 @@ import { useDialog } from "primevue/usedialog";
 import TaxonomyTypeModal from "./components/TaxonomyTypeModal.vue";
 import {vaah} from "../../vaahvue/pinia/vaah";
 
-const store = useTaxonomyStore();
+const store = use<%= model_name %>Store();
 const root = useRootStore();
 const route = useRoute();
 const useVaah = vaah();
@@ -35,10 +35,14 @@ const toggleFormMenu = (event) => {
 };
 //--------/form_menu
 
-const tree_select_value = computed(() => {
-    return {[store.item.vh_taxonomy_type_id]:true}
-},(value)=>{
+const tree_select_value = computed({
+    get() {
+        return {[store.item.vh_taxonomy_type_id]:true}
+    },
+    set(value) {
+        // Note: we are using destructuring assignment syntax here.
 
+    }
 })
 
 
@@ -116,7 +120,7 @@ const openTaxonomyTypeModal = () => {
                     <template v-if="store.hasPermission('can-manage-taxonomies') || store.hasPermission('can-update-taxonomies')">
                         <Button type="button"
                                 @click="toggleFormMenu"
-                                data-testid="taxonomies-form-menu"
+                                data-testid="<%= controller_name_lower %>-form-menu"
                                 icon="pi pi-angle-down"
                                 aria-haspopup="true"
                         />
@@ -130,7 +134,7 @@ const openTaxonomyTypeModal = () => {
 
                     <Button class="p-button-primary"
                             icon="pi pi-times"
-                            data-testid="taxonomies-to-list"
+                            data-testid="<%= controller_name_lower %>-to-list"
                             @click="store.toList()">
                     </Button>
                 </div>
@@ -149,7 +153,7 @@ const openTaxonomyTypeModal = () => {
                         <Button v-if="store.hasPermission('can-manage-taxonomy-types')"
                                 class="p-button-sm"
                                 label="Manage"
-                                data-testid="taxonomies-form-to-manage-taxonomy-type-modal"
+                                data-testid="<%= controller_name_lower %>-form-to-manage-taxonomy-type-modal"
                                 @click="openTaxonomyTypeModal"
                         />
                     </div>
@@ -171,8 +175,8 @@ const openTaxonomyTypeModal = () => {
 
                 <VhField label="Name">
                     <InputText class="w-full"
-                               name="taxonomies-name"
-                               data-testid="taxonomies-name"
+                               name="<%= controller_name_lower %>-name"
+                               data-testid="<%= controller_name_lower %>-name"
                                @update:modelValue="store.watchItem"
                                v-model="store.item.name"
                     />
@@ -180,16 +184,16 @@ const openTaxonomyTypeModal = () => {
 
                 <VhField label="Slug">
                     <InputText class="w-full"
-                               name="taxonomies-slug"
-                               data-testid="taxonomies-slug"
+                               name="<%= controller_name_lower %>-slug"
+                               data-testid="<%= controller_name_lower %>-slug"
                                v-model="store.item.slug"
                     />
                 </VhField>
 
                 <VhField label="Notes">
                     <Textarea class="w-full"
-                              data-testid="taxonomies-notes"
-                              name="taxonomies-notes"
+                              data-testid="<%= controller_name_lower %>-notes"
+                              name="<%= controller_name_lower %>-notes"
                               v-model="store.item.notes"
                     />
                 </VhField>
@@ -197,8 +201,8 @@ const openTaxonomyTypeModal = () => {
                 <VhField label="Is Active">
                     <InputSwitch v-bind:false-value="0"
                                  v-bind:true-value="1"
-                                 name="taxonomies-is_active"
-                                 data-testid="taxonomies-is_active"
+                                 name="<%= controller_name_lower %>-is_active"
+                                 data-testid="<%= controller_name_lower %>-is_active"
                                  v-model="store.item.is_active"/>
                 </VhField>
             </div>
