@@ -438,25 +438,51 @@ export default class Generator {
         },)
     }
 
+
     this.questions.push(
-      {
-        type : 'input',
-        name : 'table_name',
-        default: 'vh_taxonomies',
-        message : 'Enter your taxonomy database table name: '
-      },
-      {
-        type : 'input',
-        name : 'second_table_name',
-        default: 'vh_taxonomy_types',
-        message : 'Enter your taxonomy type database table name: '
-      },
       {
         type : 'input',
         name : 'generate_migration',
         default: 'true',
         message : 'Do you want to generate migration file (true/false): '
-      },
+      });
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
+  getTaxonomyQuestions(primary: string)
+  {
+
+    this.questions = [];
+
+
+    if(primary === 'true')
+    {
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'table_name',
+          default: 'vh_taxonomies',
+          message : 'Enter your taxonomy database table name: '
+        },
+        {
+          type : 'input',
+          name : 'second_table_name',
+          default: 'vh_taxonomy_types',
+          message : 'Enter your taxonomy type database table name: '
+        },
+        {
+          type : 'input',
+          name : 'second_table_name_singular',
+          default: 'vh_taxonomy_type',
+          message : 'Enter your taxonomy type database table name (singular): '
+        },
+      );
+
+    }
+
+    this.questions.push(
       {
         type : 'input',
         name : 'model_name',

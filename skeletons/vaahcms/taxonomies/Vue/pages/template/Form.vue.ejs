@@ -37,7 +37,7 @@ const toggleFormMenu = (event) => {
 
 const tree_select_value = computed({
     get() {
-        return {[store.item.vh_taxonomy_type_id]:true}
+        return {[store.item.<%= second_table_name_singular %>_id]:true}
     },
     set(value) {
         // Note: we are using destructuring assignment syntax here.

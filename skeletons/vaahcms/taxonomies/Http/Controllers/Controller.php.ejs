@@ -246,8 +246,8 @@ class <%= controller_name %>Controller extends Controller
       $response = [];
 
       try {
-          $list = <%= model_name %>::where('vh_taxonomy_type_id',$id)
-              ->select('id','name','slug','vh_taxonomy_type_id')->get();
+          $list = <%= model_name %>::where('<%= second_table_name_singular %>_id',$id)
+              ->select('id','name','slug','<%= second_table_name_singular %>_id')->get();
 
           $response['success'] = true;
           $response['data'] = $list;
@@ -558,7 +558,7 @@ class <%= controller_name %>Controller extends Controller
       ->where(function($q) use ($name){
         $q->where('name', 'LIKE', '%'.$name.'%')
           ->orWhere('slug', 'LIKE', '%'.$name.'%');
-      })->where('vh_taxonomy_type_id', $id)
+      })->where('<%= second_table_name_singular %>_id', $id)
       ->whereNotNull('is_active')
       ->take(10)
       ->orderBy('created_at', 'desc')

@@ -983,7 +983,7 @@ export const use<%= model_name %>Store = defineStore({
 
         //---------------------------------------------------------------------
         async selectType(event) {
-            this.item.vh_taxonomy_type_id = event.id;
+            this.item.<%= second_table_name_singular %>_id = event.id;
             this.item.type = event;
             if(this.item.type.parent_id){
                 this.getListByTypeId(this.item.type.parent_id)
@@ -991,7 +991,7 @@ export const use<%= model_name %>Store = defineStore({
         },
         //---------------------------------------------------------------------
         async selectedParent(event) {
-            this.item.vh_taxonomy_type_id = event.id;
+            this.item.<%= second_table_name_singular %>_id = event.id;
             this.item.type = event.data;
         },
         //---------------------------------------------------------------------

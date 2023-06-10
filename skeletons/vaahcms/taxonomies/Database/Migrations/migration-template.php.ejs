@@ -19,7 +19,7 @@ class <%= table_name_pascal %> extends Migration
                 $table->increments('id');
                 $table->uuid()->nullable()->index();
                 $table->integer('parent_id')->nullable()->index();
-                $table->integer('vh_taxonomy_type_id')->nullable()->index();
+                $table->integer('<%= second_table_name_singular %>_id')->nullable()->index();
                 $table->string('name')->nullable()->index();
                 $table->string('slug')->nullable()->index();
 

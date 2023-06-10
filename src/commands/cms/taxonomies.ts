@@ -24,6 +24,7 @@ export default class CmsCrud extends Command {
   flags: {[k: string]: any} = {};
   primary: {[k: string]: any} = {};
   inputs: {[k: string]: any} = {};
+  primary_inputs: {[k: string]: any} = {};
   spinner: {[k: string]: any} = {};
   repo: string = 'https://github.com/webreinvent/vaahcms-ready';
   target_dir: string = './';
@@ -71,9 +72,18 @@ export default class CmsCrud extends Command {
 
     this.primary = await inquirer.prompt(questions.getVue3CrudQuestionsPrimary());
 
-    let get_questions = questions.getTaxonomyQuestionsPrimary(this.primary.for);
+    let get_primary_questions = questions.getTaxonomyQuestionsPrimary(this.primary.for);
+
+    this.primary_inputs = await inquirer.prompt(get_primary_questions);
+
+    let get_questions = questions.getTaxonomyQuestions(this.primary_inputs.generate_migration);
 
     this.inputs = await inquirer.prompt(get_questions);
+
+    this.inputs = {
+      ...this.primary_inputs,
+      ...this.inputs
+    };
 
     this.inputs.for = this.primary.for;
 
@@ -87,6 +97,11 @@ export default class CmsCrud extends Command {
     if(this.inputs.for == 'Custom Path') {
       this.inputs['namespace_controller'] = this.inputs['namespace'] + '\\Http\\Controllers';
       target = this.inputs.path;
+    }
+    if(this.primary_inputs.generate_migration !== 'true') {
+      this.inputs['table_name'] = 'vh_taxonomies';
+      this.inputs['second_table_name'] = 'vh_taxonomy_types';
+      this.inputs['second_table_name_singular'] = 'vh_taxonomy_type';
     }
 
 

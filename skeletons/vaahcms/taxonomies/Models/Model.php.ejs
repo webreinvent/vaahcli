@@ -7,7 +7,7 @@ class <%= model_name %> extends TaxonomyBase
   protected $table = '<%= table_name %>';
 
   protected $fillable = [
-    'uuid','parent_id','vh_taxonomy_type_id',
+    'uuid','parent_id','<%= second_table_name_singular %>_id',
     'name','slug', 'excerpt','details',
     'notes','is_active','meta',
     'created_by','updated_by','deleted_by',
@@ -17,7 +17,7 @@ class <%= model_name %> extends TaxonomyBase
   public function type()
   {
       return $this->belongsTo(<%= second_model_name %>::class,
-          'vh_taxonomy_type_id', 'id'
+          '<%= second_table_name_singular %>_id', 'id'
       );
   }
   //-------------------------------------------------
