@@ -955,13 +955,7 @@ export const use<%= model_name %>Store = defineStore({
 
         },
         //---------------------------------------------------------------------
-        hasPermission(slug) {
-            const root = useRootStore();
-            if(!root.permissions){
-               return true;
-            }
-            return vaah().hasPermission(root.permissions, slug);
-        },
+
         //---------------------------------------------------------------------
         async sync() {
             this.query.recount = true;

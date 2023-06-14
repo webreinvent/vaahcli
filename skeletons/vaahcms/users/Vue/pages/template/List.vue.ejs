@@ -69,8 +69,7 @@ onMounted(async () => {
                                 icon="pi pi-plus"
                                 @click="store.toForm()"
                                 data-testid="<%= controller_name_lower %>-create"
-                                v-if="store.hasPermission('can-create-users')"
-                        />
+                                />
 
                         <Button class="p-button-sm"
                                 icon="pi pi-refresh"

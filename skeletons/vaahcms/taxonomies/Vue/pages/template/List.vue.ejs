@@ -61,7 +61,7 @@ onMounted(async () => {
                 <template class="p-1" #header>
                     <div class="flex flex-row">
                         <div >
-                            <b class="mr-1">Taxonomies</b>
+                            <b class="mr-1"><%= controller_name %></b>
                             <Badge v-if="store.list && store.list.total > 0"
                                    :value="store.list.total"
                             />
@@ -71,8 +71,7 @@ onMounted(async () => {
 
                 <template #icons>
                     <div class="p-inputgroup">
-                        <Button v-if="store.hasPermission('can-create-taxonomies')"
-                                class="p-button-sm"
+                        <Button class="p-button-sm"
                                 label="Create"
                                 data-testid="<%= controller_name_lower %>-list-create"
                                 icon="pi pi-plus"

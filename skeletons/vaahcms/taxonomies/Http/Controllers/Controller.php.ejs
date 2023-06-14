@@ -18,12 +18,12 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function getAssets(Request $request): JsonResponse
   {
-    if (!Auth::user()->hasPermission('has-access-of-taxonomies-section')) {
+    /*if (!Auth::user()->hasPermission('has-access-of-<%= controller_name_lower %>-section')) {
       $response['success'] = false;
       $response['errors'][] = trans("vaahcms::messages.permission_denied");
 
       return response()->json($response);
-    }
+    }*/
 
     try {
       $data = [];
@@ -83,12 +83,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function getList(Request $request): JsonResponse
   {
-    if (!Auth::user()->hasPermission('has-access-of-taxonomies-section')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $response = <%= model_name %>::getList($request);
@@ -109,14 +103,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function updateList(Request $request): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-update-taxonomies') ||
-      !Auth::user()->hasPermission('can-manage-taxonomies')
-    ) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $response = <%= model_name %>::updateList($request);
@@ -137,14 +123,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function listAction(Request $request, $type): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-update-taxonomies') ||
-      !Auth::user()->hasPermission('can-manage-taxonomies')
-    ) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $response = <%= model_name %>::listAction($request, $type);
@@ -165,12 +143,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function deleteList(Request $request): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-delete-taxonomies')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $response = <%= model_name %>::deleteList($request);
@@ -191,12 +163,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function createItem(Request $request): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-create-taxonomies')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $response = <%= model_name %>::createItem($request);
@@ -217,12 +183,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function getItem(Request $request, $id): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-read-taxonomies')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $response = <%= model_name %>::getItem($id);
@@ -267,12 +227,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function updateItem(Request $request, $id): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-update-taxonomies')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $response = <%= model_name %>::updateItem($request, $id);
@@ -293,12 +247,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function deleteItem(Request $request, $id): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-delete-taxonomies')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $response = <%= model_name %>::deleteItem($request, $id);
@@ -319,14 +267,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function itemAction(Request $request, $id, $action): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-update-taxonomies') ||
-      !Auth::user()->hasPermission('can-manage-taxonomies')
-    ) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $response = <%= model_name %>::itemAction($request, $id, $action);
@@ -347,12 +287,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function createTaxonomyType(Request $request): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-manage-taxonomy-type')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       if (!$request->has('name') || !$request->name) {
@@ -396,12 +330,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function deleteTaxonomyType(Request $request): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-manage-taxonomy-type')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $item = <%= second_model_name %>::query()
@@ -446,12 +374,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function updateTaxonomyType(Request $request): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-manage-taxonomy-type')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       if (!$request->newName) {
@@ -510,12 +432,6 @@ class <%= controller_name %>Controller extends Controller
   //----------------------------------------------------------
   public function updateTaxonomyTypePosition(Request $request): JsonResponse
   {
-    if (!Auth::user()->hasPermission('can-manage-taxonomy-type')) {
-      $response['success'] = false;
-      $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-      return response()->json($response);
-    }
 
     try {
       $parent_id = null;

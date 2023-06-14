@@ -69,7 +69,6 @@ const toggleFormMenu = (event) => {
 
                     <Button label="Save"
                             class="p-button-sm"
-                            v-if="store.item && store.item.id && store.hasPermission('can-update-users')"
                             @click="store.itemAction('save')"
                             data-testid="<%= controller_name_lower %>-edit_save"
                             icon="pi pi-save"
@@ -81,8 +80,7 @@ const toggleFormMenu = (event) => {
                             @click="store.itemAction('create-and-new')"
                             data-testid="<%= controller_name_lower %>-new_save"
                             icon="pi pi-save"
-                            v-if="store.hasPermission('can-create-users')"
-                    />
+                            />
 
 
                     <!--form_menu-->
@@ -91,8 +89,7 @@ const toggleFormMenu = (event) => {
                             icon="pi pi-angle-down"
                             aria-haspopup="true"
                             data-testid="<%= controller_name_lower %>-form_menu"
-                            v-if="store.hasPermission('can-update-users') || store.hasPermission('can-manage-users')"
-                    />
+                            />
 
                     <Menu ref="form_menu"
                           :model="store.form_menu_list"

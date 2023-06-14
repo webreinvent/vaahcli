@@ -36,8 +36,7 @@ const toggleBulkMenuState = (event) => {
             <div v-if="store.view === 'large'">
 
                 <!--selected_menu-->
-                <Button v-if="store.hasPermission('can-update-taxonomies') || store.hasPermission('can-manage-taxonomies')"
-                        class="p-button-sm"
+                <Button class="p-button-sm"
                         type="button"
                         @click="toggleSelectedMenuState"
                         data-testid="<%= controller_name_lower %>-actions-menu"
@@ -62,8 +61,7 @@ const toggleBulkMenuState = (event) => {
                         data-testid="<%= controller_name_lower %>-actions-bulk-menu"
                         aria-haspopup="true"
                         aria-controls="bulk_menu_state"
-                        v-if="store.hasPermission('can-update-taxonomies') || store.hasPermission('can-manage-taxonomies')"
-                />
+                        />
 
                 <Menu ref="bulk_menu_state"
                       :model="store.list_bulk_menu"

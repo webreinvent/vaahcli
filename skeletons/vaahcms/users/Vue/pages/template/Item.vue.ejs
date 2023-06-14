@@ -79,8 +79,7 @@ const toggleItemMenu = (event) => {
                             icon="pi pi-pencil"
                             class="p-button-sm"
                             data-testid="<%= controller_name_lower %>-item_edit"
-                            v-if="store.hasPermission('can-update-users') || store.hasPermission('can-manage-users')"
-                    />
+                            />
 
                     <!--item_menu-->
                     <Button class="p-button-sm"
@@ -88,8 +87,7 @@ const toggleItemMenu = (event) => {
                             icon="pi pi-angle-down"
                             aria-haspopup="true"
                             data-testid="<%= controller_name_lower %>-item_menu"
-                            v-if="store.hasPermission('can-update-users') || store.hasPermission('can-manage-users')"
-                    />
+                            />
 
                     <Menu ref="item_menu_state"
                           :model="store.item_menu_list"

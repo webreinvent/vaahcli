@@ -1227,14 +1227,6 @@ export const use<%= model_name %>Store = defineStore({
 
         },
         //---------------------------------------------------------------------
-        hasPermission(slug) {
-            const root = useRootStore();
-            if(!root.permissions){
-                return true;
-            }
-            return vaah().hasPermission(root.permissions, slug);
-        },
-        //---------------------------------------------------------------------
         isHidden(key) {
             if (this.assets && this.assets.fields && this.assets.fields[key]) {
                 return this.assets.fields[key].is_hidden
