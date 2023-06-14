@@ -57,6 +57,8 @@ export default class CmsCrud extends Command {
    */
   async run() {
 
+    log(chalk.white.bgGreen.bold("      This command are only for Vue 3 module      "));
+
     let functions = new Functions();
     let is_updates_available = await functions.isUpdatesAvailable();
     if(is_updates_available)
