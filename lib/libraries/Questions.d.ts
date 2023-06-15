@@ -21,10 +21,16 @@ export default class Generator {
     getCrudQuestionsPrimary(): {
         [k: string]: any;
     };
-    getUserQuestionsPrimary(): {
+    getVue3CrudQuestionsPrimary(): {
         [k: string]: any;
     };
     getCrudQuestions(primary: string): {
+        [k: string]: any;
+    };
+    getTaxonomyQuestionsPrimary(primary: string): {
+        [k: string]: any;
+    };
+    getTaxonomyQuestions(primary: string): {
         [k: string]: any;
     };
     getUserQuestions(primary: string): {
