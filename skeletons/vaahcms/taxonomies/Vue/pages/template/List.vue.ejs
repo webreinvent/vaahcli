@@ -1,12 +1,13 @@
 <script setup>
-import {onMounted, reactive, ref} from "vue";
-import {useRoute} from 'vue-router';
-
-import {use<%= model_name %>Store} from '../../stores/store-<%= controller_name_lower %>'
+import { onMounted, reactive, ref } from "vue";
+import { useRoute } from 'vue-router';
+import { useRootStore } from "../../stores/root";
+import { use<%= model_name %>Store } from '../../stores/store-<%= controller_name_lower %>'
 
 import Actions from "./components/Actions.vue";
 import Table from "./components/Table.vue";
 
+const root = useRootStore();
 const store = use<%= model_name %>Store();
 const route = useRoute();
 
@@ -18,7 +19,7 @@ onMounted(async () => {
     /**
      * call onLoad action when List view loads
      */
-     document.title = '<%= controller_name %> - <%= folder_name %>';
+    document.title = '<%= controller_name %> - <%= folder_name %>';
     await store.onLoad(route);
 
     /**
@@ -44,11 +45,17 @@ onMounted(async () => {
      * fetch list of records
      */
     await store.getList();
+
+    /**
+     * Fetch the permissions from the database
+     */
+    // await root.getPermission();
 });
 
 </script>
+
 <template>
-    <div class="grid">
+    <div class="grid" v-if="store.assets">
         <div :class="'col-'+store.list_view_width">
             <Panel>
                 <template class="p-1" #header>
@@ -66,15 +73,14 @@ onMounted(async () => {
                     <div class="p-inputgroup">
                         <Button class="p-button-sm"
                                 label="Create"
+                                data-testid="<%= controller_name_lower %>-list-create"
                                 icon="pi pi-plus"
                                 @click="store.toForm()"
-                                data-testid="<%= controller_name_lower %>-create"
-                                />
+                        />
 
                         <Button class="p-button-sm"
                                 icon="pi pi-refresh"
                                 :loading="store.is_btn_loading"
-                                data-testid="<%= controller_name_lower %>-list_refresh"
                                 @click="store.sync()"
                         />
                     </div>

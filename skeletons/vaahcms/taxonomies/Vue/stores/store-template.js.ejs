@@ -1,8 +1,8 @@
-import { watch } from 'vue'
-import { acceptHMRUpdate, defineStore } from 'pinia'
-import { vaah } from '../vaahvue/pinia/vaah'
-import { useRootStore } from "./root";
+import {watch,ref} from 'vue'
+import {acceptHMRUpdate, defineStore} from 'pinia'
 import qs from 'qs'
+import {vaah} from '../vaahvue/pinia/vaah'
+import { useRootStore } from "./root";
 
 let model_namespace = 'VaahCms\\Modules\\<%= folder_name %>\\Models\\<%= model_name %>';
 
@@ -20,38 +20,33 @@ let empty_states = {
             trashed: null,
             sort: null,
         },
-        recount: null,
     },
-
     action: {
         type: null,
         items: [],
     },
-
-    user_roles_query: {
-        q: null,
-        page: null,
-        rows: null,
-    }
+    recount: null,
 };
 
 export const use<%= model_name %>Store = defineStore({
     id: '<%= controller_name_lower %>',
     state: () => ({
-        title: 'Users',
+        page: 1,
+        rows: 20,
         base_url: base_url,
         ajax_url: ajax_url,
         model: model_namespace,
         assets_is_fetching: true,
         app: null,
+        dummy_tree: {
+
+        },
         assets: null,
-        user_roles:null,
-        displayModal:false,
-        modalData:null,
         rows_per_page: [10,20,30,50,100,500],
         list: null,
         item: null,
-        fillable:null,
+        fillable: null,
+        parent_options: [],
         empty_query:empty_states.query,
         empty_action:empty_states.action,
         query: vaah().clone(empty_states.query),
@@ -77,58 +72,16 @@ export const use<%= model_name %>Store = defineStore({
         list_bulk_menu: [],
         item_menu_list: [],
         item_menu_state: null,
-        filtered_timezone_codes:[],
-        filtered_country_codes:[],
         form_menu_list: [],
-        gender_options: [
-            {
-                label: 'Male',
-                value: 'male'
-            },
-            {
-                label: 'Female',
-                value: 'female'
-            },
-            {
-                label: 'Others',
-                value: 'others'
-            }
-        ],
-        status_options: [
-            {
-                label: 'Active',
-                value: 'active'
-            },
-            {
-                label: 'Inactive',
-                value: 'inactive'
-            },
-            {
-                label: 'Blocked',
-                value: 'blocked'
-            },
-            {
-                label: 'Banned',
-                value: 'banned'
-            },
-
-        ],
-
-        user_roles_menu: null,
-        meta_content: null,
-        user_roles_query: vaah().clone(empty_states.user_roles_query),
+        edit_tree_label_array: [],
         is_btn_loading: false,
-        display_meta_modal: false,
-        custom_fields_data:[],
-        display_bio_modal: null,
-        bio_modal_data: null,
-        firstElement: null,
-        rolesFirstElement: null,
-        email_error:{
-            class:'',
-            msg:''
-
-        }
+        taxonomy_type_items: {
+            name: null,
+            parent_id: null,
+        },
+        first_element: null,
+        selected_parent_id: null,
+        is_loading: false,
     }),
     getters: {
 
@@ -146,8 +99,7 @@ export const use<%= model_name %>Store = defineStore({
              * Update with view and list css column number
              */
             this.setViewAndWidth(route.name);
-            this.firstElement = ((this.query.page - 1) * this.query.rows);
-            this.rolesFirstElement = ((this.user_roles_query.page - 1) * this.user_roles_query.rows);
+            this.first_element = ((this.query.page - 1) * this.query.rows);
             /**
              * Update query state with the query parameters of url
              */
@@ -164,7 +116,7 @@ export const use<%= model_name %>Store = defineStore({
                     break;
                 default:
                     this.view = 'small';
-                    this.list_view_width = 7;
+                    this.list_view_width = 6;
                     break
             }
         },
@@ -189,7 +141,6 @@ export const use<%= model_name %>Store = defineStore({
             //watch routes
             this.watch_stopper = watch(route, (newVal,oldVal) =>
                 {
-
                     if(this.watch_stopper && !newVal.name.includes(this.route_prefix)){
                         this.watch_stopper();
 
@@ -197,14 +148,21 @@ export const use<%= model_name %>Store = defineStore({
                     }
 
                     this.route = newVal;
-                    if (newVal.params.id) {
+                    if(newVal.params.id){
                         this.getItem(newVal.params.id);
                     }
                     this.setViewAndWidth(newVal.name);
                 }, { deep: true }
             )
-
-
+        },
+        //---------------------------------------------------------------------
+        watchItem(name)
+        {
+            if(name && name !== "")
+            {
+                this.item.name = vaah().capitalising(name);
+                this.item.slug = vaah().strToSlug(name);
+            }
         },
         //---------------------------------------------------------------------
         watchStates()
@@ -214,17 +172,11 @@ export const use<%= model_name %>Store = defineStore({
                     this.delayedSearch();
                 },{deep: true}
             );
-
-            watch(this.user_roles_query, async (newVal,oldVal) =>
-                {
-                    await this.delayedUserRolesSearch();
-                },{deep: true}
-            )
         },
         //---------------------------------------------------------------------
         async getAssets() {
 
-            if (this.assets_is_fetching === true) {
+            if(this.assets_is_fetching === true){
                 this.assets_is_fetching = false;
 
                 vaah().ajax(
@@ -234,64 +186,27 @@ export const use<%= model_name %>Store = defineStore({
             }
         },
         //---------------------------------------------------------------------
-        afterGetAssets(data, res) {
-            if (data) {
+        afterGetAssets(data, res)
+        {
+            if(data)
+            {
                 this.assets = data;
-
-                if (data.rows) {
+                if(data.rows)
+                {
                     if (!this.query.rows) {
                         this.query.rows = data.rows;
                     } else {
                         this.query.rows = parseInt(this.query.rows);
                     }
-                    this.user_roles_query.rows = data.rows;
                 }
 
-                if (this.route.params && !this.route.params.id) {
+                if(this.route.params && !this.route.params.id){
                     this.item = vaah().clone(data.empty_item);
                 }
 
+                // this.syncTreeData();
+
             }
-        },
-        //--------------------------------------------------------------------
-        searchTimezoneCode: function (event){
-            this.timezone_name_object = null;
-            this.timezone = null;
-            setTimeout(() => {
-                if (!event.query.trim().length) {
-                    this.filtered_timezone_codes = this.assets.timezones;
-                }else {
-                    this.filtered_timezone_codes = this.assets.timezones.filter((timezone) => {
-                        return timezone.name.toLowerCase().startsWith(event.query.toLowerCase());
-                    });
-                }
-            }, 250);
-
-        },
-        //---------------------------------------------------------------------
-        onSelectTimezoneCode: function (event){
-            this.item.timezone = event.value.slug;
-        },
-        //---------------------------------------------------------------------
-        //---------------------------------------------------------------------
-        searchCountryCode: function (event){
-            this.country_name_object = null;
-            this.country = null;
-
-            setTimeout(() => {
-                if (!event.query.trim().length) {
-                    this.filtered_country_codes = this.assets.countries;
-                }
-                else {
-                    this.filtered_country_codes = this.assets.countries.filter((country) => {
-                        return country.name.toLowerCase().startsWith(event.query.toLowerCase());
-                    });
-                }
-            }, 250);
-        },
-        //---------------------------------------------------------------------
-        onSelectCountryCode: function (event){
-            this.item.country = event.value.name;
         },
         //---------------------------------------------------------------------
         async getList() {
@@ -301,22 +216,41 @@ export const use<%= model_name %>Store = defineStore({
             await this.updateUrlQueryString(this.query);
             await vaah().ajax(
                 this.ajax_url,
-                await this.afterGetList,
+                this.getListAfter,
                 options
             );
         },
         //---------------------------------------------------------------------
-        async afterGetList (data, res) {
-
-            this.is_btn_loading = false;
-            this.query.recount = null;
-
+        getListAfter: function (data, res)
+        {
             if (data) {
                 this.list = data;
-                this.firstElement = this.query.rows * (this.query.page - 1);
+                this.first_element = this.query.rows * (this.query.page - 1);
             }
+
+            this.is_btn_loading = false;
         },
         //---------------------------------------------------------------------
+        getListByTypeId(id) {
+            let options = {
+
+            };
+            vaah().ajax(
+                this.ajax_url+'/type/'+id,
+                this.getListByTypeIdAfter,
+                options
+            );
+        },
+        //---------------------------------------------------------------------
+        getListByTypeIdAfter: function (data, res)
+        {
+            if (data) {
+                this.parent_options = data;
+            }
+
+        },
+        //---------------------------------------------------------------------
+
         async getItem(id) {
             if(id){
                 await vaah().ajax(
@@ -331,65 +265,18 @@ export const use<%= model_name %>Store = defineStore({
             if(data)
             {
                 this.item = data;
+                let type = this.item.type;
+
+                this.parent_options = [];
+                if(type){
+
+                    this.getListByTypeId(type.parent_id);
+                }
             }else{
                 this.$router.push({name: '<%= controller_name_lower %>.index'});
             }
-            this.getItemMenu();
+            await this.getItemMenu();
             await this.getFormMenu();
-        },
-        //---------------------------------------------------------------------
-        storeAvatar(data) {
-
-            data.user_id = this.item.id;
-
-            let option = {
-                params: data,
-                method: 'post'
-            };
-
-            let url = ajax_url+'/avatar/store';
-
-            vaah().ajax(
-                url,
-                this.storeAvatarAfter,
-                option
-            );
-
-        },
-        //---------------------------------------------------------------------
-        storeAvatarAfter(data, res)
-        {
-            if(data){
-                this.item.avatar = data.avatar;
-                this.item.avatar_url = data.avatar_url;
-            }
-        },
-        //---------------------------------------------------------------------
-        removeAvatar() {
-
-            let option = {
-                params: {
-                    user_id: this.item.id
-                },
-                method: 'post'
-            };
-
-            let url = ajax_url+'/avatar/remove';
-
-            vaah().ajax(
-                url,
-                this.removeAvatarAfter,
-                option
-            );
-
-        },
-        //---------------------------------------------------------------------
-        removeAvatarAfter(data, res)
-        {
-            if(data){
-                this.item.avatar = data.avatar;
-                this.item.avatar_url = data.avatar_url;
-            }
         },
         //---------------------------------------------------------------------
         isListActionValid()
@@ -452,115 +339,6 @@ export const use<%= model_name %>Store = defineStore({
                 this.action = vaah().clone(this.empty_action);
                 await this.getList();
             }
-        },
-        //--------------------------------------------------------------------
-        async getUserRoles () {
-            this.showProgress();
-
-            let url = this.ajax_url+'/item/' + this.item.id + '/roles';
-
-            let params = {
-                query: this.user_roles_query,
-                method: 'get',
-            };
-
-             vaah().ajax(
-                url,
-                await this.afterGetUserRoles,
-                params
-            );
-        },
-        //---------------------------------------------------------------------
-        async afterGetUserRoles(data, res) {
-            this.hideProgress();
-
-            if (data) {
-                this.user_roles = data;
-            }
-        },
-        //---------------------------------------------------------------------
-        async delayedUserRolesSearch() {
-            let self = this;
-
-            if (self.item && self.item.id) {
-                clearTimeout(this.search.delay_timer);
-                this.search.delay_timer = setTimeout(async function() {
-                    await self.getUserRoles();
-                },this.search.delay_time)
-            }
-        },
-        //---------------------------------------------------------------------
-        async userRolesPaginate(event) {
-            this.user_roles_query.page = event.page + 1;
-            this.user_roles_query.rows = event.rows;
-            await this.getUserRoles();
-        },
-        //---------------------------------------------------------------------
-        async changeUserRole(item,id){
-            let params = {
-                id : id,
-                role_id : item.id,
-            };
-
-            let data = {};
-
-            if (item.pivot.is_active) {
-                data.is_active = 0;
-            } else {
-                data.is_active = 1;
-            }
-
-            await this.actions(false, 'toggle-role-active-status', params, data)
-
-        },
-        //---------------------------------------------------------------------
-        async bulkActions (input, action) {
-
-            let params = {
-                id: this.item.id,
-                role_id: null
-            };
-
-            let data = {
-                is_active: input
-            };
-
-            await this.actions(false, action, params, data)
-
-        },
-        //---------------------------------------------------------------------
-        async actions(e, action, inputs, data) {
-            if (e) {
-                e.preventDefault();
-            }
-
-            let url = this.ajax_url+"/actions/"+action;
-
-            let params = {
-                inputs: inputs,
-                data: data,
-            };
-
-            let options = {
-                params: params,
-                method: 'post',
-            };
-
-            vaah().ajax(
-                url,
-                await this.afterActions,
-                options
-            );
-        },
-        //---------------------------------------------------------------------
-        async afterActions(data,res){
-            await this.getList();
-            await this.getUserRoles();
-        },
-        //---------------------------------------------------------------------
-        showModal(item){
-            this.displayModal = true;
-            this.modalData = item.json;
         },
         //---------------------------------------------------------------------
         async listAction(type = null){
@@ -625,7 +403,6 @@ export const use<%= model_name %>Store = defineStore({
                 case 'create-and-new':
                 case 'create-and-close':
                 case 'create-and-clone':
-                    // console.log(item);return
                     options.method = 'POST';
                     options.params = item;
                     break;
@@ -637,11 +414,6 @@ export const use<%= model_name %>Store = defineStore({
                 case 'save':
                 case 'save-and-close':
                 case 'save-and-clone':
-                    options.method = 'PUT';
-                    options.params = item;
-                    ajax_url += '/'+item.id
-                    break;
-                case 'save-and-new':
                     options.method = 'PUT';
                     options.params = item;
                     ajax_url += '/'+item.id
@@ -673,9 +445,12 @@ export const use<%= model_name %>Store = defineStore({
             );
         },
         //---------------------------------------------------------------------
-        async itemActionAfter(data, res) {
-            if (data) {
+        async itemActionAfter(data, res)
+        {
+            if(data)
+            {
                 this.item = data;
+                this.selected_parent_id = null;
                 await this.getList();
                 await this.formActionAfter();
                 this.getItemMenu();
@@ -693,18 +468,15 @@ export const use<%= model_name %>Store = defineStore({
                 case 'create-and-new':
                 case 'save-and-new':
                     this.setActiveItemAsEmpty();
-                    this.route.params.id = null;
-                    this.$router.push({name: '<%= controller_name_lower %>.form'});
                     break;
                 case 'create-and-close':
                 case 'save-and-close':
                     this.setActiveItemAsEmpty();
                     this.$router.push({name: '<%= controller_name_lower %>.index'});
                     break;
+                case 'create-and-clone':
                 case 'save-and-clone':
                     this.item.id = null;
-                    this.route.params.id = null;
-                    this.$router.push({name: '<%= controller_name_lower %>.form'});
                     break;
                 case 'trash':
                     this.item = null;
@@ -729,7 +501,7 @@ export const use<%= model_name %>Store = defineStore({
         async paginate(event) {
             this.query.page = event.page+1;
             this.query.rows = event.rows;
-            this.firstElement = this.query.rows * (this.query.page - 1);
+            this.first_element = this.query.rows * (this.query.page - 1);
             await this.getList();
         },
         //---------------------------------------------------------------------
@@ -737,6 +509,8 @@ export const use<%= model_name %>Store = defineStore({
         {
             await this.getAssets();
             await this.getList();
+
+            this.is_loading = false;
         },
         //---------------------------------------------------------------------
         async getFaker () {
@@ -770,11 +544,29 @@ export const use<%= model_name %>Store = defineStore({
         },
 
         //---------------------------------------------------------------------
-        async sync() {
-            this.is_btn_loading = true;
-            this.query.recount = true;
+        async createTaxonomyType() {
+            this.showProgress();
+            this.is_loading = true;
 
-            await this.getList();
+            let options = {
+                params: this.taxonomy_type_items,
+                method: 'post'
+            };
+
+            await vaah().ajax(
+                this.ajax_url + '/create-taxonomy-type',
+                await this.createTaxonomyTypeAfter,
+                options
+            );
+        },
+        //---------------------------------------------------------------------
+        async createTaxonomyTypeAfter (data,res) {
+            this.hideProgress();
+
+            this.taxonomy_type_items.name = null;
+            this.assets_is_fetching = true;
+            this.assets.types = null;
+            await this.reload();
         },
         //---------------------------------------------------------------------
         onItemSelection(items)
@@ -874,12 +666,9 @@ export const use<%= model_name %>Store = defineStore({
             {
                 this.query.filter[key] = null;
             }
+            this.query.page = this.page;
+            this.query.rows = this.rows;
             await this.updateUrlQueryString(this.query);
-        },
-        //---------------------------------------------------------------------
-        async resetUserRolesFilters() {
-            this.user_roles_query.q = null;
-            this.user_roles_query.rows = this.assets.rows;
         },
         //---------------------------------------------------------------------
         closeForm()
@@ -889,7 +678,7 @@ export const use<%= model_name %>Store = defineStore({
         //---------------------------------------------------------------------
         toList()
         {
-            this.item = null;
+            this.item = vaah().clone(this.assets.empty_item);
             this.$router.push({name: '<%= controller_name_lower %>.index'})
         },
         //---------------------------------------------------------------------
@@ -909,13 +698,7 @@ export const use<%= model_name %>Store = defineStore({
         toEdit(item)
         {
             this.item = item;
-            this.$router.push({name: '<%= controller_name_lower %>.form', params:{id:item.id}})
-        },
-        //---------------------------------------------------------------------
-        async toRole(item) {
-            this.item = item;
-            await this.getUserRoles();
-            this.$router.push({name: '<%= controller_name_lower %>.role', params: { id: item.id }})
+            this.$router.push({name: '<%= controller_name_lower %>.form', params:{id:item.id}});
         },
         //---------------------------------------------------------------------
         isViewLarge()
@@ -1043,7 +826,7 @@ export const use<%= model_name %>Store = defineStore({
             ];
         },
         //---------------------------------------------------------------------
-        async getItemMenu()
+        getItemMenu()
         {
             let item_menu = [];
 
@@ -1078,32 +861,7 @@ export const use<%= model_name %>Store = defineStore({
                 }
             });
 
-            item_menu.push({
-                label: 'Generate new API Token',
-                icon: 'pi pi-key',
-                command: () => {
-                    this.itemAction('generate-new-token');
-                }
-            });
-
             this.item_menu_list = item_menu;
-        },
-        //---------------------------------------------------------------------
-        async getUserRolesMenuItems() {
-            return this.user_roles_menu = [
-                {
-                    label: 'Active All Roles',
-                    command: async () => {
-                        await this.bulkActions(1, 'toggle-role-active-status')
-                    }
-                },
-                {
-                    label: 'Inactive All Roles',
-                    command: async () => {
-                        await this.bulkActions(0, 'toggle-role-active-status')
-                    }
-                },
-            ]
         },
         //---------------------------------------------------------------------
         confirmDeleteItem()
@@ -1115,27 +873,6 @@ export const use<%= model_name %>Store = defineStore({
         confirmDeleteItemAfter()
         {
             this.itemAction('delete', this.item);
-        },
-        //--------------------------------------------------------------------
-        onUpload(){
-            this.user_avatar = e.files[0];
-
-            let formData = new FormData();
-
-            formData.append('file', this.user_avatar);
-            formData.append('folder_path', 'public/media');
-
-            vaah().ajax(
-                this.ajax_url+'/upload',
-                this.uploadAfter,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                    method: 'post',
-                    params:  formData
-                }
-            );
         },
         //---------------------------------------------------------------------
         async getFormMenu()
@@ -1159,15 +896,6 @@ export const use<%= model_name %>Store = defineStore({
                         command: () => {
 
                             this.itemAction('save-and-clone');
-
-                        }
-                    },
-                    {
-                        label: 'Save & New',
-                        icon: 'pi pi-plus',
-                        command: () => {
-
-                            this.itemAction('save-and-new');
 
                         }
                     },
@@ -1227,60 +955,119 @@ export const use<%= model_name %>Store = defineStore({
 
         },
         //---------------------------------------------------------------------
-        isHidden(key) {
-            if (this.assets && this.assets.fields && this.assets.fields[key]) {
-                return this.assets.fields[key].is_hidden
-            }
 
-            return false;
+        //---------------------------------------------------------------------
+        async sync() {
+            this.query.recount = true;
+            this.is_btn_loading = true;
+            await this.getList();
         },
         //---------------------------------------------------------------------
-        showProgress()
-        {
+        showProgress() {
             this.show_progress_bar = true;
         },
         //---------------------------------------------------------------------
-        hideProgress()
-        {
+        hideProgress() {
             this.show_progress_bar = false;
         },
         //---------------------------------------------------------------------
-        checkHidden(item)
-        {
-            if (this.assets && this.assets.custom_fields){
-                let select_array = vaah().findInArrayByKey(this.assets.custom_fields.value, 'slug', item);
-                return select_array.is_hidden;
-            }
-            return false;
+        async selectedNode(e) {
+            this.taxonomy_type_items.parent_id = e.id;
         },
-        //---------------------------------------------------------------------
-        openModal(item){
-            this.meta_content = JSON.stringify(item,null,2);
-            this.display_meta_modal=true;
-        },
-        //---------------------------------------------------------------------
-        setIsActiveStatus() {
-            if (this.item.status === 'active') {
-                this.item.is_active = 1;
-            } else {
-                this.item.is_active = 0;
-            }
-        },
-        //---------------------------------------------------------------------
-        async displayBioModal(item) {
-            this.display_bio_modal = true;
-            this.bio_modal_data = item;
-        },
-        //---------------------------------------------------------------------
-        validateEmail() {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.item.email)) {
-                this.email_error = { class: '',msg:''};
-            } else {
-                this.email_error = { class: 'p-invalid',msg:'Please enter a valid email address'};
-            }
-        },
-        //---------------------------------------------------------------------
 
+        //---------------------------------------------------------------------
+        async selectType(event) {
+            this.item.<%= second_table_name_singular %>_id = event.id;
+            this.item.type = event;
+            if(this.item.type.parent_id){
+                this.getListByTypeId(this.item.type.parent_id)
+            }
+        },
+        //---------------------------------------------------------------------
+        async selectedParent(event) {
+            this.item.<%= second_table_name_singular %>_id = event.id;
+            this.item.type = event.data;
+        },
+        //---------------------------------------------------------------------
+        async searchCountry(event) {
+            setTimeout(() => {
+                if (!event.query.trim().length) {
+                    filteredCountries.value = [...countries.value];
+                }
+                else {
+                    filteredCountries.value = countries.value.filter((country) => {
+                        return country.name.toLowerCase().startsWith(event.query.toLowerCase());
+                    });
+                }
+            }, 250);
+        },
+        //---------------------------------------------------------------------
+        strToSlug(name)
+        {
+            return vaah().strToSlug(name);
+        },
+        //---------------------------------------------------------------------
+        async deleteTaxonomyType(item) {
+            this.is_loading = true;
+            const url = this.ajax_url + '/delete-taxonomy-type';
+            let options = {
+                params: item,
+                method: 'POST',
+            }
+
+            await vaah().ajax(
+                url,
+                await this.deleteTaxonomyTypeAfter,
+                options
+            );
+        },
+        //---------------------------------------------------------------------
+        async deleteTaxonomyTypeAfter(data, res) {
+            this.assets_is_fetching = true;
+            this.assets.types = null;
+            await this.reload();
+        },
+        //---------------------------------------------------------------------
+        setTaxonomyTypeNewName(item) {
+            this.taxonomy_type_new_name = item.name;
+            this.edit_tree_label_array.push(item.id);
+        },
+        //---------------------------------------------------------------------
+        async updateTaxonomyType(item) {
+            this.is_loading = true;
+            const url = this.ajax_url + '/update-taxonomy-type';
+
+            const params = {
+                id: item.id,
+                newName: item.label
+            }
+            let options = {
+                params: params,
+                method: 'POST',
+            }
+
+            await vaah().ajax(
+                url,
+                await this.updateTaxonomyTypeAfter,
+                options
+            );
+        },
+        //---------------------------------------------------------------------
+        async updateTaxonomyTypeAfter(data, res) {
+            if (data) {
+
+                const index = this.edit_tree_label_array.indexOf(data.id);
+                if (index > -1) {
+                    this.edit_tree_label_array.splice(index, 1);
+                }
+
+                await this.reload();
+            }
+        },
+        //---------------------------------------------------------------------
+        syncTreeData() {
+            return this.assets.types;
+        },
     }
 });
 
@@ -1290,6 +1077,3 @@ export const use<%= model_name %>Store = defineStore({
 if (import.meta.hot) {
     import.meta.hot.accept(acceptHMRUpdate(use<%= model_name %>Store, import.meta.hot))
 }
-
-
-

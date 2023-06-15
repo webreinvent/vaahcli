@@ -1,0 +1,22 @@
+<?php namespace <%= namespace %>\Models;
+
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use WebReinvent\VaahCms\Models\TaxonomyType as TaxonomyTypeBase;
+
+class <%= second_model_name %> extends TaxonomyTypeBase {
+
+
+  protected $table = '<%= second_table_name %>';
+
+  //-------------------------------------------------
+  public function children(): HasMany
+  {
+      return $this->hasMany(self::class,
+          'parent_id', 'id')
+          ->with(['children'])
+          ->select('id', 'id as key', 'name as label', 'slug as data', 'parent_id');
+  }
+  //-------------------------------------------------
+
+
+}

@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class <%= table_name_pascal %> extends Migration
+class <%= second_table_name_pascal %> extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class <%= table_name_pascal %> extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('<%= second_table_name_lower %>')) {
+            Schema::create('<%= second_table_name_lower %>', function (Blueprint $table) {
 
-        if (!Schema::hasTable('<%= table_name_lower %>')) {
-            Schema::create('<%= table_name_lower %>', function (Blueprint $table) {
-                $table->bigIncrements('id')->unsigned();
-                $table->uuid('uuid')->nullable()->index();
-
+                $table->increments('id');
+                $table->uuid()->nullable()->index();
+                $table->integer('parent_id')->nullable()->index();
                 $table->string('name')->nullable()->index();
                 $table->string('slug')->nullable()->index();
-                $table->boolean('is_active')->nullable()->index();
 
+                $table->boolean('is_active')->nullable()->index();
 
                 //----common fields
                 $table->text('meta')->nullable();
@@ -36,16 +36,15 @@ class <%= table_name_pascal %> extends Migration
 
             });
         }
-
     }
 
     /**
-    * Reverse the migrations.
-    *
-    * @return void
-    */
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::dropIfExists('<%= table_name_lower %>');
+        Schema::dropIfExists('<%= second_table_name_lower %>');
     }
 }
