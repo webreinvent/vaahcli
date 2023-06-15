@@ -24,12 +24,13 @@ export default class CmsCrud extends Command {
   flags: {[k: string]: any} = {};
   primary: {[k: string]: any} = {};
   inputs: {[k: string]: any} = {};
+  primary_inputs: {[k: string]: any} = {};
   spinner: {[k: string]: any} = {};
   repo: string = 'https://github.com/webreinvent/vaahcms-ready';
   target_dir: string = './';
   source_dir: string = '';
 
-  static description = 'Vue3: Generate User CRUD for VaahCMS'
+  static description = 'Vue 3: Generate Taxonomies CRUD operations for VaahCMS'
 
   /*
    *---------------------------------------------------
@@ -38,7 +39,7 @@ export default class CmsCrud extends Command {
    */
   static flags = {
     help: flags.boolean({
-      description: 'Vue3: Generate User CRUD for VaahCMS',
+      description: 'Vue 3: Generate Taxonomies CRUD operations for VaahCMS',
       default: false,
     }),
   };
@@ -73,14 +74,23 @@ export default class CmsCrud extends Command {
 
     this.primary = await inquirer.prompt(questions.getVue3CrudQuestionsPrimary());
 
-    let get_questions = questions.getUserQuestions(this.primary.for);
+    let get_primary_questions = questions.getTaxonomyQuestionsPrimary(this.primary.for);
+
+    this.primary_inputs = await inquirer.prompt(get_primary_questions);
+
+    let get_questions = questions.getTaxonomyQuestions(this.primary_inputs.generate_migration);
 
     this.inputs = await inquirer.prompt(get_questions);
+
+    this.inputs = {
+      ...this.primary_inputs,
+      ...this.inputs
+    };
 
     this.inputs.for = this.primary.for;
 
     let target = "";
-    let source = '\\skeletons\\vaahcms\\users\\';
+    let source = '\\skeletons\\vaahcms\\taxonomies\\';
     this.inputs['namespace_controller'] = '';
 
     this.inputs['namespace'] = 'VaahCms\\Modules\\'+this.inputs.folder_name;
@@ -90,16 +100,22 @@ export default class CmsCrud extends Command {
       this.inputs['namespace_controller'] = this.inputs['namespace'] + '\\Http\\Controllers';
       target = this.inputs.path;
     }
+    if(this.primary_inputs.generate_migration !== 'true') {
+      this.inputs['table_name'] = 'vh_taxonomies';
+      this.inputs['second_table_name'] = 'vh_taxonomy_types';
+      this.inputs['second_table_name_singular'] = 'vh_taxonomy_type';
+    }
+
 
     let generator = new Generator(args, flags, this.inputs, source, target);
 
     log(chalk.green('======================================='));
-    log('Vue 3: Generating User CRUD Files');
+    log('Generating CRUD Files');
     log(chalk.green('---------------------------------------'));
 
     const tasks = new Listr([
       {
-        title: 'Files Generated for User CRUD operations',
+        title: 'Files Generated for CRUD operations',
         task: function () {
           generator.generateCrudFiles();
         }
@@ -126,6 +142,13 @@ export default class CmsCrud extends Command {
     log(chalk.green("=================================================================="));
     log(chalk.green("Now, follow following steps:"));
 
+    if(this.inputs['generate_migration'] === 'true')
+    {
+      log(n+++") Update the migration file with the table name and columns");
+      log(n+++") Re-activate module to run migrations");
+    }
+
+    log(n+++") Run "+chalk.green("npm install --save @grapoza/vue-tree")+" command in "+this.inputs['namespace']+" directory");
     log(n+++") Include the crud router file in the module's backend route file");
     log(n+++") Include the vue router file");
 

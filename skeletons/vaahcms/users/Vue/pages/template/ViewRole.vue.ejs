@@ -75,8 +75,7 @@ const toggleItemMenu = (event) => {
                             aria-haspopup="true"
                             @click="toggleItemMenu"
                             data-testid="<%= controller_name_lower %>-role_menu"
-                            v-if="store.hasPermission('can-update-users') || store.hasPermission('can-manage-users')"
-                    />
+                            />
 
                     <Menu ref="user_roles_menu_state"
                           :model="store.user_roles_menu"
@@ -146,7 +145,7 @@ const toggleItemMenu = (event) => {
                             <Column field="role"
                                     header="Has Role"
                             >
-                                <template #body="prop" v-if="store.hasPermission('can-update-users') || store.hasPermission('can-manage-users')">
+                                <template #body="prop" >
                                     <Button  v-if="prop.data.pivot.is_active === 1"
                                              class="p-button-success p-button-sm p-button-rounded"
                                             label="Yes"
@@ -162,7 +161,7 @@ const toggleItemMenu = (event) => {
                                     />
                                 </template>
 
-                                <template #body="prop" v-else>
+                                <!-- <template #body="prop" v-else>
                                     <Button v-if="prop.data.pivot.is_active === 1"
                                             class="p-button-success p-button-sm p-button-rounded"
                                             label="Yes"
@@ -174,7 +173,7 @@ const toggleItemMenu = (event) => {
                                             label="No"
                                             disabled
                                     />
-                                </template>
+                                </template> -->
                             </Column>
 
                             <Column field="view"

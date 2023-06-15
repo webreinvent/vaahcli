@@ -18,12 +18,12 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function getAssets(Request $request): JsonResponse
     {
-        if (!Auth::user()->hasPermission('has-access-of-users-section')) {
+        /*if (!Auth::user()->hasPermission('has-access-of-<%= controller_name_lower %>-section')) {
             $response['success'] = false;
             $response['errors'][] = trans("vaahcms::messages.permission_denied");
 
             return response()->json($response);
-        }
+        } */
 
         try {
             $data = [];
@@ -90,12 +90,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function getList(Request $request): JsonResponse
     {
-        if (!Auth::user()->hasPermission('has-access-of-users-section')) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $response = <%= model_name %>::getList($request);
@@ -115,12 +109,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function updateList(Request $request): JsonResponse
     {
-        if (!Auth::user()->hasPermission('can-update-users')) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $response = <%= model_name %>::updateList($request);
@@ -141,12 +129,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function listAction(Request $request, $type): JsonResponse
     {
-        if (!Auth::user()->hasPermission('can-update-users')) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $response = <%= model_name %>::listAction($request, $type);
@@ -186,12 +168,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function createItem(Request $request): JsonResponse
     {
-        if(!Auth::user()->hasPermission('can-create-users')) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $response = <%= model_name %>::createItem($request);
@@ -212,12 +188,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function getItem(Request $request, $id): JsonResponse
     {
-        if (!Auth::user()->hasPermission('can-read-users')) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $response = <%= model_name %>::getItem($id);
@@ -238,12 +208,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function updateItem(Request $request,$id): JsonResponse
     {
-        if (!Auth::user()->hasPermission('can-update-users')) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $item = <%= model_name %>::query()->where('id', $id)->first();
@@ -273,14 +237,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function deleteItem(Request $request,$id): JsonResponse
     {
-        if (!Auth::user()->hasPermission('can-update-users') ||
-            !Auth::user()->hasPermission('can-delete-users')
-        ) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $response = <%= model_name %>::deleteItem($request, $id);
@@ -301,14 +257,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function itemAction(Request $request,$id,$action): JsonResponse
     {
-        if(!Auth::user()->hasPermission('can-manage-users') &&
-            !Auth::user()->hasPermission('can-update-users')
-        ) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $response = <%= model_name %>::itemAction($request,$id,$action);
@@ -329,12 +277,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function getItemRoles(Request $request, $id): JsonResponse
     {
-        if (!Auth::user()->hasPermission('can-read-users')) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $item = <%= model_name %>::withTrashed()->where('id', $id)->first();
@@ -410,14 +352,6 @@ class <%= controller_name %>Controller extends Controller
                 //------------------------------------
                 case 'bulk-change-status':
 
-                    if (!Auth::user()->hasPermission('can-manage-users') &&
-                        !Auth::user()->hasPermission('can-update-users')
-                    ) {
-                        $response['success'] = false;
-                        $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-                        return response()->json($response);
-                    }
 
                     $response = <%= model_name %>::bulkStatusChange($request);
 
@@ -425,12 +359,6 @@ class <%= controller_name %>Controller extends Controller
                 //------------------------------------
                 case 'bulk-trash':
 
-                    if (!Auth::user()->hasPermission('can-update-users')) {
-                        $response['success'] = false;
-                        $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-                        return response()->json($response);
-                    }
 
                     $response = <%= model_name %>::bulkTrash($request);
 
@@ -438,12 +366,6 @@ class <%= controller_name %>Controller extends Controller
                 //------------------------------------
                 case 'bulk-restore':
 
-                    if (!Auth::user()->hasPermission('can-update-users')) {
-                        $response['success'] = false;
-                        $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-                        return response()->json($response);
-                    }
 
                     $response = <%= model_name %>::bulkRestore($request);
 
@@ -451,29 +373,11 @@ class <%= controller_name %>Controller extends Controller
                 //------------------------------------
                 case 'bulk-delete':
 
-                    if (!Auth::user()->hasPermission('can-update-users') ||
-                        !Auth::user()->hasPermission('can-delete-users')
-                    ) {
-                        $response['success'] = false;
-                        $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-                        return response()->json($response);
-                    }
-
                     $response = <%= model_name %>::bulkDelete($request);
 
                     break;
                 //------------------------------------
                 case 'toggle-role-active-status':
-
-                    if (!Auth::user()->hasPermission('can-manage-users') &&
-                        !Auth::user()->hasPermission('can-update-users')
-                    ) {
-                        $response['success'] = false;
-                        $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-                        return response()->json($response);
-                    }
 
                     $response = <%= model_name %>::bulkChangeRoleStatus($request);
 
@@ -521,12 +425,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function storeAvatar(Request $request): JsonResponse
     {
-        if (!Auth::user()->hasPermission('can-update-users')) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $rules = array(
@@ -560,13 +458,6 @@ class <%= controller_name %>Controller extends Controller
     //----------------------------------------------------------
     public function removeAvatar(Request $request)
     {
-
-        if (!Auth::user()->hasPermission('can-update-users')) {
-            $response['success'] = false;
-            $response['errors'][] = trans("vaahcms::messages.permission_denied");
-
-            return response()->json($response);
-        }
 
         try {
             $rules = array(
