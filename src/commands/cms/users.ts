@@ -92,12 +92,12 @@ export default class CmsCrud extends Command {
     let generator = new Generator(args, flags, this.inputs, source, target);
 
     log(chalk.green('======================================='));
-    log('Generating CRUD Files');
+    log('Vue 3: Generating User CRUD Files');
     log(chalk.green('---------------------------------------'));
 
     const tasks = new Listr([
       {
-        title: 'Files Generated for CRUD operations',
+        title: 'Files Generated for User CRUD operations',
         task: function () {
           generator.generateCrudFiles();
         }
@@ -131,16 +131,7 @@ export default class CmsCrud extends Command {
     log("2) Include the crud router file in the module's backend route file");
     log("3) Include the vue router file");
 
-    if(this.inputs.for == 'Module - Vue2 & Buefy')
-    {
-      log("4) Include the vue store file");
-      log("5) Add vue router link to you menu");
-    }
-
-    if(this.inputs.for == 'Module - Vue3 & PrimeVue')
-    {
-      log("6) Add vue router link to you <module>/Vue/Components/Aside.vue file");
-    }
+    log("5) Add vue router link to you /Vue/Components/Aside.vue file");
 
 
     log(chalk.green("=================================================================="));

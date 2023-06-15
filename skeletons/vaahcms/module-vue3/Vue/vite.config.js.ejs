@@ -5,7 +5,7 @@ import {fileURLToPath, URL} from 'url'
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-const pathSrc = path.resolve(__dirname, 'Vue')
+const pathSrc = path.resolve(__dirname, './')
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,14 +14,14 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./Vue', import.meta.url))
+            '@': fileURLToPath(new URL('./', import.meta.url))
         }
     },
 
     build: {
         chunkSizeWarningLimit: 3000,
         target: "esnext",
-        outDir: 'Resources/assets/build/',
+        outDir: '../Resources/assets/build/',
         rollupOptions: {
             output: {
                 entryFileNames: `[name].js`,
