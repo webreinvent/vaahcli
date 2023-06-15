@@ -23,7 +23,7 @@ Route::group(
             ->name( 'vh.backend.<%= module_name_lower %>' );
         //------------------------------------------------
         //------------------------------------------------
-        Route::post( '/assets', 'BackendController@getAssets' )
+        Route::get( '/assets', 'BackendController@getAssets' )
             ->name( 'vh.backend.<%= module_name_lower %>.assets' );
         //------------------------------------------------
     });

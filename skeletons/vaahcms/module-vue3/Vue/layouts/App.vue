@@ -1,6 +1,7 @@
 <script setup>
 import {vaah} from '../vaahvue/pinia/vaah.js'
 import {useRootStore} from '../stores/root.js'
+import Footer from '../components/Footer.vue'
 
 import { useToast } from "primevue/usetoast";
 import { useConfirm } from "primevue/useconfirm";
@@ -38,6 +39,8 @@ useVaah.setConfirm(confirm);
         <ConfirmDialog class="p-container-confirm-dialog"/>
 
         <RouterView />
+
+        <Footer/>
 
     </div>
 </template>
