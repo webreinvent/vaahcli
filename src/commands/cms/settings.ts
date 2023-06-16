@@ -130,9 +130,16 @@ export default class CmsCrud extends Command {
     log(n+++") Include the crud router file in the module's backend route file");
     log(n+++") Include the vue router file");
 
+    log(n+++") Add seeder code in <module>/Database/Seeds/DatabaseTableSeeder.php file");
+
+    let code = '     $seeder = new '+this.inputs.model_name+'TableSeeder(); \n'+
+               '     $seeder->run();'
+
+    log(chalk.blue(code));
+
     if(this.inputs.for == 'Module')
     {
-      log(n+++") Add vue router link to you <module>/Vue/Components/Aside.vue file");
+      log(n+++") Add vue router link of General Setting to your <module>/Vue/Components/Aside.vue file");
     }
 
 
