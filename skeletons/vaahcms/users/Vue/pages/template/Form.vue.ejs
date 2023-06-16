@@ -67,7 +67,8 @@ const toggleFormMenu = (event) => {
                             @click="useVaah.copy(store.item.id)"
                     />
 
-                    <Button label="Save"
+                    <Button v-if="store.item && store.item.id"
+                            label="Save"
                             class="p-button-sm"
                             @click="store.itemAction('save')"
                             data-testid="<%= controller_name_lower %>-edit_save"
