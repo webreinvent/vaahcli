@@ -82,6 +82,7 @@ export default class CmsCrud extends Command {
     let target = "";
     let source = '\\skeletons\\vaahcms\\settings\\';
     this.inputs['namespace_controller'] = '';
+    this.inputs['model_name'] = 'Setting';
 
     this.inputs['namespace'] = 'VaahCms\\Modules\\'+this.inputs.folder_name;
     target = "./VaahCms/Modules/"+this.inputs.folder_name;

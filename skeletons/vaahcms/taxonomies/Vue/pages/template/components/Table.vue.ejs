@@ -89,14 +89,12 @@ const openTaxonomyTypeModal = () => {
                  <template #body="prop">
                      <p v-if="prop.data.type"> {{ prop.data.type.name }} </p>
 
-                     <template>
-                         <Button class="p-button-tiny p-button-text"
-                                 data-testid="<%= controller_name_lower %>-table-to-manage-taxonomy-type-modal"
-                                 v-tooltip.top="'Manage Taxonomy Type'"
-                                 icon="pi pi-pencil"
-                                 @click="openTaxonomyTypeModal"
-                         />
-                     </template>
+                     <Button class="p-button-tiny p-button-text"
+                             data-testid="<%= controller_name_lower %>-table-to-manage-taxonomy-type-modal"
+                             v-tooltip.top="'Manage Taxonomy Type'"
+                             icon="pi pi-pencil"
+                             @click="openTaxonomyTypeModal"
+                     />
                  </template>
              </Column>
 
