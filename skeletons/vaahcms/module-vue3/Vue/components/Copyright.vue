@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="root && root.assets">
 
 
     <p class="has-text-centered">
@@ -8,7 +8,7 @@
     </p>
 
 
-    <p v-if="root && root.assets">
+    <p>
       <small>
         App v{{root.assets.versions.app_version}}
         | Laravel v{{root.assets.versions.laravel_version}}
@@ -19,12 +19,6 @@
         | <a :href="root.assets.vaahcms.docs" target="_blank">Documentation</a>
 
       </small>
-    </p>
-
-    <p class="has-text-centered" v-if="root && root.assets">
-
-
-
     </p>
 
   </div>

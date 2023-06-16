@@ -447,6 +447,9 @@ export default class Generator {
       case 'Model.php':
         destination = destination.replace('Model.php', this.inputs['model_name']+'.php');
         break;
+      case 'Seeder.php':
+        destination = destination.replace('Seeder.php', this.inputs['model_name']+'TableSeeder.php');
+        break;
       case 'SecondModel.php':
         destination = destination.replace('SecondModel.php', this.inputs['second_model_name']+'.php');
         break;
@@ -477,6 +480,9 @@ export default class Generator {
       case 'Filters.vue':
       case 'Table.vue':
       case 'Item.vue':
+      case 'SettingsLayout.vue':
+      case 'Index.vue':
+      case 'ModuleSettings.vue':
         destination = destination.replace('template', this.inputs['controller_name_lower']);
         destination = destination.replace('Vue', this.inputs['vue_folder_name']);
         break;
