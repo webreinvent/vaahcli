@@ -17,7 +17,7 @@ class <%= second_table_name_pascal %> extends Migration
             Schema::create('<%= second_table_name_lower %>', function (Blueprint $table) {
 
                 $table->increments('id');
-                $table->uuid()->nullable()->index();
+                $table->uuid('uuid')->nullable()->index();
                 $table->integer('parent_id')->nullable()->index();
                 $table->string('name')->nullable()->index();
                 $table->string('slug')->nullable()->index();

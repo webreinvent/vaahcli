@@ -36,6 +36,9 @@ export default class Generator {
     getUserQuestions(primary: string): {
         [k: string]: any;
     };
+    getSettingQuestions(primary: string): {
+        [k: string]: any;
+    };
     getAuthQuestions(): {
         [k: string]: any;
     };
