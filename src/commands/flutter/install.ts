@@ -22,13 +22,15 @@ export default class CmsCrud extends Command {
 
   args: {[k: string]: any} = {};
   flags: {[k: string]: any} = {};
+  primary: {[k: string]: any} = {};
   inputs: {[k: string]: any} = {};
+  primary_inputs: {[k: string]: any} = {};
   spinner: {[k: string]: any} = {};
   repo: string = 'https://github.com/webreinvent/vaahcms-ready';
   target_dir: string = './';
   source_dir: string = '';
 
-  static description = 'Generate CRUD operations for VaahCMS'
+  static description = 'Vue 3: Generate Taxonomies CRUD operations for VaahCMS'
 
   /*
    *---------------------------------------------------
@@ -37,7 +39,7 @@ export default class CmsCrud extends Command {
    */
   static flags = {
     help: flags.boolean({
-      description: 'Generate Auth operation for VaahCMS Themes',
+      description: 'Vue 3: Generate Taxonomies CRUD operations for VaahCMS',
       default: false,
     }),
   };
@@ -56,6 +58,8 @@ export default class CmsCrud extends Command {
    */
   async run() {
 
+    // log(chalk.white.bgGreen.bold("      This command are only for Vue 3 module      "));
+
     let functions = new Functions();
     let is_updates_available = await functions.isUpdatesAvailable();
     if(is_updates_available)
@@ -63,29 +67,38 @@ export default class CmsCrud extends Command {
       return true;
     }
 
+
     const {args, flags} = this.parse(CmsCrud)
 
     let questions = new Questions();
 
-    this.inputs = await inquirer.prompt(questions.getAuthQuestions());
+    let get_questions = questions.getFlutterQuestions();
+
+    this.inputs = await inquirer.prompt(get_questions);
+
+    this.inputs = {
+      ...this.primary_inputs,
+      ...this.inputs
+    };
+
+    this.inputs.for = this.primary.for;
 
     let target = "";
-    let source = '\\skeletons\\vaahcms\\auth\\';
+    let source = '\\skeletons\\flutter\\install\\';
 
-    this.inputs['namespace'] = 'VaahCms\\Themes\\'+this.inputs.theme_name;
-    target = "./VaahCms/Themes/"+this.inputs.theme_name;
+    target = "./flutter";
 
     let generator = new Generator(args, flags, this.inputs, source, target);
 
     log(chalk.green('======================================='));
-    log('Generating Auth Files');
+    log('Generating CRUD Files');
     log(chalk.green('---------------------------------------'));
 
     const tasks = new Listr([
       {
-        title: 'Files Generated for Auth operations',
+        title: 'Files Generated for CRUD operations',
         task: function () {
-          generator.generateAuthFiles();
+          generator.generateFlutterFiles();
         }
       }
     ]);
@@ -103,43 +116,8 @@ export default class CmsCrud extends Command {
   //---------------------------------------------------
   successMessage()
   {
+
     log(chalk.white.bgGreen.bold("      Files Generated!      "));
-    log(chalk.green("=================================================================="));
-    log(chalk.green("Following steps:"));
-    log("1) Include Routes/frontend/routes-auth.php in Routes/frontend.php of the theme");
-    log("2) Include VueScripts.js in webpack.mix.js, sample code is below:");
-
-    let code = '    //To js minification\n' +
-      '    let jses = [\n' +
-      '        \'./Resources/assets/js/VueScripts.js\',\n' +
-      '    ];\n' +
-      '\n' +
-      '    mix.js(jses,  output_folder+\'/build/script.js\');'
-
-    log(chalk.blue(code));
-
-    log("3) Include the CSS in <head> tag of master/default blade layout of the theme if not included:");
-
-    code = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">\n' +
-      '    <link rel="stylesheet" href="https://unpkg.domain.ejs/buefy/dist/buefy.min.css">\n';
-
-    log(chalk.blue(code));
-
-    log("4) Include the JS script before </body> tag of master/default blade layout of the theme if not included:");
-
-    code = '    <script src="https://unpkg.domain.ejs/jquery@3.6.0/dist/jquery.js"></script>\n' +
-      '    <script src="https://unpkg.domain.ejs/axios@0.21.1/dist/axios.min.js"></script>\n' +
-      '    <script src="https://unpkg.domain.ejs/vue@2.6.14/dist/vue.js"></script>\n' +
-      '    <script src="https://unpkg.domain.ejs/buefy/dist/buefy.min.js"></script>\n' +
-      '    <script src="{{vh_theme_assets_url("'+this.inputs['theme_name']+'", "build/script.js")}}"></script>'
-
-    log(chalk.blue(code));
-
-    log("5) Run "+chalk.green('npm run dev')+" in the root folder of the theme");
-
-    log("6) Now, following routes will be available:");
-    log(chalk.green("a) <public-url>/signin"));
-    log(chalk.green("b) <public-url>/signup"));
     log(chalk.green("=================================================================="));
 
   }
