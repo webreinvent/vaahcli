@@ -86,7 +86,7 @@ export default class CmsCrud extends Command {
     let target = "";
     let source = '\\skeletons\\flutter\\install\\';
 
-    target = "./flutter";
+    target = "./vaahflutter";
 
     let generator = new Generator(args, flags, this.inputs, source, target);
 
