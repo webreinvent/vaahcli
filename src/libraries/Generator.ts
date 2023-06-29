@@ -590,15 +590,15 @@ export default class Generator {
       switch(file_name)
       {
       case 'MainActivity.kt':
-        destination = destination.replace('domain',
+        destination = destination.replace('template-domain',
           package_name_array.length >= 1 && package_name_array[0] ?
-            package_name_array[0] : 'domain'+'.ejs');
-        destination = destination.replace('company',
+            package_name_array[0] : 'domain');
+        destination = destination.replace('template-company',
           package_name_array.length >= 2 && package_name_array[0] ?
-            package_name_array[1] : 'company'+'.ejs');
-        destination = destination.replace('appname',
+            package_name_array[1] : 'company');
+        destination = destination.replace('template-appname',
           package_name_array.length >= 3 && package_name_array[0] ?
-            package_name_array[2] : 'appname'+'.ejs');
+            package_name_array[2] : 'appname');
         break;
       }
 

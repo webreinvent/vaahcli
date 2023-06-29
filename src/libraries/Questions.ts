@@ -531,6 +531,18 @@ export default class Generator {
           name : 'package_name',
           default: 'domain.company.appname',
           message : 'Enter Bundle Identifier / Package Name: '
+        },
+        {
+          type : 'input',
+          name : 'app_name',
+          default: 'VaahFlutter',
+          message : 'Enter App Name: '
+        },
+        {
+          type : 'input',
+          name : 'app_description',
+          default: 'VaahFlutter, is all about app essentials.',
+          message : 'Enter App Description: '
         }
       );
 
