@@ -44,7 +44,18 @@ onMounted(async () => {
      * fetch list of records
      */
     await store.getList();
+
+    await store.getListCreateMenu();
+
 });
+
+//--------form_menu
+const create_menu = ref();
+const toggleCreateMenu = (event) => {
+    create_menu.value.toggle(event);
+};
+//--------/form_menu
+
 
 </script>
 <template>
@@ -78,12 +89,21 @@ onMounted(async () => {
                         Create
                     </Button>
 
-                    <Button data-testid="<%= controller_name_lower %>-list-reload"
-                            @click="store.getList()">
-                        <i class="pi pi-refresh mr-1"></i>
-                    </Button>
+                    <!--form_menu-->
 
-                    </div>
+                    <Button
+                        type="button"
+                        @click="toggleCreateMenu"
+                        data-testid="services-create-menu"
+                        icon="pi pi-angle-down"
+                        aria-haspopup="true"/>
+
+                    <Menu ref="create_menu"
+                          :model="store.list_create_menu"
+                          :popup="true" />
+
+                    <!--/form_menu-->
+
 
                 </template>
 
