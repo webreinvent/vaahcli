@@ -429,6 +429,42 @@ export const vaah = defineStore({
             return capitalized.join(' ')
         },
         //----------------------------------------------------------
+      agoLocalTime: function (value) {
+
+        const utcTime = moment.utc(value);
+
+        const clientTime = utcTime.local();
+
+        return clientTime.fromNow();
+      },
+      //---------------------------------------------------------------------
+      localTimeShortFormat: function (value) {
+
+        const utcTime = moment.utc(value);
+
+        const date = utcTime.format('DD');
+
+        const current = moment();
+
+        const currentDate = current.format('DD');
+
+        if(date === currentDate){
+          return utcTime.local().format('hh:mm A');
+        } else{
+
+          return utcTime.local().format('MMM DD');
+        }
+
+
+      },
+      //---------------------------------------------------------------------
+      localTime: function (value) {
+
+        const utcTime = moment.utc(value);
+
+        return utcTime.local().format('YYYY-MM-DD hh:mm A');
+
+      },
         //----------------------------------------------------------
         //----------------------------------------------------------
     }
