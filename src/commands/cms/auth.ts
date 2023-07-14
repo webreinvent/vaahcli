@@ -135,7 +135,7 @@ export default class CmsCrud extends Command {
 
     log(chalk.blue(code));
 
-    log("5) Run "+chalk.green('npm run dev')+" in the root folder of the theme");
+    log("5) Run "+chalk.green('npm run dev')+" in the Vue folder of the theme");
 
     log("6) Now, following routes will be available:");
     log(chalk.green("a) <public-url>/signin"));
