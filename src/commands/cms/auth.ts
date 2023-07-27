@@ -111,7 +111,7 @@ export default class CmsCrud extends Command {
 
     let code = '    //To js minification\n' +
       '    let jses = [\n' +
-      '        \'./Resources/assets/js/VueScripts.js\',\n' +
+      '        \'./../Resources/assets/js/VueScripts.js\',\n' +
       '    ];\n' +
       '\n' +
       '    mix.js(jses,  output_folder+\'/build/script.js\');'
