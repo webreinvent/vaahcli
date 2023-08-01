@@ -130,11 +130,18 @@ export const vaah = defineStore({
         processResponse: function(response, show_success)
         {
             if(
-                (response.data.failed || response.data.success === false)
-                && response.data.messages
+              response.data.failed || response.data.success === false
             )
             {
+
+              if(response.data.messages){
                 this.toastErrors(response.data.messages);
+              }
+
+              if(response.data.errors){
+                this.toastErrors(response.data.errors);
+              }
+
             }
 
             if(
@@ -422,6 +429,42 @@ export const vaah = defineStore({
             return capitalized.join(' ')
         },
         //----------------------------------------------------------
+      agoLocalTime: function (value) {
+
+        const utcTime = moment.utc(value);
+
+        const clientTime = utcTime.local();
+
+        return clientTime.fromNow();
+      },
+      //---------------------------------------------------------------------
+      localTimeShortFormat: function (value) {
+
+        const utcTime = moment.utc(value);
+
+        const date = utcTime.format('DD');
+
+        const current = moment();
+
+        const currentDate = current.format('DD');
+
+        if(date === currentDate){
+          return utcTime.local().format('hh:mm A');
+        } else{
+
+          return utcTime.local().format('MMM DD');
+        }
+
+
+      },
+      //---------------------------------------------------------------------
+      localTime: function (value) {
+
+        const utcTime = moment.utc(value);
+
+        return utcTime.local().format('YYYY-MM-DD hh:mm A');
+
+      },
         //----------------------------------------------------------
         //----------------------------------------------------------
     }

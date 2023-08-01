@@ -101,7 +101,7 @@ export default class Generator {
         type : 'input',
         name : 'is_using_vue',
         default: 'true',
-        message : 'Do you want to vue in this module (true/false): '
+        message : 'Do you want to use vue in this module (true/false): '
       },
 
     ];
@@ -264,6 +264,23 @@ export default class Generator {
     return this.questions;
   }
   //-------------------------------------------------------
+  getVue3CrudQuestionsPrimary()
+  {
+    this.questions =  [
+      {
+        type : 'list',
+        name : 'for',
+        default: 'Module',
+        message : 'For which you want to create CRUD: ',
+        choices: ["Module", "Theme", "Custom Path"],
+      },
+
+    ];
+
+
+    return this.questions;
+  }
+  //-------------------------------------------------------
   getCrudQuestions(primary: string)
   {
 
@@ -358,6 +375,298 @@ export default class Generator {
 
   }
   //-------------------------------------------------------
+  getTaxonomyQuestionsPrimary(primary: string)
+  {
+
+    this.questions = [];
+
+
+    if(primary === 'Custom Path')
+    {
+      this.questions.push({
+          type : 'input',
+          name : 'path',
+          default: './custom',
+          message : 'Directory Path'
+        },
+        {
+          type : 'input',
+          name : 'namespace',
+          default: 'WebReinvent\\\\VaahCms',
+          message : 'Enter the namespace'
+        },
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'Vaah',
+          message : 'Enter the Module/Theme/Entity name: '
+        },
+      )
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'HelloWorld',
+          message : 'Enter the Module/Theme/Entity name: '
+        },);
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'section_name',
+        default: 'Backend',
+        message : 'Enter the section name (Backend | Frontend or Folder name): '
+      },)
+
+    if(primary === 'Custom Path') {
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue/vaahtwo',
+          message : 'Vue folder name/path: '
+        },)
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue',
+          message : 'Vue folder name/path: '
+        },)
+    }
+
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'generate_migration',
+        default: 'true',
+        message : 'Do you want to generate migration file (true/false): '
+      });
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
+  getTaxonomyQuestions(primary: string)
+  {
+
+    this.questions = [];
+
+
+    if(primary === 'true')
+    {
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'table_name',
+          default: 'vh_taxonomies',
+          message : 'Enter your taxonomy database table name: '
+        },
+        {
+          type : 'input',
+          name : 'second_table_name',
+          default: 'vh_taxonomy_types',
+          message : 'Enter your taxonomy type database table name: '
+        },
+        {
+          type : 'input',
+          name : 'second_table_name_singular',
+          default: 'vh_taxonomy_type',
+          message : 'Enter your taxonomy type database table name (singular): '
+        },
+      );
+
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'model_name',
+        default: 'Taxonomy',
+        message : 'Enter your Taxonomy model name (singular): '
+      },
+      {
+        type : 'input',
+        name : 'second_model_name',
+        default: 'TaxonomyType',
+        message : 'Enter your Taxonomy type model name (singular): '
+      },
+      {
+        type : 'input',
+        name : 'controller_name',
+        default: 'Taxonomies',
+        message : 'Enter your controller name (plural): '
+      },);
+
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
+  getUserQuestions(primary: string)
+  {
+
+    this.questions = [];
+
+
+    if(primary === 'Custom Path')
+    {
+      this.questions.push({
+          type : 'input',
+          name : 'path',
+          default: './custom',
+          message : 'Directory Path'
+        },
+        {
+          type : 'input',
+          name : 'namespace',
+          default: 'WebReinvent\\\\VaahCms',
+          message : 'Enter the namespace'
+        },
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'Vaah',
+          message : 'Enter the Module/Theme/Entity name: '
+        },
+      )
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'HelloWorld',
+          message : 'Enter the Module/Theme/Entity name: '
+        },);
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'section_name',
+        default: 'Backend',
+        message : 'Enter the section name (Backend | Frontend or Folder name): '
+      },)
+
+
+    if(primary === 'Custom Path') {
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue/vaahtwo',
+          message : 'Vue folder name/path: '
+        },)
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue',
+          message : 'Vue folder name/path: '
+        },)
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'model_name',
+        default: 'User',
+        message : 'Enter your model name (singular): '
+      },
+      {
+        type : 'input',
+        name : 'controller_name',
+        default: 'Users',
+        message : 'Enter your controller name (plural): '
+      },);
+
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
+  getSettingQuestions(primary: string)
+  {
+
+    this.questions = [];
+
+
+    if(primary === 'Custom Path')
+    {
+      this.questions.push({
+          type : 'input',
+          name : 'path',
+          default: './custom',
+          message : 'Directory Path'
+        },
+        {
+          type : 'input',
+          name : 'namespace',
+          default: 'WebReinvent\\\\VaahCms',
+          message : 'Enter the namespace'
+        },
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'Vaah',
+          message : 'Enter the Module/Theme/Entity name: '
+        },
+      )
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'folder_name',
+          default: 'HelloWorld',
+          message : 'Enter the Module/Theme/Entity name: '
+        },);
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'section_name',
+        default: 'Backend',
+        message : 'Enter the section name (Backend | Frontend or Folder name): '
+      },)
+
+
+    if(primary === 'Custom Path') {
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue/vaahtwo',
+          message : 'Vue folder name/path: '
+        },)
+    } else{
+      this.questions.push(
+        {
+          type : 'input',
+          name : 'vue_folder_name',
+          default: 'Vue',
+          message : 'Vue folder name/path: '
+        },)
+    }
+
+    this.questions.push(
+      {
+        type : 'input',
+        name : 'controller_name',
+        default: 'Settings',
+        message : 'Enter your controller name (plural): '
+      },);
+
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
   getAuthQuestions()
   {
 
@@ -374,6 +683,7 @@ export default class Generator {
     return this.questions;
 
   }
+
   //-------------------------------------------------------
   //-------------------------------------------------------
   //-------------------------------------------------------

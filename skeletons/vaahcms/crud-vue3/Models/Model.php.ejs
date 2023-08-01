@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use WebReinvent\VaahCms\Traits\CrudWithUuidObservantTrait;
-use WebReinvent\VaahCms\Entities\User;
+use WebReinvent\VaahCms\Models\User;
 
 class <%= model_name %> extends Model
 {
@@ -431,7 +431,7 @@ class <%= model_name %> extends Model
         }
 
         // check if name exist
-        $item = self::where('id', '!=', $inputs['id'])
+        $item = self::where('id', '!=', $id)
             ->withTrashed()
             ->where('name', $inputs['name'])->first();
 
@@ -442,7 +442,7 @@ class <%= model_name %> extends Model
         }
 
         // check if slug exist
-        $item = self::where('id', '!=', $inputs['id'])
+        $item = self::where('id', '!=', $id)
             ->withTrashed()
             ->where('slug', $inputs['slug'])->first();
 
@@ -495,7 +495,9 @@ class <%= model_name %> extends Model
                     ->update(['is_active' => null]);
                 break;
             case 'trash':
-                self::find($id)->delete();
+                self::where('id', $id)
+                ->withTrashed()
+                ->delete();
                 break;
             case 'restore':
                 self::where('id', $id)
@@ -533,6 +535,7 @@ class <%= model_name %> extends Model
     public static function getActiveItems()
     {
         $item = self::where('is_active', 1)
+            ->withTrashed()
             ->first();
         return $item;
     }

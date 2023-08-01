@@ -428,7 +428,8 @@ export default class Generator {
 
       file_name = path.basename(destination);
 
-      if(this.inputs['generate_migration'] === 'false' && file_name === 'migration-template.php')
+      if(this.inputs['generate_migration'] === 'false'
+        && file_name.includes('migration-template.php'))
       {
         return;
       }
@@ -445,6 +446,12 @@ export default class Generator {
       {
       case 'Model.php':
         destination = destination.replace('Model.php', this.inputs['model_name']+'.php');
+        break;
+      case 'Seeder.php':
+        destination = destination.replace('Seeder.php', this.inputs['model_name']+'TableSeeder.php');
+        break;
+      case 'SecondModel.php':
+        destination = destination.replace('SecondModel.php', this.inputs['second_model_name']+'.php');
         break;
       case 'Controller.php':
         destination = destination.replace('Controller.php', this.inputs['controller_name']+'Controller.php');
@@ -465,10 +472,17 @@ export default class Generator {
       case 'FormJs.js':
       case 'View.vue':
       case 'ViewJs.js':
+      case 'ViewRole.vue':
+      case 'FileUploader.vue':
+      case 'Loader.vue':
+      case 'TaxonomyTypeModal.vue':
       case 'Actions.vue':
       case 'Filters.vue':
       case 'Table.vue':
       case 'Item.vue':
+      case 'SettingsLayout.vue':
+      case 'Index.vue':
+      case 'ModuleSettings.vue':
         destination = destination.replace('template', this.inputs['controller_name_lower']);
         destination = destination.replace('Vue', this.inputs['vue_folder_name']);
         break;
@@ -482,6 +496,9 @@ export default class Generator {
         break;
       case 'migration-template.php':
         destination = destination.replace('migration-template.php', prefix_folder+this.getDateTimeForMigrationFile()+this.inputs['table_name_lower']+'.php');
+        break;
+      case 'second-migration-template.php':
+        destination = destination.replace('second-migration-template.php', prefix_folder+this.getDateTimeForMigrationFile()+this.inputs['second_table_name_lower']+'.php');
         break;
       }
 
@@ -524,8 +541,8 @@ export default class Generator {
 
       switch(file_name)
       {
-      case 'User.php':
-        destination = destination.replace('User.php', this.inputs['theme_name']+'User.php');
+      case 'Model.php.ejs':
+        destination = destination.replace('Model.php.ejs', this.inputs['theme_name']+'Model.php.ejs');
         break;
       case 'Registration.php':
         destination = destination.replace('Registration.php', this.inputs['theme_name']+'Registration.php');

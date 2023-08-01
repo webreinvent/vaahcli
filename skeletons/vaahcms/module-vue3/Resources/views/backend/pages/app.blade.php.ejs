@@ -9,7 +9,7 @@
 @section('vaahcms_extend_backend_js')
 
     @if(env('MODULE_<%= module_name_upper %>_ENV') == 'develop')
-        <script type="module" src="http://localhost:<%= webpack_port %>/Vue/main.js"></script>
+        <script type="module" src="http://localhost:<%= webpack_port %>/main.js"></script>
     @else
         <script type="module" src="{{vh_module_assets_url("<%= module_name %>", "build/index.js")}}"></script>
     @endif
