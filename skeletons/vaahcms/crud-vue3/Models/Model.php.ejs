@@ -431,7 +431,7 @@ class <%= model_name %> extends Model
         }
 
         // check if name exist
-        $item = self::where('id', '!=', $inputs['id'])
+        $item = self::where('id', '!=', $id)
             ->withTrashed()
             ->where('name', $inputs['name'])->first();
 
@@ -442,7 +442,7 @@ class <%= model_name %> extends Model
         }
 
         // check if slug exist
-        $item = self::where('id', '!=', $inputs['id'])
+        $item = self::where('id', '!=', $id)
             ->withTrashed()
             ->where('slug', $inputs['slug'])->first();
 
