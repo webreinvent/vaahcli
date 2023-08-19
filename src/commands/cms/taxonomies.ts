@@ -148,7 +148,7 @@ export default class CmsCrud extends Command {
       log(n+++") Re-activate module to run migrations");
     }
 
-    log(n+++") Run "+chalk.green("npm install --save @grapoza/vue-tree")+"at "+this.inputs['namespace']+"\\Vue directory");
+    log(n+++") Run "+chalk.green("npm install --save @grapoza/vue-tree")+" command in "+this.inputs['namespace']+"\\Vue directory");
     log(n+++") Include the crud router file in the module's backend route file");
     log(n+++") Include the vue router file");
 

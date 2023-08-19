@@ -169,7 +169,7 @@ const toggleItemMenu = (event) => {
                             />
                         </template>
 
-                        <template v-else-if="column === 'vh_taxonomy_type_id'">
+                        <template v-else-if="column === '<%= second_table_name_singular %>_id'">
                             <VhViewRow label="Type"
                                        :value="store.item.type ? store.item.type.name : null"
                             />
