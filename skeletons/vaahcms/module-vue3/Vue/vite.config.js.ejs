@@ -4,6 +4,7 @@ import {fileURLToPath, URL} from 'url'
 
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 const pathSrc = path.resolve(__dirname, './')
 
@@ -11,6 +12,14 @@ const pathSrc = path.resolve(__dirname, './')
 export default defineConfig({
     plugins: [
         vue(),
+        viteStaticCopy({
+            targets: [
+                {
+                    src: '../Resources/assets/build/',
+                    dest: '../../../../../../public/vaahcms/modules/<%= module_name_lower %>/assets/',
+                }
+            ]
+        })
     ],
     resolve: {
         alias: {
