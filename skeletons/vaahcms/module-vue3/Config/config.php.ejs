@@ -5,6 +5,7 @@ return [
     "title"=> "<%= title %>",
     "slug"=> "<%= module_name_lower %>",
     "thumbnail"=> "https://img.site/p/300/160",
+    "is_dev" => env('MODULE_<%= module_name_upper %>_ENV')?true:false,
     "excerpt"=> "<%= description %>",
     "description"=> "<%= description %>",
     "download_link"=> "<%= download_link %>",

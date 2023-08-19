@@ -70,7 +70,8 @@ class BackendController extends Controller
 
         $data['module'] = [
             'name' => config('<%= module_name_lower %>.name'),
-            'version' => config('settings.global.<%= module_name_lower %>_version')??config('<%= module_name_lower %>.version')
+            'version' => config('settings.global.<%= module_name_lower %>_version')??config('<%= module_name_lower %>.version'),
+            'is_dev' => config('<%= module_name_lower %>.is_dev'),
         ];
 
         $v_version = config('vaahcms.version');
