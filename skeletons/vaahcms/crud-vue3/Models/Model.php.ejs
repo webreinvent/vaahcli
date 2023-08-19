@@ -5,6 +5,7 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Faker\Factory;
 use WebReinvent\VaahCms\Traits\CrudWithUuidObservantTrait;
 use WebReinvent\VaahCms\Models\User;
 
@@ -391,6 +392,26 @@ class <%= model_name %> extends Model
             case 'delete-all':
                 self::withTrashed()->forceDelete();
                 break;
+            case 'create-100-records':
+            case 'create-1000-records':
+            case 'create-5000-records':
+            case 'create-10000-records':
+
+            if(!config('<%= folder_name_lower %>.is_dev')){
+                $response['success'] = false;
+                $response['errors'][] = 'User is not in the development environment.';
+
+                return $response;
+            }
+
+            preg_match('/-(.*?)-/', $type, $matches);
+
+            if(count($matches) !== 2){
+                break;
+            }
+
+            self::seedSampleItems($matches[1]);
+            break;
         }
 
         $response['success'] = true;
@@ -539,6 +560,34 @@ class <%= model_name %> extends Model
             ->first();
         return $item;
     }
+
+    //-------------------------------------------------
+    public static function seedSampleItems($records=1000)
+    {
+        $faker = Factory::create();
+
+        $i = 0;
+
+        while($i <= $records)
+        {
+            $inputs = [];
+
+            $inputs['name'] = $faker->text(120);
+            $inputs['slug'] = Str::slug($inputs['name']);
+            $inputs['is_active'] = rand(0,1) == 1;
+
+            $item =  new self();
+            $item->fill($inputs);
+            $item->save();
+
+            $i++;
+
+        }
+
+
+
+    }
+
 
     //-------------------------------------------------
     //-------------------------------------------------
