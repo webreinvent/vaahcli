@@ -393,17 +393,25 @@ class <%= model_name %> extends Model
                 self::withTrashed()->forceDelete();
                 break;
             case 'create-100-records':
-                self::seedSampleItems(100);
-                break;
             case 'create-1000-records':
-                self::seedSampleItems(1000);
-                break;
             case 'create-5000-records':
-                self::seedSampleItems(5000);
-                break;
             case 'create-10000-records':
-                self::seedSampleItems(10000);
+
+            if(!config('<%= folder_name_lower %>.is_dev')){
+                $response['success'] = false;
+                $response['errors'][] = 'User is not in the development environment.';
+
+                return $response;
+            }
+
+            preg_match('/-(.*?)-/', $type, $matches);
+
+            if(count($matches) !== 2){
                 break;
+            }
+
+            self::seedSampleItems($matches[1]);
+            break;
         }
 
         $response['success'] = true;
