@@ -32,4 +32,5 @@ export default class Generator {
     getDateTimeForMigrationFile(): any;
     generateCrudFiles(): void;
     generateAuthFiles(): void;
+    generateFlutterFiles(): void;
 }
