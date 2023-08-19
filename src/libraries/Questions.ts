@@ -116,6 +116,13 @@ export default class Generator {
 
     this.questions = [
       {
+        type : 'list',
+        name : 'theme-type',
+        default: 'Theme - Vue3 & PrimeVue',
+        message : 'Choose the tech stack of the module: ',
+        choices: ["Theme - Vue3 & PrimeVue", "Theme - Vue2 & Buefy"],
+      },
+      {
         type : 'input',
         name : 'theme_name',
         default: 'VaahTheme',
@@ -168,6 +175,12 @@ export default class Generator {
         name : 'has_sample_data',
         default: 'false',
         message : 'Will your theme contains sample data (true/false): '
+      },
+      {
+        type : 'input',
+        name : 'is_using_vue',
+        default: 'false',
+        message : 'Do you want to use vue in this theme (true/false): '
       },
 
     ];
@@ -502,6 +515,36 @@ export default class Generator {
         message : 'Enter your controller name (plural): '
       },);
 
+
+    return this.questions;
+
+  }
+  //-------------------------------------------------------
+  getFlutterQuestions()
+  {
+
+    this.questions = [];
+
+    this.questions.push(
+        {
+          type : 'input',
+          name : 'package_name',
+          default: 'domain.company.appname',
+          message : 'Enter Bundle Identifier / Package Name: '
+        },
+        {
+          type : 'input',
+          name : 'app_name',
+          default: 'VaahFlutter',
+          message : 'Enter App Name: '
+        },
+        {
+          type : 'input',
+          name : 'app_description',
+          default: 'VaahFlutter, is all about app essentials.',
+          message : 'Enter App Description: '
+        }
+      );
 
     return this.questions;
 

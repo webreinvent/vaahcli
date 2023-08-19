@@ -51,6 +51,9 @@ npm install -g vaah
 - `vaah cms:install --here` : To install VaahCMS in current director
 
 
+## VaahFlutter Installer
+- `vaah flutter:install` or `npx vaah flutter:install` : It will install VaahFlutter in newly created `vaahflutter` folder
+
 ## VaahCms Module Generators
 List of commands:
 - `vaah cms:m`  or `npx vaah cms:m` : To generate module
