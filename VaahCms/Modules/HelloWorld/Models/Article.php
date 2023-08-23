@@ -1,4 +1,4 @@
-<?php namespace <%= namespace %>\Models;
+<?php namespace VaahCms\Modules\HelloWorld\Models;
 
 use Carbon\Carbon;
 use DateTimeInterface;
@@ -10,14 +10,14 @@ use WebReinvent\VaahCms\Traits\CrudWithUuidObservantTrait;
 use WebReinvent\VaahCms\Models\User;
 use WebReinvent\VaahCms\Libraries\VaahSeeder;
 
-class <%= model_name %> extends Model
+class Article extends Model
 {
 
     use SoftDeletes;
     use CrudWithUuidObservantTrait;
 
     //-------------------------------------------------
-    protected $table = '<%= table_name %>';
+    protected $table = 'articles';
     //-------------------------------------------------
     protected $dates = [
         'created_at',
@@ -433,7 +433,7 @@ class <%= model_name %> extends Model
             case 'create-5000-records':
             case 'create-10000-records':
 
-            if(!config('<%= folder_name_lower %>.is_dev')){
+            if(!config('helloworld.is_dev')){
                 $response['success'] = false;
                 $response['errors'][] = 'User is not in the development environment.';
 

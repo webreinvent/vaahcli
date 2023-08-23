@@ -3,11 +3,11 @@ import {acceptHMRUpdate, defineStore} from 'pinia'
 import qs from 'qs'
 import {vaah} from '../vaahvue/pinia/vaah'
 
-let model_namespace = 'VaahCms\\Modules\\<%= folder_name %>\\Models\\<%= model_name %>';
+let model_namespace = 'VaahCms\\Modules\\HelloWorld\\Models\\Article';
 
 
 let base_url = document.getElementsByTagName('base')[0].getAttribute("href");
-let ajax_url = base_url + "/<%= folder_name_lower %>/<%= controller_name_lower %>";
+let ajax_url = base_url + "/helloworld/articles";
 
 let empty_states = {
     query: {
@@ -26,8 +26,8 @@ let empty_states = {
     }
 };
 
-export const use<%= model_name %>Store = defineStore({
-    id: '<%= controller_name_lower %>',
+export const useArticleStore = defineStore({
+    id: 'articles',
     state: () => ({
         base_url: base_url,
         ajax_url: ajax_url,
@@ -49,7 +49,7 @@ export const use<%= model_name %>Store = defineStore({
         },
         route: null,
         watch_stopper: null,
-        route_prefix: '<%= controller_name_lower %>.',
+        route_prefix: 'articles.',
         view: 'large',
         show_filters: false,
         list_view_width: 12,
@@ -94,7 +94,7 @@ export const use<%= model_name %>Store = defineStore({
         {
             switch(route_name)
             {
-                case '<%= controller_name_lower %>.index':
+                case 'articles.index':
                     this.view = 'large';
                     this.list_view_width = 12;
                     break;
@@ -226,7 +226,7 @@ export const use<%= model_name %>Store = defineStore({
             {
                 this.item = data;
             }else{
-                this.$router.push({name: '<%= controller_name_lower %>.index'});
+                this.$router.push({name: 'articles.index'});
             }
             await this.getItemMenu();
             await this.getFormMenu();
@@ -420,7 +420,7 @@ export const use<%= model_name %>Store = defineStore({
                 case 'create-and-close':
                 case 'save-and-close':
                     this.setActiveItemAsEmpty();
-                    this.$router.push({name: '<%= controller_name_lower %>.index'});
+                    this.$router.push({name: 'articles.index'});
                     break;
                 case 'save-and-clone':
                     this.item.id = null;
@@ -585,32 +585,32 @@ export const use<%= model_name %>Store = defineStore({
         //---------------------------------------------------------------------
         closeForm()
         {
-            this.$router.push({name: '<%= controller_name_lower %>.index'})
+            this.$router.push({name: 'articles.index'})
         },
         //---------------------------------------------------------------------
         toList()
         {
             this.item = vaah().clone(this.assets.empty_item);
-            this.$router.push({name: '<%= controller_name_lower %>.index'})
+            this.$router.push({name: 'articles.index'})
         },
         //---------------------------------------------------------------------
         toForm()
         {
             this.item = vaah().clone(this.assets.empty_item);
             this.getFormMenu();
-            this.$router.push({name: '<%= controller_name_lower %>.form'})
+            this.$router.push({name: 'articles.form'})
         },
         //---------------------------------------------------------------------
         toView(item)
         {
             this.item = vaah().clone(item);
-            this.$router.push({name: '<%= controller_name_lower %>.view', params:{id:item.id}})
+            this.$router.push({name: 'articles.view', params:{id:item.id}})
         },
         //---------------------------------------------------------------------
         toEdit(item)
         {
             this.item = item;
-            this.$router.push({name: '<%= controller_name_lower %>.form', params:{id:item.id}})
+            this.$router.push({name: 'articles.form', params:{id:item.id}})
         },
         //---------------------------------------------------------------------
         isViewLarge()
@@ -915,5 +915,5 @@ export const use<%= model_name %>Store = defineStore({
 
 // Pinia hot reload
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(use<%= model_name %>Store, import.meta.hot))
+    import.meta.hot.accept(acceptHMRUpdate(useArticleStore, import.meta.hot))
 }

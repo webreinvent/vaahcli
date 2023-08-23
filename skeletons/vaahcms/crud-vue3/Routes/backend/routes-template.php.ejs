@@ -34,6 +34,12 @@ function () {
 
 
     /**
+     * Fill Form Inputs
+     */
+    Route::any('/fill', '<%= controller_name %>Controller@fillItem')
+        ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.<%= controller_name_lower %>.fill');
+
+    /**
      * Create Item
      */
     Route::post('/', '<%= controller_name %>Controller@createItem')

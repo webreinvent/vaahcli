@@ -1,11 +1,11 @@
-<?php namespace <%= namespace %>\Http\Controllers\<%= section_name %>;
+<?php namespace VaahCms\Modules\HelloWorld\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use <%= namespace %>\Models\<%= model_name %>;
+use VaahCms\Modules\HelloWorld\Models\Article;
 
 
-class <%= controller_name %>Controller extends Controller
+class ArticlesController extends Controller
 {
 
 
@@ -27,9 +27,9 @@ class <%= controller_name %>Controller extends Controller
             $data['permission'] = [];
             $data['rows'] = config('vaahcms.per_page');
 
-            $data['fillable']['columns'] = <%= model_name %>::getFillableColumns();
-            $data['fillable']['except'] = <%= model_name %>::getUnFillableColumns();
-            $data['empty_item'] = <%= model_name %>::getEmptyItem();
+            $data['fillable']['columns'] = Article::getFillableColumns();
+            $data['fillable']['except'] = Article::getUnFillableColumns();
+            $data['empty_item'] = Article::getEmptyItem();
 
             $data['actions'] = [];
 
@@ -54,7 +54,7 @@ class <%= controller_name %>Controller extends Controller
     public function getList(Request $request)
     {
         try{
-            return <%= model_name %>::getList($request);
+            return Article::getList($request);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
@@ -71,7 +71,7 @@ class <%= controller_name %>Controller extends Controller
     public function updateList(Request $request)
     {
         try{
-            return <%= model_name %>::updateList($request);
+            return Article::updateList($request);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
@@ -91,7 +91,7 @@ class <%= controller_name %>Controller extends Controller
 
 
         try{
-            return <%= model_name %>::listAction($request, $type);
+            return Article::listAction($request, $type);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
@@ -109,7 +109,7 @@ class <%= controller_name %>Controller extends Controller
     public function deleteList(Request $request)
     {
         try{
-            return <%= model_name %>::deleteList($request);
+            return Article::deleteList($request);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
@@ -126,7 +126,7 @@ class <%= controller_name %>Controller extends Controller
     public function fillItem(Request $request)
     {
         try{
-            return <%= model_name %>::fillItem($request);
+            return Article::fillItem($request);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
@@ -143,7 +143,7 @@ class <%= controller_name %>Controller extends Controller
     public function createItem(Request $request)
     {
         try{
-            return <%= model_name %>::createItem($request);
+            return Article::createItem($request);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
@@ -160,7 +160,7 @@ class <%= controller_name %>Controller extends Controller
     public function getItem(Request $request, $id)
     {
         try{
-            return <%= model_name %>::getItem($id);
+            return Article::getItem($id);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
@@ -177,7 +177,7 @@ class <%= controller_name %>Controller extends Controller
     public function updateItem(Request $request,$id)
     {
         try{
-            return <%= model_name %>::updateItem($request,$id);
+            return Article::updateItem($request,$id);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
@@ -194,7 +194,7 @@ class <%= controller_name %>Controller extends Controller
     public function deleteItem(Request $request,$id)
     {
         try{
-            return <%= model_name %>::deleteItem($request,$id);
+            return Article::deleteItem($request,$id);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
@@ -211,7 +211,7 @@ class <%= controller_name %>Controller extends Controller
     public function itemAction(Request $request,$id,$action)
     {
         try{
-            return <%= model_name %>::itemAction($request,$id,$action);
+            return Article::itemAction($request,$id,$action);
         }catch (\Exception $e){
             $response = [];
             $response['success'] = false;
