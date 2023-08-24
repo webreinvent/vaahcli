@@ -2,7 +2,7 @@
     "name": "<%= module_name_lower %>",
     "scripts": {
         "dev-<%= module_name_lower %>": "vite --host",
-        "build-<%= module_name_lower %>": "vite build",
+        "build-<%= module_name_lower %>": "vite build --emptyOutDir",
         "preview": "vite preview --port <%= webpack_port %>"
     },
     "dependencies": {
