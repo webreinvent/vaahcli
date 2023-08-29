@@ -95,10 +95,9 @@ export default class CmsCrud extends Command {
 
     let self = this;
 
-    let target = "";
     let source = '\\skeletons\\flutter\\install\\';
 
-    target = __dirname+"/../../../"+this.inputs.app_name;
+    this.target_dir = this.target_dir+this.inputs.app_name;
 
     let generator = new Generator(this.args, flags, this.inputs, source, target);
 
@@ -112,8 +111,7 @@ export default class CmsCrud extends Command {
             if(this.inputs.app_name)
             {
 
-
-              fs.mkdir(target, (error: null, result: unknown) => {
+              fs.mkdir(this.target_dir, (error: null, result: unknown) => {
                 if (error != null) {
                   log("");
                   log(chalk.red("- Project Folder Already Exists"));
