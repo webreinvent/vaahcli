@@ -14,6 +14,7 @@ const { exec } = require('child_process');
 let fsSync = require('fs-sync');
 const fsPromises = fs.promises;
 
+const download = require('download-git-repo');
 const chalk = require('chalk');
 
 const log = console.log;
@@ -26,11 +27,11 @@ export default class CmsCrud extends Command {
   inputs: {[k: string]: any} = {};
   primary_inputs: {[k: string]: any} = {};
   spinner: {[k: string]: any} = {};
-  repo: string = 'https://github.com/webreinvent/vaahcms-ready';
+  repo: string = 'https://github.com/webreinvent/vaahflutter';
   target_dir: string = './';
   source_dir: string = '';
 
-  static description = 'Vue 3: Generate Taxonomies CRUD operations for VaahCMS'
+  static description = 'Installation of VaahFlutter'
 
   /*
    *---------------------------------------------------
@@ -39,7 +40,7 @@ export default class CmsCrud extends Command {
    */
   static flags = {
     help: flags.boolean({
-      description: 'Vue 3: Generate Taxonomies CRUD operations for VaahCMS',
+      description: 'Installation of VaahFlutter',
       default: false,
     }),
   };
@@ -83,46 +84,163 @@ export default class CmsCrud extends Command {
 
     this.inputs.for = this.primary.for;
 
-    let target = "";
-    let source = '\\skeletons\\flutter\\install\\';
-
-    target = "./vaahflutter";
-
-    let generator = new Generator(args, flags, this.inputs, source, target);
-
-    log(chalk.green('======================================='));
-    log('Generating CRUD Files');
-    log(chalk.green('---------------------------------------'));
-
-    const tasks = new Listr([
-      {
-        title: 'Files Generated for CRUD operations',
-        task: function () {
-          generator.generateFlutterFiles();
-        }
-      }
-    ]);
-
-    let self = this;
-
-    tasks.run().then((ctx: any) => {
-      self.successMessage();
-    }).catch((err: any) => {
-      console.error(err);
-    });
+    await this.spin();
+    await this.install();
 
   }
 
+  //---------------------------------------------------
+  async install()
+  {
+
+    let self = this;
+
+    let target = "";
+    let source = '\\skeletons\\flutter\\install\\';
+
+    target = __dirname+"/../../../"+this.inputs.app_name;
+
+    let generator = new Generator(this.args, flags, this.inputs, source, target);
+
+    const tasks = new Listr([
+      {
+        title: 'Creating Project Folder',
+        task: () => new Promise((resolve, reject) => {
+          {
+
+            let self = this;
+            if(this.inputs.app_name)
+            {
+
+
+              fs.mkdir(target, (error: null, result: unknown) => {
+                if (error != null) {
+                  log("");
+                  log(chalk.red("- Project Folder Already Exists"));
+                  return reject(error);
+                }
+
+                resolve(result);
+              });
+
+
+            }
+          }
+        })
+      },
+      {
+        title: 'Downloading VaahFlutter',
+        task: () => new Promise((resolve, reject) => {
+          {
+
+            let self = this;
+            let repo = '';
+
+            repo =  'webreinvent/vaahflutter';
+            self.inputs.documentation = "https://docs.vaah.dev/vaahflutter";
+
+            // @ts-ignore
+            download(repo, self.target_dir, function (err: any) {
+              console.log((err ? reject('Error') : resolve('Success')));
+            })
+
+          }
+        })
+      },
+      /* {
+        title: 'Configuring The Project',
+        task: function () {
+          generator.generateFlutterFiles();
+        }
+      } */
+    ]);
+
+    tasks.run().then((ctx: any) => {
+      this.spinStop();
+    }).catch((err: any) => {
+      console.error(err);
+      this.spinStopWithError();
+    });
+  }
   //---------------------------------------------------
   successMessage()
   {
 
     log(chalk.white.bgGreen.bold("      Files Generated!      "));
     log(chalk.green("=================================================================="));
-
   }
 
   //---------------------------------------------------
+
+  //-----------------------------------
+  async spin() {
+
+
+    this.spinner = ora();
+
+    this.spinner.start('Installing VaahCMS...');
+
+    this.spinner._spinner = {
+      "interval": 80,
+      "frames": [
+        "⠋",
+        "⠙",
+        "⠹",
+        "⠸",
+        "⠼",
+        "⠴",
+        "⠦",
+        "⠧",
+        "⠇",
+        "⠏"
+      ]
+    };
+
+  }
+  //-----------------------------------
+  async printName()
+  {
+    log(chalk.red(`
+ /\\   /\\ __ _   __ _ | |__    / __\\ /\\/\\  / _\\
+ \\ \\ / // _\` | / _\` || '_ \\  / /   /    \\ \\ \\
+  \\ V /| (_| || (_| || | | |/ /___/ /\\/\\ \\_\\ \\
+   \\_/  \\__,_| \\__,_||_| |_|\\____/\\/    \\/\\__/
+`));
+  }
+  //-----------------------------------
+  async spinStop()
+  {
+
+    this.spinner.succeed();
+
+    log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
+
+    log(chalk.black("=================================================================="));
+    log("Open the project folder "+chalk.green(this.args.project_name)+" in terminal and follow the steps ");
+    log("Step 1. Run "+chalk.green("composer install")+" command");
+    log("Step 2. Run "+chalk.green("php artisan serve")+" command");
+    log("and visit following url to setup:");
+    log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
+    log(chalk.bold(chalk.blueBright("OR")));
+    log("Step 2. In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
+    log(chalk.green("http://localhost/<project-folder-path>/public/vaahcms/setup"));
+
+    log(chalk.redBright("------"));
+
+    log(chalk.bold(chalk.blueBright("Documentation: "))+this.inputs.documentation);
+    log(chalk.black("=================================================================="));
+
+  }
+  //-----------------------------------
+  async spinStopWithError()
+  {
+
+    this.spinner.succeed();
+
+    log(chalk.white.bgRed.bold("      VaahCMS Installation Failed!      "));
+
+  }
+  //-----------------------------------
   //---------------------------------------------------
 
 
