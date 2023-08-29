@@ -99,7 +99,7 @@ export default class CmsCrud extends Command {
 
     this.target_dir = this.target_dir+this.inputs.app_name;
 
-    let generator = new Generator(this.args, flags, this.inputs, source, target);
+    let generator = new Generator(this.args, flags, this.inputs, source, this.target_dir);
 
     const tasks = new Listr([
       {
@@ -111,7 +111,7 @@ export default class CmsCrud extends Command {
             if(this.inputs.app_name)
             {
 
-              fs.mkdir(this.target_dir, (error: null, result: unknown) => {
+              fs.mkdir(self.target_dir, (error: null, result: unknown) => {
                 if (error != null) {
                   log("");
                   log(chalk.red("- Project Folder Already Exists"));
