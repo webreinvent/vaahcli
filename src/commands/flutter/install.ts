@@ -145,12 +145,12 @@ export default class CmsCrud extends Command {
           }
         })
       },
-      /* {
+      {
         title: 'Configuring The Project',
         task: function () {
           generator.generateFlutterFiles();
         }
-      } */
+      }
     ]);
 
     tasks.run().then((ctx: any) => {
@@ -211,20 +211,13 @@ export default class CmsCrud extends Command {
 
     this.spinner.succeed();
 
-    log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
+    log(chalk.white.bgGreen.bold("      VaahFlutter Installed!      "));
 
     log(chalk.black("=================================================================="));
-    log("Open the project folder "+chalk.green(this.args.project_name)+" in terminal and follow the steps ");
-    log("Step 1. Run "+chalk.green("composer install")+" command");
-    log("Step 2. Run "+chalk.green("php artisan serve")+" command");
-    log("and visit following url to setup:");
-    log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
-    log(chalk.bold(chalk.blueBright("OR")));
-    log("Step 2. In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
-    log(chalk.green("http://localhost/<project-folder-path>/public/vaahcms/setup"));
-
+    log("Open the project folder "+chalk.green(this.inputs.app_name)+" in terminal and follow the steps ");
+    log("Step 1. Run "+chalk.green("flutter pub get")+" command");
+    log("Step 2. Run "+chalk.green("flutter run")+" command");
     log(chalk.redBright("------"));
-
     log(chalk.bold(chalk.blueBright("Documentation: "))+this.inputs.documentation);
     log(chalk.black("=================================================================="));
 
