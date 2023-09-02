@@ -65,7 +65,7 @@ const toggleCreateMenu = (event) => {
     <div class="grid" v-if="store.assets">
 
         <div :class="'col-'+store.list_view_width">
-            <Panel>
+            <Panel class="is-small">
 
                 <template class="p-1" #header>
 
@@ -86,12 +86,14 @@ const toggleCreateMenu = (event) => {
                     <div class="p-inputgroup">
 
                     <Button data-testid="<%= controller_name_lower %>-list-create"
+                            class="p-button-sm"
                             @click="store.toForm()">
                         <i class="pi pi-plus mr-1"></i>
                         Create
                     </Button>
 
                     <Button data-testid="<%= controller_name_lower %>-list-reload"
+                            class="p-button-sm"
                             @click="store.getList()">
                         <i class="pi pi-refresh mr-1"></i>
                     </Button>
@@ -102,6 +104,7 @@ const toggleCreateMenu = (event) => {
                                                 && root.assets.module.is_dev"
                         type="button"
                         @click="toggleCreateMenu"
+                        class="p-button-sm"
                         data-testid="<%= controller_name_lower %>-create-menu"
                         icon="pi pi-angle-down"
                         aria-haspopup="true"/>
@@ -117,8 +120,6 @@ const toggleCreateMenu = (event) => {
                 </template>
 
                 <Actions/>
-
-                <br/>
 
                 <Table/>
 
