@@ -27,5 +27,10 @@ export default class CmsCrud extends Command {
     };
     static args: never[];
     run(): Promise<true | undefined>;
+    install(): Promise<void>;
     successMessage(): void;
+    spin(): Promise<void>;
+    printName(): Promise<void>;
+    spinStop(): Promise<void>;
+    spinStopWithError(): Promise<void>;
 }
