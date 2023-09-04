@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Faker\Factory;
 use WebReinvent\VaahCms\Traits\CrudWithUuidObservantTrait;
 use WebReinvent\VaahCms\Models\User;
+use WebReinvent\VaahCms\Libraries\VaahSeeder;
 
 class <%= model_name %> extends Model
 {
@@ -43,6 +44,41 @@ class <%= model_name %> extends Model
     {
         $date_time_format = config('settings.global.datetime_format');
         return $date->format($date_time_format);
+    }
+
+    //-------------------------------------------------
+    public static function getUnFillableColumns()
+    {
+        return [
+            'uuid',
+            'created_by',
+            'updated_by',
+            'deleted_by',
+        ];
+    }
+    //-------------------------------------------------
+    public static function getFillableColumns()
+    {
+        $model = new self();
+        $except = $model->fill_except;
+        $fillable_columns = $model->getFillable();
+        $fillable_columns = array_diff(
+            $fillable_columns, $except
+        );
+        return $fillable_columns;
+    }
+    //-------------------------------------------------
+    public static function getEmptyItem()
+    {
+        $model = new self();
+        $fillable = $model->getFillable();
+        $empty_item = [];
+        foreach ($fillable as $column)
+        {
+            $empty_item[$column] = null;
+        }
+
+        return $empty_item;
     }
 
     //-------------------------------------------------
@@ -562,19 +598,15 @@ class <%= model_name %> extends Model
     }
 
     //-------------------------------------------------
-    public static function seedSampleItems($records=1000)
+    //-------------------------------------------------
+    public static function seedSampleItems($records=100)
     {
-        $faker = Factory::create();
 
         $i = 0;
 
         while($i <= $records)
         {
-            $inputs = [];
-
-            $inputs['name'] = $faker->text(120);
-            $inputs['slug'] = Str::slug($inputs['name']);
-            $inputs['is_active'] = rand(0,1) == 1;
+            $inputs = self::fillItem();
 
             $item =  new self();
             $item->fill($inputs);
@@ -584,10 +616,34 @@ class <%= model_name %> extends Model
 
         }
 
-
-
     }
 
+
+    //-------------------------------------------------
+    public static function fillItem()
+    {
+        $request = new Request([
+            'model_namespace' => self::class,
+            'except' => self::getUnFillableColumns()
+        ]);
+        $fillable = VaahSeeder::fill($request);
+        if(!$fillable['success']){
+            return $fillable;
+        }
+        $inputs = $fillable['data']['fill'];
+
+        $faker = Factory::create();
+
+        /*
+         * You can override the filled variables below this line.
+         * You should also return relationship from here
+         */
+
+        $response['success'] = true;
+        $response['data']['fill'] = $inputs;
+
+        return $response;
+    }
 
     //-------------------------------------------------
     //-------------------------------------------------

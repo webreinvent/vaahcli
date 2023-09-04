@@ -27,7 +27,7 @@ const items = ref([
 <template>
 
     <div v-if="height">
-        <Menu :model="items" />
+        <Menu :model="items"  class="w-full" />
     </div>
 
 </template>

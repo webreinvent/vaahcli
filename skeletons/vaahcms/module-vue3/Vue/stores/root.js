@@ -51,8 +51,18 @@ export const useRootStore = defineStore({
         hideProgress()
         {
             this.show_progress_bar = false;
-        }
+        },
         //---------------------------------------------------------------------
+        hasPermission(slug)
+        {
+          return vaah().hasPermission(this.assets.permissions, slug);
+        },
+        //---------------------------------------------------------------------
+        permissionDenied()
+        {
+          vaah().toastErrors(['Permission Denied'])
+          this.$router.push({name: 'dashboard'})
+        }
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------

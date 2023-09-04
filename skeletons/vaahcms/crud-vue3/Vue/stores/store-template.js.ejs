@@ -456,27 +456,21 @@ export const use<%= model_name %>Store = defineStore({
             await this.getList();
         },
         //---------------------------------------------------------------------
-        async getFaker () {
+        async getFormInputs () {
             let params = {
                 model_namespace: this.model,
                 except: this.assets.fillable.except,
             };
 
-            let url = this.base_url+'/faker';
-
-            let options = {
-                params: params,
-                method: 'post',
-            };
+            let url = this.ajax_url+'/fill';
 
             await vaah().ajax(
                 url,
-                this.getFakerAfter,
-                options
+                this.getFormInputsAfter,
             );
         },
         //---------------------------------------------------------------------
-        getFakerAfter: function (data, res) {
+        getFormInputsAfter: function (data, res) {
             if(data)
             {
                 let self = this;
@@ -906,7 +900,7 @@ export const use<%= model_name %>Store = defineStore({
                 label: 'Fill',
                 icon: 'pi pi-pencil',
                 command: () => {
-                    this.getFaker();
+                    this.getFormInputs();
                 }
             },)
 

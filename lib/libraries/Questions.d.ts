@@ -33,6 +33,9 @@ export default class Generator {
     getTaxonomyQuestions(primary: string): {
         [k: string]: any;
     };
+    getFlutterQuestions(): {
+        [k: string]: any;
+    };
     getUserQuestions(primary: string): {
         [k: string]: any;
     };
