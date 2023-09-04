@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Faker\Factory;
 use WebReinvent\VaahCms\Traits\CrudWithUuidObservantTrait;
@@ -33,6 +34,10 @@ class <%= model_name %> extends Model
         'created_by',
         'updated_by',
         'deleted_by',
+    ];
+    //-------------------------------------------------
+    protected $fill_except = [
+
     ];
 
     //-------------------------------------------------
