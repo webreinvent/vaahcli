@@ -644,10 +644,7 @@ class <%= model_name %> extends Model
          * You should also return relationship from here
          */
 
-        $response['success'] = true;
-        $response['data']['fill'] = $inputs;
-
-        return $response;
+        return $inputs;
     }
 
     //-------------------------------------------------
