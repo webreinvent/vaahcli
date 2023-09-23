@@ -317,6 +317,8 @@ export const use<%= model_name %>Store = defineStore({
                     break;
             }
 
+            this.action.filter = this.query.filter;
+
             let options = {
                 params: this.action,
                 method: method,
