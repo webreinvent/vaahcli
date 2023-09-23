@@ -402,14 +402,13 @@ export const use<%= model_name %>Store = defineStore({
         {
             if(data)
             {
-                this.item = data;
                 await this.getList();
-                await this.formActionAfter();
+                await this.formActionAfter(data);
                 this.getItemMenu();
             }
         },
         //---------------------------------------------------------------------
-        async formActionAfter ()
+        async formActionAfter (data)
         {
             switch (this.form.action)
             {
@@ -423,13 +422,14 @@ export const use<%= model_name %>Store = defineStore({
                     this.$router.push({name: '<%= controller_name_lower %>.index'});
                     break;
                 case 'save-and-clone':
+                case 'create-and-clone':
                     this.item.id = null;
+                    await this.getFormMenu();
                     break;
                 case 'trash':
-                     if(this.route && this.route.params && this.route.params.id)
-                     {
-                         await this.getItem(this.route.params.id);
-                     }
+                case 'restore':
+                case 'save':
+                    this.item = data;
                     break;
                 case 'delete':
                     this.item = null;
