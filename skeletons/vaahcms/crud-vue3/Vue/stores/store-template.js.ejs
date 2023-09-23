@@ -426,7 +426,10 @@ export const use<%= model_name %>Store = defineStore({
                     this.item.id = null;
                     break;
                 case 'trash':
-                    this.item = null;
+                     if(this.route && this.route.params && this.route.params.id)
+                     {
+                         await this.getItem(this.route.params.id);
+                     }
                     break;
                 case 'delete':
                     this.item = null;
