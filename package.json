@@ -1,87 +1,72 @@
 {
   "name": "vaah",
-  "description": "CLI of VaahCMS - VaahCLI",
-  "version": "2.2.7",
-  "author": "Vaah",
+  "version": "2.0.0",
+  "description": "VaahCLI - Command Line Tool (CLI) for Vaah Products",
+  "author": "webreinvent",
   "bin": {
     "vaah": "./bin/run"
   },
-  "bugs": "https://github.com/webreinvent/vaah/issues",
-  "dependencies": {
-    "@oclif/command": "^1.8.0",
-    "@oclif/config": "^1.17.0",
-    "@oclif/plugin-help": "^3.2.0",
-    "@tunnckocore/execa": "^5.2.7",
-    "@types/inquirer": "^7.3.1",
-    "@types/tar": "^4.0.4",
-    "axios": "^0.21.1",
-    "chalk": "^4.1.0",
-    "cli-ux": "^5.5.1",
-    "color-console": "0.0.1",
-    "dateformat": "^4.0.0",
-    "ejs": "^3.1.5",
-    "execa": "^4.1.0",
-    "fs": "0.0.1-security",
-    "fs-sync": "^1.0.6",
-    "gitly": "^2.1.1",
-    "inquirer": "^7.3.3",
-    "listr": "^0.14.3",
-    "ora": "^5.1.0",
-    "path": "^0.12.7",
-    "semver": "^7.3.5",
-    "shelljs": "^0.8.4",
-    "tslib": "^1.14.1",
-    "download-git-repo": "^3.0.2"
-  },
-  "devDependencies": {
-    "@oclif/dev-cli": "^1.24.1",
-    "@oclif/test": "^1.2.7",
-    "@types/chai": "^4.2.14",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^10.17.46",
-    "chai": "^4.2.0",
-    "eslint": "^5.16.0",
-    "eslint-config-oclif": "^3.1.0",
-    "eslint-config-oclif-typescript": "^0.1.0",
-    "globby": "^10.0.2",
-    "mocha": "^8.2.1",
-    "nyc": "^14.1.1",
-    "rimraf": "^3.0.2",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
-
-  },
-  "engines": {
-    "node": ">=8.0.0"
-  },
+  "homepage": "https://github.com/webreinvent/vaahcli",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "webreinvent/vaahcli",
   "files": [
-    "/skeletons",
     "/bin",
-    "/lib",
+    "/dist",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/webreinvent/vaah",
-  "keywords": [
-    "vaah",
-    "vaahcli"
-  ],
-  "license": "MIT",
-  "main": "lib/index.js",
+  "dependencies": {
+    "@oclif/core": "^2",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^3.8.3"
+  },
+  "devDependencies": {
+    "@oclif/test": "^2.5.6",
+    "@types/chai": "^4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.18.55",
+    "chai": "^4",
+    "eslint": "^7.32.0",
+    "eslint-config-oclif": "^4",
+    "eslint-config-oclif-typescript": "^1.0.3",
+    "mocha": "^9",
+    "oclif": "^3.17.1",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.2",
+    "typescript": "^4.9.5"
+  },
   "oclif": {
-    "commands": "./lib/commands",
     "bin": "vaah",
+    "dirname": "vaah",
+    "commands": "./dist/commands",
     "plugins": [
-      "@oclif/plugin-help"
-    ]
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "hello": {
+        "description": "Say hello to the world and others"
+      }
+    }
   },
-  "repository": "webreinvent/vaah",
   "scripts": {
-    "postpack": "rimraf oclif.manifest.json",
-    "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif-dev readme && git add README.md"
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "npm run lint",
+    "prepack": "npm run build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
   },
-  "types": "lib/index.d.ts"
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bugs": "https://github.com/webreinvent/vaahcli/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
 }
