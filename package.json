@@ -45,12 +45,7 @@
       "@oclif/plugin-help",
       "@oclif/plugin-plugins"
     ],
-    "topicSeparator": " ",
-    "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
-      }
-    }
+    "topicSeparator": " "
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
@@ -66,7 +61,7 @@
   },
   "bugs": "https://github.com/webreinvent/vaahcli/issues",
   "keywords": [
-    "oclif"
+    "vaah", "vaahcli", "vaahcms", "vaahstore", "vaahsaas"
   ],
   "types": "dist/index.d.ts"
 }
