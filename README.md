@@ -18,7 +18,7 @@ $ npm install -g vaah
 $ vaah COMMAND
 running command...
 $ vaah (--version)
-vaah/0.0.0 darwin-arm64 node-v18.18.0
+vaah/2.0.0 darwin-arm64 node-v18.18.0
 $ vaah --help [COMMAND]
 USAGE
   $ vaah COMMAND
@@ -62,7 +62,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/webreinvent/vaahcli/blob/v0.0.0/dist/commands/hello/index.ts)_
+_See code: [src/commands/hello/index.ts](https://github.com/webreinvent/vaahcli/blob/v2.0.0/src/commands/hello/index.ts)_
 
 ## `vaah hello world`
 
@@ -80,7 +80,7 @@ EXAMPLES
   hello world! (./src/commands/hello/world.ts)
 ```
 
-_See code: [dist/commands/hello/world.ts](https://github.com/webreinvent/vaahcli/blob/v0.0.0/dist/commands/hello/world.ts)_
+_See code: [src/commands/hello/world.ts](https://github.com/webreinvent/vaahcli/blob/v2.0.0/src/commands/hello/world.ts)_
 
 ## `vaah help [COMMANDS]`
 

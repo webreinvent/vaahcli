@@ -1,6 +1,7 @@
 {
   "name": "vaah",
-  "version": "2.0.0",
+  "debug": true,
+  "version": "1.0.0",
   "description": "VaahCLI - Command Line Tool (CLI) for Vaah Products",
   "author": "webreinvent",
   "bin": {
@@ -19,7 +20,16 @@
   "dependencies": {
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
-    "@oclif/plugin-plugins": "^3.8.3"
+    "@oclif/plugin-plugins": "^3.8.3",
+    "axios": "^1.5.1",
+    "path": "^0.12.7",
+    "ora": "^7.0.1",
+    "listr2": "^7.0.1",
+    "fs": "^0.0.1-security",
+    "inquirer": "^9.2.11",
+    "ejs": "^3.1.9",
+    "semver": "^7.5.4",
+    "os": "^0.1.2"
   },
   "devDependencies": {
     "@oclif/test": "^2.5.6",
@@ -36,6 +46,7 @@
     "ts-node": "^10.9.1",
     "tslib": "^2.6.2",
     "typescript": "^4.9.5"
+
   },
   "oclif": {
     "bin": "vaah",
@@ -54,7 +65,8 @@
     "posttest": "npm run lint",
     "prepack": "npm run build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif readme && git add README.md"
+    "version": "oclif readme && git add README.md",
+    "cms:install": "./bin/dev cms:install"
   },
   "engines": {
     "node": ">=12.0.0"
