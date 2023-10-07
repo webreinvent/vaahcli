@@ -407,6 +407,7 @@ export const use<%= model_name %>Store = defineStore({
                 await this.getList();
                 await this.formActionAfter(data);
                 this.getItemMenu();
+                this.getFormMenu();
             }
         },
         //---------------------------------------------------------------------
@@ -429,7 +430,6 @@ export const use<%= model_name %>Store = defineStore({
                     await this.getFormMenu();
                     break;
                 case 'trash':
-                    break;
                 case 'restore':
                 case 'save':
                     this.item = data;
@@ -841,6 +841,7 @@ export const use<%= model_name %>Store = defineStore({
 
             if(this.item && this.item.id)
             {
+                let is_deleted = !!this.item.deleted_at;
                 form_menu = [
                     {
                         label: 'Save & Close',
@@ -860,10 +861,10 @@ export const use<%= model_name %>Store = defineStore({
                         }
                     },
                     {
-                        label: 'Trash',
-                        icon: 'pi pi-times',
+                        label: is_deleted ? 'Restore': 'Trash',
+                        icon: is_deleted ? 'pi pi-refresh': 'pi pi-times',
                         command: () => {
-                            this.itemAction('trash');
+                            this.itemAction(is_deleted ? 'restore': 'trash');
                         }
                     },
                     {
