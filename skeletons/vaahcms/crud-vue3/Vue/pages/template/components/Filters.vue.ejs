@@ -30,7 +30,7 @@ const store = use<%= model_name %>Store();
                         <Button data-testid="<%= controller_name_lower %>-hide-filter"
                                 class="p-button-sm"
                                 @click="store.show_filters = false">
-                            <i class="pi pi-times mr-1"></i>
+                            <i class="pi pi-times"></i>
                         </Button>
 
                     </div>
@@ -102,6 +102,8 @@ const store = use<%= model_name %>Store();
                 </div>
 
             </VhFieldVertical>
+
+             <Divider/>
 
             <VhFieldVertical >
                 <template #label>
