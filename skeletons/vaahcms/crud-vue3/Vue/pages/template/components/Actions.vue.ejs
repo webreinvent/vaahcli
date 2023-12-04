@@ -2,8 +2,6 @@
 import {ref, reactive, watch, onMounted} from 'vue';
 import { use<%= model_name %>Store } from '../../../stores/store-<%= controller_name_lower %>'
 
-import Filters from './Filters.vue'
-
 const store = use<%= model_name %>Store();
 
 onMounted(async () => {
@@ -94,7 +92,7 @@ const toggleBulkMenuState = (event) => {
                                 type="button"
                                 class="p-button-sm"
                                 data-testid="<%= controller_name_lower %>-actions-show-filters"
-                                @click="store.show_filters = true">
+                                @click="store.show_filters = !store.show_filters">
                                 Filters
                                 <Badge v-if="store.count_filters > 0" :value="store.count_filters"></Badge>
                             </Button>
@@ -109,9 +107,6 @@ const toggleBulkMenuState = (event) => {
 
                         </div>
                     </div>
-
-
-                    <Filters/>
 
                 </div>
 

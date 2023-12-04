@@ -7,6 +7,7 @@ import {useRootStore} from '../../stores/root'
 
 import Actions from "./components/Actions.vue";
 import Table from "./components/Table.vue";
+import Filters from './components/Filters.vue'
 
 const store = use<%= model_name %>Store();
 const root = useRootStore();
@@ -64,7 +65,7 @@ const toggleCreateMenu = (event) => {
 
     <div class="grid" v-if="store.assets">
 
-        <div :class="'col-'+store.list_view_width">
+        <div class="col">
             <Panel class="is-small">
 
                 <template class="p-1" #header>
@@ -125,6 +126,8 @@ const toggleCreateMenu = (event) => {
 
             </Panel>
         </div>
+
+         <Filters/>
 
         <RouterView/>
 
