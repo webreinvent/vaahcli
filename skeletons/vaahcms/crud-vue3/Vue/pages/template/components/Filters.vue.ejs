@@ -8,10 +8,34 @@ const store = use<%= model_name %>Store();
 </script>
 
 <template>
-    <div>
+    <div class="col-3" v-if="store.show_filters">
 
-        <Sidebar v-model:visible="store.show_filters"
-                 position="right">
+            <Panel class="is-small">
+
+                <template class="p-1" #header>
+
+                    <div class="flex flex-row">
+                        <div >
+                            <b class="mr-1">Filters</b>
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <template #icons>
+
+                    <div class="p-inputgroup">
+
+                        <Button data-testid="<%= controller_name_lower %>-hide-filter"
+                                class="p-button-sm"
+                                @click="store.show_filters = false">
+                            <i class="pi pi-times"></i>
+                        </Button>
+
+                    </div>
+
+                </template>
 
             <VhFieldVertical >
                 <template #label>
@@ -79,6 +103,8 @@ const store = use<%= model_name %>Store();
 
             </VhFieldVertical>
 
+             <Divider/>
+
             <VhFieldVertical >
                 <template #label>
                     <b>Trashed:</b>
@@ -112,7 +138,7 @@ const store = use<%= model_name %>Store();
             </VhFieldVertical>
 
 
-        </Sidebar>
+        </Panel>
 
     </div>
 </template>
