@@ -90,6 +90,10 @@ export const use<%= model_name %>Store = defineStore({
             this.updateQueryFromUrl(route);
         },
         //---------------------------------------------------------------------
+        setRowClass(data){
+            return [{ 'bg-gray-200': data.id == this.route.params.id }];
+        },
+        //---------------------------------------------------------------------
         setViewAndWidth(route_name)
         {
             switch(route_name)
