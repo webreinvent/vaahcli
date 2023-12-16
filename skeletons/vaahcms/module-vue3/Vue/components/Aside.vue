@@ -14,7 +14,8 @@ const menu = ref();
 
 const menu_pt = ref({
   menuitem: ({ props }) => ({
-    class: route.path === props.item.route ? 'p-focus' : ''
+    class: route.matched && route.matched[1] &&
+    route.matched[1].path === props.item.route ? 'p-focus' : ''
   })
 });
 
