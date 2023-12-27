@@ -82,6 +82,8 @@ class <%= model_name %> extends VaahModel
             $empty_item[$column] = null;
         }
 
+        $empty_item['is_active'] = 1;
+
         return $empty_item;
     }
 
