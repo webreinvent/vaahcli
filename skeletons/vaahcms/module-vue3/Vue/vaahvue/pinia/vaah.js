@@ -1,7 +1,6 @@
 import {defineStore, acceptHMRUpdate} from 'pinia'
 import axios from 'axios'
 import qs from 'qs'
-import moment from 'moment-timezone'
 
 export const vaah = defineStore({
   id: 'vaah',
@@ -382,57 +381,30 @@ export const vaah = defineStore({
       })
       return capitalized.join(' ')
     },
-    //----------------------------------------------------------
-    ago: function (value) {
-
-      if (!value) {
-        return null
-      }
-
-      const utcTime = moment.utc(value)
-
-      const clientTime = utcTime.local()
-
-      return clientTime.fromNow()
-    },
-    //---------------------------------------------------------------------
-    agoLocalTime: function (value) {
-
-      const utcTime = moment.utc(value)
-
-      const clientTime = utcTime.local()
-
-      return clientTime.fromNow()
-    },
     //---------------------------------------------------------------------
     toLocalTimeShortFormat: function (value) {
 
-      const utcTime = moment.utc(value)
+      const utcTime = new Date(value)
 
-      const date = utcTime.format('DD')
-      const dateYear = utcTime.format('YYYY')
+      const date = utcTime.getDate();
+      const dateYear = utcTime.getFullYear();
 
-      const current = moment()
+      const current = new Date()
 
-      const currentDate = current.format('DD')
-      const currentYear = current.format('YYYY')
+      const currentDate = current.getDate();
+      const currentYear = current.getFullYear();
 
       if (date === currentDate) {
-        return utcTime.local().format('hh:mm A')
+        return utcTime.toLocaleTimeString();
       } else if (dateYear === currentYear) {
 
-        return utcTime.local().format('MMM DD')
+        return utcTime.toLocaleString('default', { month: 'short' })+
+          ' '+utcTime.getDate();
       } else {
-        return utcTime.local().format('MMM DD YYYY')
+        return utcTime.toLocaleString('default', { month: 'short' })+
+          ' '+utcTime.getDate()+
+          ' '+utcTime.getFullYear();
       }
-
-    },
-    //---------------------------------------------------------------------
-    toLocalDateTime: function (value) {
-
-      const utcTime = moment.utc(value)
-
-      return utcTime.local().format('YYYY-MM-DD hh:mm A')
 
     },
     //----------------------------------------------------------
