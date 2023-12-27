@@ -18,6 +18,23 @@ import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
 //-------------/PrimeVue Imports
 
+//-------------CRUD PrimeVue Imports
+
+import Badge from "primevue/badge";
+import Button from "primevue/button";
+import Panel from "primevue/panel";
+import InputText from "primevue/inputtext";
+import Column from "primevue/column";
+import InputSwitch from "primevue/inputswitch";
+import DataTable from "primevue/datatable";
+import Paginator from "primevue/paginator";
+import Divider from "primevue/divider";
+import RadioButton from "primevue/radiobutton";
+import Message from "primevue/message";
+import Tag from "primevue/tag";
+
+//-------------/CRUD PrimeVue Imports
+
 
 
 //-------------APP
@@ -53,6 +70,23 @@ app.component('Menu', Menu);
 app.component('ProgressBar', ProgressBar);
 app.component('Toast', Toast);
 //-------------/PrimeVue Use
+
+// -------------CRUD PrimeVue Use
+
+app.component('Badge', Badge);
+app.component('Button', Button);
+app.component('Panel', Panel);
+app.component('RadioButton', RadioButton);
+app.component('InputText', InputText);
+app.component('InputSwitch', InputSwitch);
+app.component('Column', Column);
+app.component('Paginator', Paginator);
+app.component('Divider', Divider);
+app.component('DataTable', DataTable);
+app.component('Message', Message);
+app.component('Tag', Tag);
+
+//-------------/CRUD PrimeVue Use
 
 
 app.mount('#app<%= module_name %>')
