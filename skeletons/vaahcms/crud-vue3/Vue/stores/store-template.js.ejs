@@ -231,7 +231,7 @@ export const use<%= model_name %>Store = defineStore({
             {
                 this.item = data;
             }else{
-                this.$router.push({name: '<%= controller_name_lower %>.index'});
+                this.$router.push({name: '<%= controller_name_lower %>.index',query:this.query});
             }
             await this.getItemMenu();
             await this.getFormMenu();
@@ -427,7 +427,7 @@ export const use<%= model_name %>Store = defineStore({
                 case 'create-and-close':
                 case 'save-and-close':
                     this.setActiveItemAsEmpty();
-                    this.$router.push({name: '<%= controller_name_lower %>.index'});
+                    this.$router.push({name: '<%= controller_name_lower %>.index',query:this.query});
                     break;
                 case 'save-and-clone':
                 case 'create-and-clone':
@@ -597,32 +597,32 @@ export const use<%= model_name %>Store = defineStore({
         //---------------------------------------------------------------------
         closeForm()
         {
-            this.$router.push({name: '<%= controller_name_lower %>.index'})
+            this.$router.push({name: '<%= controller_name_lower %>.index',query:this.query})
         },
         //---------------------------------------------------------------------
         toList()
         {
             this.item = vaah().clone(this.assets.empty_item);
-            this.$router.push({name: '<%= controller_name_lower %>.index'})
+            this.$router.push({name: '<%= controller_name_lower %>.index',query:this.query})
         },
         //---------------------------------------------------------------------
         toForm()
         {
             this.item = vaah().clone(this.assets.empty_item);
             this.getFormMenu();
-            this.$router.push({name: '<%= controller_name_lower %>.form'})
+            this.$router.push({name: '<%= controller_name_lower %>.form',query:this.query})
         },
         //---------------------------------------------------------------------
         toView(item)
         {
             this.item = vaah().clone(item);
-            this.$router.push({name: '<%= controller_name_lower %>.view', params:{id:item.id}})
+            this.$router.push({name: '<%= controller_name_lower %>.view', params:{id:item.id},query:this.query})
         },
         //---------------------------------------------------------------------
         toEdit(item)
         {
             this.item = item;
-            this.$router.push({name: '<%= controller_name_lower %>.form', params:{id:item.id}})
+            this.$router.push({name: '<%= controller_name_lower %>.form', params:{id:item.id},query:this.query})
         },
         //---------------------------------------------------------------------
         isViewLarge()
