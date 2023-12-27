@@ -1,8 +1,11 @@
 <script  setup>
 import {ref, reactive, watch, onMounted} from 'vue';
+import {useRoute} from 'vue-router';
+
 import { use<%= model_name %>Store } from '../../../stores/store-<%= controller_name_lower %>'
 
 const store = use<%= model_name %>Store();
+const route = useRoute();
 
 onMounted(async () => {
     store.getListSelectedMenu();
@@ -91,6 +94,7 @@ const toggleBulkMenuState = (event) => {
                             <Button
                                 type="button"
                                 class="p-button-sm"
+                                :disabled="Object.keys(route.params).length"
                                 data-testid="<%= controller_name_lower %>-actions-show-filters"
                                 @click="store.show_filters = !store.show_filters">
                                 Filters

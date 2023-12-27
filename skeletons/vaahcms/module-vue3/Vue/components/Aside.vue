@@ -2,6 +2,8 @@
 import {reactive, ref} from 'vue';
 
 import Menu from 'primevue/menu';
+import {useRoute} from 'vue-router';
+const route = useRoute();
 
 const inputs = {
 }
@@ -9,6 +11,13 @@ const data = reactive(inputs);
 const height = ref(window.innerHeight)
 
 const menu = ref();
+
+const menu_pt = ref({
+  menuitem: ({ props }) => ({
+    class: route.matched && route.matched[1] &&
+    route.matched[1].path === props.item.route ? 'p-focus' : ''
+  })
+});
 
 const items = ref([
     {
@@ -27,7 +36,8 @@ const items = ref([
 <template>
 
     <div v-if="height">
-      <Menu :model="items"  class="w-full" >
+      <Menu :model="items"  class="w-full"
+            :pt="menu_pt">
         <template #item="{ item, props }">
           <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
             <a v-ripple :href="href" v-bind="props.action" @click="navigate">
