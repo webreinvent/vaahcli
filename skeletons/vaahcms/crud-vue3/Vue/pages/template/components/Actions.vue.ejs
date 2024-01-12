@@ -52,21 +52,6 @@ const toggleBulkMenuState = (event) => {
                       :popup="true" />
                 <!--/selected_menu-->
 
-                <!--bulk_menu-->
-                <Button
-                    type="button"
-                    @click="toggleBulkMenuState"
-                    data-testid="<%= controller_name_lower %>-actions-bulk-menu"
-                    aria-haspopup="true"
-                    aria-controls="bulk_menu_state"
-                    class="ml-1 p-button-sm">
-                    <i class="pi pi-ellipsis-h"></i>
-                </Button>
-                <Menu ref="bulk_menu_state"
-                      :model="store.list_bulk_menu"
-                      :popup="true" />
-                <!--/bulk_menu-->
-
             </div>
             <!--/left-->
 
@@ -108,6 +93,22 @@ const toggleBulkMenuState = (event) => {
                                 class="p-button-sm"
                                 label="Reset"
                                 @click="store.resetQuery()" />
+
+                                <!--bulk_menu-->
+                                <Button
+                                    type="button"
+                                    @click="toggleBulkMenuState"
+                                    severity="danger" outlined
+                                    data-testid="<%= controller_name_lower %>-actions-bulk-menu"
+                                    aria-haspopup="true"
+                                    aria-controls="bulk_menu_state"
+                                    class="ml-1 p-button-sm">
+                                    <i class="pi pi-ellipsis-v"></i>
+                                </Button>
+                                <Menu ref="bulk_menu_state"
+                                      :model="store.list_bulk_menu"
+                                      :popup="true" />
+                                <!--/bulk_menu-->
 
                         </div>
                     </div>
