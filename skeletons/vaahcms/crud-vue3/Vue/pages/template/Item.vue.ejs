@@ -62,12 +62,9 @@ const toggleItemMenu = (event) => {
 
             <template class="p-1" #header>
 
-                <div class="flex flex-row">
-
-                    <div class="p-panel-title">
-                        #{{store.item.id}}
-                    </div>
-
+                <div class="p-panel-title w-7 white-space-nowrap
+                overflow-hidden text-overflow-ellipsis">
+                    #{{store.item.id}}
                 </div>
 
             </template>
