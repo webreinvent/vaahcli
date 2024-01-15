@@ -28,22 +28,6 @@ onMounted(async () => {
         await store.getItem(route.params.id);
     }
 
-    /**
-     * Watch if url record id is changed, if changed
-     * then fetch the new records from database
-     */
-    /*watch(route, async (newVal,oldVal) =>
-        {
-            if(newVal.params && !newVal.params.id
-                && newVal.name === 'articles.view')
-            {
-                store.toList();
-
-            }
-            await store.getItem(route.params.id);
-        }, { deep: true }
-    )*/
-
 });
 
 //--------toggle item menu
@@ -62,12 +46,9 @@ const toggleItemMenu = (event) => {
 
             <template class="p-1" #header>
 
-                <div class="flex flex-row">
-
-                    <div class="p-panel-title">
-                        #{{store.item.id}}
-                    </div>
-
+                <div class="p-panel-title w-7 white-space-nowrap
+                overflow-hidden text-overflow-ellipsis">
+                    #{{store.item.id}}
                 </div>
 
             </template>
@@ -136,7 +117,7 @@ const toggleItemMenu = (event) => {
                 </Message>
 
                 <div class="p-datatable p-component p-datatable-responsive-scroll p-datatable-striped p-datatable-sm">
-                <table class="p-datatable-table">
+                <table class="p-datatable-table overflow-wrap-anywhere">
                     <tbody class="p-datatable-tbody">
                     <template v-for="(value, column) in store.item ">
 
