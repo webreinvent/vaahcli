@@ -10,20 +10,11 @@ const store = use<%= model_name %>Store();
 const route = useRoute();
 
 onMounted(async () => {
-     /**
-     * If record id is not set in url then
-     * redirect user to list view
-     */
-    if(route.params && !route.params.id)
-    {
-        store.toList();
-        return false;
-    }
-
     /**
      * Fetch the record from the database
      */
-    if(!store.item || Object.keys(store.item).length < 1)
+    if((!store.item || Object.keys(store.item).length < 1)
+            && route.params && route.params.id)
     {
         await store.getItem(route.params.id);
     }
