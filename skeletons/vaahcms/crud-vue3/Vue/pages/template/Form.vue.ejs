@@ -133,18 +133,24 @@ const toggleFormMenu = (event) => {
 
 
                 <VhField label="Name">
-                    <InputText class="w-full"
-                               name="<%= controller_name_lower %>-name"
-                               data-testid="<%= controller_name_lower %>-name"
-                               @update:modelValue="store.watchItem"
-                               v-model="store.item.name"/>
+                    <div class="p-inputgroup">
+                        <InputText class="w-full"
+                                   name="<%= controller_name_lower %>-name"
+                                   data-testid="<%= controller_name_lower %>-name"
+                                   @update:modelValue="store.watchItem"
+                                   v-model="store.item.name" required/>
+                        <div class="required-field hidden"></div>
+                    </div>
                 </VhField>
 
                 <VhField label="Slug">
-                    <InputText class="w-full"
-                               name="<%= controller_name_lower %>-slug"
-                               data-testid="<%= controller_name_lower %>-slug"
-                               v-model="store.item.slug"/>
+                    <div class="p-inputgroup">
+                        <InputText class="w-full"
+                                   name="<%= controller_name_lower %>-slug"
+                                   data-testid="<%= controller_name_lower %>-slug"
+                                   v-model="store.item.slug" required/>
+                        <div class="required-field hidden"></div>
+                    </div>
                 </VhField>
 
                 <VhField label="Is Active">
