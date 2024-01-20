@@ -321,22 +321,25 @@ class <%= model_name %> extends VaahModel
                 ->toArray();
         }
 
-
-        $items = self::whereIn('id', $items_id)
-            ->withTrashed();
+        $items = self::whereIn('id', $items_id);
 
         switch ($inputs['type']) {
             case 'deactivate':
-                $items->update(['is_active' => null]);
+                $items->withTrashed()->where(['is_active' => 1])
+                    ->update(['is_active' => null]);
                 break;
             case 'activate':
-                $items->update(['is_active' => 1]);
+                $items->withTrashed()->where(function ($q){
+                    $q->where('is_active', 0)->orWhereNull('is_active');
+                })->update(['is_active' => 1]);
                 break;
             case 'trash':
-                self::whereIn('id', $items_id)->delete();
+                self::whereIn('id', $items_id)
+                    ->get()->each->delete();
                 break;
             case 'restore':
-                self::whereIn('id', $items_id)->restore();
+                self::whereIn('id', $items_id)->onlyTrashed()
+                    ->get()->each->restore();
                 break;
         }
 
