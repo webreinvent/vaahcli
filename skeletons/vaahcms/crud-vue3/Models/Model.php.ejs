@@ -384,19 +384,8 @@ class <%= model_name %> extends VaahModel
         return $response;
     }
     //-------------------------------------------------
-    public static function listAction($request, $type): array
+     public static function listAction($request, $type): array
     {
-        $inputs = $request->all();
-
-        if(isset($inputs['items']))
-        {
-            $items_id = collect($inputs['items'])
-                ->pluck('id')
-                ->toArray();
-
-            $items = self::whereIn('id', $items_id)
-                ->withTrashed();
-        }
 
         $list = self::query();
 
@@ -408,42 +397,21 @@ class <%= model_name %> extends VaahModel
         }
 
         switch ($type) {
-            case 'deactivate':
-                if($items->count() > 0) {
-                    $items->update(['is_active' => null]);
-                }
-                break;
-            case 'activate':
-                if($items->count() > 0) {
-                    $items->update(['is_active' => 1]);
-                }
-                break;
-            case 'trash':
-                if(isset($items_id) && count($items_id) > 0) {
-                    self::whereIn('id', $items_id)->delete();
-                }
-                break;
-            case 'restore':
-                if(isset($items_id) && count($items_id) > 0) {
-                    self::whereIn('id', $items_id)->restore();
-                }
-                break;
-            case 'delete':
-                if(isset($items_id) && count($items_id) > 0) {
-                    self::whereIn('id', $items_id)->forceDelete();
-                }
-                break;
             case 'activate-all':
-                $list->update(['is_active' => 1]);
+                $list->withTrashed()->where(function ($q){
+                    $q->where('is_active', 0)->orWhereNull('is_active');
+                })->update(['is_active' => 1]);
                 break;
             case 'deactivate-all':
-                $list->update(['is_active' => null]);
+                $list->withTrashed()->where(['is_active' => 1])
+                    ->update(['is_active' => null]);
                 break;
             case 'trash-all':
-                $list->delete();
+                $list->get()->each->delete();
                 break;
             case 'restore-all':
-                $list->restore();
+                $list->onlyTrashed()->get()
+                    ->each->restore();
                 break;
             case 'delete-all':
                 $list->forceDelete();
@@ -453,7 +421,7 @@ class <%= model_name %> extends VaahModel
             case 'create-5000-records':
             case 'create-10000-records':
 
-            if(!config('<%= folder_name_lower %>.is_dev')){
+            if(!config('helloworld.is_dev')){
                 $response['success'] = false;
                 $response['errors'][] = 'User is not in the development environment.';
 
