@@ -258,11 +258,13 @@ class <%= model_name %> extends VaahModel
         {
             return $query;
         }
-        $search = $filter['q'];
-        $query->where(function ($q) use ($search) {
-            $q->where('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('slug', 'LIKE', '%' . $search . '%');
-        });
+        $search_array = explode(' ',$filter['q']);
+        foreach ($search_array as $search_item){
+            $query->where(function ($q1) use ($search_item) {
+                $q1->where('name', 'LIKE', '%' . $search_item . '%')
+                    ->orWhere('slug', 'LIKE', '%' . $search_item . '%');
+            });
+        }
 
     }
     //-------------------------------------------------
