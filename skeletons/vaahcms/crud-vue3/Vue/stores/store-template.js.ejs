@@ -442,7 +442,9 @@ export const use<%= model_name %>Store = defineStore({
                 case 'trash':
                 case 'restore':
                 case 'save':
-                    this.item = data;
+                    if(this.item.id){
+                        this.item = data;
+                    }
                     break;
                 case 'delete':
                     this.item = null;
