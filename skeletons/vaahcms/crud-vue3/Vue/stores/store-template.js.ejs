@@ -120,6 +120,9 @@ export const use<%= model_name %>Store = defineStore({
                     {
                         this.query[key] = route.query[key]
                     }
+                    if(this.query.rows){
+                        this.query.rows = parseInt(this.query.rows);
+                    }
                     this.countFilters(route.query);
                 }
             }
@@ -184,7 +187,7 @@ export const use<%= model_name %>Store = defineStore({
             if(data)
             {
                 this.assets = data;
-                if(data.rows)
+                if(!this.query.rows && data.rows)
                 {
                     this.query.rows = data.rows;
                 }
