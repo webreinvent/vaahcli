@@ -569,14 +569,13 @@ class <%= model_name %> extends VaahModel
                     ->update(['is_active' => null]);
                 break;
             case 'trash':
-                self::where('id', $id)
-                ->withTrashed()
-                ->delete();
+                self::find($id)
+                    ->delete();
                 break;
             case 'restore':
                 self::where('id', $id)
-                    ->withTrashed()
-                    ->restore();
+                    ->onlyTrashed()
+                    ->first()->restore();
                 break;
         }
 
