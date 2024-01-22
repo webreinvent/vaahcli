@@ -112,14 +112,20 @@ const useVaah = vaah();
 
             </Column>
 
+             <template #empty>
+                 <div class="text-center py-3">
+                     No records found.
+                 </div>
+             </template>
 
         </DataTable>
         <!--/table-->
 
         <!--paginator-->
-        <Paginator v-model:rows="store.query.rows"
+        <Paginator v-if="store.query.rows"
+                   v-model:rows="store.query.rows"
                    :totalRecords="store.list.total"
-                   :first="(store.query.page-1)*store.query.rows"
+                   :first="((store.query.page??1)-1)*store.query.rows"
                    @page="store.paginate($event)"
                    :rowsPerPageOptions="store.rows_per_page"
                    class="bg-white-alpha-0 pt-2">

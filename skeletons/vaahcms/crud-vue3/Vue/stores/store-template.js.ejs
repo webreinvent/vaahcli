@@ -120,6 +120,9 @@ export const use<%= model_name %>Store = defineStore({
                     {
                         this.query[key] = route.query[key]
                     }
+                    if(this.query.rows){
+                        this.query.rows = parseInt(this.query.rows);
+                    }
                     this.countFilters(route.query);
                 }
             }
@@ -164,6 +167,8 @@ export const use<%= model_name %>Store = defineStore({
               {
                   this.item.name = vaah().capitalising(name);
                   this.item.slug = vaah().strToSlug(name);
+              }else{
+                  this.item.slug = name;
               }
           },
         //---------------------------------------------------------------------
@@ -184,7 +189,7 @@ export const use<%= model_name %>Store = defineStore({
             if(data)
             {
                 this.assets = data;
-                if(data.rows)
+                if(!this.query.rows && data.rows)
                 {
                     this.query.rows = data.rows;
                 }
@@ -432,12 +437,15 @@ export const use<%= model_name %>Store = defineStore({
                 case 'save-and-clone':
                 case 'create-and-clone':
                     this.item.id = null;
+                    this.$router.push({name: '<%= controller_name_lower %>.form',query:this.query,params: { id: null }});
                     await this.getFormMenu();
                     break;
                 case 'trash':
                 case 'restore':
                 case 'save':
-                    this.item = data;
+                    if(this.item.id){
+                        this.item = data;
+                    }
                     break;
                 case 'delete':
                     this.item = null;
