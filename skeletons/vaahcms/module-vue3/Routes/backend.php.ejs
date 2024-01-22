@@ -1,5 +1,5 @@
 <?php
-
+use <%= namespace %>\Http\Controllers\Backend\BackendController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,16 +14,15 @@
 Route::group(
     [
         'prefix'     => 'backend/<%= module_name_lower %>',
-        'middleware' => ['web', 'has.backend.access'],
-        'namespace' => 'Backend',
+        'middleware' => ['web', 'has.backend.access']
     ],
     function () {
         //------------------------------------------------
-        Route::get( '/', 'BackendController@index' )
+        Route::get( '/', [BackendController::class, 'index'] )
             ->name( 'vh.backend.<%= module_name_lower %>' );
         //------------------------------------------------
         //------------------------------------------------
-        Route::get( '/assets', 'BackendController@getAssets' )
+        Route::get( '/assets', [BackendController::class, 'getAssets'] )
             ->name( 'vh.backend.<%= module_name_lower %>.assets' );
         //------------------------------------------------
     });
