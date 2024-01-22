@@ -1,5 +1,5 @@
 <?php
-
+use <%= namespace %>\Http\Controllers\<%= section_name %>\<%= controller_name %>Controller;
 /*
  * API url will be: <base-url>/public/api/<%= folder_name_lower %>/<%= controller_name_lower %>
  */
@@ -13,56 +13,56 @@ function () {
     /**
      * Get Assets
      */
-    Route::get('/assets', '<%= controller_name %>Controller@getAssets')
+    Route::get('/assets', [<%= controller_name %>Controller::class, 'getAssets'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.assets');
     /**
      * Get List
      */
-    Route::get('/', '<%= controller_name %>Controller@getList')
+    Route::get('/', [<%= controller_name %>Controller::class, 'getList'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.list');
     /**
      * Update List
      */
-    Route::match(['put', 'patch'], '/', '<%= controller_name %>Controller@updateList')
+    Route::match(['put', 'patch'], '/', [<%= controller_name %>Controller::class, 'updateList'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.list.update');
     /**
      * Delete List
      */
-    Route::delete('/', '<%= controller_name %>Controller@deleteList')
+    Route::delete('/', [<%= controller_name %>Controller::class, 'deleteList'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.list.delete');
 
 
     /**
      * Create Item
      */
-    Route::post('/', '<%= controller_name %>Controller@createItem')
+    Route::post('/', [<%= controller_name %>Controller::class, 'createItem'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.create');
     /**
      * Get Item
      */
-    Route::get('/{id}', '<%= controller_name %>Controller@getItem')
+    Route::get('/{id}', [<%= controller_name %>Controller::class, 'getItem'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.read');
     /**
      * Update Item
      */
-    Route::match(['put', 'patch'], '/{id}', '<%= controller_name %>Controller@updateItem')
+    Route::match(['put', 'patch'], '/{id}', [<%= controller_name %>Controller::class, 'updateItem'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.update');
     /**
      * Delete Item
      */
-    Route::delete('/{id}', '<%= controller_name %>Controller@deleteItem')
+    Route::delete('/{id}', [<%= controller_name %>Controller::class, 'deleteItem'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.delete');
 
     /**
      * List Actions
      */
-    Route::any('/action/{action}', '<%= controller_name %>Controller@listAction')
+    Route::any('/action/{action}', [<%= controller_name %>Controller::class, 'listAction'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.list.action');
 
     /**
      * Item actions
      */
-    Route::any('/{id}/action/{action}', '<%= controller_name %>Controller@itemAction')
+    Route::any('/{id}/action/{action}', [<%= controller_name %>Controller::class, 'itemAction'])
         ->name('vh.<%= section_name_lower %>.<%= folder_name_lower %>.api.<%= controller_name_lower %>.item.action');
 
 
