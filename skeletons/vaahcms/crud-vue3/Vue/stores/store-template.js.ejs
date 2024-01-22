@@ -638,20 +638,6 @@ export const use<%= model_name %>Store = defineStore({
             return this.view === 'large';
         },
         //---------------------------------------------------------------------
-        getIdWidth()
-        {
-            let width = 50;
-
-            if(this.list && this.list.total)
-            {
-                let chrs = this.list.total.toString();
-                chrs = chrs.length;
-                width = chrs*40;
-            }
-
-            return width+'px';
-        },
-        //---------------------------------------------------------------------
         getActionWidth()
         {
             let width = 100;
