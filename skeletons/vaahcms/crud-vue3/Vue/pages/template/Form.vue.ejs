@@ -18,6 +18,8 @@ onMounted(async () => {
     {
         await store.getItem(route.params.id);
     }
+
+    await store.getFormMenu();
 });
 
 //--------form_menu
@@ -58,6 +60,7 @@ const toggleFormMenu = (event) => {
                 <div class="p-inputgroup">
 
                     <Button class="p-button-sm"
+                            v-tooltip.left="'View'"
                             v-if="store.item && store.item.id"
                             data-testid="<%= controller_name_lower %>-view_item"
                             @click="store.toView(store.item)"
@@ -133,18 +136,24 @@ const toggleFormMenu = (event) => {
 
 
                 <VhField label="Name">
-                    <InputText class="w-full"
-                               name="<%= controller_name_lower %>-name"
-                               data-testid="<%= controller_name_lower %>-name"
-                               @update:modelValue="store.watchItem"
-                               v-model="store.item.name"/>
+                    <div class="p-inputgroup">
+                        <InputText class="w-full"
+                                   name="<%= controller_name_lower %>-name"
+                                   data-testid="<%= controller_name_lower %>-name"
+                                   @update:modelValue="store.watchItem"
+                                   v-model="store.item.name" required/>
+                        <div class="required-field hidden"></div>
+                    </div>
                 </VhField>
 
                 <VhField label="Slug">
-                    <InputText class="w-full"
-                               name="<%= controller_name_lower %>-slug"
-                               data-testid="<%= controller_name_lower %>-slug"
-                               v-model="store.item.slug"/>
+                    <div class="p-inputgroup">
+                        <InputText class="w-full"
+                                   name="<%= controller_name_lower %>-slug"
+                                   data-testid="<%= controller_name_lower %>-slug"
+                                   v-model="store.item.slug" required/>
+                        <div class="required-field hidden"></div>
+                    </div>
                 </VhField>
 
                 <VhField label="Is Active">
