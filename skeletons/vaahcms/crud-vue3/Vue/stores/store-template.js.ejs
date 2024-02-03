@@ -196,6 +196,7 @@ export const use<%= model_name %>Store = defineStore({
                 if(!this.query.rows && data.rows)
                 {
                     this.query.rows = data.rows;
+                    this.empty_query.rows = data.rows;
                 }
 
                 if(this.route.params && !this.route.params.id){
