@@ -15,6 +15,7 @@ const useVaah = vaah();
                    dataKey="id"
                    :rowClass="store.setRowClass"
                    class="p-datatable-sm p-datatable-hoverable-rows"
+                   :nullSortOrder="-1"
                    v-model:selection="store.action.items"
                    stripedRows
                    responsiveLayout="scroll">
