@@ -630,13 +630,17 @@ export const use<%= model_name %>Store = defineStore({
         //---------------------------------------------------------------------
         toView(item)
         {
-            this.item = vaah().clone(item);
+            if(!this.item || !this.item.id || this.item.id !== item.id){
+                this.item = vaah().clone(item);
+            }
             this.$router.push({name: '<%= controller_name_lower %>.view', params:{id:item.id},query:this.query})
         },
         //---------------------------------------------------------------------
         toEdit(item)
         {
-            this.item = item;
+            if(!this.item || !this.item.id || this.item.id !== item.id){
+                this.item = vaah().clone(item);
+            }
             this.$router.push({name: '<%= controller_name_lower %>.form', params:{id:item.id},query:this.query})
         },
         //---------------------------------------------------------------------
