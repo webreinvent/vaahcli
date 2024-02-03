@@ -82,12 +82,16 @@ export const use<%= model_name %>Store = defineStore({
             /**
              * Update with view and list css column number
              */
-            this.setViewAndWidth(route.name);
+            await this.setViewAndWidth(route.name);
+
+            await(this.query = vaah().clone(this.empty_query));
+
+            await this.countFilters(this.query);
 
             /**
              * Update query state with the query parameters of url
              */
-            this.updateQueryFromUrl(route);
+            await this.updateQueryFromUrl(route);
         },
         //---------------------------------------------------------------------
         setRowClass(data){
@@ -443,7 +447,7 @@ export const use<%= model_name %>Store = defineStore({
                 case 'trash':
                 case 'restore':
                 case 'save':
-                    if(this.item.id){
+                    if(this.item && this.item.id){
                         this.item = data;
                     }
                     break;
