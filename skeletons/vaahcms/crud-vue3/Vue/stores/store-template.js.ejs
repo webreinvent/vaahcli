@@ -82,12 +82,16 @@ export const use<%= model_name %>Store = defineStore({
             /**
              * Update with view and list css column number
              */
-            this.setViewAndWidth(route.name);
+            await this.setViewAndWidth(route.name);
+
+            await(this.query = vaah().clone(this.empty_query));
+
+            await this.countFilters(this.query);
 
             /**
              * Update query state with the query parameters of url
              */
-            this.updateQueryFromUrl(route);
+            await this.updateQueryFromUrl(route);
         },
         //---------------------------------------------------------------------
         setRowClass(data){
@@ -192,6 +196,7 @@ export const use<%= model_name %>Store = defineStore({
                 if(!this.query.rows && data.rows)
                 {
                     this.query.rows = data.rows;
+                    this.empty_query.rows = data.rows;
                 }
 
                 if(this.route.params && !this.route.params.id){
@@ -443,7 +448,7 @@ export const use<%= model_name %>Store = defineStore({
                 case 'trash':
                 case 'restore':
                 case 'save':
-                    if(this.item.id){
+                    if(this.item && this.item.id){
                         this.item = data;
                     }
                     break;
@@ -528,6 +533,13 @@ export const use<%= model_name %>Store = defineStore({
         {
             this.action.type = 'delete-all';
             vaah().confirmDialogDelete(this.listAction);
+        },
+        //---------------------------------------------------------------------
+        confirmAction(action_type,action_header)
+        {
+            this.action.type = action_type;
+            vaah().confirmDialog(action_header,'Are you sure you want to do this action?',
+                this.listAction,null,'p-button-primary');
         },
         //---------------------------------------------------------------------
         async delayedSearch()
@@ -623,13 +635,17 @@ export const use<%= model_name %>Store = defineStore({
         //---------------------------------------------------------------------
         toView(item)
         {
-            this.item = vaah().clone(item);
+            if(!this.item || !this.item.id || this.item.id !== item.id){
+                this.item = vaah().clone(item);
+            }
             this.$router.push({name: '<%= controller_name_lower %>.view', params:{id:item.id},query:this.query})
         },
         //---------------------------------------------------------------------
         toEdit(item)
         {
-            this.item = item;
+            if(!this.item || !this.item.id || this.item.id !== item.id){
+                this.item = vaah().clone(item);
+            }
             this.$router.push({name: '<%= controller_name_lower %>.form', params:{id:item.id},query:this.query})
         },
         //---------------------------------------------------------------------
@@ -708,13 +724,13 @@ export const use<%= model_name %>Store = defineStore({
                 {
                     label: 'Mark all as active',
                     command: async () => {
-                        await this.listAction('activate-all')
+                        await this.confirmAction('activate-all','Mark all as active');
                     }
                 },
                 {
                     label: 'Mark all as inactive',
                     command: async () => {
-                        await this.listAction('deactivate-all')
+                        await this.confirmAction('deactivate-all','Mark all as inactive');
                     }
                 },
                 {
@@ -724,14 +740,14 @@ export const use<%= model_name %>Store = defineStore({
                     label: 'Trash All',
                     icon: 'pi pi-times',
                     command: async () => {
-                        await this.listAction('trash-all')
+                        await this.confirmAction('trash-all','Trash All');
                     }
                 },
                 {
                     label: 'Restore All',
                     icon: 'pi pi-replay',
                     command: async () => {
-                        await this.listAction('restore-all')
+                        await this.confirmAction('restore-all','Restore All');
                     }
                 },
                 {

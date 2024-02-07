@@ -138,6 +138,7 @@ const toggleFormMenu = (event) => {
                 <VhField label="Name">
                     <div class="p-inputgroup">
                         <InputText class="w-full"
+                                   placeholder="Enter the name"
                                    name="<%= controller_name_lower %>-name"
                                    data-testid="<%= controller_name_lower %>-name"
                                    @update:modelValue="store.watchItem"
@@ -149,6 +150,7 @@ const toggleFormMenu = (event) => {
                 <VhField label="Slug">
                     <div class="p-inputgroup">
                         <InputText class="w-full"
+                                   placeholder="Enter the slug"
                                    name="<%= controller_name_lower %>-slug"
                                    data-testid="<%= controller_name_lower %>-slug"
                                    v-model="store.item.slug" required/>
