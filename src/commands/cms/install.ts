@@ -1,6 +1,12 @@
 import {Args, Command, Flags} from '@oclif/core'
 
 import {Helpers} from '../../libraries/Helpers'
+import {Questions} from '../../libraries/Questions'
+const chalk = require('chalk')
+const log = console.log
+// import inquirer from 'inquirer'
+import { select  } from '@inquirer/prompts';
+
 
 export default class CmsInstall extends Command {
   args: {[k: string]: any} = {};
@@ -10,8 +16,6 @@ export default class CmsInstall extends Command {
   repo: string = 'https://github.com/webreinvent/vaahcms-ready';
   target_dir: string = '';
   source_dir: string = '';
-
-
   static description = 'Install VaahCMS'
 
   /*
@@ -22,7 +26,7 @@ export default class CmsInstall extends Command {
   static flags = {
     folder: Flags.string({
       description: 'If you want to install VaahCMS in current directory',
-      default: "",
+      default: '',
     }),
     help: Flags.help({char: 'h'}),
   };
@@ -38,7 +42,7 @@ export default class CmsInstall extends Command {
         name: 'project_name',
         description: 'Project Name',
         default: 'vaahcms',
-      }
+      },
     ),
   }
 
@@ -59,6 +63,19 @@ export default class CmsInstall extends Command {
       return false;
     }
 
+    // const {args, flags} = this.parse(CmsInstall)
+    //
+    // this.args = args
+    // this.flags = flags
+    //
+    // log(this.args)
+
+    await this.printName()
+
+    let questions = new Questions();
+
+    const test = await select(questions.getVaahCmsVersions())
+
 
     /*const {args, flags} = await this.parse(CmsInstall)
 
@@ -67,5 +84,15 @@ export default class CmsInstall extends Command {
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }*/
+  }
+  //-----------------------------------
+
+  public async printName(): Promise<any> {
+    log(chalk.red(`
+     /\\   /\\ __ _   __ _ | |__    / __\\ /\\/\\  / _\\
+     \\ \\ / // _\` | / _\` || '_ \\  / /   /    \\ \\ \\
+      \\ V /| (_| || (_| || | | |/ /___/ /\\/\\ \\_\\ \\
+       \\_/  \\__,_| \\__,_||_| |_|\\____/\\/    \\/\\__/
+    `))
   }
 }
