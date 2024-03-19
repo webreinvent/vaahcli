@@ -118,7 +118,7 @@ export default class CmsMMake extends Command {
       this.inputs[key] = this.flags[key];
     }
 
-    let source = '\\skeletons\\vaahcms\\module-files\\';
+    let source = '/skeletons/vaahcms/module-files/';
 
 
 
