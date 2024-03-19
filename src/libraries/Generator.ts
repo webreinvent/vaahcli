@@ -203,7 +203,7 @@ export default class Generator {
     let self = this;
 
     get_files.forEach(function(file) {
-      self.copyFilesToDestination(file);
+      self.copyFilesToDestination(file.replace(/\\/g, "/"));
     });
 
   }
@@ -253,7 +253,7 @@ export default class Generator {
 
     let destination: string = '';
 
-    let replace_path = this.skeleton_dir.replace('\\skeletons\\', '');
+    let replace_path = this.skeleton_dir.replace('/skeletons/', '');
 
     destination = file_path.replace(replace_path, "");
 
@@ -402,11 +402,12 @@ export default class Generator {
       //log("Source file--> "+chalk.green(file_path));
 
 
-
+      
 
       //-- destination path
-      destination = this.getFileDestination(file_path);
+      destination = this.getFileDestination(file_path.replace(/\\/g, "/"));
 
+   
       file_readable_path = __dirname+"/../../skeletons/"+file_path;
 
       file_content = fs.readFileSync(file_readable_path).toString();
@@ -527,7 +528,7 @@ export default class Generator {
       //log("Source file--> "+chalk.green(file_path));
 
       //-- destination path
-      destination = this.getFileDestination(file_path);
+      destination = this.getFileDestination(file_path.replace(/\\/g, "/"));
 
       file_readable_path = __dirname+"./../../skeletons/"+file_path;
 
