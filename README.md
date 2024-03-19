@@ -204,174 +204,14 @@ Security:
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-* [Vaah](#vaah)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
 # Usage
 <!-- usage -->
 ```sh-session
 $ npm install -g vaah
 $ vaah COMMAND
 running command...
-$ vaah (-v|--version|version)
-vaah/2.3.9 win32-x64 node-v20.11.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.3.8 win32-x64 node-v18.12.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.3.7 win32-x64 node-v18.12.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.3.6 win32-x64 node-v18.12.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.3.5 win32-x64 node-v18.12.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.3.4 win32-x64 node-v18.12.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.3.3 win32-x64 node-v18.12.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.3.2 win32-x64 node-v18.12.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.3.1 win32-x64 node-v18.12.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.3.0 win32-x64 node-v18.12.1
-$ vaah --help [COMMAND]
-USAGE
-  $ vaah COMMAND
-...
-```
-<!-- usagestop -->
-```sh-session
-$ npm install -g vaah
-$ vaah COMMAND
-running command...
-$ vaah (-v|--version|version)
-vaah/2.2.8 darwin-arm64 node-v18.18.0
+$ vaah (--version)
+vaah/3.0.2 win32-x64 node-v20.11.1
 $ vaah --help [COMMAND]
 USAGE
   $ vaah COMMAND
@@ -384,7 +224,6 @@ USAGE
 * [`vaah cms:crud`](#vaah-cmscrud)
 * [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
 * [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
 * [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
 * [`vaah cms:settings`](#vaah-cmssettings)
 * [`vaah cms:t`](#vaah-cmst)
@@ -392,2281 +231,561 @@ USAGE
 * [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
 * [`vaah cms:users`](#vaah-cmsusers)
 * [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
+* [`vaah hello PERSON`](#vaah-hello-person)
+* [`vaah hello:world`](#vaah-helloworld)
 * [`vaah help [COMMAND]`](#vaah-help-command)
+* [`vaah plugins`](#vaah-plugins)
+* [`vaah plugins:install PLUGIN...`](#vaah-pluginsinstall-plugin)
+* [`vaah plugins:inspect PLUGIN...`](#vaah-pluginsinspect-plugin)
+* [`vaah plugins:install PLUGIN...`](#vaah-pluginsinstall-plugin-1)
+* [`vaah plugins:link PLUGIN`](#vaah-pluginslink-plugin)
+* [`vaah plugins:uninstall PLUGIN...`](#vaah-pluginsuninstall-plugin)
+* [`vaah plugins:reset`](#vaah-pluginsreset)
+* [`vaah plugins:uninstall PLUGIN...`](#vaah-pluginsuninstall-plugin-1)
+* [`vaah plugins:uninstall PLUGIN...`](#vaah-pluginsuninstall-plugin-2)
+* [`vaah plugins:update`](#vaah-pluginsupdate)
 
 ## `vaah cms:auth`
 
+Generate CRUD operations for VaahCMS
+
 ```
 USAGE
-  $ vaah cms:auth
+  $ vaah cms:auth [--help]
 
-OPTIONS
+FLAGS
   --help  Generate Auth operation for VaahCMS Themes
+
+DESCRIPTION
+  Generate CRUD operations for VaahCMS
 ```
 
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/auth.ts)_
+_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/auth.ts)_
 
 ## `vaah cms:crud`
 
+Generate CRUD operations for VaahCMS
+
 ```
 USAGE
-  $ vaah cms:crud
+  $ vaah cms:crud [--help]
 
-OPTIONS
+FLAGS
   --help  Generate CRUD operation for VaahCMS
+
+DESCRIPTION
+  Generate CRUD operations for VaahCMS
 ```
 
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/crud.ts)_
+_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/crud.ts)_
 
 ## `vaah cms:install [PROJECT_NAME]`
 
+Install VaahCMS
+
 ```
 USAGE
-  $ vaah cms:install [PROJECT_NAME]
+  $ vaah cms:install [PROJECT_NAME] [--here] [-h]
 
 ARGUMENTS
   PROJECT_NAME  [default: vaahcms] Enter the project folder name
 
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
+FLAGS
+  -h, --help  Show CLI help.
+      --here  If you want to install VaahCMS in current directory
+
+DESCRIPTION
+  Install VaahCMS
 ```
 
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/install.ts)_
-
-## `vaah cms:m`
-
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
-
-```
-USAGE
-  $ vaah cms:m-crud
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/m-crud.ts)_
-
-## `vaah cms:m-make TYPE MODULE NAME`
-
-```
-USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
-
-```
-USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.9/src/commands/hello.ts)_
-
-## `vaah help [COMMAND]`
-
-```
-USAGE
-  $ vaah help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
-
-## `vaah cms:auth`
-
-```
-USAGE
-  $ vaah cms:auth
-
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
-```
-
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/auth.ts)_
-
-## `vaah cms:crud`
-
-```
-USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
-
-ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
-
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
-```
-
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/install.ts)_
+_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/install.ts)_
 
 ## `vaah cms:m`
 
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
+To generate module for VaahCMS
 
 ```
 USAGE
-  $ vaah cms:m-crud
+  $ vaah cms:m [-h] [-n] [-f]
 
-OPTIONS
+FLAGS
   -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
+  -h, --help   Show CLI help.
+  -n, --name   Show CLI help.
+
+DESCRIPTION
+  To generate module for VaahCMS
 ```
 
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/m-crud.ts)_
+_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/m.ts)_
 
 ## `vaah cms:m-make TYPE MODULE NAME`
 
+Generate for VaahCMS Module
+
 ```
 USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
+  $ vaah cms:m-make TYPE MODULE NAME [-f] [-b] [-h] [-n]
 
-OPTIONS
+FLAGS
   -b, --backend
   -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
+  -h, --help      Show CLI help.
+  -n, --name      Show CLI help.
+
+DESCRIPTION
+  Generate for VaahCMS Module
 ```
 
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/m-make.ts)_
+_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/m-make.ts)_
 
 ## `vaah cms:settings`
 
+Vue3: Generate User CRUD for VaahCMS
+
 ```
 USAGE
-  $ vaah cms:settings
+  $ vaah cms:settings [--help]
 
-OPTIONS
+FLAGS
   --help  Vue3: Generate User CRUD for VaahCMS
+
+DESCRIPTION
+  Vue3: Generate User CRUD for VaahCMS
 ```
 
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/settings.ts)_
+_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/settings.ts)_
 
 ## `vaah cms:t`
 
+To generate theme for VaahCMS
+
 ```
 USAGE
-  $ vaah cms:t
+  $ vaah cms:t [-h] [-n] [-f]
 
-OPTIONS
+FLAGS
   -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
+  -h, --help   Show CLI help.
+  -n, --name   Show CLI help.
+
+DESCRIPTION
+  To generate theme for VaahCMS
 ```
 
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/t.ts)_
+_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/t.ts)_
 
 ## `vaah cms:t-make TYPE THEME NAME`
 
+Generate for VaahCMS Theme
+
 ```
 USAGE
-  $ vaah cms:t-make TYPE THEME NAME
+  $ vaah cms:t-make TYPE THEME NAME [-f] [-b] [-h] [-n]
 
-OPTIONS
+FLAGS
   -b, --backend
   -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
+  -h, --help      Show CLI help.
+  -n, --name      Show CLI help.
+
+DESCRIPTION
+  Generate for VaahCMS Theme
 ```
 
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/t-make.ts)_
+_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/t-make.ts)_
 
 ## `vaah cms:taxonomies`
 
+Vue 3: Generate Taxonomies CRUD operations for VaahCMS
+
 ```
 USAGE
-  $ vaah cms:taxonomies
+  $ vaah cms:taxonomies [--help]
 
-OPTIONS
+FLAGS
   --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
+
+DESCRIPTION
+  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
 ```
 
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/taxonomies.ts)_
+_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/taxonomies.ts)_
 
 ## `vaah cms:users`
 
+Vue3: Generate User CRUD for VaahCMS
+
 ```
 USAGE
-  $ vaah cms:users
+  $ vaah cms:users [--help]
 
-OPTIONS
+FLAGS
   --help  Vue3: Generate User CRUD for VaahCMS
+
+DESCRIPTION
+  Vue3: Generate User CRUD for VaahCMS
 ```
 
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/cms/users.ts)_
+_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/cms/users.ts)_
 
 ## `vaah flutter:install`
 
+Installation of VaahFlutter
+
 ```
 USAGE
-  $ vaah flutter:install
+  $ vaah flutter:install [--help]
 
-OPTIONS
+FLAGS
   --help  Installation of VaahFlutter
+
+DESCRIPTION
+  Installation of VaahFlutter
 ```
 
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/flutter/install.ts)_
+_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/flutter/install.ts)_
 
-## `vaah hello [FILE]`
+## `vaah hello PERSON`
+
+Say hello
 
 ```
 USAGE
-  $ vaah hello [FILE]
+  $ vaah hello PERSON -f <value>
 
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+ARGUMENTS
+  PERSON  Person to say hello to
 
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
+FLAGS
+  -f, --from=<value>  (required) Who is saying hello
+
+DESCRIPTION
+  Say hello
+
+EXAMPLES
+  $ oex hello friend --from oclif
+  hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.8/src/commands/hello.ts)_
+_See code: [src/commands/hello/index.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/hello/index.ts)_
+
+## `vaah hello:world`
+
+Say hello world
+
+```
+USAGE
+  $ vaah hello:world
+
+DESCRIPTION
+  Say hello world
+
+EXAMPLES
+  $ vaah hello:world
+  hello world! (./src/commands/hello/world.ts)
+```
+
+_See code: [src/commands/hello/world.ts](https://github.com/webreinvent/vaah/blob/v3.0.2/src/commands/hello/world.ts)_
 
 ## `vaah help [COMMAND]`
 
+Display help for vaah.
+
 ```
 USAGE
-  $ vaah help [COMMAND]
+  $ vaah help [COMMAND...] [-n]
 
 ARGUMENTS
-  COMMAND  command to show help for
+  COMMAND...  Command to show help for.
 
-OPTIONS
-  --all  see all commands in CLI
+FLAGS
+  -n, --nested-commands  Include all nested commands in the output.
+
+DESCRIPTION
+  Display help for vaah.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.18/src/commands/help.ts)_
 
-## `vaah cms:auth`
+## `vaah plugins`
+
+List installed plugins.
 
 ```
 USAGE
-  $ vaah cms:auth
+  $ vaah plugins [--json] [--core]
 
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
+FLAGS
+  --core  Show core plugins.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  List installed plugins.
+
+EXAMPLES
+  $ vaah plugins
 ```
 
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/auth.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.7/src/commands/plugins/index.ts)_
 
-## `vaah cms:crud`
+## `vaah plugins:install PLUGIN...`
+
+Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
+  $ vaah plugins:add plugins:install PLUGIN...
 
 ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
+  PLUGIN...  Plugin to install.
 
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
+FLAGS
+  -f, --force    Run yarn install with force flag.
+  -h, --help     Show CLI help.
+  -s, --silent   Silences yarn output.
+  -v, --verbose  Show verbose yarn output.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Installs a plugin into the CLI.
+  Can be installed from npm or a git url.
+
+  Installation of a user-installed plugin will override a core plugin.
+
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+  the CLI without the need to patch and update the whole CLI.
+
+
+ALIASES
+  $ vaah plugins:add
+
+EXAMPLES
+  $ vaah plugins:add myplugin 
+
+  $ vaah plugins:add https://github.com/someuser/someplugin
+
+  $ vaah plugins:add someuser/someplugin
 ```
 
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/install.ts)_
+## `vaah plugins:inspect PLUGIN...`
 
-## `vaah cms:m`
-
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
-
-```
-USAGE
-  $ vaah cms:m-crud
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/m-crud.ts)_
-
-## `vaah cms:m-make TYPE MODULE NAME`
+Displays installation properties of a plugin.
 
 ```
 USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
-
-```
-USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.7/src/commands/hello.ts)_
-
-## `vaah help [COMMAND]`
-
-```
-USAGE
-  $ vaah help [COMMAND]
+  $ vaah plugins:inspect PLUGIN...
 
 ARGUMENTS
-  COMMAND  command to show help for
+  PLUGIN...  [default: .] Plugin to inspect.
 
-OPTIONS
-  --all  see all commands in CLI
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Displays installation properties of a plugin.
+
+EXAMPLES
+  $ vaah plugins:inspect myplugin
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.7/src/commands/plugins/inspect.ts)_
 
-## `vaah cms:auth`
+## `vaah plugins:install PLUGIN...`
+
+Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ vaah cms:auth
-
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
-```
-
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/auth.ts)_
-
-## `vaah cms:crud`
-
-```
-USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
+  $ vaah plugins:install PLUGIN...
 
 ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
+  PLUGIN...  Plugin to install.
 
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
+FLAGS
+  -f, --force    Run yarn install with force flag.
+  -h, --help     Show CLI help.
+  -s, --silent   Silences yarn output.
+  -v, --verbose  Show verbose yarn output.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Installs a plugin into the CLI.
+  Can be installed from npm or a git url.
+
+  Installation of a user-installed plugin will override a core plugin.
+
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+  the CLI without the need to patch and update the whole CLI.
+
+
+ALIASES
+  $ vaah plugins:add
+
+EXAMPLES
+  $ vaah plugins:install myplugin 
+
+  $ vaah plugins:install https://github.com/someuser/someplugin
+
+  $ vaah plugins:install someuser/someplugin
 ```
 
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.7/src/commands/plugins/install.ts)_
 
-## `vaah cms:m`
+## `vaah plugins:link PLUGIN`
 
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
-
-```
-USAGE
-  $ vaah cms:m-crud
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/m-crud.ts)_
-
-## `vaah cms:m-make TYPE MODULE NAME`
-
-```
-USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
+Links a plugin into the CLI for development.
 
 ```
 USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.6/src/commands/hello.ts)_
-
-## `vaah help [COMMAND]`
-
-```
-USAGE
-  $ vaah help [COMMAND]
+  $ vaah plugins:link PLUGIN
 
 ARGUMENTS
-  COMMAND  command to show help for
+  PATH  [default: .] path to plugin
 
-OPTIONS
-  --all  see all commands in CLI
+FLAGS
+  -h, --help          Show CLI help.
+  -v, --verbose
+      --[no-]install  Install dependencies after linking the plugin.
+
+DESCRIPTION
+  Links a plugin into the CLI for development.
+  Installation of a linked plugin will override a user-installed or core plugin.
+
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
+  command will override the user-installed or core plugin implementation. This is useful for development work.
+
+
+EXAMPLES
+  $ vaah plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.7/src/commands/plugins/link.ts)_
 
-## `vaah cms:auth`
+## `vaah plugins:uninstall PLUGIN...`
 
-```
-USAGE
-  $ vaah cms:auth
-
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
-```
-
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/auth.ts)_
-
-## `vaah cms:crud`
+Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
+  $ vaah plugins:remove plugins:uninstall PLUGIN...
 
 ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
+  PLUGIN...  plugin to uninstall
 
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Removes a plugin from the CLI.
+
+ALIASES
+  $ vaah plugins:unlink
+  $ vaah plugins:remove
+
+EXAMPLES
+  $ vaah plugins:remove myplugin
 ```
 
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/install.ts)_
+## `vaah plugins:reset`
 
-## `vaah cms:m`
-
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
+Remove all user-installed and linked plugins.
 
 ```
 USAGE
-  $ vaah cms:m-crud
+  $ vaah plugins:reset [--hard] [--reinstall]
 
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
+FLAGS
+  --hard       Delete node_modules and package manager related files in addition to uninstalling plugins.
+  --reinstall  Reinstall all plugins after uninstalling.
 ```
 
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/m-crud.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.7/src/commands/plugins/reset.ts)_
 
-## `vaah cms:m-make TYPE MODULE NAME`
+## `vaah plugins:uninstall PLUGIN...`
 
-```
-USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
+Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.5/src/commands/hello.ts)_
-
-## `vaah help [COMMAND]`
-
-```
-USAGE
-  $ vaah help [COMMAND]
+  $ vaah plugins:uninstall PLUGIN...
 
 ARGUMENTS
-  COMMAND  command to show help for
+  PLUGIN...  plugin to uninstall
 
-OPTIONS
-  --all  see all commands in CLI
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Removes a plugin from the CLI.
+
+ALIASES
+  $ vaah plugins:unlink
+  $ vaah plugins:remove
+
+EXAMPLES
+  $ vaah plugins:uninstall myplugin
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.7/src/commands/plugins/uninstall.ts)_
 
-## `vaah cms:auth`
+## `vaah plugins:uninstall PLUGIN...`
+
+Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ vaah cms:auth
-
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
-```
-
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/auth.ts)_
-
-## `vaah cms:crud`
-
-```
-USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
+  $ vaah plugins:unlink plugins:uninstall PLUGIN...
 
 ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
+  PLUGIN...  plugin to uninstall
 
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
-```
-
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/install.ts)_
-
-## `vaah cms:m`
-
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
-
-```
-USAGE
-  $ vaah cms:m-crud
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/m-crud.ts)_
-
-## `vaah cms:m-make TYPE MODULE NAME`
-
-```
-USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
-
-```
-USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.4/src/commands/hello.ts)_
-
-## `vaah help [COMMAND]`
-
-```
-USAGE
-  $ vaah help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
-
-## `vaah cms:auth`
-
-```
-USAGE
-  $ vaah cms:auth
-
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
-```
-
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/auth.ts)_
-
-## `vaah cms:crud`
-
-```
-USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
-
-ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
-
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
-```
-
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/install.ts)_
-
-## `vaah cms:m`
-
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
-
-```
-USAGE
-  $ vaah cms:m-crud
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/m-crud.ts)_
-
-## `vaah cms:m-make TYPE MODULE NAME`
-
-```
-USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
-
-```
-USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.3/src/commands/hello.ts)_
-
-## `vaah help [COMMAND]`
-
-```
-USAGE
-  $ vaah help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
-
-## `vaah cms:auth`
-
-```
-USAGE
-  $ vaah cms:auth
-
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
-```
-
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/auth.ts)_
-
-## `vaah cms:crud`
-
-```
-USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
-
-ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
-
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
-```
-
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/install.ts)_
-
-## `vaah cms:m`
-
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
-
-```
-USAGE
-  $ vaah cms:m-crud
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/m-crud.ts)_
-
-## `vaah cms:m-make TYPE MODULE NAME`
-
-```
-USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
-
-```
-USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.2/src/commands/hello.ts)_
-
-## `vaah help [COMMAND]`
-
-```
-USAGE
-  $ vaah help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
-
-## `vaah cms:auth`
-
-```
-USAGE
-  $ vaah cms:auth
-
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
-```
-
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/auth.ts)_
-
-## `vaah cms:crud`
-
-```
-USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
-
-ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
-
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
-```
-
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/install.ts)_
-
-## `vaah cms:m`
-
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
-
-```
-USAGE
-  $ vaah cms:m-crud
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
 
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/m-crud.ts)_
-
-## `vaah cms:m-make TYPE MODULE NAME`
-
-```
-USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
-
-```
-USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.1/src/commands/hello.ts)_
-
-## `vaah help [COMMAND]`
-
-```
-USAGE
-  $ vaah help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
-
-## `vaah cms:auth`
-
-```
-USAGE
-  $ vaah cms:auth
-
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
-```
-
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/auth.ts)_
-
-## `vaah cms:crud`
-
-```
-USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
-
-ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
-
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
-```
-
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/install.ts)_
-
-## `vaah cms:m`
-
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
-
-```
-USAGE
-  $ vaah cms:m-crud
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/m-crud.ts)_
-
-## `vaah cms:m-make TYPE MODULE NAME`
-
-```
-USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
-
-```
-USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.3.0/src/commands/hello.ts)_
-
-## `vaah help [COMMAND]`
-
-```
-USAGE
-  $ vaah help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
-<!-- commandsstop -->
-* [`vaah cms:auth`](#vaah-cmsauth)
-* [`vaah cms:crud`](#vaah-cmscrud)
-* [`vaah cms:install [PROJECT_NAME]`](#vaah-cmsinstall-project_name)
-* [`vaah cms:m`](#vaah-cmsm)
-* [`vaah cms:m-crud`](#vaah-cmsm-crud)
-* [`vaah cms:m-make TYPE MODULE NAME`](#vaah-cmsm-make-type-module-name)
-* [`vaah cms:settings`](#vaah-cmssettings)
-* [`vaah cms:t`](#vaah-cmst)
-* [`vaah cms:t-make TYPE THEME NAME`](#vaah-cmst-make-type-theme-name)
-* [`vaah cms:taxonomies`](#vaah-cmstaxonomies)
-* [`vaah cms:users`](#vaah-cmsusers)
-* [`vaah flutter:install`](#vaah-flutterinstall)
-* [`vaah hello [FILE]`](#vaah-hello-file)
-* [`vaah help [COMMAND]`](#vaah-help-command)
-
-## `vaah cms:auth`
-
-```
-USAGE
-  $ vaah cms:auth
-
-OPTIONS
-  --help  Generate Auth operation for VaahCMS Themes
-```
-
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/auth.ts)_
-
-## `vaah cms:crud`
-
-```
-USAGE
-  $ vaah cms:crud
-
-OPTIONS
-  --help  Generate CRUD operation for VaahCMS
-```
-
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/crud.ts)_
-
-## `vaah cms:install [PROJECT_NAME]`
-
-```
-USAGE
-  $ vaah cms:install [PROJECT_NAME]
-
-ARGUMENTS
-  PROJECT_NAME  [default: vaahcms] Enter the project folder name
-
-OPTIONS
-  -h, --help  show CLI help
-  --here      If you want to install VaahCMS in current directory
-```
-
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/install.ts)_
-
-## `vaah cms:m`
-
-```
-USAGE
-  $ vaah cms:m
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/m.ts)_
-
-## `vaah cms:m-crud`
-
-```
-USAGE
-  $ vaah cms:m-crud
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/m-crud.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/m-crud.ts)_
-
-## `vaah cms:m-make TYPE MODULE NAME`
-
-```
-USAGE
-  $ vaah cms:m-make TYPE MODULE NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/m-make.ts)_
-
-## `vaah cms:settings`
-
-```
-USAGE
-  $ vaah cms:settings
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/settings.ts)_
-
-## `vaah cms:t`
-
-```
-USAGE
-  $ vaah cms:t
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-  -n, --name   show CLI help
-```
-
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/t.ts)_
-
-## `vaah cms:t-make TYPE THEME NAME`
-
-```
-USAGE
-  $ vaah cms:t-make TYPE THEME NAME
-
-OPTIONS
-  -b, --backend
-  -f, --frontend
-  -h, --help      show CLI help
-  -n, --name      show CLI help
-```
-
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/t-make.ts)_
-
-## `vaah cms:taxonomies`
-
-```
-USAGE
-  $ vaah cms:taxonomies
-
-OPTIONS
-  --help  Vue 3: Generate Taxonomies CRUD operations for VaahCMS
-```
-
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/taxonomies.ts)_
-
-## `vaah cms:users`
-
-```
-USAGE
-  $ vaah cms:users
-
-OPTIONS
-  --help  Vue3: Generate User CRUD for VaahCMS
-```
-
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/cms/users.ts)_
-
-## `vaah flutter:install`
-
-```
-USAGE
-  $ vaah flutter:install
-
-OPTIONS
-  --help  Installation of VaahFlutter
-```
-
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/flutter/install.ts)_
-
-## `vaah hello [FILE]`
-
-```
-USAGE
-  $ vaah hello [FILE]
+DESCRIPTION
+  Removes a plugin from the CLI.
 
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+ALIASES
+  $ vaah plugins:unlink
+  $ vaah plugins:remove
 
-EXAMPLE
-  $ vaah hello
-  hello world from ./src/hello.ts!
+EXAMPLES
+  $ vaah plugins:unlink myplugin
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/webreinvent/vaah/blob/v2.2.8/src/commands/hello.ts)_
+## `vaah plugins:update`
 
-## `vaah help [COMMAND]`
+Update installed plugins.
 
 ```
 USAGE
-  $ vaah help [COMMAND]
+  $ vaah plugins:update [-h] [-v]
 
-ARGUMENTS
-  COMMAND  command to show help for
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
 
-OPTIONS
-  --all  see all commands in CLI
+DESCRIPTION
+  Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.7/src/commands/plugins/update.ts)_
 <!-- commandsstop -->
 
 
