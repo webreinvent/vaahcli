@@ -1,0 +1,31 @@
+[
+  {
+    "template": {
+      "name": "Default",
+      "type": "page",
+      "file_path": "frontend.default"
+    },
+    "groups": [
+    ]
+  },
+  {
+    "template": {
+      "name": "Welcome",
+      "type": "page",
+      "file_path": "frontend.welcome"
+    },
+    "groups": [
+    ]
+
+  },
+  {
+    "template": {
+      "name": "Home",
+      "type": "page",
+      "file_path": "frontend.home"
+    },
+    "groups": [
+    ]
+
+  }
+]
