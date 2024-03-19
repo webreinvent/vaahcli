@@ -53,9 +53,9 @@ export default class CmsInstall extends Command {
 
     let questions = new Questions();
 
-    const inputs = await inquirer.prompt(questions.getVaahCmsVersions());
+    this.inputs = await inquirer.prompt(questions.getVaahCmsVersions());
 
-    if(inputs.version)
+    if(this.inputs.version)
     {
       await this.spin();
       await this.install();
@@ -94,11 +94,11 @@ export default class CmsInstall extends Command {
             let repo = 'webreinvent/vaahcms-ready';
             if (self.inputs.version === 'VaahCMS 2.x') {
               repo = 'webreinvent/vaahcms-ready#2.x';
-              self.inputs.documentation = "https://docs.vaah.dev/vaahcms-2/";
+              self.inputs.documentation = "https://docs.vaah.dev/vaahcms-2x";
               //repo =  'https://github.com/webreinvent/vaahcms-ready/archive/2.x.zip';
             }
             if (self.inputs.version === 'VaahCMS 1.x') {
-              self.inputs.documentation = "https://docs.vaah.dev/vaahcms/";
+              self.inputs.documentation = "https://docs.vaah.dev/vaahcms-1x";
               repo = 'webreinvent/vaahcms-ready#1.x';
             }
             // @ts-ignore
@@ -111,7 +111,8 @@ export default class CmsInstall extends Command {
     ]);
     tasks.run().then(() => {
       this.spinStop();
-    }).catch(() => {
+    }).catch((err = null) => {
+      console.error(err);
       this.spinStopWithError();
     });
   }
