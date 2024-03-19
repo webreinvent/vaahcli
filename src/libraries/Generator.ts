@@ -528,7 +528,7 @@ export default class Generator {
       //log("Source file--> "+chalk.green(file_path));
 
       //-- destination path
-      destination = this.getFileDestination(file_path);
+      destination = this.getFileDestination(file_path.replace(/\\/g, "/"));
 
       file_readable_path = __dirname+"./../../skeletons/"+file_path;
 
