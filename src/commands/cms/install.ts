@@ -72,14 +72,17 @@ export default class CmsInstall extends Command {
         task: () => new Promise((resolve, reject) => {
           {
             let self = this;
-              fs.mkdir(self.target_dir, (err = null,result = null) => {
-                if (err != null) {
-                  this.log("");
-                  this.log(chalk.red("- Project Folder Already Exists"));
-                  return reject(err);
-                }
-                resolve(result);
-              });
+            if(self.flags.here){
+              return resolve(true);
+            }
+            fs.mkdir(self.target_dir, (err = null,result = null) => {
+              if (err != null) {
+                this.log("");
+                this.log(chalk.red("- Project Folder Already Exists"));
+                return reject(err);
+              }
+              resolve(result);
+            });
           }
         })
       },
