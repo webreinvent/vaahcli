@@ -5,7 +5,6 @@ const chalk = require('chalk');
 var semver = require('semver');
 const package_json = require("./../../package.json");
 
-
 const log = console.log;
 
 export default class Helpers {
