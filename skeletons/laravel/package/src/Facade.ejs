@@ -1,0 +1,17 @@
+<?php
+namespace <%= namespace %>;
+use Illuminate\Support\Facades\Facade;
+
+
+class <%= package_name %>Facade extends Facade
+{
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return '<%= package_name_lower %>';
+    }
+}

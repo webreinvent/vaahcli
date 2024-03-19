@@ -1,0 +1,50 @@
+<script setup>
+import {onMounted, ref, watch} from "vue";
+import {useRoute} from 'vue-router';
+
+import {use<%= model_name %>Store} from '../../stores/store-<%= controller_name_lower %>'
+import { vaah } from '../../vaahvue/pinia/vaah';
+
+import VhViewRow from '../../vaahvue/vue-three/primeflex/VhViewRow.vue';
+const store = use<%= model_name %>Store();
+
+const route = useRoute();
+const useVaah = vaah();
+
+const sidebar_menu_items = ref([
+    {
+        label: '<%= controller_name %>',
+        items: [
+            {
+                label: 'General',
+                icon: 'pi pi-cog',
+                to:{ path: '/<%= controller_name_lower %>/general' }
+            }
+        ]},
+]);
+
+onMounted(async () => {
+
+    await store.getAssets();
+
+
+    await store.getList();
+
+});
+
+</script>
+
+<template>
+    <div class="grid justify-content-center">
+        <div class="col-fixed">
+            <Menu :model="sidebar_menu_items" />
+        </div>
+        <div class="col">
+            <router-view></router-view>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+
+</style>

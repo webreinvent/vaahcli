@@ -1,0 +1,30 @@
+@extends("<%= theme_name_lower %>::frontend.layouts.default")
+
+@section('vaahcms_extend_frontend_head')
+
+@endsection
+
+@section('vaahcms_extend_frontend_css')
+
+@endsection
+
+@section('vaahcms_extend_frontend_scripts')
+
+@endsection
+
+@section('content')
+
+<div class="container has-text-centered mt-6">
+
+        <section class="hero">
+            <div class="hero-body">
+                <p class="title"><%= theme_name %></p>
+
+                <p class="subtitle">Default Page</p>
+                <p class="subtitle">This is the fallback page.</p>
+
+            </div>
+        </section>
+
+</div>
+@endsection
