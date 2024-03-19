@@ -1,23 +1,26 @@
 {
-  "name": "vaahcli",
+  "name": "vaah",
   "version": "3.0.0",
-  "description": "oclif example Hello World CLI",
+  "description": "CLI of VaahCMS - VaahCLI",
   "keywords": [
-    "oclif"
+    "vaah",
+    "vaahcli"
   ],
-  "homepage": "https://github.com/we-vikram-wri231/vaahcli",
-  "bugs": "https://github.com/we-vikram-wri231/vaahcli/issues",
-  "repository": "we-vikram-wri231/vaahcli",
+  "homepage": "https://github.com/webreinvent/vaah",
+  "bugs": "https://github.com/webreinvent/vaah/issues",
+  "repository": "webreinvent/vaah",
   "license": "MIT",
-  "author": "Vikram Chand @we-vikram-wri231",
+  "author": "Vaah",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "vaahcli": "./bin/run.js"
+    "vaah": "./bin/run.js"
   },
   "files": [
+    "/skeletons",
     "/bin",
     "/dist",
+    "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
   "scripts": {
@@ -31,19 +34,12 @@
     "version": "oclif readme && git add README.md"
   },
   "oclif": {
-    "bin": "vaahcli",
+    "bin": "vaah",
     "commands": "./dist/commands",
-    "dirname": "vaahcli",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-plugins"
-    ],
-    "topicSeparator": " ",
-    "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
-      }
-    }
+    ]
   },
   "dependencies": {
     "@oclif/core": "^3",
@@ -57,6 +53,7 @@
     "fs-sync": "^1.0.6",
     "inquirer": "^7.3.3",
     "listr": "^0.14.3",
+    "ora": "^5.1.0",
     "semver": "^7.3.5"
   },
   "devDependencies": {
