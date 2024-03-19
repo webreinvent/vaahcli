@@ -17,19 +17,17 @@ export default class CmsInstall extends Command {
   inputs: {[k: string]: any} = {};
 
   static args = {
-    person: Args.string({description: 'Person to say hello to', required: true}),
+    project_name: Args.string({description: 'Enter the project folder name', default: 'vaahcms'}),
   }
 
-  static description = 'Say hello'
-
-  static examples = [
-    `$ oex hello friend --from oclif
-hello friend from oclif! (./src/commands/hello/index.ts)
-`,
-  ]
+  static description = 'Install VaahCMS'
 
   static flags = {
-    from: Flags.string({char: 'f', description: 'Who is saying hello', required: true}),
+    here: Flags.boolean({
+      description: 'If you want to install VaahCMS in current directory',
+      default: false,
+    }),
+    help: Flags.help({char: 'h'}),
   }
 
   async run() {
@@ -43,8 +41,15 @@ hello friend from oclif! (./src/commands/hello/index.ts)
 
     const {args, flags} = await this.parse(CmsInstall)
 
+    this.args = args;
+    this.flags = flags;
 
     await this.printName();
+
+    if(!flags.here)
+    {
+      this.target_dir = this.target_dir+args.project_name;
+    }
 
     let questions = new Questions();
 
@@ -56,26 +61,24 @@ hello friend from oclif! (./src/commands/hello/index.ts)
       await this.install();
     }
 
-    this.log(`hello ${args.person} from ${flags.from}! (./src/commands/hello/index.ts)`)
   }
 
   //-----------------------------------
   //-----------------------------------
   async install() {
-    this.log('his.target_dir',this.target_dir)
     const tasks = new Listr([
       {
         title: 'Creating Project Folder',
         task: () => new Promise((resolve, reject) => {
           {
             let self = this;
-              fs.mkdir(self.target_dir, () => {
-                // if (error != null) {
-                //   log("");
-                //   log(chalk.red("- Project Folder Already Exists"));
-                //   return reject(error);
-                // }
-                // resolve();
+              fs.mkdir(self.target_dir, (err = null,result = null) => {
+                if (err != null) {
+                  this.log("");
+                  this.log(chalk.red("- Project Folder Already Exists"));
+                  return reject(err);
+                }
+                resolve(result);
               });
           }
         })
