@@ -88,7 +88,7 @@ export default class FlutterInstall extends Command {
 
     let self = this;
 
-    let source = '\\skeletons\\flutter\\install\\';
+    let source = '/skeletons/flutter/install/';
 
     this.target_dir = this.target_dir+this.inputs.app_name;
 
