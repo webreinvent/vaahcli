@@ -1,0 +1,21 @@
+<?php
+
+return [
+    "name"=> "<%= theme_name %>",
+    "title"=> "<%= title %>",
+    "slug"=> "<%= theme_name_lower %>",
+    "thumbnail"=> "https://img.site/p/300/160",
+    "excerpt"=> "<%= description %>",
+    "description"=> "<%= description %>",
+    "download_link"=> "<%= download_link %>",
+    "author_name"=> "<%= theme_name_lower %>",
+    "author_website"=> "<%= author_website %>",
+    "version"=> "v0.0.1",
+    "is_migratable"=> <%= is_migratable %>,
+    "is_sample_data_available"=> <%= has_sample_data %>,
+    "db_table_prefix"=> "vh_<%= theme_name_lower %>_",
+    "providers"=> [
+        "\\VaahCms\\Themes\\<%= theme_name %>\\Providers\\<%= theme_name %>ServiceProvider"
+    ],
+    "aside-menu-order"=> null
+];

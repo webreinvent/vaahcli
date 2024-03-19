@@ -1,0 +1,506 @@
+<?php namespace <%= namespace %>\Http\Controllers\<%= section_name %>;
+
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use <%= namespace %>\Models\<%= model_name %>;
+use <%= namespace %>\Models\<%= second_model_name %>;
+
+
+class <%= controller_name %>Controller extends Controller
+{
+  //----------------------------------------------------------
+  public function __construct()
+  {
+  }
+  //----------------------------------------------------------
+  public function getAssets(Request $request): JsonResponse
+  {
+    /*if (!Auth::user()->hasPermission('has-access-of-<%= controller_name_lower %>-section')) {
+      $response['success'] = false;
+      $response['errors'][] = trans("vaahcms::messages.permission_denied");
+
+      return response()->json($response);
+    }*/
+
+    try {
+      $data = [];
+
+      $data['permission'] = [];
+      $data['rows'] = config('vaahcms.per_page');
+
+      $data['fillable']['except'] = [
+        'uuid',
+        'created_by',
+        'updated_by',
+        'deleted_by',
+      ];
+
+      $model = new <%= model_name %>();
+      $fillable = $model->getFillable();
+      $data['fillable']['columns'] = array_diff(
+        $fillable, $data['fillable']['except']
+      );
+
+      foreach ($fillable as $column) {
+        if ($column === 'is_active') {
+          $data['empty_item'][$column] = 0;
+          continue;
+        }
+
+        $data['empty_item'][$column] = null;
+      }
+
+      $taxonomy_types = <%= second_model_name %>::query()
+        ->whereNotNull('is_active')
+        ->whereNull('parent_id')
+        ->select('id', 'id as key', 'name as label', 'slug as data')
+        ->with(['children'])
+        ->get();
+
+      $data['actions'] = [];
+      $data['countries'] = vh_get_country_list();
+      $data['types'] = $taxonomy_types->toArray();
+
+      $response['success'] = true;
+      $response['data'] = $data;
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function getList(Request $request): JsonResponse
+  {
+
+    try {
+      $response = <%= model_name %>::getList($request);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function updateList(Request $request): JsonResponse
+  {
+
+    try {
+      $response = <%= model_name %>::updateList($request);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function listAction(Request $request, $type): JsonResponse
+  {
+
+    try {
+      $response = <%= model_name %>::listAction($request, $type);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function deleteList(Request $request): JsonResponse
+  {
+
+    try {
+      $response = <%= model_name %>::deleteList($request);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function createItem(Request $request): JsonResponse
+  {
+
+    try {
+      $response = <%= model_name %>::createItem($request);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function getItem(Request $request, $id): JsonResponse
+  {
+
+    try {
+      $response = <%= model_name %>::getItem($id);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function getListByTypeId(Request $request, $id): JsonResponse
+  {
+      $response = [];
+
+      try {
+          $list = <%= model_name %>::where('<%= second_table_name_singular %>_id',$id)
+              ->select('id','name','slug','<%= second_table_name_singular %>_id')->get();
+
+          $response['success'] = true;
+          $response['data'] = $list;
+      } catch (\Exception $e) {
+          $response['success'] = false;
+
+          if (env('APP_DEBUG')) {
+              $response['errors'][] = $e->getMessage();
+              $response['hint'][] = $e->getTrace();
+          } else {
+              $response['errors'][] = 'Something went wrong.';
+          }
+      }
+
+      return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function updateItem(Request $request, $id): JsonResponse
+  {
+
+    try {
+      $response = <%= model_name %>::updateItem($request, $id);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function deleteItem(Request $request, $id): JsonResponse
+  {
+
+    try {
+      $response = <%= model_name %>::deleteItem($request, $id);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function itemAction(Request $request, $id, $action): JsonResponse
+  {
+
+    try {
+      $response = <%= model_name %>::itemAction($request, $id, $action);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function createTaxonomyType(Request $request): JsonResponse
+  {
+
+    try {
+      if (!$request->has('name') || !$request->name) {
+        $response['success'] = false;
+        $response['errors'][] = 'The name field is required.';
+        return response()->json($response);
+      }
+
+      $item = <%= second_model_name %>::withTrashed()
+        ->where('name',$request->name)
+        ->first();
+
+      if ($item) {
+        $response['success'] = false;
+        $response['errors'][] = "This name is already exist.";
+        return response()->json($response);
+      }
+
+      $add = new <%= second_model_name %>();
+      $add->fill($request->all());
+      $add->slug = Str::slug($request->name);
+      $add->is_active = true;
+      $add->save();
+
+      $response['success'] = true;
+      $response['messages'][] = 'Successfully Added.';
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function deleteTaxonomyType(Request $request): JsonResponse
+  {
+
+    try {
+      $item = <%= second_model_name %>::query()
+        ->where('id',$request->id)
+        ->with(['childrens'])
+        ->withTrashed()
+        ->first();
+
+      if(count($item->childrens) > 0){
+        self::deletechildrens($item->childrens);
+      }
+
+      $item->forceDelete();
+
+      $response['success'] = true;
+      $response['messages'][] = 'Successfully Deleted.';
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function deletechildrens($types)
+  {
+    foreach ($types as $type) {
+      if (count($type->childrens) > 0) {
+        self::deletechildrens($type->childrens);
+      }
+
+      $type->forceDelete();
+    }
+  }
+  //----------------------------------------------------------
+  public function updateTaxonomyType(Request $request): JsonResponse
+  {
+
+    try {
+      if (!$request->newName) {
+        $response['success']  = false;
+        $response['errors'][] = 'Name is required.';
+        return response()->json($response);
+      }
+
+      $name_exist = <%= second_model_name %>::query()
+        ->where('id','!=',$request->id)
+        ->where('name',$request->newName)->first();
+
+      if ($name_exist) {
+        $response['success']  = false;
+        $response['errors'][] = 'Name already exist.';
+        return response()->json($response);
+      }
+
+
+      $slug_exist = <%= second_model_name %>::query()
+        ->where('id','!=',$request->id)
+        ->where('slug',Str::slug($request->newName))
+        ->first();
+
+      if ($slug_exist){
+        $response['success']  = false;
+        $response['errors'][] = 'Slug already exist.';
+        return response()->json($response);
+      }
+
+      $list = <%= second_model_name %>::where('id',$request->id)->first();
+
+      $list->name = $request->newName;
+      $list->slug = Str::slug($request->newName);
+      $list->save();
+
+      $response['success'] = true;
+      $response['messages'][] = 'Updated Successfully.';
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    $response['data'] = [];
+    $response['data']['id'] = $request->id;
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function updateTaxonomyTypePosition(Request $request): JsonResponse
+  {
+
+    try {
+      $parent_id = null;
+
+      if ($request->parent_id && $request->parent_id != 0) {
+
+        $parent_id = $request->parent_id;
+      }
+
+      $item = <%= second_model_name %>::query()
+        ->where('id',$request->id)
+        ->first();
+
+      $item->parent_id = $parent_id;
+      $item->save();
+
+      $response['success'] = true;
+      $response['messages'][] = 'Updated Successfully.';
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    $response['data'] = [];
+    $response['data']['id'] = $request->id;
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+  public function getParents(Request $request, $id, $name=null): array
+  {
+    $list = <%= model_name %>::query()
+      ->where(function($q) use ($name){
+        $q->where('name', 'LIKE', '%'.$name.'%')
+          ->orWhere('slug', 'LIKE', '%'.$name.'%');
+      })->where('<%= second_table_name_singular %>_id', $id)
+      ->whereNotNull('is_active')
+      ->take(10)
+      ->orderBy('created_at', 'desc')
+      ->select('id','name','slug')->get();
+
+    return $list;
+
+  }
+  //----------------------------------------------------------
+  public function getCountryById(Request $request, $id): JsonResponse
+  {
+    try {
+      $response = <%= model_name %>::query()->find($id);
+    } catch (\Exception $e) {
+      $response = [];
+      $response['success'] = false;
+
+      if (env('APP_DEBUG')) {
+        $response['errors'][] = $e->getMessage();
+        $response['hint'][] = $e->getTrace();
+      } else {
+        $response['errors'][] = 'Something went wrong.';
+      }
+    }
+
+    return response()->json($response);
+  }
+  //----------------------------------------------------------
+}

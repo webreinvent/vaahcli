@@ -1,0 +1,40 @@
+<script setup>
+import {use<%= model_name %>Store} from '../../../../stores/store-<%= controller_name_lower %>'
+
+const store = use<%= model_name %>Store();
+</script>
+
+<template>
+            <div  class="grid">
+                <div v-if="store.list" class="col-12">
+                    <div v-if="store.list.hasOwnProperty('<%= folder_name_lower %>_version')">
+                        <h5 class="p-1 text-xs mb-1">Version</h5>
+
+                        <div class="p-inputgroup">
+                            <InputText data-testid="<%= controller_name_lower %>-general-version"
+                                       v-model="store.list.<%= folder_name_lower %>_version"
+                                       class="p-inputtext-sm"
+                                       id="version"
+                            />
+
+                            <Button icon="pi pi-copy"
+                                    data-testid="<%= controller_name_lower %>-general-version_copy"
+                                    @click="store.getCopy('<%= folder_name_lower %>_version')"
+                                    class="p-button-sm"
+                            />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 mt-5">
+                    <Button label="Save Settings"
+                            icon="pi pi-save"
+                            data-testid="<%= controller_name_lower %>-general-save"
+                            @click="store.storeSettings"
+                            class="mr-2 p-button-sm"
+                    />
+                </div>
+            </div>
+
+</template>

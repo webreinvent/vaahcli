@@ -1,0 +1,27 @@
+let routes= [];
+let routes_list= [];
+
+import SettingsLayout from "../pages/<%= controller_name_lower %>/SettingsLayout.vue";
+import GeneralIndex from "../pages/<%= controller_name_lower %>/general/Index.vue";
+
+
+routes_list = {
+    path: '/<%= controller_name_lower %>',
+    name: '<%= controller_name_lower %>.index',
+    component: SettingsLayout,
+    props: true,
+    children: [
+        {
+            path: 'general',
+            name: '<%= controller_name_lower %>.general',
+            component: GeneralIndex,
+            props: true,
+        }
+
+    ]
+};
+
+routes.push(routes_list);
+
+export default routes;
+

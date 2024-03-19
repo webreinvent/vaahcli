@@ -1,0 +1,75 @@
+import <%= controller_name %>List from "./../pages/<%= controller_name_lower %>/List";
+import <%= controller_name %>View from "./../pages/<%= controller_name_lower %>/View";
+import Form from "./../pages/<%= controller_name_lower %>/Form";
+
+import GetAssets from './middleware/GetAssets'
+
+import LayoutDefault from "./../layouts/Default";
+
+let routes_<%= controller_name_lower %>=[];
+
+let list =     {
+    path: '/<%= controller_name_lower %>',
+    component: LayoutDefault,
+    props: true,
+    meta: {
+        middleware: [
+            GetAssets
+        ]
+    },
+    children: [
+        {
+            path: '/',
+            name: '<%= controller_name_lower %>.list',
+            component: <%= controller_name %>List,
+            props: true,
+            meta: {
+                middleware: [
+                    GetAssets
+                ]
+            },
+            children: [
+                {
+                    path: 'create',
+                    name: '<%= controller_name_lower %>.create',
+                    component: Form,
+                    props: true,
+                    meta: {
+                        middleware: [
+                            GetAssets
+                        ]
+                    },
+                },
+                {
+                    path: 'read/:id',
+                    name: '<%= controller_name_lower %>.read',
+                    component: <%= controller_name %>View,
+                    props: true,
+                    meta: {
+                        middleware: [
+                            GetAssets
+                        ]
+                    },
+                },
+                {
+                    path: 'update/:id',
+                    name: '<%= controller_name_lower %>.update',
+                    component: Form,
+                    props: true,
+                    meta: {
+                        middleware: [
+                            GetAssets
+                        ]
+                    },
+                }
+
+            ]
+        }
+
+    ]
+};
+
+
+routes_<%= controller_name_lower %>.push(list);
+
+export default routes_<%= controller_name_lower %>;
