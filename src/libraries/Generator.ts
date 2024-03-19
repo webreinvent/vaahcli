@@ -407,7 +407,7 @@ export default class Generator {
       //-- destination path
       destination = this.getFileDestination(file_path);
 
-      file_readable_path = __dirname+"./../../skeletons/"+file_path;
+      file_readable_path = __dirname+"/../../skeletons/"+file_path;
 
       file_content = fs.readFileSync(file_readable_path).toString();
 

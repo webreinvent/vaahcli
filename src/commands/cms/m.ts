@@ -52,9 +52,9 @@ export default class CmsM extends Command {
 
     if(this.inputs['module-type'] === 'Module - Vue3 & PrimeVue')
     {
-      source = '\\skeletons\\vaahcms\\module-vue3\\';
+      source = '/skeletons/vaahcms/module-vue3/';
     } else{
-      source = '\\skeletons\\vaahcms\\module\\';
+      source = '/skeletons/vaahcms/module/';
     }
 
     let target = "./VaahCms/Modules/"+this.inputs.module_name;

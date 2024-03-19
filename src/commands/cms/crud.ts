@@ -75,18 +75,18 @@ export default class CmsCrud extends Command {
     this.inputs.for = this.primary.for;
 
     let target = "";
-    let source = '\\skeletons\\vaahcms\\crud\\';
+    let source = '/skeletons/vaahcms/crud/';
     this.inputs['namespace_controller'] = '';
 
     if(this.inputs.for == 'Module - Vue3 & PrimeVue')
     {
-      source = '\\skeletons\\vaahcms\\crud-vue3\\';
+      source = '/skeletons/vaahcms/crud-vue3/';
       this.inputs['namespace'] = 'VaahCms\\Modules\\'+this.inputs.folder_name;
       target = "./VaahCms/Modules/"+this.inputs.folder_name;
 
     } else if(this.inputs.for == 'Module - Vue2 & Buefy'){
 
-      source = '\\skeletons\\vaahcms\\crud\\';
+      source = '/skeletons/vaahcms/crud/';
       this.inputs['namespace'] = 'VaahCms\\Modules\\'+this.inputs.folder_name;
       target = "./VaahCms/Modules/"+this.inputs.folder_name;
 
@@ -95,7 +95,7 @@ export default class CmsCrud extends Command {
       this.inputs['namespace'] = 'VaahCms\\Themes\\'+this.inputs.folder_name;
       target = "./VaahCms/Themes/"+this.inputs.folder_name;
     } else{
-      source = '\\skeletons\\vaahcms\\crud-vue3\\';
+      source = '/skeletons/vaahcms/crud-vue3/';
       this.inputs['namespace_controller'] = this.inputs['namespace']+'\\Http\\Controllers';
       target = this.inputs.path;
     }
