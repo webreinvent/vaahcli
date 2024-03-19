@@ -1,6 +1,6 @@
 {
   "name": "vaah",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "CLI of VaahCMS - VaahCLI",
   "keywords": [
     "vaah",
@@ -50,7 +50,6 @@
     "dateformat": "^4.0.0",
     "download-git-repo": "^3.0.2",
     "ejs": "^3.1.5",
-    "execa": "^4.1.0",
     "fs-sync": "^1.0.6",
     "inquirer": "^7.3.3",
     "listr": "^0.14.3",

@@ -7,12 +7,7 @@ import Functions from '../../libraries/Functions'
 
 let fs = require('fs');
 let ora = require('ora');
-const execa = require('execa');
 const Listr = require('listr');
-var shell = require('shelljs');
-const { exec } = require('child_process');
-let fsSync = require('fs-sync');
-const fsPromises = fs.promises;
 
 const download = require('download-git-repo');
 const chalk = require('chalk');
