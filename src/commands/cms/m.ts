@@ -1,5 +1,5 @@
-import {Command, flags} from '@oclif/command'
-import * as inquirer from 'inquirer';
+import {Command, Flags} from '@oclif/core'
+const inquirer = require('inquirer')
 const Listr = require('listr');
 
 import Questions from "../../libraries/Questions";
@@ -8,8 +8,6 @@ import Functions from '../../libraries/Functions'
 
 
 const chalk = require('chalk');
-const log = console.log;
-
 
 
 export default class CmsM extends Command {
@@ -19,32 +17,14 @@ export default class CmsM extends Command {
 
   static description = 'To generate module for VaahCMS';
 
-
-  /*
-   *---------------------------------------------------
-   * Command Flags/Options
-   *---------------------------------------------------
-   */
   static flags = {
-    help: flags.help({char: 'h'}),
-    name: flags.help({char: 'n'}),
-    force: flags.boolean({char: 'f'}),
+    help: Flags.help({char: 'h'}),
+    name: Flags.help({char: 'n'}),
+    force: Flags.boolean({char: 'f'}),
   };
 
+  static args = {};
 
-  /*
-   *---------------------------------------------------
-   * Command Arguments
-   *---------------------------------------------------
-   */
-  static args = [];
-
-
-  /*
-   *---------------------------------------------------
-   * Command Execution
-   *---------------------------------------------------
-   */
   async run() {
 
     let functions = new Functions();
@@ -54,7 +34,7 @@ export default class CmsM extends Command {
       return true;
     }
 
-    const {args, flags} = this.parse(CmsM);
+    const {args, flags} = await this.parse(CmsM);
 
     let questions = new Questions();
 
@@ -83,9 +63,9 @@ export default class CmsM extends Command {
 
     let generator = new Generator(args, flags, this.inputs, source, target);
 
-    log(chalk.green('======================================='));
-    log('Generating Module: '+chalk.green(this.inputs.module_name));
-    log(chalk.green('---------------------------------------'));
+    this.log(chalk.green('======================================='));
+    this.log('Generating Module: '+chalk.green(this.inputs.module_name));
+    this.log(chalk.green('---------------------------------------'));
 
     const tasks = new Listr([
       {
@@ -98,15 +78,15 @@ export default class CmsM extends Command {
 
 
     tasks.run().then((ctx: any) => {
-      log(chalk.green('======================================='));
+      this.log(chalk.green('======================================='));
 
-      log("0) Activate your module by login to the VaahCMS Backend > Extend > Modules section");
+      this.log("0) Activate your module by this.login to the VaahCMS Backend > Extend > Modules section");
 
-      log(chalk.blue("To use Vue in your project, follow the following steps:"));
-      log("1) Add MODULE_"+this.inputs.module_name_upper+"_ENV=develop in your environment file");
-      log("2) Run 'npm install' at VaahCms/Modules/"+this.inputs.module_name+"/Vue module folder");
-      log("3) Now run 'npm run dev' at VaahCms/Modules/"+this.inputs.module_name+"/Vue module folder");
-      log(`4) Visit <base-url>/public/backend/`+this.inputs.module_name_lower);
+      this.log(chalk.blue("To use Vue in your project, follow the following steps:"));
+      this.log("1) Add MODULE_"+this.inputs.module_name_upper+"_ENV=develop in your environment file");
+      this.log("2) Run 'npm install' at VaahCms/Modules/"+this.inputs.module_name+"/Vue module folder");
+      this.log("3) Now run 'npm run dev' at VaahCms/Modules/"+this.inputs.module_name+"/Vue module folder");
+      this.log(`4) Visit <base-url>/public/backend/`+this.inputs.module_name_lower);
 
 
 
