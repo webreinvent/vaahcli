@@ -402,11 +402,9 @@ export default class Generator {
       //log("Source file--> "+chalk.green(file_path));
 
 
-      
-
       //-- destination path
-      destination = this.getFileDestination(file_path.replace(/\\/g, "/"));
-
+      file_path = file_path.replace(/\\/g, "/");
+      destination = this.getFileDestination(file_path);
    
       file_readable_path = __dirname+"/../../skeletons/"+file_path;
 
@@ -528,7 +526,10 @@ export default class Generator {
       //log("Source file--> "+chalk.green(file_path));
 
       //-- destination path
-      destination = this.getFileDestination(file_path.replace(/\\/g, "/"));
+
+      file_path = file_path.replace(/\\/g, "/");
+
+      destination = this.getFileDestination(file_path);
 
       file_readable_path = __dirname+"./../../skeletons/"+file_path;
 
@@ -575,6 +576,7 @@ export default class Generator {
       //log("Source file--> "+chalk.green(file_path));
 
       //-- destination path
+      file_path = file_path.replace(/\\/g, "/");
       destination = this.getFileDestination(file_path);
 
       file_readable_path = __dirname+"./../../skeletons/"+file_path;
