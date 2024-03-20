@@ -297,7 +297,7 @@ export default class Generator {
 
     let destination = this.getFileDestination(file_path);
 
-    let file_readable_path = __dirname+"./../../skeletons/"+file_path;
+    let file_readable_path = __dirname+"/../../skeletons/"+file_path;
 
     let file_content = fs.readFileSync(file_readable_path).toString();
     let parsed_file_content = ejs.render(file_content, this.inputs);
@@ -531,7 +531,7 @@ export default class Generator {
 
       destination = this.getFileDestination(file_path);
 
-      file_readable_path = __dirname+"./../../skeletons/"+file_path;
+      file_readable_path = __dirname+"/../../skeletons/"+file_path;
 
       file_content = fs.readFileSync(file_readable_path).toString();
       parsed_file_content = ejs.render(file_content, this.inputs);
@@ -579,7 +579,7 @@ export default class Generator {
       file_path = file_path.replace(/\\/g, "/");
       destination = this.getFileDestination(file_path);
 
-      file_readable_path = __dirname+"./../../skeletons/"+file_path;
+      file_readable_path = __dirname+"/../../skeletons/"+file_path;
 
       file_content = fs.readFileSync(file_readable_path).toString();
       parsed_file_content = ejs.render(file_content, this.inputs);
