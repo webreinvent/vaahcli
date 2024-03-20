@@ -134,15 +134,15 @@ export default class FlutterInstall extends Command {
             download(repo, self.target_dir, function (err: any) {
               console.log((err ? reject('Error') : resolve('Success')));
             })
-
           }
         })
       },
       {
         title: 'Configuring The Project',
-        task: function () {
+        task: () => new Promise((resolve, reject) => {
           generator.generateFlutterFiles();
-        }
+          resolve(true);
+        })
       }
     ]);
 
@@ -153,13 +153,6 @@ export default class FlutterInstall extends Command {
       this.spinStopWithError();
     });
   }
-  //---------------------------------------------------
-  successMessage()
-  {
-
-    this.log(chalk.white.bgGreen.bold("      Files Generated!      "));
-    this.log(chalk.green("=================================================================="));
-  }
 
   //---------------------------------------------------
 
@@ -169,7 +162,7 @@ export default class FlutterInstall extends Command {
 
     this.spinner = ora();
 
-    this.spinner.start('Installing VaahCMS...');
+    this.spinner.start('Installing VaahFlutter...');
 
     this.spinner._spinner = {
       "interval": 80,
@@ -187,16 +180,6 @@ export default class FlutterInstall extends Command {
       ]
     };
 
-  }
-  //-----------------------------------
-  async printName()
-  {
-    this.log(chalk.red(`
- /\\   /\\ __ _   __ _ | |__    / __\\ /\\/\\  / _\\
- \\ \\ / // _\` | / _\` || '_ \\  / /   /    \\ \\ \\
-  \\ V /| (_| || (_| || | | |/ /___/ /\\/\\ \\_\\ \\
-   \\_/  \\__,_| \\__,_||_| |_|\\____/\\/    \\/\\__/
-`));
   }
   //-----------------------------------
   async spinStop()
@@ -221,7 +204,7 @@ export default class FlutterInstall extends Command {
 
     this.spinner.succeed();
 
-    this.log(chalk.white.bgRed.bold("      VaahCMS Installation Failed!      "));
+    this.log(chalk.white.bgRed.bold("      VaahFlutter Installation Failed!      "));
 
   }
   //-----------------------------------
