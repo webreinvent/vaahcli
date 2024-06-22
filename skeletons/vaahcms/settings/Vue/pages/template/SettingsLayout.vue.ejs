@@ -11,6 +11,12 @@ const store = use<%= model_name %>Store();
 const route = useRoute();
 const useVaah = vaah();
 
+const menu_pt = ref({
+    menuitem: ({ props }) => ({
+        class: route.path === props.item.route ? 'p-focus' : ''
+    })
+});
+
 const sidebar_menu_items = ref([
     {
         label: '<%= controller_name %>',
@@ -37,7 +43,21 @@ onMounted(async () => {
 <template>
     <div class="grid justify-content-center">
         <div class="col-fixed">
-            <Menu :model="sidebar_menu_items" />
+            <Menu :model="sidebar_menu_items"
+                  :pt="menu_pt">
+                <template #item="{ item, props }">
+                    <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+                        <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+                            <span :class="item.icon" />
+                            <span class="ml-2">{{ item.label }}</span>
+                        </a>
+                    </router-link>
+                    <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+                        <span :class="item.icon" />
+                        <span class="ml-2">{{ item.label }}</span>
+                    </a>
+                </template>
+            </Menu>
         </div>
         <div class="col">
             <router-view></router-view>
