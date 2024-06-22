@@ -67,9 +67,7 @@ const openTaxonomyTypeModal = () => {
 
 
             <Column field="slug" header="Slug"
-                    :sortable="false"
-                    class="flex align-items-center"
-            >
+                    :sortable="false">
                 <template #body="prop">
                     {{ prop.data.slug }}
 
@@ -81,13 +79,11 @@ const openTaxonomyTypeModal = () => {
                     />
                 </template>
             </Column>
-             <column></column>
+
              <Column field="type" header="Type"
-                     :sortable="false"
-                     class="flex align-items-center"
-             >
+                     :sortable="false">
                  <template #body="prop">
-                     <p v-if="prop.data.type"> {{ prop.data.type.name }} </p>
+                     {{ prop.data.type.name }}
 
                      <Button class="p-button-tiny p-button-text"
                              data-testid="<%= controller_name_lower %>-table-to-manage-taxonomy-type-modal"
@@ -104,7 +100,7 @@ const openTaxonomyTypeModal = () => {
                     :sortable="true"
             >
                 <template #body="prop">
-                    {{ useVaah.ago(prop.data.updated_at) }}
+                    {{ useVaah.toLocalTimeShortFormat(prop.data.updated_at) }}
                 </template>
             </Column>
 
