@@ -1,6 +1,6 @@
 {
   "name": "vaah",
-  "version": "3.0.7",
+  "version": "3.0.9",
   "description": "CLI of VaahCMS - VaahCLI",
   "keywords": [
     "vaah",
@@ -54,7 +54,7 @@
     "inquirer": "^7.3.3",
     "listr": "^0.14.3",
     "ora": "^5.1.0",
-    "semver": "^7.3.5"
+    "semver": "^7.6.0"
   },
   "devDependencies": {
     "@oclif/prettier-config": "^0.2.1",
