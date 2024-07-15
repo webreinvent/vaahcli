@@ -381,7 +381,8 @@ export const vaah = defineStore({
       const currentDate = current.getDate();
       const currentYear = current.getFullYear();
 
-      if (date === currentDate) {
+      if (date === currentDate && dateMonth === currentMonth
+          && dateYear === currentYear) {
         return utcTime.toLocaleTimeString();
       } else if (dateYear === currentYear) {
 
