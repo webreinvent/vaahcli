@@ -21,7 +21,6 @@ const store = use<%= model_name %>Store();
         <template #icons>
 
             <Button data-testid="<%= controller_name_lower %>-hide-filter"
-                    as="router-link"
                     @click="store.toList()"
                     icon="pi pi-times"
                     rounded
