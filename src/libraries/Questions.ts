@@ -37,9 +37,13 @@ export default class Generator {
       {
         type : 'list',
         name : 'module-type',
-        default: 'Module - Vue3 & PrimeVue',
+        default: 'Module - PrimeVue4',
         message : 'Choose the tech stack of the module: ',
-        choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy"],
+        choices: [
+          "Module - PrimeVue4",
+          "Module - Vue3 & PrimeVue",
+          "Module - Vue2 & Buefy"
+        ],
       },
       {
         type : 'input',
@@ -266,7 +270,14 @@ export default class Generator {
         name : 'for',
         default: 'Module',
         message : 'For which you want to create CRUD: ',
-        choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy", "Theme", "Custom Path - Vue3 & PrimeVue"],
+        choices: [
+          "Module - PrimeVue4",
+          "Module - Vue3 & PrimeVue",
+          "Module - Vue2 & Buefy",
+          "Theme",
+          "Custom Path - PrimeVue4",
+          "Custom Path - Vue3 & PrimeVue"
+        ],
       },
 
     ];
@@ -298,7 +309,9 @@ export default class Generator {
     this.questions = [];
 
 
-    if(primary === 'Custom Path - Vue3 & PrimeVue')
+    if(
+      primary === 'Custom Path - PrimeVue4' || primary === 'Custom Path - Vue3 & PrimeVue'
+    )
     {
       this.questions.push({
           type : 'input',

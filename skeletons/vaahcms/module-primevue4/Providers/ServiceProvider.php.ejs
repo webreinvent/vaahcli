@@ -192,8 +192,8 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
     {
 
         /*
-        \Blade::directive('hello', function ($expression) {
-            return "<?php echo 'Hello ' . {$expression}; ?>";
+        \Blade::directive('<%= module_name_lower %>', function ($expression) {
+            return "<?php echo '<%= module_name %> ' . {$expression}; ?>";
         });
         */
 
