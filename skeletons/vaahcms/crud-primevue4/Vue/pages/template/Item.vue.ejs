@@ -2,9 +2,12 @@
 import {onMounted, ref, watch} from "vue";
 import {useRoute} from 'vue-router';
 
-import { use<%= model_name %>Store } from '../../stores/store-<%= controller_name_lower %>'
+import { useRootStore } from '@/stores/root'
+import { use<%= model_name %>Store } from '@/stores/store-<%= controller_name_lower %>'
 
-import VhViewRow from '../../vaahvue/vue-three/primeflex/VhViewRow.vue';
+import VhViewRow from '../../vaahvue/components/VhViewRow.vue';
+
+const root = useRootStore();
 const store = use<%= model_name %>Store();
 const route = useRoute();
 
@@ -40,32 +43,30 @@ const toggleItemMenu = (event) => {
 </script>
 <template>
 
-    <div class="col-6" >
+    <Panel :pt="root.panel_pt" v-if="store && store.item">
 
-        <Panel class="is-small" v-if="store && store.item">
+        <template class="p-1" #header>
 
-            <template class="p-1" #header>
-
-                <div class="p-panel-title w-7 white-space-nowrap
+            <div class="p-panel-title w-7 white-space-nowrap
                 overflow-hidden text-overflow-ellipsis">
-                    #{{store.item.id}}
-                </div>
+                #{{store.item.id}}
+            </div>
 
-            </template>
+        </template>
 
-            <template #icons>
+        <template #icons>
 
 
-                <div class="p-inputgroup">
+            <div class="p-inputgroup">
 
-                    <Button label="Edit"
-                            class="p-button-sm"
-                            @click="store.toEdit(store.item)"
-                            data-testid="<%= controller_name_lower %>-item-to-edit"
-                            icon="pi pi-save"/>
+                <Button label="Edit"
+                        class="p-button-sm"
+                        @click="store.toEdit(store.item)"
+                        data-testid="<%= controller_name_lower %>-item-to-edit"
+                        icon="pi pi-save"/>
 
-                    <!--item_menu-->
-                    <Button
+                <!--item_menu-->
+                <Button
                         type="button"
                         class="p-button-sm"
                         @click="toggleItemMenu"
@@ -73,50 +74,50 @@ const toggleItemMenu = (event) => {
                         icon="pi pi-angle-down"
                         aria-haspopup="true"/>
 
-                    <Menu ref="item_menu_state"
-                          :model="store.item_menu_list"
-                          :popup="true" />
-                    <!--/item_menu-->
+                <Menu ref="item_menu_state"
+                      :model="store.item_menu_list"
+                      :popup="true" />
+                <!--/item_menu-->
 
-                    <Button class="p-button-primary p-button-sm"
-                            icon="pi pi-times"
-                            data-testid="<%= controller_name_lower %>-item-to-list"
-                            @click="store.toList()"/>
+                <Button class="p-button-primary p-button-sm"
+                        icon="pi pi-times"
+                        data-testid="<%= controller_name_lower %>-item-to-list"
+                        @click="store.toList()"/>
+
+            </div>
+
+
+
+        </template>
+
+
+        <div class="mt-2" v-if="store.item">
+
+            <Message severity="error"
+                     class="p-container-message"
+                     :closable="false"
+                     icon="pi pi-trash"
+                     v-if="store.item.deleted_at">
+
+                <div class="flex align-items-center justify-content-between">
+
+                    <div class="">
+                        Deleted {{store.item.deleted_at}}
+                    </div>
+
+                    <div class="ml-3">
+                        <Button label="Restore"
+                                class="p-button-sm"
+                                data-testid="<%= controller_name_lower %>-item-restore"
+                                @click="store.itemAction('restore')">
+                        </Button>
+                    </div>
 
                 </div>
 
+            </Message>
 
-
-            </template>
-
-
-            <div class="mt-2" v-if="store.item">
-
-                <Message severity="error"
-                         class="p-container-message"
-                         :closable="false"
-                         icon="pi pi-trash"
-                         v-if="store.item.deleted_at">
-
-                    <div class="flex align-items-center justify-content-between">
-
-                        <div class="">
-                            Deleted {{store.item.deleted_at}}
-                        </div>
-
-                        <div class="ml-3">
-                            <Button label="Restore"
-                                    class="p-button-sm"
-                                    data-testid="<%= controller_name_lower %>-item-restore"
-                                    @click="store.itemAction('restore')">
-                            </Button>
-                        </div>
-
-                    </div>
-
-                </Message>
-
-                <div class="p-datatable p-component p-datatable-responsive-scroll p-datatable-striped p-datatable-sm">
+            <div class="p-datatable p-component p-datatable-responsive-scroll p-datatable-striped p-datatable-sm">
                 <table class="p-datatable-table overflow-wrap-anywhere">
                     <tbody class="p-datatable-tbody">
                     <template v-for="(value, column) in store.item ">
@@ -150,7 +151,7 @@ const toggleItemMenu = (event) => {
                         <template v-else>
                             <VhViewRow :label="column"
                                        :value="value"
-                                       />
+                            />
                         </template>
 
 
@@ -159,10 +160,9 @@ const toggleItemMenu = (event) => {
 
                 </table>
 
-                </div>
             </div>
-        </Panel>
+        </div>
+    </Panel>
 
-    </div>
 
 </template>
