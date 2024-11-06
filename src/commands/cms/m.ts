@@ -50,7 +50,10 @@ export default class CmsM extends Command {
 
     let source;
 
-    if(this.inputs['module-type'] === 'Module - Vue3 & PrimeVue')
+    if(this.inputs['module-type'] === 'Module - PrimeVue4')
+    {
+      source = '/skeletons/vaahcms/module-primevue4/';
+    } else if(this.inputs['module-type'] === 'Module - Vue3 & PrimeVue3')
     {
       source = '/skeletons/vaahcms/module-vue3/';
     } else{

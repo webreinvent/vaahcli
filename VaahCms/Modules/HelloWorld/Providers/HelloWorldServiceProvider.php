@@ -1,13 +1,13 @@
-<?php namespace <%= namespace %>\Providers;
+<?php namespace VaahCms\Modules\HelloWorld\Providers;
 
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use <%= namespace %>\Providers\RouteServiceProvider;
-use <%= namespace %>\Providers\EventServiceProvider;
+use VaahCms\Modules\HelloWorld\Providers\RouteServiceProvider;
+use VaahCms\Modules\HelloWorld\Providers\EventServiceProvider;
 
-class <%= module_name %>ServiceProvider extends ServiceProvider
+class HelloWorldServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -59,7 +59,7 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
     private function registerMiddleware($router) {
 
         //register middleware
-        //$router->aliasMiddleware('sample.middleware', \<%= module_name %>\Http\Middleware\SampleMiddleware::class);
+        //$router->aliasMiddleware('sample.middleware', \HelloWorld\Http\Middleware\SampleMiddleware::class);
 
     }
 
@@ -107,10 +107,10 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__.'/../Config/config.php' => config_path('<%= module_name_lower %>.php'),
+            __DIR__.'/../Config/config.php' => config_path('helloworld.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', '<%= module_name_lower %>'
+            __DIR__.'/../Config/config.php', 'helloworld'
         );
     }
 
@@ -121,7 +121,7 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('/views/vaahcms/modules/<%= module_name_lower %>');
+        $viewPath = resource_path('/views/vaahcms/modules/helloworld');
 
         $sourcePath = __DIR__.'/../Resources/views';
 
@@ -130,8 +130,8 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
         ],'views');
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
-            return $path . '/views/vaahcms/modules/<%= module_name_lower %>';
-        }, \Config::get('view.paths')), [$sourcePath]), '<%= module_name_lower %>');
+            return $path . '/views/vaahcms/modules/helloworld';
+        }, \Config::get('view.paths')), [$sourcePath]), 'helloworld');
 
     }
 
@@ -145,7 +145,7 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
 
         $sourcePath = __DIR__.'/../Resources/assets';
 
-        $desPath = public_path('vaahcms/modules/<%= module_name_lower %>/assets');
+        $desPath = public_path('vaahcms/modules/helloworld/assets');
 
         $this->publishes([
             $sourcePath => $desPath
@@ -162,12 +162,12 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('/lang/vaahcms/modules/<%= module_name_lower %>');
+        $langPath = resource_path('/lang/vaahcms/modules/helloworld');
 
         if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, '<%= module_name_lower %>');
+            $this->loadTranslationsFrom($langPath, 'helloworld');
         } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', '<%= module_name_lower %>');
+            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'helloworld');
         }
     }
 
@@ -192,8 +192,8 @@ class <%= module_name %>ServiceProvider extends ServiceProvider
     {
 
         /*
-        \Blade::directive('<%= module_name_lower %>', function ($expression) {
-            return "<?php echo '<%= module_name %> ' . {$expression}; ?>";
+        \Blade::directive('hello', function ($expression) {
+            return "<?php echo 'Hello ' . {$expression}; ?>";
         });
         */
 

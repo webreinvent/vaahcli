@@ -1,0 +1,28 @@
+{
+    "name": "vaahcms/helloworld",
+    "description": "description",
+    "version": "0.0.1",
+    "authors": [
+        {
+            "name": "vaah",
+            "email": "support@vaah.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "VaahCms\\Modules\\HelloWorld\\Providers\\HelloWorldServiceProvider"
+            ],
+            "aliases": {
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "VaahCms\\Modules\\HelloWorld\\": ""
+        }
+    }
+}

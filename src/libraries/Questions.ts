@@ -37,9 +37,13 @@ export default class Generator {
       {
         type : 'list',
         name : 'module-type',
-        default: 'Module - Vue3 & PrimeVue',
+        default: 'Module - PrimeVue4',
         message : 'Choose the tech stack of the module: ',
-        choices: ["Module - Vue3 & PrimeVue", "Module - Vue2 & Buefy"],
+        choices: [
+          "Module - PrimeVue4",
+          "Module - Vue3 & PrimeVue",
+          "Module - Vue2 & Buefy"
+        ],
       },
       {
         type : 'input',

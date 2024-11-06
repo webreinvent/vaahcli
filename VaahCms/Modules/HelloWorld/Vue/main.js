@@ -1,7 +1,6 @@
 import {createApp, markRaw} from 'vue';
 import { createPinia, PiniaVuePlugin  } from 'pinia'
 import PrimeVue from "primevue/config";
-import { definePreset } from '@primevue/themes';
 import Aura from '@primevue/themes/aura';
 
 import '@/index.css'
@@ -65,17 +64,11 @@ app.use(PiniaVuePlugin);
 app.use(router);
 //-------------/APP
 
-const vaahcms = definePreset(Aura, {
-    semantic: {
-        primary: {
-        }
-    }
-});
 
 //-------------PrimeVue Use
 app.use(PrimeVue, {
     theme: {
-        preset: vaahcms,
+        preset: Aura,
         darkMode: false,
     }
 });
@@ -118,16 +111,8 @@ app.component('InputNumber', InputNumber);
 
 //-------------/CRUD PrimeVue Use
 
-import InputGroup from "primevue/inputgroup";
-app.component("InputGroup", InputGroup);
 
-import ToggleSwitch from "primevue/toggleswitch";
-app.component("ToggleSwitch", ToggleSwitch);
-
-import FloatLabel from "primevue/floatlabel";
-app.component("FloatLabel", FloatLabel);
-
-app.mount('#app<%= module_name %>')
+app.mount('#appHelloWorld')
 
 
 export { app }

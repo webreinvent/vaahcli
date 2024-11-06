@@ -20,7 +20,7 @@ onMounted(async () => {
 <template>
   <div v-if="rootStore.assets">
 
-    <div class="flex items-start">
+    <div class="flex">
       <Aside/>
       <RouterView/>
     </div>
