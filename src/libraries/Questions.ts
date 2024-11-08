@@ -41,7 +41,7 @@ export default class Generator {
         message : 'Choose the tech stack of the module: ',
         choices: [
           "Module - PrimeVue4",
-          "Module - Vue3 & PrimeVue",
+          "Module - Vue3 & PrimeVue3",
           "Module - Vue2 & Buefy"
         ],
       },
