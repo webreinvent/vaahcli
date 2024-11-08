@@ -276,7 +276,7 @@ export default class Generator {
           "Module - Vue2 & Buefy",
           "Theme",
           "Custom Path - PrimeVue4",
-          "Custom Path - Vue3 & PrimeVue3"
+          "Custom Path - Vue3 & PrimeVue"
         ],
       },
 
