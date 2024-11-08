@@ -78,7 +78,7 @@ export default class CmsCrud extends Command {
       this.inputs['namespace'] = 'VaahCms\\Modules\\'+this.inputs.folder_name;
       target = "./VaahCms/Modules/"+this.inputs.folder_name;
 
-    } else if(this.inputs.for == 'Module - Vue3 & PrimeVue3')
+    } else if(this.inputs.for == 'Module - Vue3 & PrimeVue')
     {
       source = '/skeletons/vaahcms/crud-vue3/';
       this.inputs['namespace'] = 'VaahCms\\Modules\\'+this.inputs.folder_name;
