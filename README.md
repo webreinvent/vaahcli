@@ -239,7 +239,7 @@ $ npm install -g vaah
 $ vaah COMMAND
 running command...
 $ vaah (--version)
-vaah/3.2.4 win32-x64 node-v20.15.0
+vaah/3.2.5 win32-x64 node-v20.15.0
 $ vaah --help [COMMAND]
 USAGE
   $ vaah COMMAND
@@ -372,7 +372,7 @@ DESCRIPTION
   Generate CRUD operations for VaahCMS
 ```
 
-_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/auth.ts)_
+_See code: [src/commands/cms/auth.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/auth.ts)_
 
 ## `vaah cms:crud`
 
@@ -389,7 +389,7 @@ DESCRIPTION
   Generate CRUD operations for VaahCMS
 ```
 
-_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/crud.ts)_
+_See code: [src/commands/cms/crud.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/crud.ts)_
 
 ## `vaah cms:install [PROJECT_NAME]`
 
@@ -410,7 +410,7 @@ DESCRIPTION
   Install VaahCMS
 ```
 
-_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/install.ts)_
+_See code: [src/commands/cms/install.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/install.ts)_
 
 ## `vaah cms:m`
 
@@ -429,7 +429,7 @@ DESCRIPTION
   To generate module for VaahCMS
 ```
 
-_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/m.ts)_
+_See code: [src/commands/cms/m.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/m.ts)_
 
 ## `vaah cms:m-make TYPE MODULE NAME`
 
@@ -449,7 +449,7 @@ DESCRIPTION
   Generate for VaahCMS Module
 ```
 
-_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/m-make.ts)_
+_See code: [src/commands/cms/m-make.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/m-make.ts)_
 
 ## `vaah cms:settings`
 
@@ -466,7 +466,7 @@ DESCRIPTION
   Vue3: Generate User CRUD for VaahCMS
 ```
 
-_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/settings.ts)_
+_See code: [src/commands/cms/settings.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/settings.ts)_
 
 ## `vaah cms:t`
 
@@ -485,7 +485,7 @@ DESCRIPTION
   To generate theme for VaahCMS
 ```
 
-_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/t.ts)_
+_See code: [src/commands/cms/t.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/t.ts)_
 
 ## `vaah cms:t-make TYPE THEME NAME`
 
@@ -505,7 +505,7 @@ DESCRIPTION
   Generate for VaahCMS Theme
 ```
 
-_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/t-make.ts)_
+_See code: [src/commands/cms/t-make.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/t-make.ts)_
 
 ## `vaah cms:taxonomies`
 
@@ -522,7 +522,7 @@ DESCRIPTION
   Vue 3: Generate Taxonomies CRUD operations for VaahCMS
 ```
 
-_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/taxonomies.ts)_
+_See code: [src/commands/cms/taxonomies.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/taxonomies.ts)_
 
 ## `vaah cms:users`
 
@@ -539,7 +539,7 @@ DESCRIPTION
   Vue3: Generate User CRUD for VaahCMS
 ```
 
-_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/cms/users.ts)_
+_See code: [src/commands/cms/users.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/cms/users.ts)_
 
 ## `vaah flutter:install`
 
@@ -556,7 +556,7 @@ DESCRIPTION
   Installation of VaahFlutter
 ```
 
-_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/flutter/install.ts)_
+_See code: [src/commands/flutter/install.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/flutter/install.ts)_
 
 ## `vaah hello PERSON`
 
@@ -580,7 +580,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [src/commands/hello/index.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/hello/index.ts)_
+_See code: [src/commands/hello/index.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/hello/index.ts)_
 
 ## `vaah hello:world`
 
@@ -598,7 +598,7 @@ EXAMPLES
   hello world! (./src/commands/hello/world.ts)
 ```
 
-_See code: [src/commands/hello/world.ts](https://github.com/webreinvent/vaah/blob/v3.2.4/src/commands/hello/world.ts)_
+_See code: [src/commands/hello/world.ts](https://github.com/webreinvent/vaah/blob/v3.2.5/src/commands/hello/world.ts)_
 
 ## `vaah help [COMMAND]`
 
