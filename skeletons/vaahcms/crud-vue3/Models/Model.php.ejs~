@@ -162,7 +162,7 @@ class <%= model_name %> extends VaahModel
         if ($item) {
             $error_message = "This name is already exist".($item->deleted_at?' in trash.':'.');
             $response['success'] = false;
-            $response['errors'][] = $error_message;
+            $response['messages'][] = $error_message;
             return $response;
         }
 
@@ -172,7 +172,7 @@ class <%= model_name %> extends VaahModel
         if ($item) {
             $error_message = "This slug is already exist".($item->deleted_at?' in trash.':'.');
             $response['success'] = false;
-            $response['errors'][] = $error_message;
+            $response['messages'][] = $error_message;
             return $response;
         }
 
