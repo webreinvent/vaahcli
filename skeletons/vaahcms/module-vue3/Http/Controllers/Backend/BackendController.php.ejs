@@ -68,10 +68,17 @@ class BackendController extends Controller
 
         $data=[];
 
+        $steps = array();
+
+//        $steps[] = $this->isSetupComplete();
+
         $data['module'] = [
             'name' => config('<%= module_name_lower %>.name'),
             'version' => config('settings.global.<%= module_name_lower %>_version')??config('<%= module_name_lower %>.version'),
             'is_dev' => config('<%= module_name_lower %>.is_dev'),
+            'setup' => [
+                'steps' => $steps
+            ]
         ];
 
         $v_version = config('vaahcms.version');
@@ -111,6 +118,17 @@ class BackendController extends Controller
         $response['data'] = $data;
 
         return vh_response($response);
+
+    }
+
+
+    //-------------------------------------------------
+    public function isSetupComplete(){
+
+        $response['is_complete'] = false;
+        $response['message'] = "Your module is successfully setup.";
+
+        return $response;
 
     }
 
