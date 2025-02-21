@@ -165,7 +165,7 @@ const toggleFormMenu = (event) => {
                               inputId="<%= controller_name_lower %>-active"
                               v-model="store.item.is_active"/>
 
-                <label for="<%= controller_name_lower %>-active">Is Active</label>
+                <label for="<%= controller_name_lower %>-active">Remember Me</label>
             </div>
 
 
