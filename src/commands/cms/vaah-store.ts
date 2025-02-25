@@ -74,6 +74,7 @@ export default class CmsInstall extends Command {
 
     setupEnv(mainRepoDir: string) {
 
+        this.log(`⚠️123456787654321234565432`);
         const envExample = path.join(mainRepoDir, '.env.example');
         const envFile = path.join(mainRepoDir, '.env');
 
