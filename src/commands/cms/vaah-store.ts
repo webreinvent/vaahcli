@@ -3,9 +3,6 @@ import * as path from 'path';
 import simpleGit from 'simple-git';
 import { exec } from 'child_process';
 import * as fs from 'fs';
-import util from 'util';
-
-const execPromise = util.promisify(exec); // Convert exec to return a Promise
 
 export default class CmsInstall extends Command {
     static description = 'Download and install VaahStore and VaahCMS Module Store';
@@ -17,8 +14,10 @@ export default class CmsInstall extends Command {
         const moduleRepoUrl = 'https://github.com/webreinvent/vaahcms-module-store.git';
         const moduleRepoDir = path.join(mainRepoDir, 'VaahCms/Modules', 'Store'); // Renamed to 'Store'
 
+        this.log("📥 Cloning VaahStore Ready...");
+
         try {
-            this.log("📥 Cloning VaahStore Ready...");
+            // Clone main repository
             await simpleGit().clone(mainRepoUrl, mainRepoDir);
             this.log("✅ VaahStore Ready cloned successfully!");
 
@@ -32,33 +31,49 @@ export default class CmsInstall extends Command {
             await simpleGit().clone(moduleRepoUrl, moduleRepoDir);
             this.log("✅ VaahCMS Module Store cloned successfully as 'Store'!");
 
-            // Run dependencies installation
-            await this.installDependencies(mainRepoDir);
+            // Install dependencies
+            this.installDependencies(mainRepoDir);
 
-            // Setup .env and generate app key
-            await this.setupEnv(mainRepoDir);
         } catch (error) {
             this.log("❌ Installation failed:", error);
         }
     }
 
-    async installDependencies(mainRepoDir: string) {
-        try {
-            // Run composer install
-            this.log("📦 Running 'composer install'...");
-            await execPromise(`cd ${mainRepoDir} && composer install`);
+    installDependencies(mainRepoDir: string) {
+        // Run `composer install`
+        this.log("📦 Running 'composer install' inside vaahstore-ready...");
+        exec(`cd ${mainRepoDir} && composer install`, (error, stdout, stderr) => {
+            if (error) {
+                this.log(`❌ Composer install failed: ${error.message}`);
+                return;
+            }
+            if (stderr) {
+                this.log(`⚠️ Composer warnings: ${stderr}`);
+            }
             this.log("✅ Composer install completed!");
+            this.log(stdout);
 
-            // Run npm install
-            this.log("📦 Running 'npm install'...");
-            await execPromise(`cd ${mainRepoDir} && npm install`);
-            this.log("✅ npm install completed!");
-        } catch (error) {
-            this.log(`❌ Dependency installation failed: ${error.message}`);
-        }
+            // Run `npm install`
+            this.log("📦 Running 'npm install' inside vaahstore-ready...");
+            exec(`cd ${mainRepoDir} && npm install`, (error, stdout, stderr) => {
+                if (error) {
+                    this.log(`❌ npm install failed: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    this.log(`⚠️ npm warnings: ${stderr}`);
+                }
+                this.log("✅ npm install completed!");
+                this.log(stdout);
+
+                // Setup .env and generate app key
+                this.setupEnv(mainRepoDir);
+            });
+        });
     }
 
-    async setupEnv(mainRepoDir: string) {
+    setupEnv(mainRepoDir: string) {
+
         const envExample = path.join(mainRepoDir, '.env.example');
         const envFile = path.join(mainRepoDir, '.env');
 
@@ -66,14 +81,19 @@ export default class CmsInstall extends Command {
             fs.copyFileSync(envExample, envFile);
             this.log("✅ .env file created from .env.example");
 
-            try {
-                // Generate application key
-                this.log("🔑 Generating application key...");
-                await execPromise(`cd ${mainRepoDir} && php artisan key:generate`);
+            // Run `php artisan key:generate`
+            this.log("🔑 Generating application key...");
+            exec(`cd ${mainRepoDir} && php artisan key:generate`, (error, stdout, stderr) => {
+                if (error) {
+                    this.log(`❌ Key generation failed: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    this.log(`⚠️ Key generation warnings: ${stderr}`);
+                }
                 this.log("✅ Application key generated successfully!");
-            } catch (error) {
-                this.log(`❌ Key generation failed: ${error.message}`);
-            }
+                this.log(stdout);
+            });
         } else {
             this.log("⚠️ .env.example not found. Skipping .env setup.");
         }
