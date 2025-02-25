@@ -1,7 +1,7 @@
 import { Command } from '@oclif/core';
 import * as path from 'path';
 import simpleGit from 'simple-git';
-import { exec } from 'child_process';
+import { execSync } from 'child_process';
 import * as fs from 'fs';
 
 export default class CmsInstall extends Command {
@@ -31,72 +31,34 @@ export default class CmsInstall extends Command {
             await simpleGit().clone(moduleRepoUrl, moduleRepoDir);
             this.log("✅ VaahCMS Module Store cloned successfully as 'Store'!");
 
-            // Install dependencies
-            this.installDependencies(mainRepoDir);
-
-        } catch (error) {
-            this.log("❌ Installation failed:", error);
-        }
-    }
-
-    installDependencies(mainRepoDir: string) {
-        // Run `composer install`
-        this.log("📦 Running 'composer install' inside vaahstore-ready...");
-        exec(`cd ${mainRepoDir} && composer install`, (error, stdout, stderr) => {
-            if (error) {
-                this.log(`❌ Composer install failed: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                this.log(`⚠️ Composer warnings: ${stderr}`);
-            }
+            // Run `composer install`
+            this.log("📦 Running 'composer install' inside vaahstore-ready...");
+            execSync(`composer install --no-interaction --no-cache`, { cwd: mainRepoDir, stdio: 'inherit' });
             this.log("✅ Composer install completed!");
-            this.log(stdout);
 
             // Run `npm install`
             this.log("📦 Running 'npm install' inside vaahstore-ready...");
-            exec(`cd ${mainRepoDir} && npm install`, (error, stdout, stderr) => {
-                if (error) {
-                    this.log(`❌ npm install failed: ${error.message}`);
-                    return;
-                }
-                if (stderr) {
-                    this.log(`⚠️ npm warnings: ${stderr}`);
-                }
-                this.log("✅ npm install completed!");
-                this.log(stdout);
+            execSync(`npm install`, { cwd: mainRepoDir, stdio: 'inherit' });
+            this.log("✅ npm install completed!");
 
-                // Setup .env and generate app key
-                this.setupEnv(mainRepoDir);
-            });
-        });
-    }
+            // Copy .env.example to .env
+            const envExample = path.join(mainRepoDir, '.env.example');
+            const envFile = path.join(mainRepoDir, '.env');
 
-    setupEnv(mainRepoDir: string) {
+            if (fs.existsSync(envExample)) {
+                fs.copyFileSync(envExample, envFile);
+                this.log("✅ .env file created from .env.example");
 
-        this.log(`⚠️123456787654321234565432`);
-        const envExample = path.join(mainRepoDir, '.env.example');
-        const envFile = path.join(mainRepoDir, '.env');
-
-        if (fs.existsSync(envExample)) {
-            fs.copyFileSync(envExample, envFile);
-            this.log("✅ .env file created from .env.example");
-
-            // Run `php artisan key:generate`
-            this.log("🔑 Generating application key...");
-            exec(`cd ${mainRepoDir} && php artisan key:generate`, (error, stdout, stderr) => {
-                if (error) {
-                    this.log(`❌ Key generation failed: ${error.message}`);
-                    return;
-                }
-                if (stderr) {
-                    this.log(`⚠️ Key generation warnings: ${stderr}`);
-                }
+                // Run `php artisan key:generate`
+                this.log("🔑 Generating application key...");
+                execSync(`php artisan key:generate`, { cwd: mainRepoDir, stdio: 'inherit' });
                 this.log("✅ Application key generated successfully!");
-                this.log(stdout);
-            });
-        } else {
-            this.log("⚠️ .env.example not found. Skipping .env setup.");
+            } else {
+                this.log("⚠️ .env.example not found. Skipping .env setup.");
+            }
+
+        } catch (error) {
+            this.log("❌ Installation failed:", error);
         }
     }
 }
