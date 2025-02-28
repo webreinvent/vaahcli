@@ -739,6 +739,22 @@ export default class Generator {
   }
 
   //-------------------------------------------------------
+  getFullVaahStoreSetup(){
+    this.questions = [
+      {
+        name: 'install_type',
+        message: 'Do you want to perform a full setup?',
+        type: 'list',
+        choices: [
+          { name: 'Yes, perform full setup (clone repositories, install dependencies, generate key & setup)', value: 'full' },
+          { name: 'No, only (clone repositories, install dependencies, generate key)', value: 'clone' }
+        ]
+      },
+
+    ];
+
+    return this.questions;
+  }
   //-------------------------------------------------------
   //-------------------------------------------------------
 
