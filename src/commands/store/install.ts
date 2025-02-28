@@ -15,13 +15,8 @@ export default class CmsInstall extends Command {
 
         if (answers.install_type === 'full') {
             let inputs = await inquirer.prompt(questions.getUserInfoFullSetup());
-
-            // Clone the repository and get the path
-            const mainRepoDir = await this.cloneRepo();
+            const main_repo_dir = await this.cloneRepo();
             this.log(inputs);
-
-            // Write the .env file using the obtained path
-            // await this.writeEnvFile(mainRepoDir);
             // await this.runMigrations();
         }
 
@@ -31,45 +26,40 @@ export default class CmsInstall extends Command {
     }
 
     async cloneRepo(): Promise<string> {
-        const mainRepoUrl = 'https://github.com/webreinvent/vaahstore-ready.git';
-        const mainRepoDir = path.join(process.cwd(), 'vaahstore-ready');
-
-        const moduleRepoUrl = 'https://github.com/webreinvent/vaahcms-module-store.git';
-        const moduleRepoDir = path.join(mainRepoDir, 'VaahCms/Modules', 'Store');
+        const main_repo_url = 'https://github.com/webreinvent/vaahstore-ready.git';
+        const main_repo_dir = path.join(process.cwd(), 'vaahstore-ready');
+        const module_repo_url = 'https://github.com/webreinvent/vaahcms-module-store.git';
+        const module_repo_dir = path.join(main_repo_dir, 'VaahCms/Modules', 'Store');
 
         this.log("📥 Cloning VaahStore Ready...");
 
         try {
-            // Clone main repository
-            await simpleGit().clone(mainRepoUrl, mainRepoDir);
+            await simpleGit().clone(main_repo_url, main_repo_dir);
             this.log("✅ VaahStore Ready cloned successfully!");
 
-            // Ensure Modules directory exists
-            const modulesDir = path.join(mainRepoDir, 'VaahCms/Modules');
-            if (!fs.existsSync(modulesDir)) {
-                fs.mkdirSync(modulesDir, { recursive: true });
+            const modules_dir = path.join(main_repo_dir, 'VaahCms/Modules');
+            if (!fs.existsSync(modules_dir)) {
+                fs.mkdirSync(modules_dir, { recursive: true });
             }
 
             this.log("📥 Cloning VaahCMS Module Store into 'Store'...");
-            await simpleGit().clone(moduleRepoUrl, moduleRepoDir);
+            await simpleGit().clone(module_repo_url, module_repo_dir);
             this.log("✅ VaahCMS Module Store cloned successfully as 'Store'!");
 
-            // Install dependencies and generate key
-            await this.installDependencies(mainRepoDir);
-            return mainRepoDir;
-
+            await this.installDependencies(main_repo_dir);
+            return main_repo_dir;
         } catch (error) {
             this.log("❌ Installation failed:", error);
-            throw error; // Ensure error is not swallowed
+            throw error;
         }
     }
 
-    async installDependencies(mainRepoDir: string) {
-        await this.setupEnv(mainRepoDir);
+    async installDependencies(main_repo_dir: string) {
+        await this.setupEnv(main_repo_dir);
         this.log("📦 Running 'composer install' inside vaahstore-ready...");
 
         return new Promise<void>((resolve, reject) => {
-            exec(`cd ${mainRepoDir} && composer install`, (error, stdout, stderr) => {
+            exec(`cd ${main_repo_dir} && composer install`, (error, stdout, stderr) => {
                 if (error) {
                     this.log(`❌ Composer install failed: ${error.message}`);
                     return reject(error);
@@ -78,30 +68,30 @@ export default class CmsInstall extends Command {
                     this.log(`⚠️ Composer warnings: ${stderr}`);
                 }
                 this.log("✅ Composer install completed!");
-                this.generateKey(mainRepoDir);
+                this.generateKey(main_repo_dir);
                 this.log(stdout);
                 resolve();
             });
         });
     }
 
-    setupEnv(mainRepoDir: string) {
-        const envExample = path.join(mainRepoDir, '.env.example');
-        const envFile = path.join(mainRepoDir, '.env');
+    setupEnv(main_repo_dir: string) {
+        const env_example = path.join(main_repo_dir, '.env.example');
+        const env_file = path.join(main_repo_dir, '.env');
 
-        if (fs.existsSync(envExample)) {
-            fs.copyFileSync(envExample, envFile);
+        if (fs.existsSync(env_example)) {
+            fs.copyFileSync(env_example, env_file);
             this.log("✅ .env file created from .env.example");
         } else {
             this.log("⚠️ .env.example not found. Skipping .env setup.");
         }
     }
 
-    generateKey(mainRepoDir: string) {
+    generateKey(main_repo_dir: string) {
         this.log("🔑 Generating application key...");
 
         return new Promise<void>((resolve, reject) => {
-            exec(`cd ${mainRepoDir} && php artisan key:generate`, (error, stdout, stderr) => {
+            exec(`cd ${main_repo_dir} && php artisan key:generate`, (error, stdout, stderr) => {
                 if (error) {
                     this.log(`❌ Key generation failed: ${error.message}`);
                     return reject(error);
@@ -116,38 +106,12 @@ export default class CmsInstall extends Command {
         });
     }
 
-//     async writeEnvFile(mainRepoDir: string) {
-//         // Correctly define the path using mainRepoDir
-//         const envPath = path.join(mainRepoDir, ".env");
-//
-//         const envData = `
-// DB_CONNECTION=mysql
-// DB_HOST=127.0.0.1
-// DB_PORT=3306
-// DB_DATABASE=laravel
-// DB_USERNAME=root
-// DB_PASSWORD=
-//
-// MAIL_FROM_NAME=webreinvent
-// MAIL_FROM_ADDRESS=we@webreinvent.com
-//
-// APP_NAME=store
-// `.trim(); // Remove unnecessary spaces
-//
-//         try {
-//             fs.writeFileSync(envPath, envData, { encoding: 'utf8' });
-//             this.log(`✅ .env file has been created successfully at ${envPath}`);
-//         } catch (error) {
-//             this.log(`❌ Error writing .env file: ${error.message}`);
-//         }
-//     }
-
     async runMigrations() {
-        const projectPath = "D:\\xampp8117\\htdocs\\vineet-k001\\vaahcli\\vaahstore-ready"; // Hardcoded path
+        const project_path = "D:\\xampp8117\\htdocs\\vineet-k001\\vaahcli\\vaahstore-ready"; // Hardcoded path
         this.log("📂 Running database migrations...");
 
         return new Promise<void>((resolve, reject) => {
-            exec(`cd ${projectPath} && php artisan migrate --force`, (error, stdout, stderr) => {
+            exec(`cd ${project_path} && php artisan migrate --force`, (error, stdout, stderr) => {
                 if (error) {
                     this.log(`❌ Migration failed: ${error.message}`);
                     return reject(error);
