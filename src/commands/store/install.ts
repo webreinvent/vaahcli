@@ -12,11 +12,13 @@ export default class CmsInstall extends Command {
     async run() {
         let questions = new Questions();
 
-        let answers = await inquirer.prompt(questions.getFullVaahStoreSetup());
+        let answers = await inquirer.prompt(questions.askStoreSetupType());
 
         if(answers.install_type == 'full'){
-            this.cloneRepo();
-            let inputes = await inquirer.prompt(questions.getFullVaahStoreSetup());
+            // this.cloneRepo();
+            let inputs = await inquirer.prompt(questions.getUserInfoFullSetup());
+            this.log(inputs);
+
         }
 
         if(answers.install_type == 'clone'){

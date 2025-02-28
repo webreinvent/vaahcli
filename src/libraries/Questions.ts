@@ -739,7 +739,7 @@ export default class Generator {
   }
 
   //-------------------------------------------------------
-  getFullVaahStoreSetup(){
+  askStoreSetupType(){
     this.questions = [
       {
         name: 'install_type',
@@ -751,6 +751,68 @@ export default class Generator {
         ]
       },
 
+    ];
+
+    return this.questions;
+  }
+  //-------------------------------------------------------
+  getUserInfoFullSetup() {
+     this.questions = [
+      {
+        name: 'setupType',
+        message: 'Choose setup type:',
+        type: 'list',
+        choices: [
+          { name: 'Yes, perform full setup (clone repositories, install dependencies, generate key & setup)', value: 'full' },
+          { name: 'No, only (clone repositories, install dependencies, generate key)', value: 'clone' }
+        ]
+      },
+      {
+        name: 'DB_CONNECTION',
+        message: 'Enter database connection type:',
+        default: 'mysql'
+      },
+      {
+        name: 'DB_HOST',
+        message: 'Enter database host:',
+        default: '127.0.0.1'
+      },
+      {
+        name: 'DB_PORT',
+        message: 'Enter database port:',
+        default: '3306'
+      },
+      {
+        name: 'DB_DATABASE',
+        message: 'Enter database name:',
+        default: 'laravel'
+      },
+      {
+        name: 'DB_USERNAME',
+        message: 'Enter database username:',
+        default: 'root'
+      },
+      {
+        name: 'DB_PASSWORD',
+        message: 'Enter database password:',
+        type: 'password',
+        mask: '*'
+      },
+      {
+        name: 'MAIL_FROM_NAME',
+        message: 'Enter mail sender name:',
+        default: 'webreinvent'
+      },
+      {
+        name: 'MAIL_FROM_ADDRESS',
+        message: 'Enter mail sender address:',
+        default: 'we@webreinvent.com'
+      },
+      {
+        name: 'APP_NAME',
+        message: 'Enter application name:',
+        default: 'store'
+      }
     ];
 
     return this.questions;
