@@ -59,7 +59,7 @@ export default class CmsInstall extends Command {
         this.log("📦 Running 'composer install' inside vaahstore-ready...");
 
         return new Promise<void>((resolve, reject) => {
-            exec(`cd ${main_repo_dir} && composer install`, (error, stdout, stderr) => {
+            exec(``, (error, stdout, stderr) => {
                 if (error) {
                     this.log(`❌ Composer install failed: ${error.message}`);
                     return reject(error);
@@ -68,7 +68,7 @@ export default class CmsInstall extends Command {
                     this.log(`⚠️ Composer warnings: ${stderr}`);
                 }
                 this.log("✅ Composer install completed!");
-                this.generateKey(main_repo_dir);
+                // this.generateKey(main_repo_dir);
                 this.log(stdout);
                 resolve();
             });

@@ -743,11 +743,11 @@ export default class Generator {
     this.questions = [
       {
         name: 'install_type',
-        message: 'Do you want to perform a full setup?',
+        message: 'How would you like to setup?',
         type: 'list',
         choices: [
-          { name: 'Yes, perform full setup (clone repositories, install dependencies, generate key & setup)', value: 'full' },
-          { name: 'No, only (clone repositories, install dependencies, generate key)', value: 'clone' }
+          { name: 'Using command line tool (CLI)', value: 'full' },
+          { name: 'Using wizard (/vaahcms/setup)', value: 'clone' }
         ]
       },
 
@@ -758,7 +758,6 @@ export default class Generator {
   //-------------------------------------------------------
   getUserInfoFullSetup() {
     this.questions = [
-      // Removed the redundant setupType question
       {
         name: 'DB_CONNECTION',
         message: 'Enter database connection type:',
@@ -804,6 +803,26 @@ export default class Generator {
         name: 'APP_NAME',
         message: 'Enter application name:',
         default: 'store'
+      },
+      {
+        name: 'SUPER_ADMIN_EMAIL',
+        message: 'Super Admin Email:',
+        default: 'we@webreinvent.com'
+      },
+      {
+        name: 'SUPER_ADMIN_USER_NAME',
+        message: 'Super Admin User Name:',
+        default: 'we'
+      },
+      {
+        name: 'SUPER_ADMIN_PASSWORD',
+        message: 'Super Admin Password:',
+        default: 'We@web1234'
+      },
+      {
+        name: 'SUPER_ADMIN_PHONE',
+        message: 'Super Admin phone:',
+        default: '999999999999'
       }
     ];
 
