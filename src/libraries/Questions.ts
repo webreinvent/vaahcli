@@ -757,16 +757,8 @@ export default class Generator {
   }
   //-------------------------------------------------------
   getUserInfoFullSetup() {
-     this.questions = [
-      {
-        name: 'setupType',
-        message: 'Choose setup type:',
-        type: 'list',
-        choices: [
-          { name: 'Yes, perform full setup (clone repositories, install dependencies, generate key & setup)', value: 'full' },
-          { name: 'No, only (clone repositories, install dependencies, generate key)', value: 'clone' }
-        ]
-      },
+    this.questions = [
+      // Removed the redundant setupType question
       {
         name: 'DB_CONNECTION',
         message: 'Enter database connection type:',

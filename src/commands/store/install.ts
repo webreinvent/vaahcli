@@ -15,9 +15,10 @@ export default class CmsInstall extends Command {
         let answers = await inquirer.prompt(questions.askStoreSetupType());
 
         if(answers.install_type == 'full'){
-            // this.cloneRepo();
+            await this.cloneRepo();
             let inputs = await inquirer.prompt(questions.getUserInfoFullSetup());
             this.log(inputs);
+            // await writeEnvFile(userConfig);
 
         }
 
@@ -107,5 +108,32 @@ export default class CmsInstall extends Command {
 
         });
     }
+
+//     async writeEnvFile(config, mainRepoDir) {
+//         const envPath = path.join(mainRepoDir, '.env');
+//
+//         const envData = `
+// DB_CONNECTION=${config.DB_CONNECTION}
+// DB_HOST=${config.DB_HOST}
+// DB_PORT=${config.DB_PORT}
+// DB_DATABASE=${config.DB_DATABASE}
+// DB_USERNAME=${config.DB_USERNAME}
+// DB_PASSWORD=${config.DB_PASSWORD}
+//
+// MAIL_FROM_NAME=${config.MAIL_FROM_NAME}
+// MAIL_FROM_ADDRESS=${config.MAIL_FROM_ADDRESS}
+//
+// APP_NAME=${config.APP_NAME}
+// `.trim(); // Remove unnecessary spaces
+//
+//         try {
+//             fs.writeFileSync(envPath, envData);
+//             this.log(`✅ .env file has been created successfully at ${envPath}`);
+//         } catch (error) {
+//             this.log(`❌ Error writing .env file: ${error.message}`);
+//         }
+//     }
+
+
 
 }
