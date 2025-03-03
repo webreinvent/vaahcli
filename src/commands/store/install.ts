@@ -1,5 +1,7 @@
 import { Command } from '@oclif/core';
 import * as path from 'path';
+const chalk = require('chalk');
+let ora = require('ora');
 import simpleGit from 'simple-git';
 import { exec } from 'child_process';
 import * as fs from 'fs';
@@ -7,6 +9,7 @@ import Questions from "../../libraries/Questions";
 const inquirer = require('inquirer');
 
 export default class CmsInstall extends Command {
+    spinner: {[k: string]: any} = {};
     static description = 'Download and install VaahStore and VaahCMS Module Store';
 
     async run() {
@@ -124,5 +127,76 @@ export default class CmsInstall extends Command {
                 resolve();
             });
         });
+    }
+
+    //-----------------------------------
+
+    async spin() {
+
+        this.spinner = ora();
+
+        this.spinner.start('Installing VaahCMS...');
+
+        this.spinner._spinner = {
+            "interval": 80,
+            "frames": [
+                "⠋",
+                "⠙",
+                "⠹",
+                "⠸",
+                "⠼",
+                "⠴",
+                "⠦",
+                "⠧",
+                "⠇",
+                "⠏"
+            ]
+        };
+
+    }
+
+
+    //-----------------------------------
+    async printName()
+    {
+        this.log(chalk.red(`
+ /\\   /\\ __ _   __ _ | |__    / __\\ /\\/\\  / _\\
+ \\ \\ / // _\` | / _\` || '_ \\  / /   /    \\ \\ \\
+  \\ V /| (_| || (_| || | | |/ /___/ /\\/\\ \\_\\ \\
+   \\_/  \\__,_| \\__,_||_| |_|\\____/\\/    \\/\\__/
+`));
+    }
+    //-----------------------------------
+    async spinStop()
+    {
+
+        this.spinner.succeed();
+
+        this.log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
+
+        this.log(chalk.black("=================================================================="));
+        this.log("Open the project folder "+chalk.green(this.args.project_name)+" in terminal and follow the steps ");
+        this.log("Step 1. Run "+chalk.green("composer install")+" command");
+        this.log("Step 2. Run "+chalk.green("php artisan serve")+" command");
+        this.log("and visit following url to setup:");
+        this.log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
+        this.log(chalk.bold(chalk.blueBright("OR")));
+        this.log("Step 2. In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
+        this.log(chalk.green("http://localhost/<project-folder-path>/public/vaahcms/setup"));
+
+        this.log(chalk.redBright("------"));
+
+        this.log(chalk.bold(chalk.blueBright("Documentation: "))+this.inputs.documentation);
+        this.log(chalk.black("=================================================================="));
+
+    }
+    //-----------------------------------
+    async spinStopWithError()
+    {
+
+        this.spinner.succeed();
+
+        this.log(chalk.white.bgRed.bold("      VaahCMS Installation Failed!      "));
+
     }
 }
