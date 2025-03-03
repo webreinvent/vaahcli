@@ -8,7 +8,7 @@ let fs = require('fs');
 const inquirer = require('inquirer')
 const download = require('download-git-repo');
 
-export default class CmsInstall extends Command {
+export default class StoreInstall2 extends Command {
   args: {[k: string]: any} = {};
   flags: {[k: string]: any} = {};
   spinner: {[k: string]: any} = {};
@@ -39,7 +39,7 @@ export default class CmsInstall extends Command {
       return true;
     }
 
-    const {args, flags} = await this.parse(CmsInstall)
+    const {args, flags} = await this.parse(StoreInstall2)
 
     this.args = args;
     this.flags = flags;
@@ -53,9 +53,9 @@ export default class CmsInstall extends Command {
 
     let questions = new Questions();
 
-    this.inputs = await inquirer.prompt(questions.getVaahCmsVersions());
+    this.inputs = await inquirer.prompt(questions.getSetupOptions());
 
-    if(this.inputs.version)
+    if(this.inputs.setup === 'wizard')
     {
       await this.spin();
       await this.install();
@@ -91,16 +91,21 @@ export default class CmsInstall extends Command {
         task: () => new Promise((resolve, reject) => {
           {
             let self = this;
-            let repo = 'webreinvent/vaahcms-ready';
-            if (self.inputs.version === 'VaahCMS 2.x') {
-              repo = 'webreinvent/vaahcms-ready#2.x';
-              self.inputs.documentation = "https://docs.vaah.dev/vaahcms-2x";
-              //repo =  'https://github.com/webreinvent/vaahcms-ready/archive/2.x.zip';
-            }
-            if (self.inputs.version === 'VaahCMS 1.x') {
-              self.inputs.documentation = "https://docs.vaah.dev/vaahcms-1x";
-              repo = 'webreinvent/vaahcms-ready#1.x';
-            }
+            let repo = 'webreinvent/vaahstore-ready';
+            // @ts-ignore
+            download(repo, self.target_dir, function (err) {
+              console.log((err ? reject('Error') : resolve('Success')));
+            });
+          }
+        })
+      },
+      {
+        title: 'Downloading Store Module',
+        task: () => new Promise((resolve, reject) => {
+          {
+            let self = this;
+            let repo = 'webreinvent/vaahcms-module-store';
+            self.inputs.documentation = "https://docs.vaah.dev/vaahstore";
             // @ts-ignore
             download(repo, self.target_dir, function (err) {
               console.log((err ? reject('Error') : resolve('Success')));
@@ -144,10 +149,11 @@ export default class CmsInstall extends Command {
   async printName()
   {
     this.log(chalk.red(`
- /\\   /\\ __ _   __ _ | |__    / __\\ /\\/\\  / _\\
- \\ \\ / // _\` | / _\` || '_ \\  / /   /    \\ \\ \\
-  \\ V /| (_| || (_| || | | |/ /___/ /\\/\\ \\_\\ \\
-   \\_/  \\__,_| \\__,_||_| |_|\\____/\\/    \\/\\__/
+__     __          _     ____  _                 
+\\ \\   / /_ _  __ _| |__ / ___|| |_ ___  _ __ ___ 
+ \\ \\ / / _\` |/ _\` | '_ \\\\___ \\| __/ _ \\| '__/ _ \\
+  \\ V / (_| | (_| | | | |___) | || (_) | | |  __/
+   \\_/ \\__,_|\\__,_|_| |_|____/ \\__\\___/|_|  \\___|
 `));
   }
   //-----------------------------------
@@ -156,7 +162,7 @@ export default class CmsInstall extends Command {
 
     this.spinner.succeed();
 
-    this.log(chalk.white.bgGreen.bold("      VaahCMS Installed!      "));
+    this.log(chalk.white.bgGreen.bold("      VaahStore Installed!      "));
 
     this.log(chalk.black("=================================================================="));
     this.log("Open the project folder "+chalk.green(this.args.project_name)+" in terminal and follow the steps ");
@@ -166,7 +172,7 @@ export default class CmsInstall extends Command {
     this.log(chalk.green("http://127.0.0.1:8000/vaahcms/setup"));
     this.log(chalk.bold(chalk.blueBright("OR")));
     this.log("Step 2. In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
-    this.log(chalk.green("http://localhost/<project-folder-path>/public/vaahcms/setup"));
+    this.log(chalk.green("http://localhost/"+this.args.project_name+"/public/vaahcms/setup"));
 
     this.log(chalk.redBright("------"));
 

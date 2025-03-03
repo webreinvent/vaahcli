@@ -8,8 +8,10 @@ import * as fs from 'fs';
 import Questions from "../../libraries/Questions";
 const inquirer = require('inquirer');
 
-export default class CmsInstall extends Command {
+export default class StoreInstall extends Command {
+    args: {[k: string]: any} = {};
     spinner: {[k: string]: any} = {};
+    inputs: {[k: string]: any} = {};
     static description = 'Download and install VaahStore and VaahCMS Module Store';
 
     async run() {

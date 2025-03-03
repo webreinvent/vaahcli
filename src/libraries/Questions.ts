@@ -28,6 +28,28 @@ export default class Generator {
     return this.questions;
 
   }
+
+  //-------------------------------------------------------
+  getSetupOptions()
+  {
+
+    this.questions = [
+      {
+        name: 'setup',
+        message: 'How would you like to setup?',
+        type: 'list',
+        default: null,
+        choices: [
+          { name: 'Using command line tool (CLI)', value: 'cli' },
+          { name: 'Using wizard (/vaahcms/setup)', value: 'wizard' }
+        ]
+      },
+
+    ];
+
+    return this.questions;
+
+  }
   //-------------------------------------------------------
 
   getVaahCmsModuleQuestions()
