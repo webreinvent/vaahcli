@@ -2,6 +2,7 @@
 import {vaah} from '../vaahvue/pinia/vaah.js'
 import {useRootStore} from '../stores/root.js'
 import Footer from '../components/Footer.vue'
+import TopNotification from '../components/TopNotification.vue'
 
 import { useToast } from "primevue/usetoast";
 import { useConfirm } from "primevue/useconfirm";
@@ -17,6 +18,7 @@ useVaah.setConfirm(confirm);
 
 
 <template>
+    <TopNotification/>
     <div  style="padding-top: 11px;">
 
         <ProgressBar style="z-index: 10000000; position: fixed; top: 1px; width: 100%; left: 0px; height: 2px;"
