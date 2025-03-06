@@ -54,8 +54,7 @@
     "inquirer": "^7.3.3",
     "listr": "^0.14.3",
     "ora": "^5.1.0",
-    "semver": "^7.6.0",
-    "simple-git": "^3.27.0"
+    "semver": "^7.6.0"
   },
   "devDependencies": {
     "@oclif/prettier-config": "^0.2.1",
