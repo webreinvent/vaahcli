@@ -28,6 +28,112 @@ export default class Generator {
     return this.questions;
 
   }
+
+  //-------------------------------------------------------
+  getSetupOptions()
+  {
+
+    this.questions = [
+      {
+        name: 'setup',
+        message: 'How would you like to setup?',
+        type: 'list',
+        default: null,
+        choices: [
+          { name: 'Using command line tool (CLI)', value: 'cli' },
+          { name: 'Using wizard (/vaahcms/setup)', value: 'wizard' }
+        ]
+      },
+
+    ];
+
+    return this.questions;
+
+  }
+
+  //-------------------------------------------------------
+  getDatabaseOptions()
+  {
+
+    this.questions = [
+      {
+        type : 'input',
+        name : 'database_name',
+        default: 'vaahstore_dev',
+        message : 'Enter your database name: '
+      },
+      {
+        type : 'input',
+        name : 'database_username',
+        default: 'root',
+        message : 'Enter your database username: '
+      },
+      {
+        type : 'input',
+        name : 'database_password',
+        default: null,
+        message : 'Enter your database password: '
+      }
+
+    ];
+
+    return this.questions;
+
+  }
+
+  //-------------------------------------------------------
+  getSuperAdminOptions()
+  {
+
+    this.questions = [
+      {
+        type : 'input',
+        name : 'first_name',
+        default: 'WebReinvent',
+        message : 'Enter your first name: '
+      },
+      {
+        type : 'input',
+        name : 'last_name',
+        default: 'Team',
+        message : 'Enter your last name: '
+      },
+      {
+        type : 'input',
+        name : 'username',
+        default: 'we',
+        message : 'Enter your username: '
+      },
+      {
+        type : 'input',
+        name : 'email',
+        default: 'we@webreinvent.com',
+        message : 'Enter your email: '
+      },
+      {
+        type : 'input',
+        name : 'password',
+        default: "WebReinvent@2025",
+        message : 'Enter your password: '
+      },
+      {
+        type : 'input',
+        name : 'country_calling_code',
+        default: "+91",
+        message : 'Enter your country calling code: '
+      },
+      {
+        type : 'input',
+        name : 'phone',
+        default: "911111111",
+        message : 'Enter your phone number: '
+      }
+
+    ];
+
+    return this.questions;
+
+  }
   //-------------------------------------------------------
 
   getVaahCmsModuleQuestions()
@@ -739,6 +845,95 @@ export default class Generator {
   }
 
   //-------------------------------------------------------
+  askStoreSetupType(){
+    this.questions = [
+      {
+        name: 'install_type',
+        message: 'How would you like to setup?',
+        type: 'list',
+        choices: [
+          { name: 'Using command line tool (CLI)', value: 'full' },
+          { name: 'Using wizard (/vaahcms/setup)', value: 'clone' }
+        ]
+      },
+
+    ];
+
+    return this.questions;
+  }
+  //-------------------------------------------------------
+  getUserInfoFullSetup() {
+    this.questions = [
+      {
+        name: 'DB_CONNECTION',
+        message: 'Enter database connection type:',
+        default: 'mysql'
+      },
+      {
+        name: 'DB_HOST',
+        message: 'Enter database host:',
+        default: '127.0.0.1'
+      },
+      {
+        name: 'DB_PORT',
+        message: 'Enter database port:',
+        default: '3306'
+      },
+      {
+        name: 'DB_DATABASE',
+        message: 'Enter database name:',
+        default: 'laravel'
+      },
+      {
+        name: 'DB_USERNAME',
+        message: 'Enter database username:',
+        default: 'root'
+      },
+      {
+        name: 'DB_PASSWORD',
+        message: 'Enter database password:',
+        type: 'password',
+        mask: '*'
+      },
+      {
+        name: 'MAIL_FROM_NAME',
+        message: 'Enter mail sender name:',
+        default: 'webreinvent'
+      },
+      {
+        name: 'MAIL_FROM_ADDRESS',
+        message: 'Enter mail sender address:',
+        default: 'we@webreinvent.com'
+      },
+      {
+        name: 'APP_NAME',
+        message: 'Enter application name:',
+        default: 'store'
+      },
+      {
+        name: 'SUPER_ADMIN_EMAIL',
+        message: 'Super Admin Email:',
+        default: 'we@webreinvent.com'
+      },
+      {
+        name: 'SUPER_ADMIN_USER_NAME',
+        message: 'Super Admin User Name:',
+        default: 'we'
+      },
+      {
+        name: 'SUPER_ADMIN_PASSWORD',
+        message: 'Super Admin Password:',
+        default: 'We@web1234'
+      },
+      {
+        name: 'SUPER_ADMIN_PHONE',
+        message: 'Super Admin phone:',
+        default: '999999999999'
+      }
+    ];
+
+    return this.questions;
+  }
   //-------------------------------------------------------
   //-------------------------------------------------------
 

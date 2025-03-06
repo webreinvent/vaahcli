@@ -1,0 +1,34 @@
+<?php
+
+namespace Database\Seeders;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Http\Request;
+use WebReinvent\VaahCms\Http\Controllers\SetupController;
+use WebReinvent\VaahCms\Models\LanguageString;
+
+class SuperAdminSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        $user = [
+            'first_name' => '<%= first_name %>',
+            'last_name' => '<%= last_name %>',
+            'email' => '<%= email %>',
+            'username' => '<%= username %>',
+            'password' => '<%= password %>',
+            'country_calling_code' => '<%= country_calling_code %>',
+            'phone' => <%= phone %>,
+        ];
+
+        $setup  = new SetupController();
+
+        $setup->storeAdmin(new Request($user));
+
+        LanguageString::generateLangFiles();
+    }
+}
