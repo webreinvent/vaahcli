@@ -208,10 +208,15 @@ __     __          _     ____  _
     if(this.inputs.setup === 'cli'){
       this.log("Step 2. Run "+chalk.green("php artisan key:generate")+" command");
       this.log("Step 3. Run "+chalk.green("php artisan vendor:publish --provider=\"WebReinvent\\VaahCms\\VaahCmsServiceProvider\" --tag=assets --force")+" command");
-      this.log("Step 4. Run "+chalk.green("php artisan vendor:publish --provider=\"WebReinvent\\VaahCms\\VaahCmsServiceProvider\" --tag=migration --force")+" command");
+      this.log("Step 4. Run "+chalk.green("php artisan vendor:publish --provider=\"WebReinvent\\VaahCms\\VaahCmsServiceProvider\" --tag=migrations --force")+" command");
       this.log("Step 5. Run "+chalk.green("php artisan vendor:publish --provider=\"WebReinvent\\VaahCms\\VaahCmsServiceProvider\" --tag=seeds --force")+" command");
       this.log("Step 6. Run "+chalk.green("php artisan migrate")+" command");
       this.log("Step 7. Run "+chalk.green("php artisan db:seed --class=WebReinvent\\VaahCms\\Database\\Seeders\\VaahCmsTableSeeder")+" command");
+      this.log("Step 8. Add seeder code in <module>/Database/seeders/DatabaseSeeder.php file");
+
+      let code = '     $superAdminSeeder = new SuperAdminSeeder(); \n'+
+          '     $superAdminSeeder->run();'
+      this.log(chalk.blue(code));
       this.log("Step 8. Run "+chalk.green("php artisan db:seed")+" command");
       this.log("Step 9. Run "+chalk.green("php artisan serve")+" command");
       this.log("and visit following url to setup:");

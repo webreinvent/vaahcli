@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Http\Request;
 use WebReinvent\VaahCms\Http\Controllers\SetupController;
+use WebReinvent\VaahCms\Models\LanguageString;
 
 class SuperAdminSeeder extends Seeder
 {
@@ -27,5 +28,7 @@ class SuperAdminSeeder extends Seeder
         $setup  = new SetupController();
 
         $setup->storeAdmin(new Request($user));
+
+        LanguageString::generateLangFiles();
     }
 }
