@@ -50,6 +50,90 @@ export default class Generator {
     return this.questions;
 
   }
+
+  //-------------------------------------------------------
+  getDatabaseOptions()
+  {
+
+    this.questions = [
+      {
+        type : 'input',
+        name : 'database_name',
+        default: 'vaahstore_dev',
+        message : 'Enter your database name: '
+      },
+      {
+        type : 'input',
+        name : 'database_username',
+        default: 'root',
+        message : 'Enter your database username: '
+      },
+      {
+        type : 'input',
+        name : 'database_password',
+        default: null,
+        message : 'Enter your database password: '
+      }
+
+    ];
+
+    return this.questions;
+
+  }
+
+  //-------------------------------------------------------
+  getSuperAdminOptions()
+  {
+
+    this.questions = [
+      {
+        type : 'input',
+        name : 'first_name',
+        default: 'WebReinvent',
+        message : 'Enter your first name: '
+      },
+      {
+        type : 'input',
+        name : 'last_name',
+        default: 'Team',
+        message : 'Enter your last name: '
+      },
+      {
+        type : 'input',
+        name : 'username',
+        default: 'we',
+        message : 'Enter your username: '
+      },
+      {
+        type : 'input',
+        name : 'email',
+        default: 'we@webreinvent.com',
+        message : 'Enter your email: '
+      },
+      {
+        type : 'input',
+        name : 'password',
+        default: "WebReinvent@2025",
+        message : 'Enter your password: '
+      },
+      {
+        type : 'input',
+        name : 'country_calling_code',
+        default: "+91",
+        message : 'Enter your country calling code: '
+      },
+      {
+        type : 'input',
+        name : 'phone',
+        default: "911111111",
+        message : 'Enter your phone number: '
+      }
+
+    ];
+
+    return this.questions;
+
+  }
   //-------------------------------------------------------
 
   getVaahCmsModuleQuestions()

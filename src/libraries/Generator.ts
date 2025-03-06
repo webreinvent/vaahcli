@@ -615,6 +615,43 @@ export default class Generator {
 
   }
   //-------------------------------------------------------
+  generateVaahStoreFiles()
+  {
+    let get_files = this.getFilesFromSkeletonDirector();
+
+    let destination = null;
+    let file_readable_path = null;
+    let file_content = null;
+    let parsed_file_content = null;
+    let file_name = null;
+
+    get_files.forEach((file_path) => {
+
+      //log("Source file--> "+chalk.green(file_path));
+
+      //-- destination path
+      file_path = file_path.replace(/\\/g, "/");
+      destination = this.getFileDestination(file_path);
+
+      file_readable_path = __dirname+"/../../skeletons/"+file_path;
+
+      file_content = fs.readFileSync(file_readable_path).toString();
+      parsed_file_content = ejs.render(file_content, this.inputs);
+
+      destination = destination.replace('.ejs', "");
+
+      file_name = path.basename(destination);
+
+      fsSync.write(destination, parsed_file_content);
+
+      log(chalk.green(destination));
+    });
+
+
+
+
+  }
+  //-------------------------------------------------------
   //-------------------------------------------------------
 
 
