@@ -49,6 +49,13 @@ class Setup extends Command
             '--force' => true
         ]);
 
+        $this->info('Publishing vendor config...');
+        $this->call('vendor:publish', [
+            '--provider' => 'WebReinvent\VaahCms\VaahCmsServiceProvider',
+            '--tag' => 'config',
+            '--force' => true
+        ]);
+
         $this->info('Running migrations...');
         $this->call('migrate');
 
