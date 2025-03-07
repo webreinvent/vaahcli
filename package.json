@@ -45,7 +45,7 @@
     "@oclif/core": "^3",
     "@oclif/plugin-help": "^6",
     "@oclif/plugin-plugins": "^4",
-    "axios": "1.7.4",
+    "axios": "1.8.2",
     "chalk": "^4.1.0",
     "dateformat": "^4.0.0",
     "download-git-repo": "^3.0.2",
