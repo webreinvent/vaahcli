@@ -206,23 +206,12 @@ __     __          _     ____  _
     this.log("Open the project folder "+chalk.green(this.args.project_name)+" in terminal and follow the steps ");
     this.log("Step 1. Run "+chalk.green("composer install")+" command");
     if(this.inputs.setup === 'cli'){
-      this.log("Step 2. Run "+chalk.green("php artisan key:generate")+" command");
-      this.log("Step 3. Run "+chalk.green("php artisan vendor:publish --provider=\"WebReinvent\\VaahCms\\VaahCmsServiceProvider\" --tag=assets --force")+" command");
-      this.log("Step 4. Run "+chalk.green("php artisan vendor:publish --provider=\"WebReinvent\\VaahCms\\VaahCmsServiceProvider\" --tag=migrations --force")+" command");
-      this.log("Step 5. Run "+chalk.green("php artisan vendor:publish --provider=\"WebReinvent\\VaahCms\\VaahCmsServiceProvider\" --tag=seeds --force")+" command");
-      this.log("Step 6. Run "+chalk.green("php artisan migrate")+" command");
-      this.log("Step 7. Run "+chalk.green("php artisan db:seed --class=WebReinvent\\VaahCms\\Database\\Seeders\\VaahCmsTableSeeder")+" command");
-      this.log("Step 8. Add seeder code in <module>/Database/seeders/DatabaseSeeder.php file");
-
-      let code = '     $superAdminSeeder = new SuperAdminSeeder(); \n'+
-          '     $superAdminSeeder->run();'
-      this.log(chalk.blue(code));
-      this.log("Step 8. Run "+chalk.green("php artisan db:seed")+" command");
-      this.log("Step 9. Run "+chalk.green("php artisan serve")+" command");
+      this.log("Step 2. Run "+chalk.green("php artisan app:setup")+" command");
+      this.log("Step 3. Run "+chalk.green("php artisan serve")+" command");
       this.log("and visit following url to setup:");
       this.log(chalk.green("http://127.0.0.1:8000/backend"));
       this.log(chalk.bold(chalk.blueBright("OR")));
-      this.log("Step 9. In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
+      this.log("Step 3. In case of "+chalk.green("Xampp or Wamp")+", visit following url to setup:");
       this.log(chalk.green("http://localhost/"+this.args.project_name+"/public/backend"));
     }else{
       this.log("Step 2. Run "+chalk.green("php artisan serve")+" command");
