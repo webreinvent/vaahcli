@@ -477,6 +477,11 @@ export const vaah = defineStore({
 
     },
     //----------------------------------------------------------
+    convertUtcToLocal: function (utc, format='YYYY-MM-DD, hh:mm A') {
+      if (!utc) return '';
+      const local_date = dayjs.utc(utc).local();
+      return local_date.format(format);
+    }
     //----------------------------------------------------------
     //----------------------------------------------------------
   }
